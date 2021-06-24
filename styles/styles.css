@@ -1,0 +1,353 @@
+/* Global font */
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: #efefef;
+    color: #000;
+    margin-top: 80px;
+}
+
+.navbar strong {
+    font-weight: 700;
+    color: #047abe;
+}
+
+#customerSelection {
+    background: #efefef;
+    color: #000; 
+}
+
+/* Log in and signup forms */
+
+.signUpContent, .logInContent {
+    background-color: #ffffff;
+    border-radius: 20px;
+    border-width: 2px;
+    padding:20px 30px 15px 30px;
+    width: 380px;
+    margin: 50px auto;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=date]
+  {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-radius: 7px;
+    color: #222222;
+    margin: auto;
+    padding: 5px 15px; 
+    display: fill;
+    width: 100%;
+}
+
+input[type=text]:hover,
+input[type=email]:hover,
+input[type=password]:hover  {
+    background-color: #cdcdcd;
+    
+}
+
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=password]:focus  {
+    background-color: rgba(220, 188,188,.33);
+    
+}
+
+label {
+    background-color: #efefef;
+    color: #222222;
+}
+
+.form-submit {
+    display: center;
+    width: 60%;
+}
+
+.form-input:hover {
+    background-color: #dedede;
+}
+
+.noActive {
+    color: #3276B1;
+    background-color: white;
+}
+
+.modal-dialog {
+    padding-top: 5%;
+}
+
+.settings-dialog {
+    background-color: #e0e0e0;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 7px;
+    padding: 20px;
+}
+
+.settings-dialog label {
+    background-color: #e0e0e0;
+    line-height: 1;
+}
+
+/* #showAccountInfo label, #showAccountInfo input {
+    line-height: 1;
+} */
+
+.homeTable thead {
+    background-color: #efefef;
+    color: #444444;
+}
+
+table {
+    background-color: #f8f8f8;
+}
+
+thead {
+    background-color: #d0e0f0;
+    color: #444444;
+}
+
+tbody {
+    background-color: #ffffff;
+    color: #444444;
+}
+
+table.table-bordered > thead > tr > th {
+    border: 1px solid #aaaaaa;
+    padding: 0;
+}
+table.table-bordered > tbody > tr > td {
+    border: 1px solid #aaaaaa;
+    padding: 1px 0;
+    overflow-wrap:break-word;
+}
+table.table-bordered > tbody > tr:hover {
+    background-color: #cdcdcd;;
+    color:#444444;
+} 
+
+
+
+.custom-select {
+    border: 1px solid;
+    border-radius: 7px;
+}
+
+.reminderScreen {
+    font-weight: bold;
+    color: #FF4714;
+}
+
+
+
+/* DARK MODE */
+
+body.dark input[type=text],
+body.dark input[type=date],
+body.dark input[type=email],
+body.dark input[type=password],
+body.dark select,
+body.dark textarea {
+    background-color: #545454;
+    color: #eeeeee; 
+}
+
+body.dark label {
+    background-color: #454545;
+    color: #efefef;
+}
+
+body.dark .scrollBox {
+    background-color: #454545;
+    color: #efefef;
+}
+
+body.dark .settings-dialog {
+    background-color: #454545;
+    color: #efefef;
+}
+
+/* body.dark .informationBox {
+    background-color: #454545;
+    color: #efefef;
+} */
+
+body.dark .homeTable thead {
+    background-color: #444444;
+}
+body.dark table {
+    background-color: #666666;
+}
+
+body.dark thead {
+    background-color: #666666;
+    color: #efefef;
+}
+
+body.dark tbody {
+    background-color: #444444;
+    color: #efefef;
+}
+
+body.dark input[type=text]:hover,
+body.dark input[type=email]:hover,
+body.dark input[type=password]:hover  {
+    background-color: #aaddaa;
+    
+}
+
+body.dark input[type=text]:focus,
+body.dark input[type=email]:focus,
+body.dark input[type=password]:focus  {
+    background-color: rgba(188, 220,188,.33);
+    
+}
+
+body.dark table.table-bordered > thead > tr > th {
+    border: 1px solid #888888;
+}
+body.dark table.table-bordered > tbody > tr > td {
+    border: 1px solid #888888;
+}
+
+.filterBox {
+    background-color: #efefef;
+    border-radius: 6px;
+}
+
+body.dark .filterBox {
+    background-color:#454545;
+    border-radius: 6px;
+}
+
+body.dark #customerSelection{
+    color: #eeeeee;
+    background-color: #222222;
+   }
+
+body.dark table.table-bordered > tbody > tr:hover {
+    background-color: #aaddaa;
+    color: #444444;
+} 
+
+body.dark .reminderScreen {
+    font-weight: bold;
+    color: rgba(255,71,20,0.75);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 12px;
+    }
+       .table td, .table th {
+        font-size: 10px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+    .table td, .table th {
+        font-size: 11px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    .table td, .table th {
+        font-size: 12px;
+    }
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    body {
+        font-size: 15px;
+    }
+    .table td, .table th {
+        font-size: 13px;
+    }
+    .navbar{
+        font-size: 11px;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    body {
+        font-size: 16px;
+    }
+    .table td, .table th {
+        font-size: 13px;
+    }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1580px) {
+    .navbar{
+        font-size: 13px;
+    }
+}
+
+
+@media only screen and (min-width: 1581px) {
+    .navbar{
+        font-size: 16px;
+    }
+}

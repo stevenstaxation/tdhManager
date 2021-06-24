@@ -1,0 +1,74 @@
+/***********************/
+/* Page Header Styling */
+/***********************/
+.pageHeader {
+    margin-top:10px;
+    padding-bottom:110px;
+}
+
+
+
+/******************************/
+/* Drag, drop and upload file */
+/******************************/
+
+#drop_file_zone {
+    background-color: #f8f8f8;
+    border: #999 1px solid;
+/*
+    width: 290px;
+    height: 200px;
+*/
+    padding: 8px;
+    font-size: 18px;
+}
+#drag_upload_file {
+  width:50%;
+  margin:0 auto;
+}
+#drag_upload_file p {
+  text-align: center;
+}
+#drag_upload_file #selectfile {
+  display: none;
+}
+
+
+/*
+#openfile {
+    margin-top: 30px; 
+    margin-bottom: 30px;   
+    width: 80%; 
+}
+
+#uploadFile {
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+#dropZone {
+    border-style: ridge;
+    border-width: 50%;
+    height: 320px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+*/
+
+/********************************/
+/* This class is used to centre */
+/********************************/
+
+.marginauto {
+    margin: 10px auto 20px;
+    display: block;
+}
+
+img.make-it-fit {
+    max-width: 99%;
+    max-height: 99%;
+}
+
