@@ -2162,18 +2162,16 @@
                                 <label class='control-label' for='footageRequestFile' style='margin-top:7px;padding-top:10px;'>Footage File(s)</label>
                             </div>
                             <div class='col-md-2'>
-                                <div class="input-group mb-3">
-                                    <div class="custom-file" style='margin-top: 6px;' enctype='multipart/form-data'>
-                                    <label class='custom-file-upload btn btn-sm btn-primary' for='footageFileName' style='margin-top: 3px;padding: 3px 0 7px;height: 90%;width:90%;'>Select
-                                        <input type='file' class='custom-file-input' id='footageFileName' name='footageFileName' onclick='fileExplorer("Add")' accept='.mdt, .MDT, .mp4, .MP4, .avi, .AVI, .pdf, .PDF'>
-                                    </label>
-                                    </div>
+                                <span class="btn btn-primary btn-sm btn-file-input" style='margin-top: 6px'>
+                                    Select File(s) <input type="file" id='footageFileName' onclick='fileExplorer("Add")' accept='.mdt, .MDT, .mp4, .MP4, .avi, .AVI, .pdf, .PDF'>
+                                </span>                        
+                                    
                                     <!-- <div class="input-group-append">
                                     <button class="btn btn-primary btn-sm" style='margin-top: 6px;' id="footageMoreInfo" type="">More Info</button>
-                                    </div>     -->
+                                    </div> -->    
                                 </div>
-                            </div>   
-
+                               
+                                            
                             <div class='col-md-7'>
                                 <div class="input-group mb-3">
                                     <div id='footageFileTable' style='margin-top: 6px; width: 100%'>
@@ -2181,8 +2179,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>File Name</th>
-                                                    <!-- <th style='width:5%'>Info</th>
-                                                    <th style='width:5%'>Remove</th></tr> -->
+                                                    <th style='width:5%'>Info</th>
+                                                    <th style='width:5%'>Remove</th></tr>
                                             </thead>
                                             <tbody id = 'footageFileTableBodyBlock'>
                                             
@@ -2356,11 +2354,9 @@
                             </div>
                             <div class='col-md-2'>
                                 <div class="input-group mb-3">
-                                    <div class="custom-file" style='margin-top: 6px;' enctype='multipart/form-data'>
-                                    <label class='custom-file-upload btn btn-sm btn-primary' for='footageEditFileName' style='margin-top: 3px;padding: 3px 0 7px;height: 90%;width:90%;'>Select
-                                        <input type='file' class='custom-file-input' id='footageEditFileName' name='footageEditFileName' onclick='fileExplorer("Edit")' accept='.mdt, .MDT, .mp4, .MP4, .avi, .AVI, .pdf, .PDF'>
-                                        </label>
-                                    </div>
+                                <span class="btn btn-primary btn-sm btn-file-input" style='margin-top: 6px'>
+                                    Add File(s) <input type="file" id='footageEditFileName' onclick='fileExplorer("Edit")' accept='.mdt, .MDT, .mp4, .MP4, .avi, .AVI, .pdf, .PDF'>
+                                </span> 
                                     <!-- <div class="input-group-append">
                                     <button class="btn btn-primary btn-sm" style='margin-top: 6px;' id="footageMoreInfo" type="">More Info</button>
                                     </div>     -->
