@@ -1804,6 +1804,27 @@ function printDiv() {
             }
         });
 
+        // get file names from table, then pass them to PHP to add to table
+        var fileNames = [];
+        var table = $("#footageEditFileTableBodyBlock");
+        table.find('tr').each(function(i) {
+            var tds = $(this).find('td');
+            fileName = tds.eq(0).text();
+            fileNames.push(fileName);
+        })
+
+        var dataToPost = {};
+        dataToPost.fileNames = fileNames;
+        dataToPost.requestID = document.getElementById('hiddenFootageID').value;
+        $.ajax ({
+            url: "updateUploads.php",
+            type: "POST",
+            data: dataToPost,
+            success: function(data) {
+                console.log(data);
+            }
+        });
+
     }
 
    
@@ -2249,11 +2270,11 @@ function printDiv() {
                             // data = '<tr><td>' + fileName + '</td></tr>'
                             // $('#footageFileTableBody').append(data);
                             data = '<tr><td>' + fileName + "</td><td><btn class= 'btn btn-success btn-sm'><svg xmlns='http://www.w3.org/2000/svg' width='12px' height='12px' fill='currentColor' class='bi bi-info' viewBox='0 0 16 16'><path d='m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z'/></svg></btn></td></td>";
-                            data = data + "<td class='text-center'><btn class= 'btn btn-danger btn-sm'><svg xmlns='http://www.w3.org/2000/svg' width='12px' height='12px' fill='currentColor' class='bi bi-x-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z'/></svg></btn></td></tr>'";
+                            data = data + "<td class='text-center align-middle'><btn class= 'btn btn-danger btn-sm'><svg xmlns='http://www.w3.org/2000/svg' width='12px' height='12px' fill='currentColor' class='bi bi-x-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z'/></svg></btn></td></tr>'";
                             $('#footageFileTableBody').append(data);
                         } else if (editOrAdd == 'Edit') {
                             data = '<tr><td>' + fileName + "</td><td><btn class= 'btn btn-success btn-sm'><svg xmlns='http://www.w3.org/2000/svg' width='12px' height='12px' fill='currentColor' class='bi bi-info' viewBox='0 0 16 16'><path d='m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z'/></svg></btn></td></td>";
-                            data = data + "<td class='text-center'><btn class= 'btn btn-danger btn-sm'><svg xmlns='http://www.w3.org/2000/svg' width='12px' height='12px' fill='currentColor' class='bi bi-x-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z'/></svg></btn></td></tr>'";
+                            data = data + "<td class='text-center align-middle'><btn class= 'btn btn-danger btn-sm'><svg xmlns='http://www.w3.org/2000/svg' width='12px' height='12px' fill='currentColor' class='bi bi-x-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z'/></svg></btn></td></tr>'";
                             $('#footageEditFileTableBody').append(data);
                         }
                     } else {

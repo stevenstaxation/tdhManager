@@ -18,6 +18,7 @@ $responseDate = $_POST['responseDate'];
 $allocatedTo = $_POST['allocatedTo'];
 $responseNotes = $_POST['responseNotes'];
 $requestStatus = $_POST['requestStatus'];
+$fileNames =$_POST['fileNames'];
 
 $errors = "";
 
@@ -41,6 +42,11 @@ claimRef='$claimReference', responseDateTime=NULLIF('$responseDate',''), respons
 
 
 $result = mysqli_query($link, $sql);
+
+
+$sql = 'INSERT INTO tblFootageFiles (filePathName, requestID)) VALUES ($filePathName, $footageID)';
+
+
 
 echo "success";
 
