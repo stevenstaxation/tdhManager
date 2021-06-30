@@ -90,18 +90,42 @@ $(document).on('click', '#findVehicleRegNumber', function(event) {
     dataToPost.VRN = document.getElementById('addVehicleRegNumber').value;
     document.getElementById('lookUpProgress').style.visibility = "visible";
     $.ajax({
-        url: 'lookupVRN.php',
+        // url: 'lookupVRN.php',
+        url: 'VRNLookup.php',
+        
         type: "POST",
         data: dataToPost,
+        datatype: "json",
         success: function(data) {
-            var arr = data.split('^^^');
-            document.getElementById('addVehicleRegNumber').value = arr[0];
-            document.getElementById('addVehicleMake').value = arr[1];
-            document.getElementById('addVehicleModel').value = arr[2];
-            document.getElementById('addVehicleAddDescription').value = arr[3];
-            document.getElementById('addVehicleAllocateTo').value = arr[4];
-            document.getElementById('hiddenVehicleID').value = arr[5];
+            var vehicleInfo = $.parseJSON(data);
+
+            document.getElementById('addVehicleRegNumber').value = dataToPost.VRN;
+            document.getElementById('addVehicleMake').value = vehicleInfo["Response"]["DataItems"]["VehicleRegistration"]["Make"];
+            document.getElementById('addVehicleModel').value = vehicleInfo["Response"]["DataItems"]["VehicleRegistration"]["Model"];
+            document.getElementById('addVehicleAddDescription').value = vehicleInfo["Response"]["DataItems"]["VehicleRegistration"]["Colour"];
+            if (vehicleInfo["Response"]["DataItems"]["VehicleRegistration"]["YearOfManufacture"]!=0) {
+                document.getElementById('addVehicleAddDescription').value += " (" + vehicleInfo["Response"]["DataItems"]["VehicleRegistration"]["YearOfManufacture"] + ")";
+            }
             document.getElementById('lookUpProgress').style.visibility = "hidden";
+
+             $.ajax({
+                url: "VRNAllocate.php",
+                success: function(alloc) {
+                var arralloc = alloc.split("***");
+                document.getElementById('addVehicleAllocateTo').value = arralloc[0];
+                document.getElementById('hiddenVehicleID').value = arralloc[1];
+                }
+
+             })
+
+            // var arr = data.split('^^^');
+            // document.getElementById('addVehicleRegNumber').value = arr[0];
+            // document.getElementById('addVehicleMake').value = arr[1];
+            // document.getElementById('addVehicleModel').value = arr[2];
+            // document.getElementById('addVehicleAddDescription').value = arr[3];
+            // document.getElementById('addVehicleAllocateTo').value = arr[4];
+            // document.getElementById('hiddenVehicleID').value = arr[5];
+            // document.getElementById('lookUpProgress').style.visibility = "hidden";
         },
         error: function() {
 

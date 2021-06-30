@@ -3577,3 +3577,36 @@
     </div>
 </div>
 
+<!-- GET VRN TO LOOKUP -->
+<div class="modal" id="modalGetVRNLookup" data-backdrop='static'>
+    <div class="modal-dialog" style='max-width:50%'>
+        <div class="modal-content">
+            <div class='modal-header'>
+                <h5 class="modal-title">Vehicle Details Search</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+        
+            <div class="modal-body" style='font-size: 75%'>
+                <form method='POST' id='getEditOtherContact' class='getEditOtherContact' class='form-block' onSubmit='return false;'>
+                    <div class='form-group'>
+                        <div class='row'>
+                            <div class='col-3'>
+                                <label class='control-label' for='VTNToFind' style='padding-top:8px;'><strong>VRN</strong></label>
+                            </div>
+                            <div class='col-7'>
+                                <div class='input-group'>
+                                    <input type='text' class='form-control' placeholder="Enter registration..." id='VRNToFind'>
+                                </div>
+                            </div>
+                            <div class='col-2'>
+                                <button type="button" id='lookupVRNByAPI' style='float:right' class="btn btn-success">Find</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='VRNToFindMessage'></div>
+                </form> 
+                <div id='VehicleLookupInfo' style='font-size: 14px;'></div>
+            </div>
+        </div>
+    </div>
+</div>

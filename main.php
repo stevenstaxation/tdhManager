@@ -30,6 +30,8 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
     <script src="https://use.fontawesome.com/887b334360.js"></script>
 
+    <link href="http://fonts.cdnfonts.com/css/uk-number-plate" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link rel="stylesheet" type="text/css" href="styles/custombootstrap.css">
     <link rel="stylesheet" type="text/css" href="styles/navbar.css">
@@ -362,7 +364,13 @@ include 'navbar.php';
         $('#modalEditFootage').on('hidden.bs.modal', function() {
              $('#footageEditFileTableBodyBlock').html('');
             $(this).find('form').trigger('reset');
-        });      
+        }); 
+
+        $('#modalGetVRNLookup').on('hidden.bs.modal', function(event) {
+            $('#VRNToFindMessage').html('');
+            $('#VehicleLookupInfo').html('');
+             $(this).find('form').trigger('reset');
+        });    
 
     
 
@@ -1171,8 +1179,49 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
         }
     });
 
+    $(document).on('click', '#lookupVRNByAPI', function(event) {
+        // prevent default PHP processing
+        "use strict";
+        var dataToPost = {};
+        dataToPost.VRN = document.getElementById('VRNToFind').value.replaceAll(" ","");
+        dataToPost.VRN = dataToPost.VRN.replaceAll(".","");
+        dataToPost.VRN = dataToPost.VRN.replaceAll("-","");
+        dataToPost.VRN = dataToPost.VRN.replaceAll("/","");
+        dataToPost.VRN = dataToPost.VRN.replaceAll("'","");
+        console.log(dataToPost.VRN);
 
+        event.preventDefault();
+        $.ajax({
+            url: "VRNLookup.php",
+            data: dataToPost,
+            datatype: "json",
+            type: "POST",
+            success: function(data) {
+                var output = $.parseJSON(data);
+                if (output['Response']['StatusCode']!='Success') {
+                    $('#VRNToFindMessage').html("<div class='alert alert-danger'>No information found</div>");
+                    $('#VehicleLookupInfo').html('')
+                } else {
+                    var postData = {};
+                    postData.APIData = output;
+                    $.ajax({
+                        url: "getVehicleFromAPI.php",
+                        data: postData,
+                        type: "POST",
+                        success: function(data) {
+                            $('#VRNToFindMessage').html('');
+                            $('#VehicleLookupInfo').html(data);
+                        }
+                    });
+                              
+                }
+            },
+            error: function() {
+            }
+        });
+    });
 
+       
     $(document).on('click', '#showEventLog', function(event) {
         // prevent default PHP processing
         "use strict";
@@ -1226,10 +1275,17 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
 
 function printDiv() {
     var divToPrint = document.getElementById('filteredEventList');
-    console.log(divToPrint);
     var popupWin = window.open('', '_blank', 'status=1,width=600,height=600');
     popupWin.document.open();
     popupWin.document.write('<html><body onload="window.print()" onafterprint="self.close()">' + "<div style='margin:50px; font-family: sans-serif'><h3><strong>TDHManager - Event Log print as at " + new Date() +"</strong></H3> " + divToPrint.innerHTML + '</div></html>');
+    popupWin.document.close();    
+}
+
+function printVRNLookup() {
+    var divToPrint = document.getElementById('VehicleLookupInfo');
+    var popupWin = window.open('', '_blank', 'status=1,width=600,height=600');
+    popupWin.document.open();
+    popupWin.document.write('<html><head></head><body onload="window.print()" onafterprint="self.close()">' + "<div style='margin: 50px;font-family: sans-serif'>" + divToPrint.innerHTML + '</div></html>');
     popupWin.document.close();    
 }
 

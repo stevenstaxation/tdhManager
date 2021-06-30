@@ -271,40 +271,6 @@ body.dark .reminderScreen {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     body {
@@ -367,5 +333,13 @@ body.dark .reminderScreen {
 @media only screen and (min-width: 1581px) {
     .navbar{
         font-size: 16px;
+    }
+}
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
     }
 }
