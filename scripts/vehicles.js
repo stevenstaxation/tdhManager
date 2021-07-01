@@ -158,7 +158,17 @@ function addNewVehicle() {
     });
 }
 
+
 function showVehicleForEdit(rowNumber) {
+    if (rowNumber.includes("customer")) {
+        document.getElementById('hiddenVehicleSelector').value = 'customer';
+        rowNumber = rowNumber.replace("customer", '');
+    } else {
+        document.getElementById('hiddenVehicleSelector').value = 'vehicle';
+        rowNumber = rowNumber.replace("vehicle", '');
+    }
+    
+   
     var dataToPost = {};
     dataToPost.vehicleID = rowNumber;
      $.ajax({
@@ -210,5 +220,41 @@ function editCurrentVehicle() {
 
     }
   });
+}
+
+function deleteVehicle() {
+    var dataToPost = {};
+    // var e = document.getElementById('editDeviceDescription');
+    // if (e.selectedIndex==-1) {
+    //     return;
+    // }
+    dataToPost.vehicleNumber = document.getElementById('hiddenVehicleID').value;
+   
+    $.ajax({
+        url: "deleteVehicle.php",
+        timeout: 30000,
+        data: dataToPost,
+        type: "POST",
+        success: function(data) {
+            if (data.includes("success")) {
+                $('#editVehicleMessage').html('');
+                $('#modalVehicleShow').modal('hide');
+                if (document.getElementById('hiddenVehicleSelector').value == 'vehicle') {
+                    $('#showVehicleList').trigger('click');
+                } else {
+                    $('#getClient').trigger('change');
+                    var newID = parseInt(data.replace('success', ''), 10);
+                    showCustomers(newID);
+                }
+
+            } else {
+                $('#editVehicleMessage').html(data);
+            }
+
+        }
+
+    })
+
+
 }
 

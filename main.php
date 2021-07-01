@@ -104,6 +104,7 @@ include 'navbar.php';
     <div id='vehicleList' class='container'></div>
     <div id='devicesList' class='container-fluid'></div>
     <div id='hiddenDeviceSelector' style='display: none;'></div>
+    <div id='hiddenVehicleSelector' style='display: none;'></div>
     <div id='hiddenDeviceNotesSelector' style='display: none;'></div>
     
 

@@ -274,6 +274,42 @@ function editCurrentDeviceNotes() {
     });
 }
 
+function deletePhysicalDevice() {
+        var dataToPost = {};
+        // var e = document.getElementById('editDeviceDescription');
+        // if (e.selectedIndex==-1) {
+        //     return;
+        // }
+        dataToPost.deviceNumber = document.getElementById('hiddenDeviceID').value;
+        
+        $.ajax({
+            url: "deletePhysicalDevice.php",
+            timeout: 30000,
+            data: dataToPost,
+            type: "POST",
+            success: function(data) {
+                if (data.includes("success")) {
+                    $('#editDeviceMessage').html('');
+                    $('#modalEditDevice').modal('hide');
+                    if (document.getElementById('hiddenDeviceSelector').value == 'device') {
+                        $('#showDeviceList').trigger('click');
+                    } else {
+                        $('#getClient').trigger('change');
+                        var newID = parseInt(data.replace('success', ''), 10);
+                        showCustomers(newID);
+                    }
+    
+                } else {
+                    $('#editDeviceMessage').html(data);
+                }
+
+            }
+
+        })
+
+
+}
+
 $(document).on('click', '#deviceFilterClicked', function (event) {
     "use strict";
     event.preventDefault();

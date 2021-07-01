@@ -673,7 +673,11 @@
                 <div id='editDeviceID' style='display: none'></div>
                 <div id='editDeviceCustomerID' style='display: none'></div>
                 <button type="button" id='editCurrentDevice' onclick='editCurrentDevice()' class="btn btn-success">Update</button>
-
+                <?php
+                    if ($_SESSION['isAdmin']== '1') {
+                        echo "<button type='button' onclick='deletePhysicalDevice()' id='deletePhysicalDevice' class='btn btn-danger'>Delete</button>";
+                    }
+                ?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -2627,7 +2631,13 @@
             <div class="modal-footer">
               <div id='hiddenVehicleID' style='display: none'></div>
                 <button type="button" class="btn btn-success"  onclick='editCurrentVehicle()'>Update</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <?php
+                    if ($_SESSION['isAdmin']== '1') {
+                        echo "<button type='button' onclick='deleteVehicle()' id='deleteVehicle' class='btn btn-danger'>Delete</button>";
+                    }
+                ?>
+
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
@@ -3587,7 +3597,7 @@
             </div>
         
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditOtherContact' class='getEditOtherContact' class='form-block' onSubmit='return false;'>
+                <form method='POST' id='getVRNToLookup' class='getVRNToLookup' class='form-block' onSubmit='return false;'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-3'>
