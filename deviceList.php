@@ -113,6 +113,7 @@ $returnString .= "<div class='container'>
       <table class='table table-sm table-bordered table-hover w-auto ml-auto mr-auto' style='font-size: 75%'>
       <thead>
         <tr>
+          <th class='align-middle' style='padding:0 3px;'><strong>No.</strong></th>
           <th class='align-middle' style='padding:0 3px;'><strong>Owner</strong></th>
           <th class='text-center align-middle' style='padding:0 3px;'>TDH Number</th>
           <th class='text-center align-middle' style='padding:0 3px;'>Reg Number</th>
@@ -133,9 +134,11 @@ $returnString .= "<div class='container'>
     
       <tbody>";
 
+      $ix = 1;
   while ($row= mysqli_fetch_array($result)) {
 
     $returnString .= "<tr>
+    <td class='text-center align-middle' style='padding:0 3px'>" . $ix . "</td>
     <td class='align-middle' style='padding:0 3px'>" . $row['businessName'] . "</td>
     <td class='text-center align-middle' style='padding:0 3px;'>" . $row['TDHNumber']. "</td>
     <td class='text-center align-middle' style='padding:0 3px;'>" . $row['regNumber']. "</td>
@@ -157,6 +160,7 @@ $returnString .= "<div class='container'>
 <path d='M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z'/>
 </svg></btn></td>
     </tr>";
+    $ix++;
   }
     } else {
       $returnString .="<p class='text-center'>No results found</p>";
