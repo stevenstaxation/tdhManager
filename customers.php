@@ -130,35 +130,10 @@ $returnString = "
                     </div>
                     <hr>
                    
-                    <div class='form-group' style='display: flex; align-items: center'>
-                        <label class='control-label inline' for='renewalType' style='width:40%; padding-top:6px'>Renewal type</label>
-                        <div class='input-group'>
-                            <select  style='font-size: 80%' id='getRenewalTypeSelect' name='getRenewalTypeSelect' onchange='makeDirty(" . '"getRenewalTypeSelect"' .")' class='custom-select getRenewalTypeSelect enabler'>" ;
-                            $sql="SELECT * FROM tblRenewalType ORDER BY Description ASC" ; 
-                            $result=mysqli_query($link,$sql); 
-                            $returnString .="
-                            <option value= '0' selected='selected'>None Selected</option>" ; 
-                            while ($renewalRow=mysqli_fetch_array($result)) { 
-                                if ($row['renewalType']==$renewalRow['ID']) { 
-                                    $returnString .="
-                                    <option value= " . $renewalRow['ID']. " selected='selected'>" ; } else {
-                                    $returnString .="
-                                    <option value= " . $renewalRow['ID'].">";
-                                }
-                                $returnString .= $renewalRow['Description']. " </option>";
-                            }
-                            $returnString .="
-                            </select>                  
-                        </div>
-                    </div>
-                    <div class='form-group' style='display: flex; align-items: center'>
-                        <label id='renewalDateLabel' class='control-label inline' for='renewalDate' style='width:40%; padding-top:6px'>Renewal date</label>
-                        <div class='input-group'>
-                            <input style='font-size: 80%; background-color:" . $renewalColour ."' oninput='makeDirty(" . '"renewalDate"'
-                            . ")' class='form-control dateType enabler' type='date' id='renewalDate' name='renewalDate' onblur='updateRenewalDate(event);' placeholder='Policy renewal date...' value='" . $row['renewalDate'] . "'>
-                        </div>
-                    </div>
-                    <hr>";
+                   ";
+
+                   $theRenewalType = $row['renewalType'];
+                   $theRenewalDate = $row['renewalDate'];
                     // <div class='form-group' style='display: flex; align-items: right'>
                     //     <label class='control-label inline' for='custRegNumber' style='width:40%; padding-top:10px'>Reg'd No.</label>
                     //     <div class='input-group'>
@@ -754,6 +729,45 @@ $returnString .="
         </svg> Search </btn>
     </div>
 </div>
+</form>
+
+<form id='renewalForm'>
+    <div id='showAccountInfo' class='settings-dialog'>
+        <h6><strong style='margin-top:10px;'>RENEWAL DETAILS</strong></h6>
+        <div id='errorBox'></div>
+        <div class='form-group' style='display: flex; align-items: center'>
+        <label class='control-label inline' for='renewalType' style='width:40%; padding-top:6px'>Renewal type</label>
+        <div class='input-group'>
+            <select  style='font-size: 80%' id='getRenewalTypeSelect' name='getRenewalTypeSelect' onchange='makeDirty(" . '"getRenewalTypeSelect"' .")' class='custom-select getRenewalTypeSelect enabler'>" ;
+            $sql="SELECT * FROM tblRenewalType ORDER BY Description ASC" ; 
+            $result=mysqli_query($link,$sql); 
+            $returnString .="
+            <option value= '0' selected='selected'>None Selected</option>" ; 
+            while ($renewalRow=mysqli_fetch_array($result)) { 
+                if ($theRenewalType==$renewalRow['ID']) { 
+                    $returnString .="
+                    <option value= " . $renewalRow['ID']. " selected='selected'>" ; } else {
+                    $returnString .="
+                    <option value= " . $renewalRow['ID'].">";
+                }
+                $returnString .= $renewalRow['Description']. " </option>";
+            }
+            $returnString .="
+            </select>                  
+        </div>
+    </div>
+    <div class='form-group' style='display: flex; align-items: center'>
+        <label id='renewalDateLabel' class='control-label inline' for='renewalDate' style='width:40%; padding-top:6px'>Renewal date</label>
+        <div class='input-group'>
+            <input style='font-size: 80%; background-color:" . $renewalColour ."' oninput='makeDirty(" . '"renewalDate"'
+            . ")' class='form-control dateType enabler' type='date' id='renewalDate' name='renewalDate' onblur='updateRenewalDate(event);' placeholder='Policy renewal date...' value='" . $theRenewalDate . "'>
+        </div>
+    </div>
+    <hr>
+    <small style='color: red';>**FOR NOW** To confirm RENEWAL DATE click 'UPDATE' in Business Details section</small>
+    </div>
+
+
 </form>
 
 </div>
