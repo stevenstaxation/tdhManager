@@ -22,7 +22,7 @@ $returnString = "<div id='deviceLongList' style = 'margin-top: 50px;margin-botto
 
 $returnString .= "<div class='container'>
 <div id='deviceFilter'>
-    <form id='deviceForm' class='filterBox'><div id='deviceFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%'>
+    <form id='deviceForm' class='filterBox' style='display: none'><div id='deviceFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%'>
         <div class='form-group'>
           <div class='row'>
             <div class='col-sm-6 col-md-4 col-lg-3' style='padding:5px 15px'>
@@ -107,10 +107,13 @@ $returnString .= "<div class='container'>
 
     if (mysqli_num_rows($result) !=0) {
       $returnString .= "<div id = 'deviceSummary' style='margin-top: 15px;'>
-      <table class='table table-sm table-bordered table-hover w-auto ml-auto mr-auto' style='font-size: 75%'>
+      <table id='footageListTable' class='table table-bordered table-hover table-striped'>
       <thead>
         <tr>
+          <th class='text-center align-middle' style='padding:0 3px;'>No.</th>
             <th class='text-center align-middle' style='padding:0 3px;'>Request Date</th>
+            <th class='text-center align-middle' style='padding:0 3px;'>Request Time</th>
+            
             <th class='text-center align-middle' style='padding:0 3px;'>Incident Date</th> 
             <th class='text-center align-middle' style='padding:0 3px;'>Days</th> 
             <th class='text-center align-middle' style='padding:0 3px;'>VRN</th>
@@ -127,20 +130,32 @@ $returnString .= "<div class='container'>
       </thead>
     
       <tbody>";
+
+      $ix = 1;
   while ($row= mysqli_fetch_array($result)) {
       $dt1 = new DateTime($row['requestDateTime']);
       $dt2 = new DateTime($row['incidentDate']);
       $dateDifference = $dt1->diff($dt2);
 
     $returnString .= "<tr>
-    <td class='text-center align-middle' style='padding:0 3px;'>" . date('d/m/Y G:i', strtotime($row['requestDateTime'])). "</td> 
-    <td class='text-center align-middle' style='padding:0 3px;'>" . date('d/m/Y', strtotime($row['incidentDate'])). "</td>
+    <td class='text-center align-middle' style='padding:0 3px;'>" . $ix . "</td>
+    <td class='text-center align-middle' style='padding:0 3px;' data-sort='" .$row['requestDateTime'] ."'>" . date('d/m/Y', strtotime($row['requestDateTime'])). "</td> 
+    <td class='text-center align-middle' style='padding:0 3px;'>" . date('G:i', strtotime($row['requestDateTime'])). "</td> 
+    <td class='text-center align-middle' style='padding:0 3px;' data-sort='" .$row['incidentDate'] ."'>" . date('d/m/Y', strtotime($row['incidentDate'])). "</td>
     <td class='text-center align-middle' style='padding:0 3px;'>" . $dateDifference->d . "</td>
     <td class='text-center align-middle' style='padding:0 3px;'>" . $row['regNumber']. "</td>
     <td class='align-middle' style='padding:0 3px'>" . $row['businessName'] . "</td>
     <td class='align-middle' style='padding:0 3px;'>" . $row['claimRef']. "</td>
-    <td class='align-middle' style='padding:0 3px;'>" . $row['userName']. "</td>
-    <td class='text-center align-middle' style='padding:0 3px;'>" . date('d/m/Y G:i', strtotime($row['responseDateTime'])). "</td> 
+    <td class='align-middle' style='padding:0 3px;'>" . $row['userName']. "</td>";
+
+    if ($row['responseDateTime']) {
+      $returnString .="
+    <td class='text-center align-middle' style='padding:0 3px;' data-sort='" .$row['responseDateTime'] ."'>" . date('d/m/Y G:i', strtotime($row['responseDateTime'])). "</td>";
+    } else {
+      $returnString .="
+      <td class='text-center align-middle' style='padding:0 3px; color: red' data-sort='" .$row['incidentDate'] ."'>outstanding</td>";
+    } 
+    $returnString .="
     <td class='align-middle' style='padding:0 3px;'>" . $row['description']. "</td>
     <td class='align-middle' style='padding:0 3px;'>" . $row['requestNotes']. "</td>
     
@@ -156,9 +171,30 @@ $returnString .= "<div class='container'>
 </svg></btn></td>
 
     </tr>";
+    $ix++;
   }
 
   $returnString .="</tbody>
+  <tfoot>
+    <tr>
+      <th class='text-center align-middle' style='padding:0 3px;'>Filter</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>Request Date</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>Request Time</th>
+            
+      <th class='text-center align-middle' style='padding:0 3px;'>Incident Date</th> 
+      <th class='text-center align-middle' style='padding:0 3px;'>Days</th> 
+      <th class='text-center align-middle' style='padding:0 3px;'>VRN</th>
+      <th class='align-middle' style='padding:0 3px;'><strong>Fleet</strong></th>
+      <th class='text-center align-middle' style='padding:0 3px;'>Claim Ref</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>Hub</th> 
+      <th class='text-center align-middle' style='padding:0 3px;'>Response Date</th>
+      <th class='align-middle' style='padding:0 3px;'>Status</th>
+      <th class='align-middle' style='padding:0 3px;'>Request Text</th> 
+      <th class='text-center align-middle' style='padding: 0 3px;'><<</th>
+      <th class='text-center align-middle' style='padding: 0 3px;'><<</th>
+      <th class='text-center align-middle' style='padding: 0 3px;'>Filter</th>            
+    </tr>
+  </tfoot>
 
   </table>
 
@@ -169,6 +205,40 @@ $returnString .= "<div class='container'>
             event.preventDefault();
         } 
     });
+
+    $(document).ready(function() {
+      $('#footageListTable').DataTable({
+        columnDefs: [
+          {orderable: false, targets: [12,13,14] },
+          {searchable: false, targets: [12,13,14] }
+        ],
+        colReorder: true,
+        order: [[0, 'asc']],
+        pagingType: 'simple_numbers' ,
+        processing: true,
+        lengthMenu: [[10,25,50,100,-1], [10, 25,50, 100, 'All']],
+        initComplete: function() {
+          this.api().columns([1,2,3,4,5,6,7,8,9,10,11]).every (function() {
+            var column = this;
+            var select = $('<select><option value=\"\"></option></select>')
+            .appendTo($(column.footer()).empty())
+            .on('change', function() {
+              var val = $.fn.dataTable.util.escapeRegex(
+                $(this).val()
+              );
+
+              column
+                .search(val ? '^'+val+'$' : '', true, false)
+                .draw();
+            });
+  
+            column.data().unique().sort().each(function (d,j) {
+              select.append('<option value=\"'+d+'\">'+d+'</option>')
+            });
+          });
+        }
+      });
+  });
     </script>
 ";
   } else {

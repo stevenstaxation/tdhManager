@@ -88,7 +88,9 @@ function updateEditInstaller() {
     dataToPost.installerAddress4 = document.getElementById('editInstallerAddress4').value;
     dataToPost.installerAddress5 = document.getElementById('editInstallerAddress5').value;
     dataToPost.installerID = document.getElementById('editInstallerHide').value;
-
+    if (!dataToPost.installerID) {
+        return
+    }
     $.ajax({
         url: 'updateInstaller.php',
         timeout: 30000,

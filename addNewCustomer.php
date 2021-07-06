@@ -13,8 +13,8 @@ $newCustomerAddress4 = $_POST['customerAddress4'];
 $newCustomerAddress5 = $_POST['customerAddress5'];
 $newCustomerPhone = $_POST['customerTelephone'];
 $newCustomerEmail = $_POST['customerEmail'];
-$newCustomerRegNo = $_POST['customerCoRegNo'];
-$newCustomerVATRegNo = $_POST['customerVATRegNo'];
+// $newCustomerRegNo = $_POST['customerCoRegNo'];
+// $newCustomerVATRegNo = $_POST['customerVATRegNo'];
 $newCustomerInsurerID = $_POST['customerInsurerID'];
 $newCustomerBrokerID = $_POST['customerBrokerID'];
 
@@ -65,47 +65,47 @@ if (strlen($newCustomerEmail)>100) {
     $errors .= "Maximum length of email address is 100 characters<br>";
 }
 
-$VATIsValid=false;
-if ($newCustomerVATRegNo) {
-// check VAT Number
-    $checksum = 0;
-    for ($ix=0; $ix<7; $ix++) {
-        $checksum +=substr($newCustomerVATRegNo, $ix,1) * (8-$ix);
-    }
-    $testCheck=$checksum;
-    while ($testCheck>0) {
-        $testCheck = $testCheck - 97;
-    }
-    if (substr($newCustomerVATRegNo,7,2) == -$testCheck) {
-        $VATIsValid = true;
-    }
+// $VATIsValid=false;
+// if ($newCustomerVATRegNo) {
+// // check VAT Number
+//     $checksum = 0;
+//     for ($ix=0; $ix<7; $ix++) {
+//         $checksum +=substr($newCustomerVATRegNo, $ix,1) * (8-$ix);
+//     }
+//     $testCheck=$checksum;
+//     while ($testCheck>0) {
+//         $testCheck = $testCheck - 97;
+//     }
+//     if (substr($newCustomerVATRegNo,7,2) == -$testCheck) {
+//         $VATIsValid = true;
+//     }
 
-    // is it a newer VAT number?
-    if (!$VATIsValid) {
-        $testCheck = $checksum + 55;
-        while ($testCheck>0) {
-            $testCheck = $testCheck - 97;
-        }
-        if (substr($newCustomerVATRegNo,7,2) == -$testCheck) {
-            $VATIsValid = true;
-        }
-    }
-} else {
-  $VATIsValid = true;
-}
-if (!$VATIsValid) {
-    $errors .= "VAT Number is not valid";
-}
+//     // is it a newer VAT number?
+//     if (!$VATIsValid) {
+//         $testCheck = $checksum + 55;
+//         while ($testCheck>0) {
+//             $testCheck = $testCheck - 97;
+//         }
+//         if (substr($newCustomerVATRegNo,7,2) == -$testCheck) {
+//             $VATIsValid = true;
+//         }
+//     }
+// } else {
+//   $VATIsValid = true;
+// }
+// if (!$VATIsValid) {
+//     $errors .= "VAT Number is not valid";
+// }
 
 if (!is_numeric($newCustomerPhone)) {
     $newCustomerPhone = preg_replace('/[^0-9]/', "", $newCustomerPhone);
 }
-if (!is_numeric($newCustomerRegNo)) {
-    $newCustomerRegNo = preg_replace('/[^0-9]/', "", $newCustomerRegNo);
-}
-if (!is_numeric($newCustomerVATRegNo)) {
-    $newCustomerVATRegNo = preg_replace('/[^0-9]/', "", $newCustomerVATRegNo);
-}
+// if (!is_numeric($newCustomerRegNo)) {
+//     $newCustomerRegNo = preg_replace('/[^0-9]/', "", $newCustomerRegNo);
+// }
+// if (!is_numeric($newCustomerVATRegNo)) {
+//     $newCustomerVATRegNo = preg_replace('/[^0-9]/', "", $newCustomerVATRegNo);
+// }
 
 if (!filter_var($newCustomerEmail, FILTER_VALIDATE_EMAIL) && $newCustomerEmail!='') {
     $errors .= "Email address does not look to be valid<br>";
@@ -124,11 +124,11 @@ $newCustomerAddress3 = mysqli_real_escape_string($link,filter_var($newCustomerAd
 $newCustomerAddress4 = mysqli_real_escape_string($link,filter_var($newCustomerAddress4, FILTER_SANITIZE_STRING));
 $newCustomerAddress5 = mysqli_real_escape_string($link,filter_var($newCustomerAddress5, FILTER_SANITIZE_STRING));
 $newCustomerPhone = mysqli_real_escape_string($link,filter_var($newCustomerPhone, FILTER_SANITIZE_STRING));
-$newCustomerRegNo = mysqli_real_escape_string($link,filter_var($newCustomerRegNo, FILTER_SANITIZE_STRING));
-$newCustomerVATRegNo = mysqli_real_escape_string($link,filter_var($newCustomerVATRegNo, FILTER_SANITIZE_STRING));
+// $newCustomerRegNo = mysqli_real_escape_string($link,filter_var($newCustomerRegNo, FILTER_SANITIZE_STRING));
+// $newCustomerVATRegNo = mysqli_real_escape_string($link,filter_var($newCustomerVATRegNo, FILTER_SANITIZE_STRING));
 $newCustomerEmail = mysqli_real_escape_string($link,filter_var($newCustomerEmail, FILTER_SANITIZE_EMAIL));
 
- $sql = "INSERT INTO tblCustomer (businessName, custAddressLine1, custAddressLine2, custAddressLine3, custAddressLine4, custAddressLine5, businessPhone, businessEmail, companyRegNo, VATRegNo, insurerID, renewalType, renewalDate,  brokerID) VALUES ('$newCustomerName','$newCustomerAddress1', '$newCustomerAddress2', '$newCustomerAddress3', '$newCustomerAddress4', '$newCustomerAddress5', '$newCustomerPhone', '$newCustomerEmail', '$newCustomerRegNo', '$newCustomerVATRegNo', NULLIF('$newCustomerInsurerID',''),NULL, NULL, NULLIF('$newCustomerBrokerID',''))";
+ $sql = "INSERT INTO tblCustomer (businessName, custAddressLine1, custAddressLine2, custAddressLine3, custAddressLine4, custAddressLine5, businessPhone, businessEmail, insurerID, renewalType, renewalDate,  brokerID) VALUES ('$newCustomerName','$newCustomerAddress1', '$newCustomerAddress2', '$newCustomerAddress3', '$newCustomerAddress4', '$newCustomerAddress5', '$newCustomerPhone', '$newCustomerEmail', NULLIF('$newCustomerInsurerID',''),NULL, NULL, NULLIF('$newCustomerBrokerID',''))";
 
 $result = mysqli_query($link, $sql);
 

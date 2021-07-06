@@ -15,22 +15,19 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" description content="TDH Manager">
 
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
-
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> -->
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js" integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
-
+   
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
-
     <script src="https://use.fontawesome.com/887b334360.js"></script>
+    <link href="https://fonts.cdnfonts.com/css/uk-number-plate" rel="stylesheet">
 
-    <link href="http://fonts.cdnfonts.com/css/uk-number-plate" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link rel="stylesheet" type="text/css" href="styles/custombootstrap.css">
@@ -40,6 +37,20 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <link rel="manifest" href="images/site.webmanifest">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> -->
+ 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"/>
+
+ 
+    
+
+
+
+
 
 
     <title>TDH Manager</title>
@@ -270,6 +281,30 @@ include 'navbar.php';
             });
 
         });
+
+
+        $(document).on("click", '#showRenewalList', function() {
+        var dataToPost = {};
+        dataToPost.SQLFilter='';
+        $.ajax({
+            url: "renewalsList.php",
+            type: "POST",
+            data: dataToPost,
+            success: function(data) {
+                $('#accountInfo').html('');
+                $('#customerSelect').html('');
+                $('#customerInfo').html('');
+                $('#overlay').html('');
+                $('#homeScreen').hide();
+                $('#eventLog').html('');
+                $('#devicesList').html('');
+                $('#vehicleList').html(data);
+            },
+        error: function() {
+            $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
+        }
+    });
+  });
 
 
         $(document).ready(function() {
@@ -1541,8 +1576,8 @@ function printVRNLookup() {
         dataToPost.customerAddress5 = document.getElementById('customerAddress5').value;
         dataToPost.customerTelephone = document.getElementById('customerPhone').value;
         dataToPost.customerEmail = document.getElementById('customerEmail').value;
-        dataToPost.customerCoRegNo = document.getElementById('customerRegNo').value;
-        dataToPost.customerVATRegNo = document.getElementById('customerVATNo').value;
+        // dataToPost.customerCoRegNo = document.getElementById('customerRegNo').value;
+        // dataToPost.customerVATRegNo = document.getElementById('customerVATNo').value;
         dataToPost.customerInsurerID = document.getElementById('getInsurer').value;
         dataToPost.customerBrokerID = document.getElementById('getBroker').value;
 
@@ -1656,6 +1691,7 @@ function printVRNLookup() {
         dataToPost.jobType = document.getElementById('addJobTypeType').value;
         dataToPost.jobVRN = document.getElementById('addJobTypeVRN').value;
         dataToPost.jobDetails = document.getElementById('addJobNotes').value;
+        
         $.ajax({
             url: "addNewJob.php",
             timeout: 30000,

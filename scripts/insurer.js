@@ -148,6 +148,9 @@ function updateEditInsurer() {
     dataToPost.insurerAddress4 = document.getElementById('editInsurerAddress4').value;
     dataToPost.insurerAddress5 = document.getElementById('editInsurerAddress5').value;
     dataToPost.insurerID = document.getElementById('editInsurerHide').value;
+    if (!dataToPost.insurerID) {
+        return
+    }
     $.ajax({
         url: 'updateInsurer.php',
         timeout: 30000,

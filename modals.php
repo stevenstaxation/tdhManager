@@ -1890,7 +1890,7 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
+                        <!-- <hr>
                         <div class='row'>
                             <div class='col-4'>
                                 <label class='control-label inline' for='customerRegNo' style='padding-top:8px;'><strong>Registered No.</strong></label>
@@ -1900,8 +1900,8 @@
                                     <input class='form-control dateType' type='text' placeholder="Company Reg No..." name='customerRegNo' id='customerRegNo' onkeypress='return onlyNumberKey(event)'>
                                 </div>
                             </div>
-                        </div>
-                        <div class='row'>
+                        </div> -->
+                        <!-- <div class='row'>
                             <div class='col-4'>
                                 <label class='control-label inline' for='customerVATNo' style='padding-top:8px;'><strong>VAT Reg No.</strong></label>
                             </div>
@@ -1910,7 +1910,7 @@
                                     <input class='form-control dateType' type='text' placeholder="VAT Registration No..." name='customerVATNo' id='customerVATNo' onkeypress='return onlyNumberKey(event)'>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <hr>
                         <div class='row'>
                             <div class='col-4'>

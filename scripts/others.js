@@ -82,6 +82,44 @@ function addNewOther() {
     })
 }
 
+function updateEditOther() {
+    var dataToPost = {};
+    dataToPost.otherName = document.getElementById('editOtherName').value;
+    dataToPost.otherAddress1 = document.getElementById('editOtherAddress1').value;
+    dataToPost.otherAddress2 = document.getElementById('editOtherAddress2').value;
+    dataToPost.otherAddress3 = document.getElementById('editOtherAddress3').value;
+    dataToPost.otherAddress4 = document.getElementById('editOtherAddress4').value;
+    dataToPost.otherAddress5 = document.getElementById('editOtherAddress5').value;
+    dataToPost.otherService = document.getElementById('editOtherService').value;
+    dataToPost.otherID = document.getElementById('editOtherHide').value;
+    if (!dataToPost.otherID) {
+        return
+    }
+    $.ajax({
+        url: 'updateOther.php',
+        timeout: 30000,
+        data: dataToPost,
+        type: "POST",
+        success: function (data) {
+            $('#editOtherMessage').css("display", "block");
+
+            if (data.includes('success')) {
+                $('#editOtherMessage').html('');
+                $('#getClient').trigger('change');
+                $('#otherNameSelection').trigger('change');
+                $('#editOtherMessage').html("<div class='alert alert-success'>Updated successfully</div>");
+                $('#editOtherMessage').delay(3000).hide(0);
+            } else {
+                $('#editOtherMessage').html(data);
+                $('#editOtherMessage').delay(3000).hide(0);
+            }
+        },
+        error: function () {
+
+        }
+    });
+}
+
 // ***********************************************
 // POPULATE OTHER DETAILS ON CHANGE OF 
 // SELECTED OTHERER ON PARTNERS >> OTHERS PAGE
@@ -107,6 +145,8 @@ $(document).on('change', '#otherNameSelection', function (event) {
                 document.getElementById('editOtherAddress3').value = data['otherAddress3'];
                 document.getElementById('editOtherAddress4').value = data['otherAddress4'];
                 document.getElementById('editOtherAddress5').value = data['otherAddress5'];
+                document.getElementById('editOtherService').value = data['otherService'];
+                
                 document.getElementById('otherEditNumber').value = data['ID'];
                 $('#otherContactListHolder').html(data['otherContactTable']);
             },

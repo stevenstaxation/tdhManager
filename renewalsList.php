@@ -17,12 +17,12 @@ if (!isset($_POST['FilterVRN'])) {
 if (!isset($_POST['FilterTDHNumber'])) {
   $_POST['FilterTDHNumber'] = '';
 }
-$returnString = "<div id='alertLogList' style = 'margin-top: 50px;margin-bottom: 20px;'><h4><strong>Vehicles</strong></h4></div>";
+$returnString = "<div id='alertLogList' style = 'margin-top: 50px;margin-bottom: 20px;'><h4><strong>Renewals</strong></h4></div>";
 
 $returnString .= "<div class='container'>
-<div id='vehicleFilter'>
-    <form id='vehicleForm' class='filterBox' style='display: none'>
-    <div id='vehicleFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%' onSubmit='return false;'>
+<div id='renewalFilter'>
+    <form id='renewalForm' class='filterBox' style='display: none'>
+    <div id='renewalFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%' onSubmit='return false;'>
         <div class='form-group'>
           <div class='row'>
             <div class='col-sm-6 col-md-4 col-lg-3' style='padding:5px 15px'>
@@ -79,7 +79,7 @@ $returnString .= "
             </div>
            
             <div class='col-sm-6 col-md-4 col-lg-3' style ='padding-left:15px; padding-top: 32px;'>
-              <btn type='button' class='btn btn-success' id='vehicleFilterClicked' style='border-radius: 5px;'>Apply Filter</button>
+              <btn type='button' class='btn btn-success' id='renewalvehicleFilterClicked' style='border-radius: 5px;'>Apply Filter</button>
             </div>
           </div>
         </div>
@@ -91,9 +91,7 @@ $returnString .= "
 
 ";
 
-// $sql = 'SELECT * FROM tblVehicle INNER JOIN tblDevice ON tblDevice.vehicleID = tblVehicle.ID INNER JOIN tblCustomer ON tblCustomer.ID = tblVehicle.ownerID';
-
-$sql = 'SELECT * FROM tblVehicle INNER JOIN tblCustomer ON tblCustomer.ID = tblVehicle.ownerID';
+$sql = 'SELECT tblCustomer.businessName, tblCustomer.renewalDate, tblrenewalType.Description, tblInsurer.insurerName, tblBroker.brokerName FROM tblCustomer LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblinsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.brokerName';
 
 if ($sqlFILTER) {
     $sql .= $sqlFILTER;
@@ -103,57 +101,65 @@ if ($sqlFILTER) {
 $result = mysqli_query($link, $sql);
 
 if (mysqli_num_rows($result)!=0) {
-$returnString .="<div id = 'vehicleSummary' style='margin-top: 15px;'>
-<table id='vehicleListTable' class='table table-bordered table-hover table-striped'>
-<thead>
-  <tr>
-    <th class='text-center align-middle' style='padding-left: 3px;'>No.</th>
-    <th class='align-middle' style='padding-left: 3px;'>Customer</th>
-    <th class='text-center align-middle'>Reg Number</th>
-    <th class='align-middle' style='padding-left: 3px;'>Make</th>
-    <th class='align-middle' style='padding-left: 3px;'>Model</th>
-    <th class='text-center align-middle'>Description</th>  
-    <th class='text-center align-middle' style='width:5%'>Edit</th>
-  </tr>
-</thead>
 
-<tbody>";
+  $returnString .="<div id = 'renewalSummary' style='margin-top: 15px;'>
+  <table id='renewalsListTable' class='table table-bordered table-hover table-striped'>
+  <thead>
+    <tr>
+      <th class='text-center align-middle' style='padding-left: 3px;'>No.</th>
+      <th class='align-middle' style='padding-left: 3px;'>Customer</th>
+      <th class='text-center align-middle'>Renewal Type</th>
+      <th class='text-center align-middle' style='padding-left: 3px;'>Renewal Date</th>
+      <th class='align-middle' style='padding-left: 3px;'>Insurer</th>
+      <th class='text-center align-middle'>Broker</th>  
+    </tr>
+  </thead>
 
-$ix = 1;
-while ($row = mysqli_fetch_array($result)) {
+  <tbody>";
 
-    $returnString .= "<tr>
-    <td class='text-center align-middle' style='padding: 0 5px;'>" . $ix . "</td>
-    <td class='align-middle' style='padding-left: 5px;'>" . $row['businessName'] . "</td>
-    <td class='text-center align-middle'>" . $row['regNumber'] . "</td>
-    <td class='align-middle' style='padding-left: 5px;'>" . $row['make'] . "</td>
-    <td class='align-middle' style='padding-left: 5px;'>" . $row['model'] . "</td>
-    <td class='text-center align-middle'>" . $row['addDescription'] . "</td>   
-    <td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showVehicleForEdit(\"" . $row[0] . "vehicle\")'><svg xmlns='http://www.w3.org/2000/svg' width='12px' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
-  <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
-</svg></btn></td>
-    </tr>";
-    $ix++;
-}
+  $ix = 1;
+  $noRenewalDate = 0;
+
+  while ($row = mysqli_fetch_array($result)) {
+    if (!$row['renewalDate']) {
+      $noRenewalDate++;
+    } else {
+      $returnString .= "
+      <tr>
+        <td class='text-center align-middle' style='padding: 0 5px;'>" . $ix . "</td>
+        <td class='align-middle' style='padding-left: 5px;'>" . $row['businessName'] . "</td>
+        <td class='text-center align-middle'>" . $row['Description'] . "</td>
+        <td class='text-center align-middle' style='padding-left: 5px;' data-sort='" .$row['renewalDate'] ."'>" . date('d/m/Y', strtotime($row['renewalDate'])) . "</td>
+        <td class='align-middle' style='padding-left: 5px;'>" . $row['insurerName'] . "</td>
+        <td class='text-center align-middle'>" . $row['brokerName'] . "</td>   
+      </tr>";
+      $ix++;
+    }
+  }
 } else {
   $returnString .="<p class='text-center'>No results found</p>";
 }
 
+
 $returnString .= "</tbody>
 <tfoot>
-  <tr>
-    <th class='text-center align-middle' style='padding-left: 3px;'>Filter</th>
-    <th class='align-middle' style='padding-left: 3px;'>Customer</th>
-    <th class='text-center align-middle'>Reg Number</th>
-    <th class='align-middle' style='padding-left: 3px;'>Make</th>
-    <th class='align-middle' style='padding-left: 3px;'>Model</th>
-    <th class='text-center align-middle'>Description</th>  
-    <th class='text-center align-middle' style='width:5%'>Filter</th>
-  </tr>
+    <tr>
+        <th class='text-center align-middle' style='padding-left: 3px;'>No.</th>
+        <th class='align-middle' style='padding-left: 3px;'>Customer</th>
+        <th class='text-center align-middle'>Renewal Type</th>
+        <th class='text-center align-middle' style='padding-left: 3px;'>Renewal Date</th>
+        <th class='align-middle' style='padding-left: 3px;'>Insurer</th>
+        <th class='text-center align-middle'>Broker</th>  
+    </tr>
 </tfoot>
 
-</table>
+</table>";
 
+if ($noRenewalDate!=0) {
+  $returnString .="<p style='margin-top: 20px' class='alert alert-info'><small>NOTE: There are " . $noRenewalDate . " customers without a renewal date entered.  These are not shown in this list</small></p>";
+}  
+
+$returnString .="
 </div>
 <script>
  document.getElementById('VRNToLookup').addEventListener('keypress', function (event) {
@@ -163,13 +169,9 @@ $returnString .= "</tbody>
     });
 
     $(document).ready(function() {
-      $('#vehicleListTable').DataTable({
-        columnDefs: [
-          {orderable: false, targets: 6 },
-          {searchable: false, targets: 6 }
-        ],
+      $('#renewalsListTable').DataTable({
         colReorder: true,
-        order: [[0, 'asc']],
+        order: [[3, 'asc']],
         pagingType: 'simple_numbers' ,
         processing: true,
         lengthMenu: [[10,25,50,100,-1], [10, 25,50, 100, 'All']],

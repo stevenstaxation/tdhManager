@@ -39,6 +39,8 @@ $(document).on('click', '#vehicleFilterClicked', function(event) {
     $('#addVehicleErrorBox').html('');
 });
 
+
+
 $(document).on("click", '#showVehicleList', function() {
     var dataToPost = {};
     dataToPost.SQLFilter='';
@@ -257,4 +259,6 @@ function deleteVehicle() {
 
 
 }
+
+
 

@@ -21,8 +21,8 @@ if (!isset($_POST['FilterOtherTerm'])) {
 $returnString = "<div id='hiddenCustomerID' style='display: none'></div><div id='deviceLongList' style = 'margin-top: 50px;margin-bottom: 20px;'><h4><strong>Job Requests</strong></h4></div>";
 
 $returnString .= "<div class='container'>
-<div id='deviceFilter'>
-    <form id='deviceForm' class='filterBox'><div id='deviceFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%'>
+<div id='jobListFilter'>
+    <form id='deviceForm' class='filterBox' style='display: none'><div id='deviceFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%'>
         <div class='form-group'>
           <div class='row'>
             <div class='col-sm-6 col-md-4 col-lg-3' style='padding:5px 15px'>
@@ -121,7 +121,7 @@ $returnString .= "<div class='container'>
     if (mysqli_num_rows($result) !=0) {
       
       $returnString .= "<div id = 'deviceSummary' style='margin-top: 15px;'>
-      <table class='table table-sm table-bordered table-hover w-auto ml-auto mr-auto' style='font-size: 75%'>
+      <table id='jobListTable' class='table table-sm table-bordered table-hover w-auto ml-auto mr-auto' style='font-size: 75%'>
       <thead>
         <tr>
             <th class='text-center align-middle' style='padding:0 3px;'>Date</th>
@@ -168,6 +168,17 @@ $returnString .= "
   } 
 
   $returnString .="</tbody>
+  <tfoot>
+  <tr>
+      <th class='text-center align-middle' style='padding:0 3px;'>Date</th>
+      <th class='align-middle' style='padding:0 3px;'><strong>Fleet</strong></th>
+      <th class='align-middle' style='padding:0 3px;'>Job Type</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>VRN</th>
+      <th class='align-middle' style='padding:0 3px;'>Notes</th>
+      <th class='text-center align-middle' style='padding: 0 3px;'><<</th>
+      <th class='text-center align-middle' style='padding: 0 3px;'>Filter</th>
+  </tr>
+</tfoot>
 
   </table>
 
@@ -179,6 +190,40 @@ $returnString .= "
             event.preventDefault();
         } 
     });
+
+    $(document).ready(function() {
+      $('#jobListTable').DataTable({
+        columnDefs: [
+          {orderable: false, targets: [5,6] },
+          {searchable: false, targets: [5,6] }
+        ],
+        colReorder: true,
+        order: [[0, 'asc']],
+        pagingType: 'simple_numbers' ,
+        processing: true,
+        lengthMenu: [[10,25,50,100,-1], [10, 25,50, 100, 'All']],
+        initComplete: function() {
+          this.api().columns([0,1,2,3,4]).every (function() {
+            var column = this;
+            var select = $('<select><option value=\"\"></option></select>')
+            .appendTo($(column.footer()).empty())
+            .on('change', function() {
+              var val = $.fn.dataTable.util.escapeRegex(
+                $(this).val()
+              );
+
+              column
+                .search(val ? '^'+val+'$' : '', true, false)
+                .draw();
+            });
+  
+            column.data().unique().sort().each(function (d,j) {
+              select.append('<option value=\"'+d+'\">'+d+'</option>')
+            });
+          });
+        }
+      });
+  });
     </script>
 ";
   } else {

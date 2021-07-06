@@ -47,6 +47,7 @@ $returnString .="
 $returnString .="</tbody>
 
 </table>
+
 ";
 } else {
     $returnString = "<div id='overdueRequest' class='container' style='margin-top: 50px;'>
@@ -54,13 +55,14 @@ $returnString .="</tbody>
     $returnString .= "<p>There are no outstanding jobs which are due today or overdue</p>";
 }
 
-$sql = "SELECT tblJobs.date, tblJobs.notes, tblCustomer.businessName, tblVehicle.regNumber, tblJobType.description FROM tblJobs INNER JOIN tblCustomer ON tblJobs.ownerID = tblCustomer.ID INNER JOIN tblJobType ON tblJobType.ID = tblJobs.jobType INNER JOIN tblVehicle ON tblVehicle.ID = tblJobs.VRN  WHERE tblJobs.status='1' AND tblJobs.date >= CURDATE() AND tblJobs.date <= DATE_ADD(NOW(), INTERVAL 30 DAY) ORDER BY date ASC";
+
+$sql = "SELECT tblJobs.date, tblJobs.notes, tblCustomer.businessName, tblVehicle.regNumber, tblJobType.description FROM tblJobs INNER JOIN tblCustomer ON tblJobs.ownerID = tblCustomer.ID INNER JOIN tblJobType ON tblJobType.ID = tblJobs.jobType INNER JOIN tblVehicle ON tblVehicle.ID = tblJobs.VRN  WHERE tblJobs.status='1' AND tblJobs.date >= DATE_ADD(CURDATE(), INTERVAL 1 DAY) AND tblJobs.date <= DATE_ADD(NOW(), INTERVAL 30 DAY) ORDER BY date ASC";
 $result = mysqli_query($link,$sql);
 
 if (mysqli_num_rows($result)>0) {
 
 $returnString .="
-<h4 class='reminderScreen' style='margin-top:50px;>JOBS COMING UP (NEXT 30 DAYS)</h4>
+<h4 class='reminderScreen' style='margin-top:50px;'>JOBS COMING UP (NEXT 30 DAYS)</h4>
 
 <table class='table table-bordered homeTable'>
     <thead>
@@ -131,6 +133,8 @@ $returnString .="</tbody>
     $returnString .="<h4 class='reminderScreen' style='margin-top:50px;'>CUSTOMER REMINDERS (NEXT 30 DAYS)</h4>";
     $returnString .="<p>There are no reminders for the next 30 days</p>";
 }
+
+$returnString .="</div>";
 
 echo $returnString;
 

@@ -93,3 +93,29 @@ body.dark .modal-title {
 
 /* END OF MODAL DIALOGS */
 
+
+
+/* TABLES */
+.table-striped > tbody > tr:nth-child(2n+1) > td, 
+.table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: #f3f3f3;
+ }
+
+ .dataTables_length label, .dataTables_filter label {
+     background-color: #efefef;
+ }
+
+ body.dark .table-striped > tbody > tr:nth-child(2n+1) > td, 
+ body.dark .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: #636363;
+    color: #efefef
+ }
+ body.dark .table-striped > tbody > tr:nth-child(2n) > td, 
+ body.dark .table-striped > tbody > tr:nth-child(2n) > th {
+    background-color: #333333;
+ }
+
+ body.dark .dataTables_length label, 
+ body.dark .dataTables_filter label {
+    background-color: #222222;
+}

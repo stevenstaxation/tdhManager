@@ -147,7 +147,9 @@ function updateEditSupplier() {
     dataToPost.supplierAddress4 = document.getElementById('editSupplierAddress4').value;
     dataToPost.supplierAddress5 = document.getElementById('editSupplierAddress5').value;
     dataToPost.supplierID = document.getElementById('editSupplierHide').value;
-
+    if (!dataToPost.supplierID) {
+        return
+    }
     $.ajax({
         url: 'updateSupplier.php',
         timeout: 30000,

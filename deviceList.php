@@ -22,7 +22,7 @@ $returnString = "<div id='deviceLongList' style = 'margin-top: 50px;margin-botto
 
 $returnString .= "<div class='container'>
 <div id='deviceFilter'>
-    <form id='deviceForm' class='filterBox'>
+    <form id='deviceForm' class='filterBox' style='display: none'>
     <div id='deviceFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%' onSubmit='return false;'>
         <div class='form-group'>
           <div class='row'>
@@ -110,10 +110,10 @@ $returnString .= "<div class='container'>
 
     if (mysqli_num_rows($result)!=0) {
       $returnString .="<div id = 'deviceSummary' style='margin-top: 15px;'>
-      <table class='table table-sm table-bordered table-hover w-auto ml-auto mr-auto' style='font-size: 75%'>
+      <table id='deviceListTable' class='table table-bordered table-hover table-striped'>
       <thead>
         <tr>
-          <th class='align-middle' style='padding:0 3px;'><strong>No.</strong></th>
+          <th class='text-center align-middle' style='padding:0 3px;'><strong>No.</strong></th>
           <th class='align-middle' style='padding:0 3px;'><strong>Owner</strong></th>
           <th class='text-center align-middle' style='padding:0 3px;'>TDH Number</th>
           <th class='text-center align-middle' style='padding:0 3px;'>Reg Number</th>
@@ -155,7 +155,7 @@ $returnString .= "<div class='container'>
       if(date('d/m/Y', strtotime($row['installDate']))=='01/01/1970') {
         $returnString .= "<td class='text-center align-middle' style='padding:0 3px;'>unknown</td>";
       } else {
-        $returnString .= "<td class='text-center align-middle' style='padding:0 3px;'>" . date('d-m-Y', strtotime($row['installDate'])) . "</td>";
+        $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-sort='" .$row['installDate'] ."'>" . date('d/m/Y', strtotime($row['installDate'])) . "</td>";
       }
 
 
@@ -175,6 +175,27 @@ $returnString .= "<div class='container'>
     }
   $returnString .="</tbody>
 
+  <tfoot>
+    <tr>
+      <th class='text-center align-middle' style='padding:0 3px;'><strong>Filter</strong></th>
+      <th class='align-middle' style='padding:0 3px;'><strong>Owner</strong></th>
+      <th class='text-center align-middle' style='padding:0 3px;'>TDH Number</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>Reg Number</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>Type</th>     
+      <th class='text-center align-middle' style='padding:0 3px;'>Serial</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>IMEI</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>DRID Number</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>Status</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>SIM Number</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>SIM Status</th>
+      <th class='align-middle' style='padding:0 3px;'>Config</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>Installer</th>
+      <th class='text-center align-middle' style='padding:0 3px;'>Install Date</th> 
+      <th class='text-center align-middle' style='padding: 0 3px;'><<</th>
+      <th class='text-center align-middle' style='padding: 0 3px;'>Filter</th>
+    </tr>
+  </tfoot>
+
   </table>
 
 </div>
@@ -184,6 +205,40 @@ $returnString .= "<div class='container'>
             event.preventDefault();
         } 
     });
+
+    $(document).ready(function() {
+      $('#deviceListTable').DataTable({
+        columnDefs: [
+          {orderable: false, targets: [14,15] },
+          {searchable: false, targets: [14,15] }
+        ],
+        colReorder: true,
+        order: [[0, 'asc']],
+        pagingType: 'simple_numbers' ,
+        processing: true,
+        lengthMenu: [[10,25,50,100,-1], [10, 25,50, 100, 'All']],
+        initComplete: function() {
+          this.api().columns([1,2,3,4,5,6,7,8,9,10,11,12,13]).every (function() {
+            var column = this;
+            var select = $('<select><option value=\"\"></option></select>')
+            .appendTo($(column.footer()).empty())
+            .on('change', function() {
+              var val = $.fn.dataTable.util.escapeRegex(
+                $(this).val()
+              );
+
+              column
+                .search(val ? '^'+val+'$' : '', true, false)
+                .draw();
+            });
+  
+            column.data().unique().sort().each(function (d,j) {
+              select.append('<option value=\"'+d+'\">'+d+'</option>')
+            });
+          });
+        }
+      });
+  });
     </script>
 ";
 

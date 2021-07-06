@@ -157,7 +157,9 @@ function updateEditBroker() {
     dataToPost.brokerAddress4 = document.getElementById('editBrokerAddress4').value;
     dataToPost.brokerAddress5 = document.getElementById('editBrokerAddress5').value;
     dataToPost.brokerID = document.getElementById('editBrokerHide').value;
-
+    if (!dataToPost.brokerID) {
+        return
+    }
     $.ajax({
         url: 'updateBroker.php',
         timeout: 30000,

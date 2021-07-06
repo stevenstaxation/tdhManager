@@ -23,7 +23,7 @@ $errors = "";
 // Empty is allowed for all but supplier name
 
 if (strlen($supplierName)==0) {
-    $errors .= "You must enter an supplier name<br>";
+    $errors .= "You must enter a supplier name<br>";
 }
 
 if (!(checkPostcode($supplierAddress5)) && $supplierAddress5 != "") {
