@@ -17,7 +17,7 @@ if (!isset($_POST['FilterVRN'])) {
 if (!isset($_POST['FilterTDHNumber'])) {
   $_POST['FilterTDHNumber'] = '';
 }
-$returnString = "<div id='alertLogList' style = 'margin-top: 50px;margin-bottom: 20px;'><h4><strong>Renewals</strong></h4></div>";
+$returnString = "<div id='alertLogList' class='listHeader'><h4><strong>Renewals</strong></h4></div>";
 
 $returnString .= "<div class='container'>
 <div id='renewalFilter'>
@@ -91,7 +91,7 @@ $returnString .= "
 
 ";
 
-$sql = 'SELECT tblCustomer.businessName, tblCustomer.renewalDate, tblrenewalType.Description, tblInsurer.insurerName, tblBroker.brokerName FROM tblCustomer LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblinsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.brokerName';
+$sql = 'SELECT tblCustomer.businessName, tblCustomer.renewalDate, tblrenewalType.Description, tblInsurer.insurerName FROM tblCustomer LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblinsurer.ID';
 
 if ($sqlFILTER) {
     $sql .= $sqlFILTER;
@@ -102,16 +102,15 @@ $result = mysqli_query($link, $sql);
 
 if (mysqli_num_rows($result)!=0) {
 
-  $returnString .="<div id = 'renewalSummary' style='margin-top: 15px;'>
-  <table id='renewalsListTable' class='table table-bordered table-hover table-striped'>
+  $returnString .="<div id = 'renewalSummary' class='w-auto ml-auto mr-auto' style='margin-top: 15px;'>
+  <table id='renewalsListTable' class='table cell-border compact'>
   <thead>
     <tr>
-      <th class='text-center align-middle' style='padding-left: 3px;'>No.</th>
-      <th class='align-middle' style='padding-left: 3px;'>Customer</th>
+      <th class='text-center align-middle'>No.</th>
+      <th class='text-center align-middle'>Customer</th>
       <th class='text-center align-middle'>Renewal Type</th>
-      <th class='text-center align-middle' style='padding-left: 3px;'>Renewal Date</th>
-      <th class='align-middle' style='padding-left: 3px;'>Insurer</th>
-      <th class='text-center align-middle'>Broker</th>  
+      <th class='text-center align-middle'>Renewal Date</th>
+      <th class='text-centeralign-middle'>Insurer</th>
     </tr>
   </thead>
 
@@ -126,12 +125,11 @@ if (mysqli_num_rows($result)!=0) {
     } else {
       $returnString .= "
       <tr>
-        <td class='text-center align-middle' style='padding: 0 5px;'>" . $ix . "</td>
-        <td class='align-middle' style='padding-left: 5px;'>" . $row['businessName'] . "</td>
-        <td class='text-center align-middle'>" . $row['Description'] . "</td>
-        <td class='text-center align-middle' style='padding-left: 5px;' data-sort='" .$row['renewalDate'] ."'>" . date('d/m/Y', strtotime($row['renewalDate'])) . "</td>
-        <td class='align-middle' style='padding-left: 5px;'>" . $row['insurerName'] . "</td>
-        <td class='text-center align-middle'>" . $row['brokerName'] . "</td>   
+        <td class='text-right align-middle' style='padding-right: 20px;'>" . $ix . "</td>
+        <td class='align-middle' style='padding-left: 3px;padding-right:3px'>" . $row['businessName'] . "</td>
+        <td class='align-middle' style='padding-left: 3px;padding-right:3px'>" . $row['Description'] . "</td>
+        <td class='text-center align-middle' style='padding-left: 3px;padding-right:3px' data-sort='" .$row['renewalDate'] ."'>" . date('d/m/Y', strtotime($row['renewalDate'])) . "</td>
+        <td class='align-middle' style='padding-left: 3px;padding-right:3px' >" . $row['insurerName'] . "</td>
       </tr>";
       $ix++;
     }
@@ -144,19 +142,18 @@ if (mysqli_num_rows($result)!=0) {
 $returnString .= "</tbody>
 <tfoot>
     <tr>
-        <th class='text-center align-middle' style='padding-left: 3px;'>No.</th>
-        <th class='align-middle' style='padding-left: 3px;'>Customer</th>
+        <th class='text-center align-middle'>No.</th>
+        <th class='text-center align-middle'>Customer</th>
         <th class='text-center align-middle'>Renewal Type</th>
-        <th class='text-center align-middle' style='padding-left: 3px;'>Renewal Date</th>
-        <th class='align-middle' style='padding-left: 3px;'>Insurer</th>
-        <th class='text-center align-middle'>Broker</th>  
+        <th class='text-center align-middle'>Renewal Date</th>
+        <th class='text-center align-middle'>Insurer</th>
     </tr>
 </tfoot>
 
 </table>";
 
 if ($noRenewalDate!=0) {
-  $returnString .="<p style='margin-top: 20px' class='alert alert-info'><small>NOTE: There are " . $noRenewalDate . " customers without a renewal date entered.  These are not shown in this list</small></p>";
+  $returnString .="<p style='margin-top: 20px' class='alert alert-info listNoteInfo'><small>NOTE: There are " . $noRenewalDate . " customers without a renewal date entered.  These are not shown in this list</small></p>";
 }  
 
 $returnString .="
@@ -170,16 +167,24 @@ $returnString .="
 
     $(document).ready(function() {
       $('#renewalsListTable').DataTable({
-        colReorder: true,
         order: [[3, 'asc']],
-        pagingType: 'simple_numbers' ,
         processing: true,
-        lengthMenu: [[10,25,50,100,-1], [10, 25,50, 100, 'All']],
+        paging: false,
+        dom: '<\"top\"iflp>rt<\"bottom\"><\"clear\">',
+        rowCallback: function(row, data, dataIndex) {
+          if ($('body').hasClass('dark')) {
+            $(row).css('background-color', 'rgba(68,68,68,1)')
+                  .css('color', 'white');
+          } else {
+            $(row).css('background-color', 'rgba(255,255,255,1)')
+                  .css('color', 'rgba(68,68,68,1)');
+        }
+      },
         initComplete: function() {
-          this.api().columns([1,2,3,4,5]).every (function() {
+          this.api().columns([1,2,3,4]).every (function() {
             var column = this;
-            var select = $('<select><option value=\"\"></option></select>')
-            .appendTo($(column.footer()).empty())
+            var select = $('<br><select><option value=\"\"></option></select>')
+            .appendTo($(column.header()))
             .on('change', function() {
               var val = $.fn.dataTable.util.escapeRegex(
                 $(this).val()

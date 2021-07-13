@@ -89,7 +89,6 @@ function editOtherContact(rowNumber) {
         type: 'POST',
         success: function(data) {
             var arr = data.split("^^^");
-            console.log(arr);
             document.getElementById('editOtherContactFirstName').value = arr[1];
             document.getElementById('editOtherContactLastName').value = arr[2];
             document.getElementById('editOtherContactMobile').value = arr[3];

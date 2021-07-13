@@ -7,23 +7,68 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 
 $regNumber = $_POST['regNumber'];
-$make = $_POST['make'];
-$model = $_POST['model'];
-$addDescription = $_POST['addDescription'];
-$customerID = $_POST['allocateTo'];
+// $make = $_POST['make'];
+// $model = $_POST['model'];
+// $addDescription = $_POST['addDescription'];
+$cameraRequired = $_POST['required'];
+if ($cameraRequired == 'true') {
+    $cameraRequired = 1;
+} else {
+    $cameraRequired = 0;
+}
+$installationStatus = $_POST['installation'];
+$installationDate = $_POST['installationDate'];
+$vehicleNotes = $_POST['vehicleNotes'];
+$customerID = $_SESSION['currentCustomer'];
+
+$errors="";
+
+// must include reg number
+if (!$regNumber || $regNumber=='') {
+    $errors .= "<p>You should enter the vehicle registration number</p>";
+}
+
+
+// VRN should have no spaces and be upper case
+$regNumber = strtoupper($regNumber);
+$regNumber = str_replace(" ",'', $regNumber);
+
+
 
 
 // does the vehicle already exist?
-$sql = "SELECT tblVehicle.regNumber, tblCustomer.businessName FROM tblVehicle INNER JOIN tblCustomer ON tblVehicle.ownerID=tblCustomer.ID WHERE regNumber='$regNumber'";
+$sql = "SELECT tblVehicle.regNumber, tblCustomer.businessName FROM tblVehicle LEFT JOIN tblCustomer ON tblCustomer.ID=tblVehicle.ownerID WHERE regNumber='$regNumber'";
 $result = mysqli_query($link, $sql);
 
 if (mysqli_num_rows($result)!=0) {
-    $row= mysqli_fetch_array($result);
+    $row= mysqli_fetch_array($result, MYSQLI_ASSOC);
     echo "<div class='alert alert-danger'>That registration already exists and is allocated to " . $row['businessName'] . "</div>";
     exit();
 }
 
-$sql = "INSERT INTO tblVehicle (make, model, addDescription, regNumber, ownerID) VALUES ('$make', '$model', '$addDescription', '$regNumber', '$customerID')";
+// if installation is not applicable or camera required = no, we do not need an install date
+if ($installationStatus !='not applicable' && $cameraRequired) {
+    if (!$installationDate) {
+        $errors .="<p>You should enter the install date</p>";
+    }
+}
+
+if ($errors) {
+    echo "<div class='alert alert-danger'>" .$errors . "</div>";
+    exit();
+}
+
+
+if ($installationStatus=='installed') {
+    $vehicleStatus = 2;
+} else if($installationStatus=='pending') {
+    $vehicleStatus = 1;
+} else {
+    $vehicleStatus = 0;
+}
+
+$sql = "INSERT INTO tblVehicle (regNumber, ownerID, vehicleStatus, installDate, vehicleNotes, cameraRequired) VALUES ( '$regNumber', '$customerID', '$vehicleStatus', NULLIF('$installationDate',''), '$vehicleNotes', '$cameraRequired')";
+
 $result = mysqli_query($link, $sql);
 
 if (!$result) {

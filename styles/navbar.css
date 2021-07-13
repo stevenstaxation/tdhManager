@@ -160,9 +160,9 @@ body.dark{
     color: #eeeeee;
     background-color: #222222;
    }
-body.dark strong{
+/* body.dark strong{
     color:#eeeeee;
-   }
+   } */
 body.dark h1 span{
        transition-delay: 0ms !important;
    }

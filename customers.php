@@ -14,12 +14,22 @@ $notRenewable = $_SESSION['renewalColor'];
 $returnString = "";
 if (isset($_POST['selectedValue'])) {
     $_SESSION['currentCustomer'] = $_POST['selectedValue'];
-}
-
+} 
 
 $sql= "SELECT * FROM tblCustomer LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblInsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.ID  LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID WHERE tblCustomer.ID='" . $_SESSION['currentCustomer'] . "'";
 
 $result = mysqli_query($link, $sql);
+
+if($result) {
+if (mysqli_num_rows($result)==0) {
+    $sql= "SELECT * FROM tblCustomer LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblInsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.ID  LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID LIMIT 1";
+    $result = mysqli_query($link, $sql);
+    $getTop = mysqli_fetch_array($result);
+    $_SESSION['currentCustomer'] = $getTop['ID'];
+}
+} else {
+    exit();
+}
 
 if (mysqli_num_rows($result)==0) {
     echo $returnString;
@@ -34,6 +44,7 @@ if (mysqli_num_rows($result)==1) {
     $row = mysqli_fetch_array($result);
 }
 
+$dateNow = new DateTime();
 $dateNow = new DateTime();
 $renewalDate = new DateTime($row['renewalDate']);
 $daysToRenewal = $dateNow->diff($renewalDate)->format('%r%a');
@@ -394,7 +405,7 @@ $returnString = "
 
 <div class='col-lg-6 col-xl-4'>
 <form id='deviceForm'>
-<div id='showAccountInfo' class='settings-dialog'>
+<div id='showAccountInfo' class='settings-dialog customerTable'>
     <h6><strong style='margin-top:10px;'>DEVICES</strong></h6>
     <div id='errorBox'></div>";
 
@@ -425,10 +436,12 @@ $returnString = "
             $returnString = $returnString . "
         </div><br>";
 
-        $returnString = $returnString. "
+        $returnString .= "
         <div class='scrollBox' style='max-height: 30vh; overflow: auto;'>
-            <table class='table table-sm table-bordered table-hover' id='devicesTable' style='table-layout: fixed;'>
-                <thead>
+            <table id='devicesTable' style='table-layout:fixed;' class='table cell-border compact'>";
+
+            // <table class='table table-sm table-bordered table-hover' id='devicesTable' style='table-layout: fixed;'>
+            $returnString .="    <thead>
                     <tr>
                         <th class='text-center align-middle' style='width:8%; padding 0 3px;'>No</th>
                         <th class='text-center align-middle'>VRN</th>
@@ -440,7 +453,7 @@ $returnString = "
                 </thead>
                 <tbody>";
 
-                    $sql = "SELECT * FROM tblDevice INNER JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID INNER JOIN tblDeviceDescription ON tblDevice.deviceDescriptionID = tbldeviceDescription.ID WHERE tblDevice.ownerID='" . $_SESSION['currentCustomer'] . "' ORDER BY tblVehicle.regNumber ASC";
+                    $sql = "SELECT * FROM tblDevice LEFT JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID LEFT JOIN tblDeviceDescription ON tblDevice.deviceDescriptionID = tbldeviceDescription.ID WHERE tblDevice.ownerID='" . $_SESSION['currentCustomer'] . "' ORDER BY tblVehicle.regNumber ASC";
                     $deviceResult = mysqli_query($link, $sql);
                     $ix= 1;
                     while ($row=mysqli_fetch_array($deviceResult)) {
@@ -465,15 +478,36 @@ $returnString = "
             fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
             <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z' />
             </svg> New Device </btn>
-            <btn class='btn btn-primary btn-sm' style='margin: 0 10px'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'>
-            <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z' />
-            </svg> Search </btn>
         </div>
 </div>
 </form>
+<script>
+$(document).ready(function() {
+    $('#devicesTable').DataTable({
+      columnDefs: [
+        {orderable: false, targets: [5] },
+        {searchable: false, targets: [5] }
+      ],
+      order: [[0, 'asc']],
+      processing: true,
+      paging: false,
+      dom: '<\"top\"iflp>rt<\"bottom\"><\"clear\">',
+      rowCallback: function(row, data, dataIndex) {
+        if ($('body').hasClass('dark')) {
+          $(row).css('background-color', 'rgba(68,68,68,1)')
+                .css('color', 'white');
+        } else {
+          $(row).css('background-color', 'rgba(255,255,255,1)')
+                .css('color', 'rgba(68,68,68,1)');
+      }
+    }
+    });
+});
+</script>
+
 
 <form id='vehicleForm'>
-<div id='showAccountInfo' class='settings-dialog'>";
+<div id='showAccountInfo' class='settings-dialog customerTable'>";
 
 $sql = "SELECT * FROM tblVehicle WHERE tblVehicle.ownerID='" . $_SESSION['currentCustomer'] . "' ORDER BY tblVehicle.regNumber ASC";
 $deviceResult = mysqli_query($link, $sql);
@@ -483,7 +517,7 @@ $returnString .="
     <div id='DeviceStats' style='font-size:120%'>Total Vehicles: " . $vehicles_NUMBEROF . "</div> 
     <div id='errorBox'></div>
      <div class='scrollBox' style='max-height: 30vh; overflow: auto;'>
-            <table class='table table-sm table-bordered table-hover' id='vehiclesTable' style='table-layout: fixed;'>
+            <table class='table cell-border compact' id='vehiclesTable' style='table-layout: fixed;'>
                 <thead>
                     <tr>
                         <th class='text-center align-middle' style='width:8%; padding 0 3px;'>No</th>
@@ -519,13 +553,33 @@ $returnString .="
             fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
             <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z' />
             </svg> New Vehicle </btn>
-            <btn class='btn btn-primary btn-sm' style='margin: 0 10px'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'>
-            <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z' />
-            </svg> Search </btn>
         </div>
         </div>
     </form>
 
+    <script>
+    $(document).ready(function() {
+    $('#vehiclesTable').DataTable({
+      columnDefs: [
+        {orderable: false, targets: [5] },
+        {searchable: false, targets: [5] }
+      ],
+      order: [[0, 'asc']],
+      processing: true,
+      paging: false,
+      dom: '<\"top\"iflp>rt<\"bottom\"><\"clear\">',
+      rowCallback: function(row, data, dataIndex) {
+        if ($('body').hasClass('dark')) {
+          $(row).css('background-color', 'rgba(68,68,68,1)')
+                .css('color', 'white');
+        } else {
+          $(row).css('background-color', 'rgba(255,255,255,1)')
+                .css('color', 'rgba(68,68,68,1)');
+      }
+    }
+    });
+});
+</script>   
 
     
 

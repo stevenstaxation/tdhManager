@@ -95,6 +95,17 @@ label {
     line-height: 1;
 }
 
+.listHeader {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color:#0078bd;
+}
+
+body.dark .listHeader {
+    color:#83cbf1;
+    
+}
+
 /* #showAccountInfo label, #showAccountInfo input {
     line-height: 1;
 } */
@@ -108,7 +119,7 @@ table {
     background-color: #f8f8f8;
 }
 
-thead {
+thead, tfoot {
     background-color: #d0e0f0;
     color: #444444;
 }
@@ -118,10 +129,18 @@ tbody {
     color: #444444;
 }
 
-table.table-bordered > thead > tr > th {
+table.table-bordered > thead > tr > th 
+{
     border: 1px solid #aaaaaa;
-    padding: 0;
+    padding: 8px 3px;
 }
+
+table.table-bordered > tfoot > tr > th 
+{
+    border: 1px solid #aaaaaa;
+    padding: 3px 3px;
+}
+
 table.table-bordered > tbody > tr > td {
     border: 1px solid #aaaaaa;
     padding: 1px 0;
@@ -185,15 +204,11 @@ body.dark table {
     background-color: #666666;
 }
 
-body.dark thead {
+body.dark thead, body.dark tfoot  {
     background-color: #666666;
     color: #efefef;
 }
 
-body.dark tbody {
-    background-color: #444444;
-    color: #efefef;
-}
 
 body.dark input[type=text]:hover,
 body.dark input[type=email]:hover,
@@ -209,9 +224,11 @@ body.dark input[type=password]:focus  {
     
 }
 
-body.dark table.table-bordered > thead > tr > th {
+body.dark table.table-bordered > thead > tr > th,
+body.dark table.table-bordered > tfoot > tr > th {
     border: 1px solid #888888;
 }
+
 body.dark table.table-bordered > tbody > tr > td {
     border: 1px solid #888888;
 }
@@ -260,6 +277,8 @@ body.dark .reminderScreen {
     display: block;
 }
 
+div.container { max-width: 1200px }
+
 
 
 
@@ -295,7 +314,7 @@ body.dark .reminderScreen {
         font-size: 14px;
     }
     .table td, .table th {
-        font-size: 12px;
+        font-size: 10px;
     }
 
 }
@@ -306,7 +325,7 @@ body.dark .reminderScreen {
         font-size: 15px;
     }
     .table td, .table th {
-        font-size: 13px;
+        font-size: 8px;
     }
     .navbar{
         font-size: 11px;
@@ -319,7 +338,7 @@ body.dark .reminderScreen {
         font-size: 16px;
     }
     .table td, .table th {
-        font-size: 13px;
+        font-size: 10px;
     }
 }
 

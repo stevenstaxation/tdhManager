@@ -25,11 +25,6 @@ $(document).on('click', '#showSuppliers', function () {
 
 
 
-// $('#modalAddNewSupplier').on('hidden.bs.modal', function () {
-//     $(this).find('form').trigger('reset');
-//     console.log ('reset')
-// });
-
 $('#modalAddNewSupplier').on('shown.bs.modal', function () {
     $(this).find('form').trigger('reset');
    
@@ -72,8 +67,7 @@ function addNewSupplier() {
                 var getID = getIDs.split("/");
                 var newID = getID[0];
                 var newSupplierID = getID[1].trim();
-                console.log(newSupplierID);
-                
+                       
                 $('#supplierMessage').show();
                     $.ajax({
                         url: "supplierList.php",

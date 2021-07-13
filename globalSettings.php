@@ -187,7 +187,96 @@ $returnString .="</select>
         </div>
         <div id='jobTypeErrorBox'></div>
     </div>
-</div>";
+</div>
+
+<div class='col-md-6 col-lg-4 col-xl-3'>
+
+    <div id='healthcheckStatusList' class='settings-dialog'>
+                <h6>
+                    <strong style='margin-top:10px;'>Healthcheck Status Descriptions</strong>
+                </h6>";
+         
+                    $sql = 'SELECT * FROM tblHealthStatus ORDER BY Description ASC';
+                    $result = mysqli_query($link,$sql);
+
+                    $returnString .= "<select name='healthStatusList' id='healthStatusList' size='8' style='width:100%;'>";
+                    while ($row = mysqli_fetch_array($result)) {
+                        $returnString .= "<option value='" . $row['ID'] . "'>" . $row['Description'] . "</option>";
+                    }
+                    $returnString .="</select>
+
+        <hr color=#3276B1>
+        <div class='input-group flex'>
+            <input type='text' id='textAddOrUpdateHealthcheckType' style='width:100%' placeholder='Healthcheck status...'>
+        </div>
+   
+        <div class='btn-group' style='display : flex; margin: 5px;'>
+            <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdateHealthcheckType' data-toggle='modal' data-target='#modalAddNewHealthcheckType' disabled>Add</button>
+            <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdateHealthcheckType'>Cancel</button>
+            <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deleteHealthcheckType' disabled>Delete</button>
+        </div>
+        <div id='healthcheckTypeErrorBox'></div>
+    </div>
+</div>
+
+<div class='col-md-6 col-lg-4 col-xl-3'>
+
+    <div id='defaultItemsList' class='settings-dialog'>
+                <h6>
+                    <strong style='margin-top:10px;'>Defaults</strong>
+                </h6>  
+                <div style='display: flex; align-items: center'>     
+                    <label for='selectDefaultInstaller' style='margin-top:7px; padding-right: 20px;'>Installer</label>
+                    <select id='selectDefaultInstaller' name='selectDefaultInstaller' class='custom-select selectDefaultInstaller' style='margin-top:3px;'>";
+                                                        
+                        $sql = "SELECT defaultInstaller FROM tblGlobals LIMIT 1";
+                        $result = mysqli_query($link, $sql);
+                        $row = mysqli_fetch_array($result);
+                        $DEFAULT_INSTALLER = $row['defaultInstaller'];
+
+                        $sql = "SELECT * FROM tblInstaller ORDER BY installerName ASC";
+                        $result = mysqli_query($link,$sql);
+                        while ($SIMRow = mysqli_fetch_array($result)) {
+                            if ($SIMRow['ID']==$DEFAULT_INSTALLER) {
+                                $returnString .= "<option selected='selected' value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";  
+                            } else {
+                                $returnString .= "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";
+                            }
+                        }
+                    
+    $returnString .=" </select>
+                </div>
+                    
+                <div style='display: flex; align-items: center'>   
+                    <label for='selectDefaultSupplier' style='margin-top:15px; padding-right: 20px;'>Supplier</label>
+                    <select id='selectDefaultSupplier' name='selectDefaultSupplier' class='custom-select selectDefaultSupplier' style='margin-top:3px;'>";
+                                        
+                        $sql = "SELECT defaultSupplier FROM tblGlobals LIMIT 1";
+                        $result = mysqli_query($link, $sql);
+                        $row = mysqli_fetch_array($result);
+                        $DEFAULT_SUPPLIER = $row['defaultSupplier'];
+
+                        $sql = "SELECT * FROM tblSupplier ORDER BY supplierName ASC";
+                        $result = mysqli_query($link,$sql);
+                        while ($SIMRow = mysqli_fetch_array($result)) {
+                            if ($SIMRow['ID']==$DEFAULT_SUPPLIER) {
+                                $returnString .= "<option selected='selected' value = " . $SIMRow['ID'] . ">" . $SIMRow['supplierName'] . "</option>";  
+                            } else {
+                                $returnString .= "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['supplierName'] . "</option>";
+                            }
+                        }
+    
+$returnString .=" </select>    
+                </div>
+                <div class='col text-center'>
+                    <button class='btn btn-sm btn-success' style='margin-top: 15px;border-radius: 15px;' id='updateDefaults'>Update Defaults</button>
+                </div>        
+    </div>
+</div>
+
+
+
+";
 
 
   if ($_SESSION['isAdmin']== '1') {

@@ -117,6 +117,7 @@ if ($errors) {
     exit();
 }
 
+
 $newCustomerName = mysqli_real_escape_string($link,filter_var($newCustomerName, FILTER_SANITIZE_STRING));
 $newCustomerAddress1 = mysqli_real_escape_string($link,filter_var($newCustomerAddress1, FILTER_SANITIZE_STRING));
 $newCustomerAddress2 = mysqli_real_escape_string($link,filter_var($newCustomerAddress2, FILTER_SANITIZE_STRING));
@@ -127,6 +128,7 @@ $newCustomerPhone = mysqli_real_escape_string($link,filter_var($newCustomerPhone
 // $newCustomerRegNo = mysqli_real_escape_string($link,filter_var($newCustomerRegNo, FILTER_SANITIZE_STRING));
 // $newCustomerVATRegNo = mysqli_real_escape_string($link,filter_var($newCustomerVATRegNo, FILTER_SANITIZE_STRING));
 $newCustomerEmail = mysqli_real_escape_string($link,filter_var($newCustomerEmail, FILTER_SANITIZE_EMAIL));
+$newCustomerName = str_replace("'","''", $newCustomerName);
 
  $sql = "INSERT INTO tblCustomer (businessName, custAddressLine1, custAddressLine2, custAddressLine3, custAddressLine4, custAddressLine5, businessPhone, businessEmail, insurerID, renewalType, renewalDate,  brokerID) VALUES ('$newCustomerName','$newCustomerAddress1', '$newCustomerAddress2', '$newCustomerAddress3', '$newCustomerAddress4', '$newCustomerAddress5', '$newCustomerPhone', '$newCustomerEmail', NULLIF('$newCustomerInsurerID',''),NULL, NULL, NULLIF('$newCustomerBrokerID',''))";
 

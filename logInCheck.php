@@ -60,8 +60,7 @@ if ($errors) {
         $_SESSION['darkMode'] = $row['darkmode'];
         $_SESSION['userID'] = $row['userID'];
         $_SESSION['isAdmin'] = $row['isAdmin'];
-        // $_SESSION['darkmode'] = $row['darkmode'];
-
+       
         $_SESSION['Alerts'] = getAlerts($link);
 
         $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Successful log in', '" . $row['userID']. "')";

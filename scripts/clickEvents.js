@@ -44,14 +44,16 @@ $(document).on('click', '#inviteNewUserEmail', function (event) {
 });
 
 // TOGGLE DARK MODE
+
     $(document).on('click', '#companyLogo', function () {
         $.ajax({
             url: 'toggleDarkMode.php',
             type: 'POST',
             success: function (data) {
                 if (data.includes('success')) {
-                    setDarkMode();
-                }
+                    var DM = data.replace("success","");
+                    setDarkMode(DM);
+                } 
             }
         });
     });

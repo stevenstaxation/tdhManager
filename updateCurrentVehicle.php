@@ -8,17 +8,32 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 
 $regNumber = $_POST['regNumber'];
-$make = $_POST['make'];
-$model = $_POST['model'];
-$addDescription = $_POST['addDescription'];
 $vehicleID = $_POST['vehicleID'];
+$required = $_POST['required'];
+$vehicleStatus = $_POST['vehicleStatus'];
+$installDate = $_POST['installDate'];
+$vehicleNotes = $_POST['vehicleNotes'];
 
 $errors = "";
 
 if ($regNumber == '' || $regNumber == NULL) {
-  $errors = 'You must include a VRN to identify the vehicle';
+  $errors .= 'You must include a VRN to identify the vehicle';
 }
 
+$regNumber = strtoupper($regNumber);
+$regNumber = str_replace(' ','',$regNumber);
+
+if ($required=='true') {
+  $required = '1';
+} else {
+  $required = '0';
+}
+
+if ($required=='1' && $vehicleStatus>0) {
+  if (!$installDate) {
+    $errors .="You should enter an installation date";
+  }
+}
 
 if ($errors) {
     $resultMessage = "<div class='alert alert-danger'>" . $errors . "</div>";
@@ -30,7 +45,7 @@ if ($errors) {
 
 
 
-$sql = "UPDATE tblVehicle SET make='$make', model='$model', addDescription='$addDescription',
+$sql = "UPDATE tblVehicle SET cameraRequired='$required', vehicleNotes='$vehicleNotes', installDate=NULLIF('$installDate',''), vehicleStatus='$vehicleStatus',
 regNumber='$regNumber' WHERE ID = '$vehicleID'";
 
 

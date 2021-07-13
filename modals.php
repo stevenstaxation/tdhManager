@@ -292,10 +292,19 @@
                                 <div class='input-group'>
                                     <select id='addDeviceInstaller' name='addDeviceInstaller' class='custom-select addDeviceInstaller' style='margin-top:3px;'>
                                         <?php
+                                            $sql = "SELECT defaultInstaller FROM tblGlobals LIMIT 1";
+                                            $result = mysqli_query($link, $sql);
+                                            $row = mysqli_fetch_array($result);
+                                            $DEFAULT_INSTALLER = $row['defaultInstaller'];
+
                                             $sql = "SELECT * FROM tblInstaller ORDER BY installerName ASC";
                                             $result = mysqli_query($link,$sql);
                                             while ($SIMRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";
+                                                if ($SIMRow['ID']==$DEFAULT_INSTALLER) {
+                                                    echo "<option selected='selected' value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";  
+                                                } else {
+                                                    echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";
+                                                }
                                             }
                                         ?>
                                     </select>
@@ -329,10 +338,19 @@
                                 <div class='input-group'>
                                     <select id='addDeviceSupplierList' name='addDeviceSupplierList' class='custom-select addDeviceSupplierList' style='margin-top:3px;'>
                                         <?php
+                                            $sql = "SELECT defaultSupplier FROM tblGlobals LIMIT 1";
+                                            $result = mysqli_query($link, $sql);
+                                            $row = mysqli_fetch_array($result);
+                                            $DEFAULT_SUPPLIER = $row['defaultSupplier'];
+
                                             $sql = "SELECT * FROM tblSupplier ORDER BY supplierName ASC";
                                             $result = mysqli_query($link,$sql);
                                             while ($SIMRow = mysqli_fetch_array($result)) {
+                                                if ($SIMRow['ID']==$DEFAULT_SUPPLIER) {
+                                                 echo "<option value = " . $SIMRow['ID'] . " selected>" . $SIMRow['supplierName'] . "</option>";
+                                                } else {
                                                  echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['supplierName'] . "</option>";
+                                                }
                                             }
                                         ?>
                                     </select>
@@ -533,7 +551,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-md-6'></div>
+                            <!-- <div class='col-md-6'></div>
                             <div class='col-md-2'>
                                 <label class='control-label' for='editVehicleDescription' style='padding-top:14px;'><strong>Description</strong></label>
                             </div>
@@ -541,7 +559,7 @@
                                 <div class='input-group'>
                                     <input type='text' class='form-control' readonly='readonly' id='editVehicleDescription' style='margin-top:3px; font-size: 88%'>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class='row'>
                             <div class='col-md-2'>
@@ -684,7 +702,7 @@
     </div>
 
 </div>
-<!-- ----------------------------------------END OF DEVICE DIALOGS---------------------------------------- -->
+
 <!-- EDIT DEVICE NOTES DIALOG -->
 <div class="modal" id="modalEditDeviceNotes" data-backdrop='static'>
     <div class="modal-dialog" style='max-width:66%'>
@@ -726,7 +744,45 @@
 
 </div>
 <!-- ----------------------------------------END OF DEVICE DIALOGS---------------------------------------- -->
+<div class="modal" id="modalEditVehicleNotes" data-backdrop='static'>
+    <div class="modal-dialog" style='max-width:66%'>
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Vehicle Notes</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body" style='font-size: 75%'>
+                <form method='POST' id='getEditVehicleNotes' class='getEditVehicleNotes' class='form-block'>
+                    <div class='form-group'>
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <div class='input-group'>
+                                    <textarea rows='10' cols='40' class='form-control' placeholder='Enter note text (max 1,024 characters)...' id='editVehicleNotesText' style='margin-top:3px;'></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div id='editVehicleNotesMessage'></div>
+                </form>
 
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id='hiddenVehicleNotesID' style='display: none'></div>
+                <div id='editVehicleNotesID' style='display: none'></div>
+                <div id='editVehicleCustomerID' style='display: none'></div>
+                <button type="button" id='editCurrentVehicleNotes' onclick='editCurrentVehicleNotes()' class="btn btn-success">Update</button>
+
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 
 
@@ -2491,27 +2547,75 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" style='font-size: 75%'>
-              <form method='POST' id='getAddVehicle' class='getAddVehicle' class='form-block'>
-                <div class='row'>
-                  <div class='col-md-5 col-lg-4'>
-                      <label class='control-label' for='addVehicleRegNumber' style='padding-top:9px;'><strong>Registration Number</strong></label>
-                  </div>
-                  <div class='col-md-7 col-lg-6'>
-                      <div class='input-group'>
-                          <input type='text' class='form-control' maxlength='14' placeholder="VRN..." id='addVehicleRegNumber' style='margin-top:1px;'>
-                          <button type='button' class='btn btn-sm btn-info' id='findVehicleRegNumber'>Find</button>
-                      </div>
-                  </div>
-                    <div class='col-md-5 col-lg-4'></div>
-                        <div class='col-md-7 vol-lg-6'>
-                            <div class="progress" id='lookUpProgress' style='width:85%; height: 15px; visibility: hidden;'>
-                                <div class="progress-bar progress-bar-animated progress-bar-striped bg-info" style='width:100%' role="progressbar">searching...</div>
+                <form method='POST' id='getAddVehicle' class='getAddVehicle' class='form-block'>
+                    <div class='row'>
+                        <div class='col-md-5 col-lg-4'>
+                            <label class='control-label' for='addVehicleRegNumber' style='padding-top:9px;'><strong>Registration Number</strong></label>
+                        </div>
+                        <div class='col-md-7 col-lg-6'>
+                            <div class='input-group'>
+                                <input type='text' class='form-control' maxlength='14' placeholder="VRN..." id='addVehicleRegNumber' style='margin-top:1px;'>
+                                <!-- <button type='button' class='btn btn-sm btn-info' id='findVehicleRegNumber'>Find</button> -->
                             </div>
                         </div>
+                    <!-- <div class='col-md-5 col-lg-4'></div>
+                            <div class='col-md-7 vol-lg-6'>
+                                <div class="progress" id='lookUpProgress' style='width:85%; height: 15px; visibility: hidden;'>
+                                    <div class="progress-bar progress-bar-animated progress-bar-striped bg-info" style='width:100%' role="progressbar">searching...</div>
+                                </div>
+                            </div>
+                        </div> -->
+                           <p/>   
+                  </div>               
+                <hr>
+                <div class='row'>
+                    <div class='col-md-5 col-lg-4'>
+                        <label class='control-label'><strong>Camera is required?</strong></label>
+                    </div>
+                    <div class='col-md-7 col-lg-6' style='font-size:125%'>
+                        <div class='form-check-inline'>
+                            <input type='radio' class='form-check-input'id='vehicleCameraYes' name='cameraRequired' checked>
+                            <label class='form-check-label' for='vehicleCameraYes' style='margin-right: 60px'>Yes</label>
+                        </div>
+                        <div class='form-check-inline'>
+                        <input type='radio' class='form-check-input'id='vehicleCameraNo' name='cameraRequired'>
+                            <label class='form-check-label' for='vehicleCameraNo'>No</label>
+                        </div>
+                    </div>                          
                 </div>
 
-                <hr />
-                <div class='row'>
+                <div class='row' style='margin-top:15px'>
+                    <div class='col-md-5 col-lg-4'>
+                        <label class='control-label'><strong>Current Status</strong></label>
+                    </div>
+                    <div class='col-md-7 col-lg-6' style='font-size:125%'>
+                        <div class='form-check-inline'>
+                            <input type='radio' class='form-check-input'id='vehicleStatusInstalled' name='vehicleStatus' checked>
+                            <label class='form-check-label' for='vehicleStatusInstalled' style='margin-right: 25px'>Installed</label>
+                        </div>
+                        <div class='form-check-inline'>
+                            <input type='radio' class='form-check-input'id='vehicleStatusPending' name='vehicleStatus'>
+                            <label class='form-check-label' for='vehicleStatusPending'>Pending</label>
+                        </div>
+                        <div class='form-check-inline'>
+                            <input type='radio' class='form-check-input'id='vehicleStatusNotApplicable' name='vehicleStatus'>
+                            <label class='form-check-label' for='vehicleStatusNotApplicable'>N/A</label>
+                        </div>
+                    </div>                          
+                </div>
+
+                <div class='row' style='margin-top:15px'>
+                    <div class='col-md-5 col-lg-4'>
+                        <label id='vehicleInstallDateLabel' for='vehicleInstalldate' class='control-label' style='padding-top:9px;'><strong>Installation Date</strong></label>
+                    </div>   
+                    <div class='col-md-7 col-lg-6' style='font-size:125%'>                    
+                        <div class='input-group' style='width:75%'>
+                            <input type='date' class='form-control' placeholder="Install/upcoming install date..." id='vehicleInstalldate' style='margin-top:3px;'>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- <div class='row'>
                   <div class='col-md-5 col-lg-4'>
                       <label class='control-label' for='addVehicleMake' style='padding-top:9px;'><strong>Make</strong></label>
                   </div>
@@ -2520,8 +2624,8 @@
                           <input type='text' class='form-control' maxlength='50' placeholder="Make..." id='addVehicleMake' style='margin-top:1px;'>
                       </div>
                   </div>
-                </div>
-                <div class='row'>
+                </div> -->
+                <!-- <div class='row'>
                   <div class='col-md-5 col-lg-4'>
                       <label class='control-label' for='addVehicleModel' style='padding-top:9px;'><strong>Model</strong></label>
                   </div>
@@ -2530,8 +2634,8 @@
                           <input type='text' class='form-control' maxlength='100' placeholder="Model..." id='addVehicleModel' style='margin-top:1px;'>
                       </div>
                   </div>
-                </div>
-                <div class='row'>
+                </div> -->
+                <!-- <div class='row'>
                   <div class='col-md-5 col-lg-4'>
                       <label class='control-label' for='addVehicleAddDescription' style='padding-top:9px;'><strong>Description</strong></label>
                   </div>
@@ -2540,8 +2644,19 @@
                           <input type='text' class='form-control' maxlength='100' placeholder="Description..." id='addVehicleAddDescription' style='margin-top:1px;'>
                       </div>
                   </div>
-                </div>
-                <hr />
+                </div> -->
+                <hr>
+                <div class='row'>
+                            <div class='col-4'>
+                                <label class='control-label' for='addVehicleNotes' style='padding-top:8px;'><strong>Vehicle Notes</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <div class='input-group'>
+                                       <textarea rows='8' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='addVehicleNotes' id='addVehicleNotes' style='margin-top:3px;'></textarea>                      
+                                </div>
+                            </div>
+                        </div>
+                <hr>
                 <div class='row'>
                   <div class='col-md-5 col-lg-4'>
                       <label class='control-label' for='addVehicleAllocateTo' style='padding-top:9px;'><strong>Allocated to</strong></label>
@@ -2552,6 +2667,10 @@
                       </div>
                   </div>
                 </div>
+
+
+
+
             </form>
           </div>
             <div class="modal-footer">
@@ -2586,34 +2705,83 @@
                 </div>
                 <hr />
                 <div class='row'>
-                  <div class='col-md-5 col-lg-4'>
+                <div class='col-md-5 col-lg-4'>
+                        <label class='control-label'><strong>Camera is required?</strong></label>
+                    </div>
+                    <div class='col-md-7 col-lg-6' style='font-size:125%'>
+                        <div class='form-check-inline'>
+                            <input type='radio' class='form-check-input'id='editVehicleCameraYes' name='cameraRequired'>
+                            <label class='form-check-label' for='editVehicleCameraYes' style='margin-right: 60px'>Yes</label>
+                        </div>
+                        <div class='form-check-inline'>
+                        <input type='radio' class='form-check-input'id='editVehicleCameraNo' name='cameraRequired'>
+                            <label class='form-check-label' for='editVehicleCameraNo'>No</label>
+                        </div>
+                    </div>    
+                  <!-- <div class='col-md-5 col-lg-4'>
                       <label class='control-label' for='editVehicleMake' style='padding-top:9px;'><strong>Make</strong></label>
                   </div>
                   <div class='col-md-7 col-lg-6'>
                       <div class='input-group'>
                           <input type='text' class='form-control' maxlength='50' placeholder="Make..." id='editVehicleMake' style='margin-top:1px;'>
                       </div>
-                  </div>
+                  </div> -->
                 </div>
                 <div class='row'>
-                  <div class='col-md-5 col-lg-4'>
+                <div class='col-md-5 col-lg-4'>
+                        <label class='control-label'><strong>Current Status</strong></label>
+                    </div>
+                    <div class='col-md-7 col-lg-6' style='font-size:125%'>
+                        <div class='form-check-inline'>
+                            <input type='radio' class='form-check-input'id='editVehicleStatusInstalled' name='vehicleStatus'>
+                            <label class='form-check-label' for='editVehicleStatusInstalled' style='margin-right: 25px'>Installed</label>
+                        </div>
+                        <div class='form-check-inline'>
+                            <input type='radio' class='form-check-input'id='editVehicleStatusPending' name='vehicleStatus'>
+                            <label class='form-check-label' for='editVehicleStatusPending'>Pending</label>
+                        </div>
+                        <div class='form-check-inline'>
+                            <input type='radio' class='form-check-input'id='editVehicleStatusNotApplicable' name='vehicleStatus'>
+                            <label class='form-check-label' for='editVehicleStatusNotApplicable'>N/A</label>
+                        </div>
+                    </div>                  
+                  <!-- <div class='col-md-5 col-lg-4'>
                       <label class='control-label' for='editVehicleModel' style='padding-top:9px;'><strong>Model</strong></label>
                   </div>
                   <div class='col-md-7 col-lg-6'>
                       <div class='input-group'>
                           <input type='text' class='form-control' maxlength='100' placeholder="Model..." id='editVehicleModel' style='margin-top:1px;'>
                       </div>
-                  </div>
+                  </div> -->
                 </div>
                 <div class='row'>
-                  <div class='col-md-5 col-lg-4'>
+                <div class='col-md-5 col-lg-4'>
+                        <label id='vehicleInstallDateLabel' for='editVehicleInstalldate' class='control-label' style='padding-top:9px;'><strong>Installation Date</strong></label>
+                    </div>   
+                    <div class='col-md-7 col-lg-6' style='font-size:125%'>                    
+                        <div class='input-group' style='width:75%'>
+                            <input type='date' class='form-control' placeholder="Install/upcoming install date..." id='editVehicleInstalldate' style='margin-top:3px;'>
+                        </div>
+                    </div>
+                  <!-- <div class='col-md-5 col-lg-4'>
                       <label class='control-label' for='editVehicleAddDescription' style='padding-top:9px;'><strong>Description</strong></label>
                   </div>
                   <div class='col-md-7 col-lg-6'>
                       <div class='input-group'>
                           <input type='text' class='form-control' maxlength='100' placeholder="Description..." id='editVehicleAddDescription' style='margin-top:1px;'>
                       </div>
-                  </div>
+                  </div> -->
+                </div>
+                <hr/>
+                <div class='row'>
+                    <div class='col-4'>
+                        <label class='control-label' for='editVehicleNotes' style='padding-top:8px;'><strong>Vehicle Notes</strong></label>
+                    </div>
+                    <div class='col-8'>
+                        <div class='input-group'>
+                            <textarea rows='8' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='editVehicleNotes' id='editVehicleNotes' style='margin-top:3px;'></textarea>                      
+                        </div>
+                    </div>
                 </div>
                 <hr />
                 <div class='row'>
@@ -2630,6 +2798,7 @@
           </div>
             <div class="modal-footer">
               <div id='hiddenVehicleID' style='display: none'></div>
+              <div id='editVehicleErrorBox'></div>
                 <button type="button" class="btn btn-success"  onclick='editCurrentVehicle()'>Update</button>
                 <?php
                     if ($_SESSION['isAdmin']== '1') {

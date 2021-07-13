@@ -8,7 +8,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 $deviceNumber = $_POST['deviceID'];
 
 
-$sql = "SELECT * FROM tblDevice INNER JOIN tblVehicle ON tblVehicle.ID = tblDevice.vehicleID INNER JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID WHERE tblDevice.ID = '" . $deviceNumber . "'";
+$sql = "SELECT * FROM tblDevice LEFT JOIN tblVehicle ON tblVehicle.ID = tblDevice.vehicleID LEFT JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID WHERE tblDevice.ID = '" . $deviceNumber . "'";
 $result = mysqli_query($link, $sql);
 
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);

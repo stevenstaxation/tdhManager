@@ -46,44 +46,44 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"/>
 
  
-    
-
-
-
-
-
-
     <title>TDH Manager</title>
 
     <?php
-
-    $_SESSION['firstCustomer'] = 0;
-
-if ($_SESSION['darkMode'] != 1) {
-    // NORMAL MODE
-    $_SESSION['navbarImage'] = "images/logo_swirl.png";
-    $_SESSION['textColor'] = '#222222';
-    $_SESSION['renewalColor'] = '#ffffff';
-} else {
-    $_SESSION['navbarImage'] = "images/logo_swirl_black.png";
-    $_SESSION['textColor'] = '#dddddd';
-    $_SESSION['renewalColor'] = '#545454';
-}
-$notRenewable = $_SESSION['renewalColor'];
-?>
+        $_SESSION['firstCustomer'] = 0;
+        $_SESSION['textColor'] = '#222222';
+        $_SESSION['renewalColor'] = '#ffffff';
+        $notRenewable = $_SESSION['renewalColor'];
+    ?>
 
 <script>
-function setDarkMode() {
-        IsDarkMode = "<?php echo $_SESSION['darkMode'] ?>";
 
-        if (IsDarkMode == 1) {
-            if ($("body").hasClass("dark")) {
-                $("body").removeClass("dark");
-            } else {
-                $("body").addClass("dark");
-            }
-        }   
+function setDarkMode(colMode) {
+    if (colMode==1) {
+        $("body").removeClass("dark");
+        document.getElementById('companyLogo').src = "images/logo_swirl.png";
+    } else if (colMode==0) {
+        $("body").addClass("dark");
+        document.getElementById('companyLogo').src = "images/logo_swirl_black.png";
+    } else {
+        if ($("body").hasClass("dark")) {
+            $("body").removeClass("dark");
+            document.getElementById('companyLogo').src = "images/logo_swirl.png";
+        } else {
+            $("body").addClass("dark");
+            document.getElementById('companyLogo').src = "images/logo_swirl_black.png";
+        }
     }
+
+    $("#deviceListTable").DataTable().draw();
+    $("#footageListTable").DataTable().draw();
+    $("#jobListTable").DataTable().draw();
+    $("#renewalsListTable").DataTable().draw();
+    $("#vehicleListTable").DataTable().draw();
+    $("#vehiclesTable").DataTable().draw();
+    $("#devicesTable").DataTable().draw();
+
+
+}
 
 function purgeEventLog() {
     var dataToPost={};
@@ -100,11 +100,13 @@ function purgeEventLog() {
 
 </HEAD>
 
-<BODY onload='setDarkMode();purgeEventLog();'>
+
+
+<BODY onload='setDarkMode(<?php echo $_SESSION['darkMode'];?>);purgeEventLog();'>
    <div class='container-fluid'>
         <?php
-include 'navbar.php';
-?>
+            include 'navbar.php';
+        ?>
     </div>
     <div id='IsDarkMode' style='visible: none'></div>
     <div id='accountInfo' class='container'></div>
@@ -117,15 +119,14 @@ include 'navbar.php';
     <div id='hiddenDeviceSelector' style='display: none;'></div>
     <div id='hiddenVehicleSelector' style='display: none;'></div>
     <div id='hiddenDeviceNotesSelector' style='display: none;'></div>
-    
-
+    <div id='hiddenVehicleNotesSelector' style='display: none;'></div>
     <div id='homeScreen' class='container'></div>
-  
- 
+    
 </BODY>
 
 <script src='scripts/index.js'></script>
 <script src='scripts/clickEvents.js'></script>
+<script src='scripts/customers.js'></script>
 <script src='scripts/insurer.js'></script>
 <script src='scripts/insurerContact.js'></script>
 <script src='scripts/installer.js'></script>
@@ -188,27 +189,7 @@ include 'navbar.php';
             }
         });
 
-        $(document).on('change', '#getClient', function() {
-
-            var dataToPost = {}
-            //  $('#getClient').find(":selected").val();
-            dataToPost.selectedValue = this.value;
-            $.ajax({
-                url: 'customers.php',
-                type: 'POST',
-                data: dataToPost,
-                success: function(data) {
-                $('#customerInfo').html(data);
-                if ($('#DeviceStats').text()=="Total Devices:  0") {
-                   $('#addFootageRequest').prop('disabled', true);
-                } else {
-                    $('#addFootageRequest').prop('disabled', false);
-                }
-            },
-                error: function() {
-                }
-            });
-        });
+        
 
 
       
@@ -257,37 +238,36 @@ include 'navbar.php';
             $('#homeScreen').show();
         
         });
-
-        $('#customerMenu').on('click', function() {
-            showCustomers();
-            var dataToPost = {};
-            dataToPost.selectedValue = "<?php echo $_SESSION['firstCustomer']; ?>";
-            $.ajax({
-                url: 'customers.php',
-                type: 'POST',
-                data: dataToPost,
-                success: function(data) {
-                    $('#accountInfo').html('');
-                    $('#eventLog').html('');
-                    $('#homeScreen').hide();
-                    $('#vehicleList').html('');
-                    $('#devicesList').html('');
-                    $('#overlay').html('');
-                   
-                    $('#customerInfo').html(data);
-                    $('#getRenewalTypeSelect').trigger('change');
-                },
-                error: function() {}
-            });
-
-        });
-
+     
 
         $(document).on("click", '#showRenewalList', function() {
         var dataToPost = {};
         dataToPost.SQLFilter='';
         $.ajax({
             url: "renewalsList.php",
+            type: "POST",
+            data: dataToPost,
+            success: function(data) {
+                $('#accountInfo').html('');
+                $('#customerSelect').html('');
+                $('#customerInfo').html('');
+                $('#overlay').html('');
+                $('#homeScreen').hide();
+                $('#eventLog').html('');
+                $('#devicesList').html('');
+                $('#vehicleList').html(data);
+            },
+        error: function() {
+            $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
+        }
+    });
+  });
+
+  $(document).on("click", '#importHealthChecks', function() {
+        var dataToPost = {};
+        dataToPost.SQLFilter='';
+        $.ajax({
+            url: "healthcheckList.php",
             type: "POST",
             data: dataToPost,
             success: function(data) {
@@ -374,11 +354,6 @@ include 'navbar.php';
         });
         $('#footageRemove').on('click', function() {
             window.alert ('Footage removal not implemented yet');
-        });
-
-        $('#modalAddNewCustomer').on('hidden.bs.modal', function(event) {
-             $(this).find('form').trigger('reset');
-             $('#customerMessage').html('');
         });
 
         $('#modalAddNewNote').on('hidden.bs.modal', function() {
@@ -644,102 +619,6 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
     }
 
 
-    // CUSTOMER CONTACT SCRIPTS
-    // Update new
-    $(document).on('click', '#updateCustomerContact', function(event) {
-        // prevent default PHP processing
-        "use strict";
-        event.preventDefault();
-        // collect user inputs
-        var dataToPost = {};
-        dataToPost.firstName = document.getElementById('contactFirstName').value;
-        dataToPost.lastName = document.getElementById('contactLastName').value;
-        dataToPost.mobileNumber = document.getElementById('contactMobile').value;
-        dataToPost.telephone = document.getElementById('contactTelephone').value;
-        dataToPost.email = document.getElementById('contactEmail').value;
-        dataToPost.jobTitle = document.getElementById('contactJobTitle').value;
-        dataToPost.footageRec = document.getElementById('contactFootageRequest').checked;
-        dataToPost.heathCheck = document.getElementById('contactHealthCheck').checked;
-
-        $.ajax({
-            url: "addCustomerContact.php",
-            type: "POST",
-            data: dataToPost,
-            success: function(data) {
-                if (data.includes('success')) {
-                    $('#getClient').trigger('change');
-                    $('#modalAddNewContact').modal('hide')
-                } else {
-                    $('#contactMessage').html(data);
-                }
-            },
-            error: function() {
-                $('#contactMessage').html("<div class='alert alert-danger'>TDH Manager is not available at the moment. Contact your administrator.</div>");
-            }
-        });
-    });
-
-    // ADD CUSTOMER NOTE
-    $(document).on('click', '#updateCustomerNote', function(event) {
-        // prevent default PHP processing
-        "use strict";
-        event.preventDefault();
-        // collect user inputs
-        var dataToPost = {};
-        dataToPost.noteDate = document.getElementById('noteDate').value;
-        dataToPost.noteText = document.getElementById('noteText').value;
-        dataToPost.isImportant = document.getElementById('isImportantNote').checked;
-        dataToPost.isAlertable = document.getElementById('createAlert').checked;
-
-        $.ajax({
-            url: "addCustomerNote.php",
-            type: "POST",
-            data: dataToPost,
-            success: function(data) {
-                if (data.includes('success')) {
-                    $('#getClient').trigger('change');
-                    $('#modalAddNewNote').modal('hide');
-                    //update Alerts
-                    $.ajax({
-                        url: 'getAlerts.php',
-                        type: 'GET',
-                        success: function(data) {
-                            var arr = data.split('^^^');
-
-                            if ((arr[0] + arr[1]) != 0) {
-                                $('#renewalTotal').html(+arr[0] + +arr[1]);
-                                $('#renewalTotalWrapper').show();
-                            } else {
-                                $('#renewalTotalWrapper').hide();
-                            }
-                            if (arr[3] != 0) {
-                                $('#installTotal').html(arr[3]);
-                                $('#installTotalWrapper').show();
-                            } else {
-                                $('#installTotalWrapper').hide();
-                            }
-                            if (arr[2] != 0) {
-                                $('#alertTotal').html(arr[2]);
-                                $('#alertTotalWrapper').show();
-                            } else {
-                                $('#alertTotalWrapper').hide();
-                            }
-                        }
-                    });
-
-
-                } else {
-                    $('#noteMessage').html(data);
-                }
-            },
-            error: function() {
-                $('#contactMessage').html("<div class='alert alert-danger'>TDH Manager is not available at the moment. Contact your administrator.</div>");
-                $('#contactMessage').html("<div class='alert alert-danger'>TDH Manager is not available at the moment. Contact your administrator.</div>");
-            }
-        });
-    });
-
-
     $(document).on('focusin', '#textAddOrUpdateStatus', function(event) {
         event.preventDefault();
         document.getElementById('addOrUpdateStatus').disabled = false;
@@ -767,7 +646,11 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
         document.getElementById('addOrUpdateJobType').disabled = false;
         $('#jobTypeErrorBox').html('')
     });
-
+    $(document).on('focusin', '#textAddOrUpdateHealthcheckType', function(event) {
+        event.preventDefault();
+        document.getElementById('addOrUpdateHealthcheckType').disabled = false;
+        $('#healthcheckTypeErrorBox').html('')
+    });
 
 
 
@@ -829,7 +712,17 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
             document.getElementById('cancelUpdateJobType').disabled = false;
         }
     });
-
+    $(document).on('click', '#healthStatusList', function(event) {
+        event.preventDefault();
+        if (!event.target.options) {
+            document.getElementById('textAddOrUpdateHealthcheckType').value = event.target.innerText;
+            $('#addOrUpdateHealthcheckType').text('Update');
+            document.getElementById('addOrUpdateHealthcheckType').disabled = false;
+            document.getElementById('deleteHealthcheckType').disabled = false;
+            document.getElementById('cancelUpdateHealthcheckType').style.display = "block";
+            document.getElementById('cancelUpdateHealthcheckType').disabled = false;
+        }
+    });
 
 
 
@@ -856,7 +749,10 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
         event.preventDefault();
        $('#showGlobalSettings').trigger('click');
     });
-
+    $(document).on('click', '#cancelUpdateHealthcheckType', function(event) {
+        event.preventDefault();
+       $('#showGlobalSettings').trigger('click');
+    });
 
 
      $(document).on('click', '#deleteStatus', function(event) {
@@ -978,6 +874,29 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
                     if (data.includes('success')) {
                         $('#showGlobalSettings').trigger('click');
                         $('#addOrUpdateJobType').text('Add');
+                    } else {
+                        $('#jobTypeErrorBox').html(data);
+                    }
+                },
+                error: function() {
+                }
+            });
+    });
+
+    $(document).on('click', '#deleteHealthcheckType', function(event) {
+      event.preventDefault();
+        var dataToPost = {};
+            dataToPost.HealthcheckTypeIDToDelete = $("#healthStatusList option:selected").val();
+
+            $.ajax({
+                url: "deleteHealthcheckType.php",
+                timeout: 30000,
+                data: dataToPost,
+                type: "POST",
+                success: function(data) {
+                    if (data.includes('success')) {
+                        $('#showGlobalSettings').trigger('click');
+                        $('#addOrUpdateHealthcheckType').text('Add');
                     } else {
                         $('#jobTypeErrorBox').html(data);
                     }
@@ -1215,6 +1134,51 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
         }
     });
 
+    $(document).on('click', '#addOrUpdateHealthcheckType', function(event) {
+       event.preventDefault();
+        if ($('#addOrUpdateHealthcheckType').text() == 'Add') {
+            var dataToPost = {};
+            dataToPost.HealthcheckTypeNameToAdd = document.getElementById('textAddOrUpdateHealthcheckType').value;
+            $.ajax({
+                url: "addHealthcheckType.php",
+                timeout: 30000,
+                data: dataToPost,
+                type: "POST",
+                success: function(data) {
+                    if (data.includes('success')) {
+                        $('#showGlobalSettings').trigger('click');
+                    } else {
+                        $('#healthcheckTypeErrorBox').html(data);
+                    }
+                },
+                error: function() {
+                }
+            });
+        }
+        if ($('#addOrUpdateHealthcheckType').text() == 'Update') {
+            var dataToPost = {};
+            dataToPost.HealthcheckTypeIDToUpdate = $("#healthStatusList option:selected").val();
+            dataToPost.HealthcheckTypeNameToUpdate = document.getElementById('textAddOrUpdateHealthcheckType').value;
+
+            $.ajax({
+                url: "updateHealthcheckType.php",
+                timeout: 30000,
+                data: dataToPost,
+                type: "POST",
+                success: function(data) {
+                    if (data.includes('success')) {
+                        $('#showGlobalSettings').trigger('click');
+                        $('#addOrUpdateHealthcheckType').text('Add');
+                    } else {
+                        $('#healthcheckTypeErrorBox').html(data);
+                    }
+                },
+                error: function() {
+                }
+            });
+        }
+    });
+
     $(document).on('click', '#lookupVRNByAPI', function(event) {
         // prevent default PHP processing
         "use strict";
@@ -1306,6 +1270,25 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
             }
         });
     });
+
+    $(document).on('click', '#updateDefaults', function(event) {
+        event.preventDefault();
+        var dataToPost = {};
+        dataToPost.defaultInstaller = document.getElementById('selectDefaultInstaller').value;
+        dataToPost.defaultSupplier = document.getElementById('selectDefaultSupplier').value;
+        $.ajax({
+            url:"updateDefaultValues.php",
+            timeout: 30000,
+            data: dataToPost,
+            type: "POST",
+            success: function() {
+                
+            }
+        })
+    })
+
+
+
 
     
 
@@ -1542,83 +1525,6 @@ function printVRNLookup() {
         });
     }
 
-
-
-    function showCustomers(customer = 0) {
-        var dataToPost = {};
-        dataToPost.customerID = customer;
-
-        $.ajax({
-            url: 'selectCustomer.php',
-            data: dataToPost,
-            timeout: 30000,
-            type: 'POST',
-            success: function(data) {
-                $('#accountInfo').html('');
-                $('#customerSelect').html(data);
-                $('#getClient').trigger('change');
-            },
-            error: function() {
-
-            }
-
-        });
-
-    }
-
-    function addCustomer() {
-        var dataToPost = {};
-        dataToPost.customerName = document.getElementById('newCustomerName').value;
-        dataToPost.customerAddress1 = document.getElementById('customerAddress1').value;
-        dataToPost.customerAddress2 = document.getElementById('customerAddress2').value;
-        dataToPost.customerAddress3 = document.getElementById('customerAddress3').value;
-        dataToPost.customerAddress4 = document.getElementById('customerAddress4').value;
-        dataToPost.customerAddress5 = document.getElementById('customerAddress5').value;
-        dataToPost.customerTelephone = document.getElementById('customerPhone').value;
-        dataToPost.customerEmail = document.getElementById('customerEmail').value;
-        // dataToPost.customerCoRegNo = document.getElementById('customerRegNo').value;
-        // dataToPost.customerVATRegNo = document.getElementById('customerVATNo').value;
-        dataToPost.customerInsurerID = document.getElementById('getInsurer').value;
-        dataToPost.customerBrokerID = document.getElementById('getBroker').value;
-
-        $.ajax({
-            url: 'addNewCustomer.php',
-            timeout: 30000,
-            data: dataToPost,
-            type: 'POST',
-            success: function(data) {
-                if (data.includes('success')) {
-                    var newID = parseInt(data.replace('success', ''), 10);
-                    showCustomers(newID);
-                    $('#customerMessage').show();
-                    $('#getClient').trigger('change');
-                    $('#modalAddNewCustomer').modal('hide');
-                    $('.modal-backdrop').hide();
-
-                    var dataToPost = {};
-                    dataToPost.selectedValue = newID;
-                    $.ajax({
-                        url: 'customers.php',
-                        type: 'POST',
-                        data: dataToPost,
-                        success: function(data) {
-                            $('#customerInfo').html(data);
-                        },
-                        error: function() {}
-                    });
-                } else {
-                    $('#customerMessage').html(data);
-                    $('#customerMessage').show();
-                }
-            },
-            error: function() {
-            }
-        })
-    }
-
-
-
-
     
 
     function addNewFootage() {
@@ -1729,65 +1635,6 @@ function printVRNLookup() {
     
 
 
-    function updateCustomer() {
-        var dataToPost = {};
-        dataToPost.customerName = document.getElementById('customerName').value;
-        dataToPost.customerAddr1 = document.getElementById('custAddressLine1').value;
-        dataToPost.customerAddr2 = document.getElementById('custAddressLine2').value;
-        dataToPost.customerAddr3 = document.getElementById('custAddressLine3').value;
-        dataToPost.customerAddr4 = document.getElementById('custAddressLine4').value;
-        dataToPost.customerAddr5 = document.getElementById('custAddressLine5').value;
-        dataToPost.customerPhone = document.getElementById('custPhone').value;
-        dataToPost.customerEmail = document.getElementById('custEmail').value;
-        dataToPost.customerRenewalType = document.getElementById('getRenewalTypeSelect').value;
-        dataToPost.customerRenewalDate = document.getElementById('renewalDate').value;
-        // dataToPost.customerRegNo = document.getElementById('custRegNumber').value;
-        // dataToPost.customerVATNo = document.getElementById('custVATNumber').value;
-
-        $.ajax({
-            url: 'updateCustomerInfo.php',
-            timeout: 30000,
-            data: dataToPost,
-            type: "POST",
-            success: function(data) {
-                if (data.includes('success')) {
-                    var customerNumber = parseInt(data.replace('success', ''), 10);
-
-                    $('#customerUpdateMessage').html('<div class="alert alert-success">Updated successfully</div>');
-                    $('#customerUpdateMessage').delay(3500).hide(0);
-                    $('#customerUpdateMessage').show();
-                    $('.enabler').css('border-color', '#CED4DA');
-                    $('#getClient').trigger('change');
-                     showCustomers(customerNumber);
-                } else {
-                    $('#customerUpdateMessage').html(data);
-                    $('#customerUpdateMessage').show();
-                }
-                $('#getRenewalTypeSelect').trigger('change');
-            },
-            error: function() {
-            }
-        });
-    }
-
-    function deleteCustomer() {
-        $.ajax ({
-            url: 'deleteCustomer.php',
-            timeout: 30000,
-            type: "POST",
-            success: function(data) {
-              },
-            error: function() {
-
-            }
-        });
-    }
-
-
-
-
-  
-
     function editContact(rowNumber) {
         var dataToPost = {};
         dataToPost.contactID = rowNumber;
@@ -1829,13 +1676,6 @@ function printVRNLookup() {
     }
 
 
-
-
-
-  
-    
-
-   
 
     function editCurrentFootage() {
         var dataToPost = {};
@@ -2138,72 +1978,6 @@ function printVRNLookup() {
 
     }
 
-    
-
-    function updateCustomerContact() {
-        var dataToPost = {};
-        dataToPost.contactFirstName = document.getElementById('editContactFirstName').value;
-        dataToPost.contactLastName = document.getElementById('editContactLastName').value;
-        dataToPost.contactMobile = document.getElementById('editContactMobile').value;
-        dataToPost.contactTelephone = document.getElementById('editContactTelephone').value;
-        dataToPost.contactEmail = document.getElementById('editContactEmail').value;
-        dataToPost.contactJobTitle = document.getElementById('editContactJobTitle').value;
-        dataToPost.contactFootageRecipient = document.getElementById('editContactFootageRequest').checked;
-        dataToPost.contactHealthCheck = document.getElementById('editContactHealthCheck').checked;
-        dataToPost.customerNumber = document.getElementById('customerContactEditNumber').value;
-        dataToPost.contactNumber = document.getElementById('contactEditNumber').value;
-
-        $.ajax({
-            url: 'updateCustomerContact.php',
-            timeout: 30000,
-            data: dataToPost,
-            type: "POST",
-            success: function(data) {
-                if (data.includes('success')) {
-                    $('#editContactMessage').html('');
-                    $('#getClient').trigger('change');
-                    $('#modalEditContact').modal('hide');
-                } else {
-                    $('#editContactMessage').html(data);
-                }
-            },
-            error: function() {
-
-            }
-        });
-
-    }
-
-    function deleteCustomerContact() {
-        var dataToPost = {};
-        dataToPost.contactFirstName = document.getElementById('editContactFirstName').value;
-        dataToPost.contactLastName = document.getElementById('editContactLastName').value;
-        dataToPost.contactNumber = document.getElementById('contactEditNumber').value;
-
-        var proceed = confirm("Are you sure you want to delete the contact " + dataToPost.contactFirstName + " " + dataToPost.contactLastName + "?  This cannot be undone once you click OK");
-        if (proceed) {
-            $.ajax({
-                url: 'deleteCustomerContact.php',
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#editContactMessage').html('');
-                        $('#getClient').trigger('change');
-                        $('#modalEditContact').modal('hide');
-                    } else {
-                        $('#editContactMessage').html(data);
-                    }
-                },
-                error: function() {}
-            });
-        }
-    }
-
-
-
-
 
     function editNote(rowNumber) {
         var dataToPost = {};
@@ -2297,6 +2071,10 @@ function printVRNLookup() {
         });
 
     }
+
+
+    
+
 
     function VRNLookup() {
         var dataToPost = {};

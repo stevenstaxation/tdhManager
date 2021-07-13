@@ -40,7 +40,6 @@ $(document).on('click', '#footageFilterClicked', function (event) {
                 type: "POST",
                 data: dataToPost,
                 success: function (data) {
-                    console.log(data);
                     $('#devicesList').html(data);
                 },
                 error: function () {

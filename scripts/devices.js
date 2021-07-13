@@ -2,6 +2,7 @@ function showFullDevice(rowNumber) {
     // get device data using AJAX call
     // fill in modal dialog
     // update SQL
+  
     if (rowNumber.includes("customer")) {
         document.getElementById('hiddenDeviceSelector').value = 'customer';
         rowNumber = rowNumber.replace("customer", '');
@@ -9,7 +10,7 @@ function showFullDevice(rowNumber) {
         document.getElementById('hiddenDeviceSelector').value = 'device';
         rowNumber = rowNumber.replace("device", '');
     }
-
+  
     var dataToPost = {};
     dataToPost.deviceID = rowNumber;
     $.ajax({
@@ -40,7 +41,7 @@ function showFullDevice(rowNumber) {
             document.getElementById('editDeviceDescription').value = data['deviceDescriptionID'];
             document.getElementById('editDeviceStatus').value = data['status'];
             document.getElementById('editVRN').value = data['regNumber'];
-            document.getElementById('editVehicleDescription').value = data['make'] + data['model'] + data['addDescription'];
+            // document.getElementById('editVehicleDescription').value = data['make'] + data['model'] + data['addDescription'];
             document.getElementById('editOwnerID').value = data['ID'];
             document.getElementById('editDevicePurchaseDate').value = data['purchaseDate'];
             document.getElementById('hiddenDeviceID').value = rowNumber;
@@ -170,7 +171,6 @@ function editCurrentDevice() {
         type: "POST",
         success: function (data) {
             if (data.includes("success")) {
-                console.log(data);
                 $('#editDeviceMessage').html('');
                 $('#getClient').trigger('change');
                 $('#modalEditDevice').modal('hide');
@@ -260,9 +260,9 @@ function editCurrentDeviceNotes() {
             if (data.includes("success")) {
                 $('#editDeviceNotesMessage').html('');
                 $('#modalEditDeviceNotes').modal('hide');
-                if (document.getElementById('hiddenDeviceSelector').value == 'device') {
-                    $('#showDeviceList').trigger('click');
-                }
+                
+                $('#showDeviceList').trigger('click');
+                
 
             } else {
                 $('#editDeviceMessage').html(data);
@@ -453,3 +453,14 @@ $(document).on('click', '#deleteDevice', function (event) {
         error: function () {}
     });
 });
+
+     $(document).on('show.bs.modal', '#modalAddNewDevice', function (event) {
+         $(this).find('form').trigger('reset');
+         $('#addDeviceMessage').html('');
+     });
+
+     $(document).on('show.bs.modal', '#modalEditDevice', function (event) {
+    //     // $(this).find('form').trigger('reset');
+         $('#editDeviceMessage').html('');
+     });
+
