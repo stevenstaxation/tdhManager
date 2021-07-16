@@ -72,8 +72,6 @@ $customerID = $row['ID'];
 $sql = "SELECT * FROM tblVehicle WHERE regNumber = '$deviceVRN'";
 $result = mysqli_query($link, $sql);
 $deviceVehicleID = 0;
-$VRNLookupURL = 'https://www.rapidcarcheck.co.uk/results?RegPlate=' . $deviceVRN;
-$dom = '';
 
 if (mysqli_num_rows($result)!=0) {
     // vehicle already exists
@@ -81,31 +79,8 @@ if (mysqli_num_rows($result)!=0) {
     $deviceVehicleID = $row['ID'];
 } else {
     // new vehicle so we need to add it to the database
-    // try a screen scrape to get make and model
-    $dom = file_get_html($VRNLookupURL);
-    $wraps = [];
-    foreach($dom->find(".wpb_wrapper") as $rTitle) {
-        if (strpos($rTitle->plaintext, "Make: ")!==false) {
-            $wraps['Make'] = substr($rTitle->plaintext,8);
-        }
-        if (strpos($rTitle->plaintext, "Model: ")!==false) {
-            $wraps['Model'] = substr($rTitle->plaintext,9);
-        }
-        if (strpos($rTitle->plaintext, "Colour: ")!==false) {
-            $wraps['Colour'] = substr($rTitle->plaintext,10);
-        }
-        if (strpos($rTitle->plaintext, "Year: ")!==false) {
-            $wraps['Year'] = substr($rTitle->plaintext,8);
-        }
-    }
-
-    if ($wraps['Year']<>'') {
-        $wraps['other'] = $wraps['Colour'] . " ( " . $wraps['Year'] . ")";
-    } else {
-        $wraps['other'] = $wraps['Colour'];
-    }
-
-    $sql = "INSERT INTO tblVehicle (make, model, addDescription, regNumber, ownerID) VALUES ('" . $wraps['Make'] ."', '" . $wraps['Model']. "', '" .$wraps['other'] . "', '" . $deviceVRN . "', '" . $customerID . "')";
+    
+    $sql = "INSERT INTO tblVehicle (regNumber, ownerID) VALUES ('$deviceVRN', '$customerID')";
 
     $result = mysqli_query($link, $sql);
 

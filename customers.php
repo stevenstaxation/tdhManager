@@ -13,23 +13,25 @@ $tableText =  $_SESSION['textColor'];
 $notRenewable = $_SESSION['renewalColor'];
 $returnString = "";
 if (isset($_POST['selectedValue'])) {
-    $_SESSION['currentCustomer'] = $_POST['selectedValue'];
+    $_SESSION['currentCustomer'] = $_POST['selectedValue'];  
 } 
 
 $sql= "SELECT * FROM tblCustomer LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblInsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.ID  LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID WHERE tblCustomer.ID='" . $_SESSION['currentCustomer'] . "'";
 
 $result = mysqli_query($link, $sql);
+ if (!$result) {
+     exit();
+ } 
 
 if($result) {
-if (mysqli_num_rows($result)==0) {
-    $sql= "SELECT * FROM tblCustomer LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblInsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.ID  LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID LIMIT 1";
-    $result = mysqli_query($link, $sql);
-    $getTop = mysqli_fetch_array($result);
-    $_SESSION['currentCustomer'] = $getTop['ID'];
-}
-} else {
-    exit();
-}
+    if (mysqli_num_rows($result)==0) {
+        // $sql= "SELECT * FROM tblCustomer LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblInsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.ID  LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID LIMIT 1";
+        // $result = mysqli_query($link, $sql);
+        // $getTop = mysqli_fetch_array($result);
+        // $_SESSION['currentCustomer'] = $getTop['ID'];
+        exit();
+    }
+} 
 
 if (mysqli_num_rows($result)==0) {
     echo $returnString;
@@ -57,7 +59,7 @@ else {
 }
 $returnString = "
 <div id='hiddenCustomerID' style='display: none;'>" . $row[0] . "</div>
-<div class='row' style='font-size:80%;'>
+<div class='row' style='font-size:100%;'>
     <div class='col-lg-6 col-xl-4'>
         <form id='customerForm'>
             <div class='scrollBox' style='max-height: 75vh; overflow: auto;'>
@@ -522,10 +524,11 @@ $returnString .="
                     <tr>
                         <th class='text-center align-middle' style='width:8%; padding 0 3px;'>No</th>
                         <th class='text-center align-middle'>VRN</th>
-                        <th class='text-center align-middle'>Make</th>
-                        <th class='text-center align-middle'>Model</th>
-                        <th class='text-center align-middle'>Description</th>
+                        <th class='text-center align-middle'>Camera Required</th>
+                        <th class='text-center align-middle'>Status</th>
+                        <th class='text-center align-middle'>Install Date</th>
                         <th class='text-center align-middle' style='width:8%; padding 0 3px;'>Edit</th>
+                        <th class='text-center align-middle' style='width:8%; padding 0 3px;'>Notes</th>
                     </tr>
                 </thead>
                 <tbody>";
@@ -534,12 +537,34 @@ $returnString .="
                     while ($row=mysqli_fetch_array($deviceResult)) {
                         $returnString = $returnString . "<tr><td class='align-middle text-center' style='padding: 0 3px;'>" . $ix ."</td>";
                         $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['regNumber'] ."</td>";
-                        $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['make'] ."</td>";
-                        $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['model'] ."</td>";
-                        $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['addDescription'] ."</td>";
+                        
+                        if ($row['cameraRequired']=='1') {
+                            $returnString .="<td class='text-center align-middle' style='padding-left: 5px;width: 6%'><img class='yesIcon' src='images/green_tick_16.png'/><span style='display:none;'>green_tick</span></td>";
+                          } else {
+                            $returnString .="<td class='text-center align-middle' style='padding-left: 5px;width: 6%'><img class='noIcon' src='images/red_cross_16.png'/><span style='display:none;'>red_cross</span></td>";
+                        }
+                        if ($row['vehicleStatus']=='2') {
+                            $returnString .="<td class='text-center align-middle' style='padding-left: 5px;width: 6%'><img class='yesIcon' src='images/green_tick_16.png'/><span style='display:none;'>green_tick</span></td>";
+                          } else if ($row['vehicleStatus']=='1') {
+                            $returnString .="<td class='text-center align-middle' style='padding-left: 5px;width: 6%'><img class='pendingIcon' src='images/blue_ellipsis_16.png'/><span style='display:none;'>blue_ellipsis</span></td>";
+                          } else {
+                            $returnString .="<td class='text-center align-middle' style='padding-left: 5px;width: 6%'><img class='noIcon' src='images/red_cross_16.png'/><span style='display:none;'>red_cross</span></td>";
+                          }
+                          if (date('d/m/Y', strtotime($row['installDate']))=='01/01/1970') {
+                            $returnString .="<td class='text-center align-middle'>unknown</td>";   
+                          } else {
+                          $returnString .="<td class='text-center align-middle'>" . date('d/m/Y', strtotime($row['installDate'])) . "</td>";   
+                          }
                         $returnString = $returnString . "<td class='align-middle text-center'><btn class='btn btn-sm btn-warning' onclick='showVehicleForEdit(\"" . $row[0] . "customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
                         <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
                       </svg></btn></td>";
+                        
+                      if ($row['vehicleNotes'] && $row['vehicleNotes']!="") {
+                        $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showVehicleNotes(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal-check' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z'/><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td></tr>";
+                      } else {
+                        $returnString .="<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showVehicleNotes(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal' viewBox='0 0 16 16'><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td></tr>";
+                      }
+
                         $returnString = $returnString . "</tr>";
                         $ix++;
                     }
@@ -792,7 +817,7 @@ $returnString .="
         <div class='form-group' style='display: flex; align-items: center'>
         <label class='control-label inline' for='renewalType' style='width:40%; padding-top:6px'>Renewal type</label>
         <div class='input-group'>
-            <select  style='font-size: 80%' id='getRenewalTypeSelect' name='getRenewalTypeSelect' onchange='makeDirty(" . '"getRenewalTypeSelect"' .")' class='custom-select getRenewalTypeSelect enabler'>" ;
+            <select style='font-size: 100%' id='getRenewalTypeSelect' name='getRenewalTypeSelect' onchange='makeDirty(" . '"getRenewalTypeSelect"' .")' class='custom-select getRenewalTypeSelect enabler'>" ;
             $sql="SELECT * FROM tblRenewalType ORDER BY Description ASC" ; 
             $result=mysqli_query($link,$sql); 
             $returnString .="
@@ -813,12 +838,18 @@ $returnString .="
     <div class='form-group' style='display: flex; align-items: center'>
         <label id='renewalDateLabel' class='control-label inline' for='renewalDate' style='width:40%; padding-top:6px'>Renewal date</label>
         <div class='input-group'>
-            <input style='font-size: 80%; background-color:" . $renewalColour ."' oninput='makeDirty(" . '"renewalDate"'
-            . ")' class='form-control dateType enabler' type='date' id='renewalDate' name='renewalDate' onblur='updateRenewalDate(event);' placeholder='Policy renewal date...' value='" . $theRenewalDate . "'>
+           
+            <input style='font-size: 100%;' class='form-control dateType enabler dateColour' type='date' id='renewalDate' name='renewalDate' onblur='updateRenewalDate(event);' placeholder='Policy renewal date...' value='" . $theRenewalDate . "'>
+            <span class='input-group-append showRenewalStatus'>
+            </span>
         </div>
     </div>
     <hr>
-    <small style='color: red';>**FOR NOW** To confirm RENEWAL DATE click 'UPDATE' in Business Details section</small>
+    <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+    <btn class='btn btn-success btn-sm updateCustomer' style='margin: 0 10px; float: right' onclick='updateCustomerRenewal()' id='updateCustomerRenewal' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-left-circle-fill' viewBox='0 0 16 16'>
+    <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z'/>
+    </svg> Update Renewal</btn>
+   
     </div>
 
 

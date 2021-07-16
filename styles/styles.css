@@ -277,6 +277,26 @@ body.dark .reminderScreen {
     display: block;
 }
 
+/* Icons */
+.yesIcon, .noIcon, .pendingIcon {
+    opacity: 1;
+}
+
+body.dark .yesIcon, 
+body.dark .noIcon, 
+body.dark .pendingIcon {
+    opacity: 0.6;
+}
+
+.dateColour {
+    background-color: #ffffff;
+}
+
+body.dark .dateColour {
+    background-color: #222222;
+}
+
+
 div.container { max-width: 1200px }
 
 

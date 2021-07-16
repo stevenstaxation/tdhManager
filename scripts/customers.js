@@ -8,6 +8,7 @@ $(document).on('change', '#getClient', function() {
         type: 'POST',
         data: dataToPost,
         success: function(data) {
+         
         $('#customerInfo').html(data);
         if ($('#DeviceStats').text()=="Total Devices:  0") {
            $('#addFootageRequest').prop('disabled', true);
@@ -121,6 +122,22 @@ function addCustomer() {
     })
 }
 
+function updateCustomerRenewal() {
+    var dataToPost = {};
+    dataToPost.customerRenewalType = document.getElementById('getRenewalTypeSelect').value;
+    dataToPost.customerRenewalDate = document.getElementById('renewalDate').value;
+    $.ajax({
+        url: "updateCustomerRenewal.php",
+        timeout: 30000,
+        data: dataToPost,
+        type: "POST",
+        success: function() {
+        },
+        error: function() {    
+        }
+    })
+
+}
 function updateCustomer() {
     var dataToPost = {};
     dataToPost.customerName = document.getElementById('customerName').value;
@@ -131,9 +148,9 @@ function updateCustomer() {
     dataToPost.customerAddr5 = document.getElementById('custAddressLine5').value;
     dataToPost.customerPhone = document.getElementById('custPhone').value;
     dataToPost.customerEmail = document.getElementById('custEmail').value;
-    dataToPost.customerRenewalType = document.getElementById('getRenewalTypeSelect').value;
-    dataToPost.customerRenewalDate = document.getElementById('renewalDate').value;
-    // dataToPost.customerRegNo = document.getElementById('custRegNumber').value;
+    // dataToPost.customerRenewalType = document.getElementById('getRenewalTypeSelect').value;
+    // dataToPost.customerRenewalDate = document.getElementById('renewalDate').value;
+    // // dataToPost.customerRegNo = document.getElementById('custRegNumber').value;
     // dataToPost.customerVATNo = document.getElementById('custVATNumber').value;
 
     $.ajax({

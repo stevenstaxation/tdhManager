@@ -15,7 +15,10 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" description content="TDH Manager">
 
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> -->
@@ -32,6 +35,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link rel="stylesheet" type="text/css" href="styles/custombootstrap.css">
     <link rel="stylesheet" type="text/css" href="styles/navbar.css">
+    <link rel='stylesheet' type='text/css' href='styles/bootstrap-combobox.css'>
 
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -39,11 +43,15 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <link rel="manifest" href="images/site.webmanifest">
 
 
+    <script src='scripts/bootstrap-combobox.js'></script>
+
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <!-- <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> -->
  
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"/>
+
+
 
  
     <title>TDH Manager</title>
@@ -367,6 +375,11 @@ function purgeEventLog() {
             $('#contactMessage').html('');
         });
 
+        $('#modalAddNewJobRequest').on('hidden.bs.modal', function() {
+            $(this).find('form').trigger('reset');
+            $('#jobRequestMessage').html('');
+        });
+
         $('#modalAddNewFootage').on('hidden.bs.modal', function() {
             $('#footageFileTableBodyBlock').html('');
             $(this).find('form').trigger('reset');
@@ -383,13 +396,10 @@ function purgeEventLog() {
              $(this).find('form').trigger('reset');
         });    
 
-    
-
-
         $('#modalAddNewDevice').on('shown.bs.modal', function() {
             document.getElementById('addOwnerID').value = document.getElementById('customerName').value;
         });
-
+       
         $('#modalShowAlerts').on('shown.bs.modal', function() {
             $.ajax({
                 url: "alertModal.php",
@@ -1371,13 +1381,13 @@ function printVRNLookup() {
         var todaysDate = new Date();
         var renewalDate = new Date(e.target.value);
         var daysDiff = (renewalDate - todaysDate) / 86400000;
-
+       
         if (daysDiff <= 30) {
-            document.getElementById('renewalDate').style.backgroundColor = 'red';
+            $('.showRenewalStatus').html("<img style='margin-left: 10px;width: 90%; height: 90%' src='images/red_warning_24.png'/>");     
         } else if (daysDiff <= 60) {
-            document.getElementById('renewalDate').style.backgroundColor = 'orange';
+            $('.showRenewalStatus').html("<img style='margin-left: 10px;width: 90%; height: 90%' src='images/yellow_warning_24.png'/>");
         } else {
-            document.getElementById('renewalDate').style.backgroundColor = '<?php echo $notRenewable; ?>';
+            $('.showRenewalStatus').html('');
         }
 
         $.ajax({

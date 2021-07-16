@@ -2657,20 +2657,21 @@
                             </div>
                         </div>
                 <hr>
-                <div class='row'>
+                <div class='row' style='display: none'>
                   <div class='col-md-5 col-lg-4'>
                       <label class='control-label' for='addVehicleAllocateTo' style='padding-top:9px;'><strong>Allocated to</strong></label>
                   </div>
                   <div class='col-md-7 col-lg-6'>
                       <div class='input-group'>
-                          <input type='text' class='form-control' readonly='readonly' id='addVehicleAllocateTo' style='margin-top:1px;'>
+                          <input type='text' class='form-control' readonly='readonly' id='addVehicleAllocateTo' style='margin-top:1px;'
+                            <!-- <?php $sql = "SELECT businessName FROM tblCustomer WHERE ID='" . $_SESSION['currentCustomer'] ."'";
+                                $result = mysqli_query($link, $sql);
+                                $row = mysqli_fetch_array($result); 
+                                echo " value= '" . $row['businessName'] . "'>";
+                            ?> -->
                       </div>
                   </div>
                 </div>
-
-
-
-
             </form>
           </div>
             <div class="modal-footer">
@@ -2849,7 +2850,7 @@
                                         $sql = "SELECT * FROM tblJobType ORDER BY description ASC";
                                         $result = mysqli_query($link,$sql);
                                         while ($jobRow = mysqli_fetch_array($result)) {
-                                            echo "<option value = " . $jobRow['ID'] . ">" . $jobRow['description'] . "</option>";
+                                            echo "<option value = '" . $jobRow['ID'] . "'>" . $jobRow['description'] . "</option>";
                                         }
                                     ?>
                                     </select>
@@ -2864,10 +2865,11 @@
                                 <div class='input-group'>
                                     <select id='addJobTypeVRN' name='addJobTypeVRN' class='custom-select addJobTypeVRN' style='margin-top:3px;'>
                                     <?php
-                                        $sql = "SELECT ID,regNumber FROM tblVehicle WHERE tblVehicle.ownerID = '" . $_SESSION['currentCustomer']."' ORDER BY regNumber ASC";
+                                        $sql = "SELECT ID,regNumber FROM tblVehicle WHERE tblVehicle.ownerID = '" . $_SESSION['currentCustomer']. "' ORDER BY regNumber ASC";
                                         $result = mysqli_query($link,$sql);
+
                                         while ($VRNRow = mysqli_fetch_array($result)) {
-                                            echo "<option value = " . $VRNRow['ID'] . ">" . $VRNRow['regNumber'] . "</option>";
+                                            echo "<option value = '" . $VRNRow['ID'] . "'>" . $VRNRow['regNumber'] . "</option>";
                                         }
                                     ?>
                                     </select>
@@ -2876,7 +2878,7 @@
                         </div>
                         <div class='row'>
                             <div class='col-4'>
-                                <label class='control-label' for='addJobNotes' style='padding-top:8px;'><strong>Job Details</strong></label>
+                                <label class='control-label' for='addJobNotes' style='padding-top:8px;'><strong><?php echo $sql?></strong></label>
                             </div>
                             <div class='col-8'>
                                 <div class='input-group'>
@@ -2893,6 +2895,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <div id='addJobHide' style='display: none'></div>
+                <div id='jobCustomerHide'></div>
                 <button type="button" id='addJobUpdate' onclick='addNewJob()' class="btn btn-success">Add</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
