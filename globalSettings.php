@@ -312,6 +312,8 @@ $returnString .=" </select>
   <div class='btn-group' style='display : flex; margin: 5px;'>
       <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='updateUserList'>Update</button>
       <button class='btn btn-sm btn-primary' style='margin: 15px; border-radius: 15px;' id='inviteNewUser'>Invite New</button>
+      <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px;' id='addHistoricUser'>Add Historic</button>
+      
     </div>
    <div id='userErrorBox'></div>
 

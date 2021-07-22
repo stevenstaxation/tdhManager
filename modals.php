@@ -263,7 +263,7 @@
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
-                                    <input type='text' class='form-control' maxlength='50' placeholder="Config file used..." id='addConfigFile' style='margin-top:3px;'>
+                                    <input type='text' class='form-control' maxlength='512' placeholder="Config description (max 512 chars)..." id='addConfigFile' style='margin-top:3px;'>
                                 </div>
                             </div>
                             <div class='col-md-2'>
@@ -286,7 +286,7 @@
                         <hr>
                         <div class='row'>
                             <div class='col-md-2'>
-                                <label class='control-label' for='addDeviceInstaller' style='padding-top:15px;'><strong>Installer</strong></label>
+                                <label class='control-label' for='addDeviceInstaller' style='padding-top:15px;'><strong>Original installer</strong></label>
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
@@ -313,7 +313,7 @@
                         </div>
                         <div class='row'>
                             <div class='col-md-2'>
-                                <label class='control-label' for='addDeviceInstalldate' style='padding-top:15px;'><strong>Install Date</strong></label>
+                                <label class='control-label' for='addDeviceInstalldate' style='padding-top:15px;'><strong>Original install Date</strong></label>
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
@@ -321,11 +321,11 @@
                                 </div>
                             </div>
                             <div class='col-md-2'>
-                                <label class='control-label' for='addDeviceInstallReference' style='padding-top:15px;'><strong>Installer Ref</strong></label>
+                                <label class='control-label' for='addDeviceInstallReference' style='padding-top:15px; display: none;'><strong>Installer Ref</strong></label>
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
-                                    <input type='text' class='form-control' maxlength='50' placeholder="Installer reference..." id='addDeviceInstallReference' style='margin-top:3px;'>
+                                    <input type='text' class='form-control' maxlength='50' placeholder="Installer reference..." id='addDeviceInstallReference' style='margin-top:3px; display: none;'>
                                 </div>
                             </div>
                         </div>
@@ -530,7 +530,7 @@
                                     $sql = "SELECT * FROM tblCustomer ORDER BY businessName ASC";
                                     $result = mysqli_query($link,$sql);
 
-                                    echo "<option value= '0' selected='selected'>DHINSTALL</option>";
+                                    // echo "<option value= '0' selected='selected'>DHINSTALL</option>";
                                     while ($SIMRow = mysqli_fetch_array($result)) {
                                         echo "<option value = '" . $SIMRow['ID'] . "'>" . $SIMRow['businessName'] . "</option>";
                                     }
@@ -567,7 +567,7 @@
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
-                                    <input type='text' class='form-control' maxlength='50' placeholder="Config file used..." id='editConfigFile' style='margin-top:3px;'>
+                                    <input type='text' class='form-control' maxlength='512' placeholder="Config description (max 512 chars)..." id='editConfigFile' style='margin-top:3px;'>
                                 </div>
                             </div>
                             <div class='col-md-2'>
@@ -611,7 +611,7 @@
                         </div>
                         <div class='row'>
                             <div class='col-md-2'>
-                                <label class='control-label' for='editDeviceInstallDate' style='padding-top:15px;'><strong>Install Date</strong></label>
+                                <label class='control-label' for='editDeviceInstallDate' style='padding-top:15px;'><strong>Original install Date</strong></label>
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
@@ -619,11 +619,11 @@
                                 </div>
                             </div>
                             <div class='col-md-2'>
-                                <label class='control-label' for='editDeviceInstallReference' style='padding-top:15px;'><strong>Installer Ref</strong></label>
+                                <label class='control-label' for='editDeviceInstallReference' style='padding-top:15px; display: none;'><strong>Installer Ref</strong></label>
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
-                                    <input type='text' class='form-control' maxlength='50' placeholder="Installer reference..." id='editDeviceInstallReference' style='margin-top:3px;'>
+                                    <input type='text' class='form-control' maxlength='50' placeholder="Installer reference..." id='editDeviceInstallReference' style='margin-top:3px; display: none;'>
                                 </div>
                             </div>
                         </div>
@@ -2164,11 +2164,11 @@
                         <div class='row'>
                             <h6><strong>Incident</strong></h6> 
                             <div class='col-md-3'>
-                                <label class='control-label' for='footageIncidentDate' style='padding-top:9px;'>Incident Date and Time</label>
+                                <label class='control-label' for='footageIncidentDate' style='padding-top:9px;'>Incident Date</label>
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
-                                    <input type='datetime-local' class='form-control' id='footageIncidentDate' name='footageIncidentDate'>
+                                    <input type='date' class='form-control' id='footageIncidentDate' name='footageIncidentDate'>
                                 </div>
                             </div>
                             <div class='col-md-2'>
@@ -2289,7 +2289,11 @@
                                                         $fullName = $userRow['email'];
                                                     }
                                                 }
-                                                echo "<option value = " . $userRow['userID'] . ">" . $fullName . "</option>";
+                                                if ($userRow['userName']==$_SESSION['userName']) {
+                                                    echo "<option value = " . $userRow['userID'] . " selected>" . $fullName . "</option>";
+                                                } else {
+                                                    echo "<option value = " . $userRow['userID'] . ">" . $fullName . "</option>";
+                                                }
                                             }
                                          ?>
                                     </select>
@@ -2355,7 +2359,7 @@
                     <div class='row'>
                         <h6><strong>Incident</strong></h6> 
                             <div class='col-md-3'>
-                                <label class='control-label' for='footageEditIncidentDate' style='padding-top:9px;'>Incident Date and Time</label>
+                                <label class='control-label' for='footageEditIncidentDate' style='padding-top:9px;'>Incident Date</label>
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
@@ -2878,7 +2882,7 @@
                         </div>
                         <div class='row'>
                             <div class='col-4'>
-                                <label class='control-label' for='addJobNotes' style='padding-top:8px;'><strong><?php echo $sql?></strong></label>
+                                <label class='control-label' for='addJobNotes' style='padding-top:8px;'><strong>Notes</strong></label>
                             </div>
                             <div class='col-8'>
                                 <div class='input-group'>
@@ -3789,6 +3793,179 @@
                 </form> 
                 <div id='VehicleLookupInfo' style='font-size: 14px;'></div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- ---------------------------------------- ISSUE REQUEST DIALOGS ---------------------------------------------- -->
+<!-- ADD ISSUE DIALOG -->
+<div class="modal" id="modalAddIssue" data-backdrop='static' >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Add new issue, bug or feature request</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style='font-size: 75%'>
+                <form method='POST' id='getAddIssue' class='getAddIssue form-block' enctype='multipart/form-data'>
+                    <div class='form-group'>
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='control-label' for='addIssueDate' style='padding-top:8px;'><strong>Date</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <div class='input-group'>
+                                    <input type='date' class='form-control' id='addIssueDate' value="<?php echo date('Y-m-d'); ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='control-label' for='addIssuePriority' style='padding-top:8px;'><strong>Priority</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <div class='input-group'>
+                                    <select id='addIssuePriority' name='addIssuePriority' class='custom-select' style='margin-top:3px;'>
+                                        <option value = '1'>Blue Sky</option>
+                                        <option value = '2' selected>Low</option>
+                                        <option value = '3'>Medium</option>
+                                        <option value = '4'>High</option>
+                                        <option value = '5'>Critical</option>
+                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='control-label' for='addIssueDescription' style='padding-top:8px;'><strong>Description/Notes</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <div class='input-group'>
+                                    <textarea rows='8' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='addIssueDescription' id='addIssueDescription' style='margin-top:3px;'></textarea>                      
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class='row'>
+                            
+                            <div class='col-4'>
+                                <label for='file'><strong>Upload Screenshot </strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <input type='file' id='file' name='file' accept='image/*'>    
+                                <span id='uploaded_image'></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id='issueRequestMessage'></div>
+            </div>
+           
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id='addIssueHide' style='display: none'></div>
+                <button type="button" id='addIssueUpdate' onclick='addNewIssue()' class="btn btn-success">Add</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            </div>
+         
+        </div>
+    </div>
+</div>
+
+<!-- EDIT ISSUE DIALOG -->
+<div class="modal" id="modalEditIssue" data-backdrop='static' >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Edit issue, bug or feature request</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style='font-size: 75%'>
+                <form method='POST' id='getEditIssue' class='getEditIssue form-block' enctype='multipart/form-data'>
+                    <div class='form-group'>
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='control-label' for='editIssueDate' style='padding-top:8px;'><strong>Date</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <div class='input-group'>
+                                    <input type='date' class='form-control' id='editIssueDate' value="<?php echo date('Y-m-d'); ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='control-label' for='editIssuePriority' style='padding-top:8px;'><strong>Priority</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <div class='input-group'>
+                                    <select id='editIssuePriority' name='editIssuePriority' class='custom-select' style='margin-top:3px;'>
+                                        <option value = '1'>Blue Sky</option>
+                                        <option value = '2'>Low</option>
+                                        <option value = '3'>Medium</option>
+                                        <option value = '4'>High</option>
+                                        <option value = '5'>Critical</option>
+                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='control-label' for='editIssueStatus' style='padding-top:8px;'><strong>Status</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <div class='input-group'>
+                                    <select id='editIssueStatus' name='editIssueStatus' class='custom-select' style='margin-top:3px;'>
+                                        <option value = '1'>Not Possible</option>
+                                        <option value = '2'>Not Started</option>
+                                        <option value = '3'>In Progress</option>
+                                        <option value = '4'>For Review</option>
+                                        <option value = '5'>Completed</option>
+                                        <option value = '6'>For Correction</option>
+                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='control-label' for='editIssueDescription' style='padding-top:8px;'><strong>Description/Notes</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <div class='input-group'>
+                                    <textarea rows='8' cols='100' class='form-control' name='editIssueDescription' id='editIssueDescription' style='margin-top:3px;'></textarea>                      
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        <div class='row'>
+                            
+                            <div class='col-4'>
+                                <label for='file'><strong>Upload Screenshot </strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <input type='file' id='file' name='file' accept='image/*'>    
+                                <span id='uploaded_image'></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id='issueRequestMessage'></div>
+            </div>
+           
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id='editIssueHide' style='display: none'></div>
+                <button type="button" id='addIssueUpdate' onclick='editIssue()' class="btn btn-success">Update</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            </div>
+         
         </div>
     </div>
 </div>

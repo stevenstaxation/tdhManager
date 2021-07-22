@@ -8,8 +8,13 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 $customerID = intval($_POST['customerID']);
 $_SESSION['firstCustomer'] = '0';
-$_SESSION['currentCustomer'] = '0';
 
+if ($customerID ==0) {
+    $customerID = $_SESSION['currentCustomer'];
+}
+// if (isset($_SESSION['currentCustomer'])==false) {
+//     $_SESSION['currentCustomer'] = '0';
+// }
 
 $returnString = "
 <div class='form-group form form-inline' style='margin-top:50px'>
@@ -27,10 +32,10 @@ $returnString = "
                 $result = mysqli_query($link,$sql);
 
                 while ($row = mysqli_fetch_array($result)) {
-                    // if ($customerID == 0) {
-                    //     $customerID = $row['ID'];
-                    //     $_SESSION['firstCustomer'] = $customerID;
-                    // }
+                     if ($customerID == 0) {
+                         $customerID = $row['ID'];
+                         $_SESSION['firstCustomer'] = $customerID;
+                     }
                     if ($customerID == $row['ID']) {
                         $returnString .= "<option value= ". $row['ID']. " selected> " . $row['businessName'] . "</option>";
                         $_SESSION['currentCustomer'] = $row['ID'];

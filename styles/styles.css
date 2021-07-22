@@ -299,6 +299,51 @@ body.dark .dateColour {
 
 div.container { max-width: 1200px }
 
+#pBlueSky {
+    padding-left: 5px;
+    background-color: #00BBFF;
+}
+
+#pLow  {
+    padding-left: 5px;
+    background-color: #00FF00;
+}
+#pMedium {
+    padding-left: 5px;
+    background-color: #FFBB00;
+}
+#pHigh {
+    padding-left: 5px;
+    background-color: #FF8888;
+}
+#pCritical {
+    padding-left: 5px;
+    background-color: #FF0000;
+}
+body.dark #pBlueSky {
+    padding-left: 5px;
+    background-color: #00BBFF;
+}
+
+body.dark #pLow  {
+    padding-left: 5px;
+    background-color: rgba(0,255,0,0.5);
+}
+body.dark #pMedium {
+    padding-left: 5px;
+    background-color: rgba(255,187,0,0.5)
+}
+body.dark #pHigh {
+    padding-left: 5px;
+    background-color: rgba(255,136,136,0.5);
+}
+body.dark #pCritical {
+    padding-left: 5px;
+    background-color: rgba(255,0,0,0.5);
+}
+
+
+
 
 
 

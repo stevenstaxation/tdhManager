@@ -43,6 +43,25 @@ $(document).on('click', '#inviteNewUserEmail', function (event) {
     });
 });
 
+// SET UP AN HISTORIC USER
+$(document).on('click', '#addHistoricUser', function (event) {
+    event.preventDefault();
+    dataToPost = {};
+    dataToPost.userName = window.prompt('Enter User Name');
+
+        $.ajax ({
+            url: "addOldUser.php",
+            timeout: 30000,
+            data: dataToPost,
+            type: "POST",
+            success: function(data) {
+                console.log(data);
+                $('#showGlobalSettings').trigger('click');
+            }
+        });
+
+});
+
 // TOGGLE DARK MODE
 
     $(document).on('click', '#companyLogo', function () {

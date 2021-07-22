@@ -29,11 +29,11 @@ if ($required=='true') {
   $required = '0';
 }
 
-if ($required=='1' && $vehicleStatus>0) {
-  if (!$installDate) {
-    $errors .="You should enter an installation date";
-  }
-}
+// if ($required=='1' && $vehicleStatus>0) {
+//   if (!$installDate) {
+//     $errors .="You should enter an installation date";
+//   }
+// }
 
 if ($errors) {
     $resultMessage = "<div class='alert alert-danger'>" . $errors . "</div>";

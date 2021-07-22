@@ -12,9 +12,9 @@ $tableColour='table-light';
 $tableText =  $_SESSION['textColor'];
 $notRenewable = $_SESSION['renewalColor'];
 $returnString = "";
-if (isset($_POST['selectedValue'])) {
+// if (isset($_POST['selectedValue'])) {
     $_SESSION['currentCustomer'] = $_POST['selectedValue'];  
-} 
+// } 
 
 $sql= "SELECT * FROM tblCustomer LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblInsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.ID  LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID WHERE tblCustomer.ID='" . $_SESSION['currentCustomer'] . "'";
 
@@ -451,6 +451,7 @@ $returnString = "
                         <th class='text-center align-middle'>Serial</th>
                         <th class='text-center align-middle'>DRID</th>
                         <th class='text-center align-middle' style='width:8%; padding 0 3px;'>Edit</th>
+                        <th class='text-center align-middle' style='width:8%; padding 0 3px;'>Notes</th>
                     </tr>
                 </thead>
                 <tbody>";
@@ -458,8 +459,14 @@ $returnString = "
                     $sql = "SELECT * FROM tblDevice LEFT JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID LEFT JOIN tblDeviceDescription ON tblDevice.deviceDescriptionID = tbldeviceDescription.ID WHERE tblDevice.ownerID='" . $_SESSION['currentCustomer'] . "' ORDER BY tblVehicle.regNumber ASC";
                     $deviceResult = mysqli_query($link, $sql);
                     $ix= 1;
+                    $rowBackgroundClass = '';
                     while ($row=mysqli_fetch_array($deviceResult)) {
-                        $returnString = $returnString . "<tr><td class='align-middle text-center' style='padding: 0 3px;'>" . $ix ."</td>";
+                        if ($row['status']=='3') {
+                            $rowBackgroundClass= "faulty";
+                        } else {
+                            $rowBackgroundClass= "";
+                        }
+                        $returnString = $returnString . "<tr class='" . $rowBackgroundClass . "'><td class='align-middle text-center' style='padding: 0 3px;'>" . $ix ."</td>";
                         $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['regNumber'] ."</td>";
                         $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['description'] ."</td>";
                         $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['serialNumber'] ."</td>";
@@ -467,6 +474,13 @@ $returnString = "
                         $returnString = $returnString . "<td class='align-middle text-center'><btn class='btn btn-sm btn-warning' onclick='showFullDevice(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
                         <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
                       </svg></btn></td>";
+
+                        if ($row['deviceNote'] && $row['deviceNote']!="") {
+                            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showDeviceNotes(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal-check' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z'/><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td></tr>";
+                        } else {
+                            $returnString .="<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showDeviceNotes(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal' viewBox='0 0 16 16'><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td></tr>";
+                        }
+
                         $returnString = $returnString . "</tr>";
                         $ix++;
                     }
@@ -501,10 +515,16 @@ $(document).ready(function() {
         } else {
           $(row).css('background-color', 'rgba(255,255,255,1)')
                 .css('color', 'rgba(68,68,68,1)');
-      }
+        }
+        if ($(row).hasClass('faulty')) {
+            $(row).css('background-color', 'rgba(255,32,32,0.75)')
+            .css('color', 'rgba(255,255,255,0.75)');
+        }
     }
     });
 });
+
+
 </script>
 
 
@@ -514,9 +534,42 @@ $(document).ready(function() {
 $sql = "SELECT * FROM tblVehicle WHERE tblVehicle.ownerID='" . $_SESSION['currentCustomer'] . "' ORDER BY tblVehicle.regNumber ASC";
 $deviceResult = mysqli_query($link, $sql);
 $vehicles_NUMBEROF = mysqli_num_rows($deviceResult);
-$returnString .="
-    <h6><strong style='margin-top:10px;'>VEHICLES</strong></h6> 
-    <div id='DeviceStats' style='font-size:120%'>Total Vehicles: " . $vehicles_NUMBEROF . "</div> 
+$returnString .="<h6><strong style='margin-top:10px;'>VEHICLES</strong></h6> 
+<div id='DeviceStats' style='font-size:120%'>";
+
+$sql="SELECT COUNT(tblVehicle.ID), tblVehicle.vehicleStatus FROM tblVehicle WHERE tblVehicle.ownerID='" . $_SESSION['currentCustomer'] ."' GROUP BY tblVehicle.vehicleStatus";
+$result = mysqli_query($link, $sql);
+
+    if ($vehicles_NUMBEROF!=0) {
+        $vehiclesString = "Total Vehicles: " . $vehicles_NUMBEROF . " (";
+        while ($row = mysqli_fetch_array($result)) {
+            if ($row['COUNT(tblVehicle.ID)']!=0) {
+                switch ($row['vehicleStatus']) {
+                    case '0':
+                        $statusDescription='N/A';
+                        break;
+                    case '1':
+                        $statusDescription='Pending';
+                        break;
+                    case '2':
+                        $statusDescription='Installed';
+                        break;    
+                    default:
+                        break;
+                }
+                $vehiclesString .= $row['COUNT(tblVehicle.ID)'] . " " . $statusDescription . ", ";
+            }
+        }
+
+        $vehiclesString = substr($vehiclesString,0,-2);
+        $vehiclesString .= ")";
+    } else {
+        $vehiclesString .= "Total Vehicles: " . $vehicles_NUMBEROF;
+    }
+    
+    $returnString .= $vehiclesString;
+    $returnString .= "
+    </div><br> 
     <div id='errorBox'></div>
      <div class='scrollBox' style='max-height: 30vh; overflow: auto;'>
             <table class='table cell-border compact' id='vehiclesTable' style='table-layout: fixed;'>
@@ -550,10 +603,12 @@ $returnString .="
                           } else {
                             $returnString .="<td class='text-center align-middle' style='padding-left: 5px;width: 6%'><img class='noIcon' src='images/red_cross_16.png'/><span style='display:none;'>red_cross</span></td>";
                           }
-                          if (date('d/m/Y', strtotime($row['installDate']))=='01/01/1970') {
+
+                          $stringyDate = strtotime($row['installDate']);
+                           if (date('d/m/Y', $stringyDate)=='01/01/1970' || date('d/m/Y', $stringyDate)=='01/01/0001' || date('d/m/Y', $stringyDate)==NULL) {
                             $returnString .="<td class='text-center align-middle'>unknown</td>";   
                           } else {
-                          $returnString .="<td class='text-center align-middle'>" . date('d/m/Y', strtotime($row['installDate'])) . "</td>";   
+                            $returnString .="<td class='text-center align-middle'>" . date('d/m/Y', $stringyDate) . "</td>";   
                           }
                         $returnString = $returnString . "<td class='align-middle text-center'><btn class='btn btn-sm btn-warning' onclick='showVehicleForEdit(\"" . $row[0] . "customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
                         <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>

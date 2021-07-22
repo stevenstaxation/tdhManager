@@ -47,11 +47,11 @@ if (mysqli_num_rows($result)!=0) {
 }
 
 // if installation is not applicable or camera required = no, we do not need an install date
-if ($installationStatus !='not applicable' && $cameraRequired) {
-    if (!$installationDate) {
-        $errors .="<p>You should enter the install date</p>";
-    }
-}
+// if ($installationStatus !='not applicable' && $cameraRequired) {
+//     if (!$installationDate) {
+//         $errors .="<p>You should enter the install date</p>";
+//     }
+// }
 
 if ($errors) {
     echo "<div class='alert alert-danger'>" .$errors . "</div>";

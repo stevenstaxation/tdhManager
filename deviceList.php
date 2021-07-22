@@ -20,6 +20,33 @@ if (!isset($_POST['FilterOtherTerm'])) {
 
 $returnString = "<div id='deviceLongList' class='listHeader'><h4><strong>Devices</strong></h4></div>";
 
+$sql = "SELECT * FROM tblDevice";
+    $result = mysqli_query($link, $sql);
+    $devices_NUMBEROF = mysqli_num_rows($result);
+
+    $sql = "SELECT COUNT(tblDevice.ID), tblDevice.status, tblDeviceStatus.status FROM tblDevice INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.ID GROUP BY tblDevicestatus.ID";
+    $result = mysqli_query($link, $sql);
+    $returnString = $returnString . "
+        <div id='DeviceStats' style='font-size:120%'>";
+
+            $devicesString = '';
+            if ($devices_NUMBEROF!=0) {
+                $devicesString = $devicesString . "Total Devices: " . $devices_NUMBEROF ." (";
+                while ($row = mysqli_fetch_array($result)) {
+                    if ($row['COUNT(tblDevice.ID)']!=0) {
+                        $devicesString = $devicesString . $row['COUNT(tblDevice.ID)'] . " " . $row['status'] . ", ";
+                    }
+                }
+                $devicesString = substr($devicesString,0, -2);
+                $devicesString = $devicesString . ")";
+            } else {
+                $devicesString = $devicesString . "Total Devices: " . $devices_NUMBEROF;
+            }
+
+            $returnString = $returnString . $devicesString;
+            $returnString = $returnString . "
+        </div><br>";
+
 $returnString .= "
 <div class='container'>
   <div id='deviceFilter' style='display: none'>
@@ -36,7 +63,9 @@ $returnString .= "
   
   FROM tblDevice LEFT JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID LEFT JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID 
   LEFT JOIN tblDeviceDescription ON tblDevice.deviceDescriptionID =tblDeviceDescription.ID LEFT JOIN tblDeviceStatus ON tblDevice.status 
-  = tblDeviceStatus.ID LEFT JOIN tblSIMStatus ON tblDevice.SIMStatus = tblSIMStatus.ID LEFT JOIN tblInstaller ON tblDevice.installerID = tblInstaller.ID';
+  = tblDeviceStatus.ID LEFT JOIN tblSIMStatus ON tblDevice.SIMStatus = tblSIMStatus.ID LEFT JOIN tblInstaller ON tblDevice.installerID = tblInstaller.ID
+  ORDER BY tblCustomer.businessName ASC, tblVehicle.regNumber ASC
+  ';
 
     if ($sqlFILTER) {
       $sql .= $sqlFILTER;
@@ -61,8 +90,8 @@ $returnString .= "
           <th class='text-center align-middle'>SIM Number</th>
           <th class='text-center align-middle'>SIM Status</th>
           <th class='text-center align-middle'>Config</th>
-          <th class='text-center align-middle'>Installer</th>
-          <th class='text-center align-middle'>Install Date</th> 
+          <th class='text-center align-middle'>Original installer</th>
+          <th class='text-center align-middle'>Original install Date</th> 
           <th class='text-center align-middle'>Edit</th>
           <th class='text-center align-middle'>Notes</th>
         </tr>
@@ -71,9 +100,16 @@ $returnString .= "
       <tbody>";
 
       $ix = 1;
-  while ($row= mysqli_fetch_array($result)) {
+      $rowBackgroundClass = '';
+      
+      while ($row= mysqli_fetch_array($result)) {
+          if ($row['status']=='Faulty') {
+              $rowBackgroundClass= "faulty";
+          } else {
+              $rowBackgroundClass= "";
+          }
 
-    $returnString .= "<tr>
+    $returnString .= "<tr class='" . $rowBackgroundClass . "'>
     <td class='text-center align-middle' style='padding:0 3px'>" . $ix . "</td>
     <td class='align-middle' style='padding:0 3px'>" . $row['businessName'] . "</td>
     <td class='text-center align-middle' style='padding:0 3px;'>" . $row['TDHNumber']. "</td>
@@ -88,7 +124,8 @@ $returnString .= "
     <td class='align-middle' style='padding:0 3px;'>" . $row['config']. "</td>
     <td class='text-center align-middle' style='padding:0 3px;'>" . $row['installerName']. "</td>";
 
-      if(date('d/m/Y', strtotime($row['installDate']))=='01/01/1970') {
+      $stringyDate = strtotime($row['installDate']);
+      if(date('d/m/Y', $stringyDate)=='01/01/1970' || date('d/m/Y', $stringyDate)=='01/01/0001' || date('d/m/Y', $stringyDate)==NULL) {
         $returnString .= "<td class='text-center align-middle' style='padding:0 3px;'>unknown</td>";
       } else {
         $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-sort='" .$row['installDate'] ."'>" . date('d/m/Y', strtotime($row['installDate'])) . "</td>";
@@ -128,8 +165,8 @@ $ix++;
       <th class='text-center align-middle'>SIM Number</th>
       <th class='text-center align-middle'>SIM Status</th>
       <th class='text-center align-middle'>Config</th>
-      <th class='text-center align-middle'>Installer</th>
-      <th class='text-center align-middle'>Install Date</th> 
+      <th class='text-center align-middle'>Original installer</th>
+      <th class='text-center align-middle'>Original install Date</th> 
       <th class='text-center align-middle'>Edit</th>
       <th class='text-center align-middle'>Notes</th>
     </tr>
@@ -151,7 +188,6 @@ $ix++;
           {orderable: false, targets: [14,15] },
           {searchable: false, targets: [14,15] }
         ],
-        order: [[0, 'asc']],
         processing: true,
         paging: false,
         responsive: true,
@@ -163,6 +199,10 @@ $ix++;
           } else {
             $(row).css('background-color', 'rgba(255,255,255,1)')
                   .css('color', 'rgba(68,68,68,1)');
+        }
+        if ($(row).hasClass('faulty')) {
+          $(row).css('background-color', 'rgba(255,32,32,0.75)')
+                  .css('color', 'rgba(255,255,255,0.75)');
         }
       },
         initComplete: function() {

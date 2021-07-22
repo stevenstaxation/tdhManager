@@ -53,3 +53,67 @@ $(document).on('click', '#footageFilterClicked', function (event) {
     });
 });
 
+function populateFootageBox() {
+    var dataToPost = {};
+    dataToPost.customerID = $('#hiddenCustomerID').text();
+    $.ajax({
+        url: 'getFootageInfo.php',
+        timeout: 30000,
+        data: dataToPost,
+        // datatype: "json",
+        type: "POST",
+        success: function(data) {
+            data = $.parseJSON(data);
+
+
+            if (data=='nodevices') {
+                window.alert("There are no devices registered for this client, so you cannot add a footage request.")
+            } else {
+
+            $('#footageCustomerID').val(data['customerName']);
+            var VRNHTML= "<select id='getFootageVRN' name='getFootageVRN' class='custom-select getFootageVRN'>";
+            for (var x=0; x < data['VRN'].length; x++) {
+                VRNHTML += "<option value = '" + data['VRNID'][x] + "'>" + data['VRN'][x] + "</option>";
+            }
+                VRNHTML += "</select>";
+            $('#footageVRNList').html(VRNHTML);
+
+            var contactsHTML = "<table class='table table-sm table-scrollable'><thead><tr><th>Contact Name</th><th>Email Address</th><th>Type</th><th>Sent</th></tr></thead><tbody>";
+
+            for (var x=0; x < data['customerContactsEmail'].length; x++) {
+                contactsHTML += "<tr>";
+                contactsHTML += "<td>" + data['customerContactsFullName'][x] + "</td>";
+                contactsHTML += "<td>" + data['customerContactsEmail'][x] + "</td>";
+                contactsHTML += "<td>Customer</td>";
+                contactsHTML += "<td><input type='checkbox'></td>";
+                contactsHTML += "</tr>";
+            }
+            for (var x=0; x < data['insurerContactsEmail'].length; x++) {
+                contactsHTML += "<tr>";
+                contactsHTML += "<td>" + data['insurerContactsFullName'][x] + "</td>";
+                contactsHTML += "<td>" + data['insurerContactsEmail'][x] + "</td>";
+                contactsHTML += "<td>Insurer</td>";
+                contactsHTML += "<td><input type='checkbox'></td>";
+                contactsHTML += "</tr>";
+            }
+            for (var x=0; x < data['brokerContactsEmail'].length; x++) {
+                contactsHTML += "<tr>";
+                contactsHTML += "<td>" + data['brokerContactsFullName'][x] + "</td>";
+                contactsHTML += "<td>" + data['brokerContactsEmail'][x] + "</td>";
+                contactsHTML += "<td>Broker</td>";
+                contactsHTML += "<td><input type='checkbox'></td>";
+                contactsHTML += "</tr>";
+            }
+
+                contactsHTML += "</tbody></table>"
+
+
+            $('#footageRecipientsList').html(contactsHTML);
+
+            $('#modalAddNewFootage').modal('show');
+            }
+        },
+        error: function() {
+        }
+    });
+}

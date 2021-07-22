@@ -385,6 +385,11 @@ function purgeEventLog() {
             $(this).find('form').trigger('reset');
         });
 
+        $('#modalAddIssue').on('hidden.bs.modal', function() {
+            $(this).find('form').trigger('reset');
+        });
+
+
         $('#modalEditFootage').on('hidden.bs.modal', function() {
              $('#footageEditFileTableBodyBlock').html('');
             $(this).find('form').trigger('reset');
@@ -1256,6 +1261,45 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
         });
     });
 
+    $(document).on('click','#toggleCompletedIssues', function() {
+        var currentFilter = $('#issueFilter').html();
+        if (currentFilter==5) {
+            currentFilter = 0;
+        } else {
+            currentFilter = 5;    
+        }
+        $('#issueFilter').html(currentFilter);
+        $('#showIssueLog').trigger('click');
+    });
+
+
+    $(document).on("click", '#showIssueLog', function () {
+        var dataToPost = {};
+        dataToPost.filteredStatus = $('#issueFilter').html();
+        if (!dataToPost.filteredStatus) {
+            dataToPost.filteredStatus='5';
+        }
+    
+        $.ajax({
+        url: "issueList.php",
+        data: dataToPost,
+        type: "POST",
+        success: function (data) {
+            $('#accountInfo').html('');
+            $('#customerSelect').html('');
+            $('#customerInfo').html('');
+            $('#overlay').html('');
+            $('#homeScreen').hide();
+            $('#eventLog').html('');
+            $('#devicesList').html(data);
+            $('#vehicleList').html('');
+        },
+        error: function () {
+            $('#issueRequestMessage').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
+        }
+    });
+});
+
     $(document).on('click', '#showGlobalSettings', function(event) {
         // prevent default PHP processing
         "use strict";
@@ -1470,71 +1514,121 @@ function printVRNLookup() {
     //     });
     // }
 
-    function populateFootageBox() {
+   
+
+    function addNewIssue() {
         var dataToPost = {};
-        dataToPost.customerID = $('#hiddenCustomerID').text();
-        $.ajax({
-            url: 'getFootageInfo.php',
+        dataToPost.issueDate = document.getElementById('addIssueDate').value;
+        dataToPost.issueDescription = document.getElementById('addIssueDescription').value;
+        dataToPost.issuePriority = document.getElementById('addIssuePriority').value;
+        dataToPost.issueFilename = $('#uploadScreenshot').attr('src');
+
+        if (!dataToPost.issueFilename) {
+            dataToPost.issueFilename='';
+        }
+        $.ajax ({
+            url: "addNewIssue.php",
             timeout: 30000,
             data: dataToPost,
-            // datatype: "json",
             type: "POST",
             success: function(data) {
-                data = $.parseJSON(data);
-
-
-                if (data=='nodevices') {
-                    window.alert("There are no devices registered for this client, so you cannot add a footage request.")
+                if(!data){
+                $('#uploaded_image').html('');
+                $('#uploadScreenshot').removeAttr('src');
+                $('#modalAddIssue').modal('hide');     
+                $('#showIssueLog').trigger('click');           
                 } else {
-
-                $('#footageCustomerID').val(data['customerName']);
-                var VRNHTML= "<select id='getFootageVRN' name='getFootageVRN' class='custom-select getFootageVRN'>";
-                for (var x=0; x < data['VRN'].length; x++) {
-                    VRNHTML += "<option value = '" + data['VRNID'][x] + "'>" + data['VRN'][x] + "</option>";
+                    $('#issueRequestMessage').html(data);
                 }
-                    VRNHTML += "</select>";
-                $('#footageVRNList').html(VRNHTML);
-
-                var contactsHTML = "<table class='table table-sm table-scrollable'><thead><tr><th>Contact Name</th><th>Email Address</th><th>Type</th><th>Sent</th></tr></thead><tbody>";
-
-                for (var x=0; x < data['customerContactsEmail'].length; x++) {
-                    contactsHTML += "<tr>";
-                    contactsHTML += "<td>" + data['customerContactsFullName'][x] + "</td>";
-                    contactsHTML += "<td>" + data['customerContactsEmail'][x] + "</td>";
-                    contactsHTML += "<td>Customer</td>";
-                    contactsHTML += "<td><input type='checkbox'></td>";
-                    contactsHTML += "</tr>";
-                }
-                for (var x=0; x < data['insurerContactsEmail'].length; x++) {
-                    contactsHTML += "<tr>";
-                    contactsHTML += "<td>" + data['insurerContactsFullName'][x] + "</td>";
-                    contactsHTML += "<td>" + data['insurerContactsEmail'][x] + "</td>";
-                    contactsHTML += "<td>Insurer</td>";
-                    contactsHTML += "<td><input type='checkbox'></td>";
-                    contactsHTML += "</tr>";
-                }
-                for (var x=0; x < data['brokerContactsEmail'].length; x++) {
-                    contactsHTML += "<tr>";
-                    contactsHTML += "<td>" + data['brokerContactsFullName'][x] + "</td>";
-                    contactsHTML += "<td>" + data['brokerContactsEmail'][x] + "</td>";
-                    contactsHTML += "<td>Broker</td>";
-                    contactsHTML += "<td><input type='checkbox'></td>";
-                    contactsHTML += "</tr>";
-                }
-
-                    contactsHTML += "</tbody></table>"
-
-
-                $('#footageRecipientsList').html(contactsHTML);
-
-                $('#modalAddNewFootage').modal('show');
-                }
-            },
-            error: function() {
             }
         });
     }
 
+    function showIssueForEdit(sender) {
+        var dataToPost = {};
+        dataToPost.issueID = sender;
+        $.ajax ({
+            url: "getCurrentIssue.php",
+            timeout: 30000,
+            data: dataToPost,
+            datatype: "json",
+            type: "POST",
+            success: function(data) {
+                data = $.parseJSON(data);
+                document.getElementById('editIssueDate').value = data['reportDate'];
+                document.getElementById('editIssuePriority').value = data['priority'];
+                document.getElementById('editIssueStatus').value = data['status'];
+                document.getElementById('editIssueDescription').value = data['description'];
+                document.getElementById('editIssueHide').value = sender;
+
+                $('#modalEditIssue').modal('show');
+            },
+            error: function() {
+
+            }
+        });
+    }
+
+    function editIssue () {
+        var dataToPost = {};
+        dataToPost.issueIDToUpdate = document.getElementById('editIssueHide').value;
+        dataToPost.issueDate = document.getElementById('editIssueDate').value;
+        dataToPost.issuePriority = document.getElementById('editIssuePriority').value;
+        dataToPost.issueStatus = document.getElementById('editIssueStatus').value;
+        dataToPost.issueDescription = document.getElementById('editIssueDescription').value;
+        
+        $.ajax ({
+            url: "updateIssue.php",
+            timeout: 3000,
+            data: dataToPost,
+            type: "POST",
+            success: function(data) {
+                if (data.includes('success')) {
+                $('#modalEditIssue').modal('hide');
+                $('#showIssueLog').trigger('click');  
+                } else {
+                    $('#issueRequestMessage').html(data);
+                }
+            }, 
+            error: function() {
+
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $(document).on('change', '#file', function() {
+            var fileProperty = document.getElementById('file').files[0];
+            var issueImageFileName = fileProperty.name;
+            var issueImageExtension = issueImageFileName.split('.').pop().toLowerCase();
+            // is it an allowed extenstion?
+            if(jQuery.inArray(issueImageExtension, ['png', 'jpg', 'jpeg', 'gif']) == -1) {
+                alert ('Invalid Image File');
+            }
+            var issueImageSize = fileProperty.size;
+            if (issueImageSize > 2000000) {
+                alert ('Max file size is 2Mb');
+            } else {
+                var form_data = new FormData();
+                form_data.append("file", fileProperty);
+                $.ajax({
+                    url: "upload.php",
+                    method: 'POST',
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('#uploaded_image').html("<label class='text-success'>Screenshot Uploading...</label>")
+                    },
+                    success: function(data) {
+                        $('#uploaded_image').html(data);
+                    }
+                })
+            }
+
+        });
+    })
     
 
     function addNewFootage() {
