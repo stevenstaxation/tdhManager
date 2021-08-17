@@ -67,7 +67,7 @@ function populateFootageBox() {
 
 
             if (data=='nodevices') {
-                window.alert("There are no devices registered for this client, so you cannot add a footage request.")
+                swal ("Cannot add footage request','There are no devices registered for this client', 'info'");
             } else {
 
             $('#footageCustomerID').val(data['customerName']);
