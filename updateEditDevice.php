@@ -58,38 +58,38 @@ if ($count==1) { // vehicle exists
     $row = mysqli_fetch_array($result);
     $deviceVehicleID = $row['ID'];
 } else {
-    $VRNLookupURL = 'https://www.rapidcarcheck.co.uk/results?RegPlate=' . $deviceRegNumber;
-    $dom = file_get_html($VRNLookupURL);
+    // $VRNLookupURL = 'https://www.rapidcarcheck.co.uk/results?RegPlate=' . $deviceRegNumber;
+    // $dom = file_get_html($VRNLookupURL);
 
-    $wraps = [];
-    $wraps['Make'] = "Unknown";
-    $wraps['Model'] = '';
-    $wraps['Colour'] = '';
-    $wraps['Year'] = '';
-    $wraps['other'] = '';
+    // $wraps = [];
+    // $wraps['Make'] = "Unknown";
+    // $wraps['Model'] = '';
+    // $wraps['Colour'] = '';
+    // $wraps['Year'] = '';
+    // $wraps['other'] = '';
 
-    foreach($dom->find(".wpb_wrapper") as $rTitle) {
-        if (strpos($rTitle->plaintext, "Make: ")!==false) {
-            $wraps['Make'] = substr($rTitle->plaintext,8);
-        }
-        if (strpos($rTitle->plaintext, "Model: ")!==false) {
-            $wraps['Model'] = substr($rTitle->plaintext,9);
-        }
-        if (strpos($rTitle->plaintext, "Colour: ")!==false) {
-            $wraps['Colour'] = substr($rTitle->plaintext,10);
-        }
-        if (strpos($rTitle->plaintext, "Year: ")!==false) {
-            $wraps['Year'] = substr($rTitle->plaintext,8);
-        }
-    }
+    // foreach($dom->find(".wpb_wrapper") as $rTitle) {
+    //     if (strpos($rTitle->plaintext, "Make: ")!==false) {
+    //         $wraps['Make'] = substr($rTitle->plaintext,8);
+    //     }
+    //     if (strpos($rTitle->plaintext, "Model: ")!==false) {
+    //         $wraps['Model'] = substr($rTitle->plaintext,9);
+    //     }
+    //     if (strpos($rTitle->plaintext, "Colour: ")!==false) {
+    //         $wraps['Colour'] = substr($rTitle->plaintext,10);
+    //     }
+    //     if (strpos($rTitle->plaintext, "Year: ")!==false) {
+    //         $wraps['Year'] = substr($rTitle->plaintext,8);
+    //     }
+    // }
 
-    if ($wraps['Year']<>'') {
-        $wraps['other'] = $wraps['Colour'] . " ( " . $wraps['Year'] . ")";
-    } else {
-        $wraps['other'] = $wraps['Colour'];
-    }
+    // if ($wraps['Year']<>'') {
+    //     $wraps['other'] = $wraps['Colour'] . " ( " . $wraps['Year'] . ")";
+    // } else {
+    //     $wraps['other'] = $wraps['Colour'];
+    // }
 
-    $sql = "INSERT INTO tblVehicle (make, model, addDescription, regNumber, ownerID) VALUES ('" . $wraps['Make'] ."', '" . $wraps['Model']. "', '" .$wraps['other'] . "', '" . $deviceRegNumber . "', '" . $deviceOwnerID . "')";
+    $sql = "INSERT INTO tblVehicle (regNumber, ownerID) VALUES ('" . $deviceRegNumber . "', '" . $deviceOwnerID . "')";
 
     $result = mysqli_query($link, $sql);
 

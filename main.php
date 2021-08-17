@@ -44,6 +44,8 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 
     <script src='scripts/bootstrap-combobox.js'></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
@@ -95,7 +97,7 @@ function setDarkMode(colMode) {
 
 function purgeEventLog() {
     var dataToPost={};
-    dataToPost.daysToAdd = 90;
+    dataToPost.daysToAdd = 42;
     $.ajax({
         url: 'purgeEventLog.php',
         type: 'POST',
@@ -358,10 +360,10 @@ function purgeEventLog() {
 
       
         $('#footageInfo').on('click', function() {
-            window.alert ('Footage information not implemented yet');
+            swal ('Footage information not implemented yet','coming soon', 'info');
         });
         $('#footageRemove').on('click', function() {
-            window.alert ('Footage removal not implemented yet');
+            swal ('Footage removal not implemented yet','coming soon', 'info');
         });
 
         $('#modalAddNewNote').on('hidden.bs.modal', function() {
@@ -402,7 +404,10 @@ function purgeEventLog() {
         });    
 
         $('#modalAddNewDevice').on('shown.bs.modal', function() {
-            document.getElementById('addOwnerID').value = document.getElementById('customerName').value;
+            var ele = document.getElementById('customerName');
+            if (ele) {
+                document.getElementById('addOwnerID').value = ele.value;
+            }
         });
        
         $('#modalShowAlerts').on('shown.bs.modal', function() {
@@ -1603,11 +1608,13 @@ function printVRNLookup() {
             var issueImageExtension = issueImageFileName.split('.').pop().toLowerCase();
             // is it an allowed extenstion?
             if(jQuery.inArray(issueImageExtension, ['png', 'jpg', 'jpeg', 'gif']) == -1) {
-                alert ('Invalid Image File');
+                swal ('Invalid Image File','Only PNG, JPEG and GIF allowed', 'error');
+                return
             }
             var issueImageSize = fileProperty.size;
             if (issueImageSize > 2000000) {
-                alert ('Max file size is 2Mb');
+                swal ('File is too large to upload','Maximum file size is 2Mb', 'error');
+                return
             } else {
                 var form_data = new FormData();
                 form_data.append("file", fileProperty);
