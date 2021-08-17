@@ -80,7 +80,7 @@ if (mysqli_num_rows($result)!=0) {
 } else {
     // new vehicle so we need to add it to the database
     
-    $sql = "INSERT INTO tblVehicle (regNumber, ownerID) VALUES ('$deviceVRN', '$customerID')";
+    $sql = "INSERT INTO tblVehicle (regNumber, ownerID, vehicleStatus) VALUES ('$deviceVRN', '$customerID','2')";
 
     $result = mysqli_query($link, $sql);
 
@@ -104,6 +104,10 @@ $lastID = $customerID;
         echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
         exit();
     }
+
+$sql = "UPDATE tblVehicle SET installDate = NULLIF('$deviceInstallDate','') WHERE ID='$deviceVehicleID'";
+$result = mysqli_query($link, $sql);
+
 
 
 echo $lastID . "success";

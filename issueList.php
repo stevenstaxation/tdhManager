@@ -81,6 +81,9 @@ $returnString .="
         }
   
         switch ($row['status']) {
+          case '7':
+            $returnString .="<td class='text-center align-middle' style='padding-left: 5px; background-color:#DD66DD;'>More Info/Cannot Replicate</td>";
+            break;
           case '6':
             $returnString .="<td class='text-center align-middle' style='padding-left: 5px; background-color:#a0ffff;'>For Correction</td>";
             break;

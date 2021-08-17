@@ -10,6 +10,10 @@ $userName = $_POST['userName'];
 
 $userName = mysqli_real_escape_string($link, filter_var($userName, FILTER_SANITIZE_STRING));
 
+if ($userName=='' || $userName==NULL) {
+    exit();
+}
+
 $userSplitName = explode(" ",$userName);
 
 if (array_key_exists(0, $userSplitName)) {
@@ -45,9 +49,6 @@ $result = mysqli_query($link, $sql);
 
 $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('New historic user $userName added', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
-
-
-echo "success";
 
 
 ?>

@@ -12,9 +12,9 @@ $_SESSION['firstCustomer'] = '0';
 if ($customerID ==0) {
     $customerID = $_SESSION['currentCustomer'];
 }
-// if (isset($_SESSION['currentCustomer'])==false) {
-//     $_SESSION['currentCustomer'] = '0';
-// }
+if (isset($_SESSION['currentCustomer'])==false) {
+    $_SESSION['currentCustomer'] = '0';
+}
 
 $returnString = "
 <div class='form-group form form-inline' style='margin-top:50px'>
@@ -55,10 +55,14 @@ $returnString = "
             
 
     </div>
-            
+    <div class='dhinstall'>
+        <button class='btn btn-danger btn-sm dhinstallbutton' id='goToDHInstall' style='padding: 5px 20px' type='button'>DH<br>Install</button>  
+        <button class='btn btn-warning btn-sm dhinstallbutton' id='addToDHInstall' style='padding: 5px 15px' type='button'>Add DHI<br>Device</button>  
+    </div>
                
 </div>
 
+            
 
 <script type='text/javascript'>
   $(document).ready(function(){

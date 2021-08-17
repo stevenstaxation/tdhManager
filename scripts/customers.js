@@ -353,3 +353,78 @@ function deleteCustomer() {
             });
         }
     }
+
+    $(document).on('change', '#selectCustomer', function() {
+        var dataToPost = {};
+        dataToPost.selectedCustomer = (this.value);
+
+       $.ajax({
+        url: 'customerSelectSimple.php',
+        timeout: 30000,
+        data: dataToPost,
+        type: "POST",
+        success: function(data) {
+            $('#optionalVRN').html(data);
+
+        }
+       });
+    });
+
+    function allocateDeviceToCustomer(){
+        var dataToPost = {}
+        dataToPost.allocateCustomer = document.getElementById('selectCustomer').value;
+        dataToPost.allocateVRN = document.getElementById('selectVRN').value;
+        dataToPost.allocateDevice = document.getElementById('hiddenAllocateID').innerHTML;
+        dataToPost.allocateDevice = dataToPost.allocateDevice.replace('DHI', '');
+
+        $.ajax({
+            url: 'allocateDeviceToCustomer.php',
+            timeout: 30000,
+            data: dataToPost,
+            type: "POST",
+            success: function(data) {
+                if (data.includes('success')) {
+                    $('#modalGetCustomerAndVRN').modal('hide');
+                    $('#getClient').trigger('change');
+                } else {
+                    swal ("Error", data, "warning");
+                }
+            }
+        }); 
+    }
+
+    $(document).on('click', '#goToDHInstall', function() {
+        // find ID of DHInstall
+        // Select customer
+        $.ajax ({
+            url: 'getDHInstallID.php',
+            timeout: 30000,
+            success: function(data) {
+                var dataToPost = {};
+                dataToPost.customerID = data;
+                $.ajax({
+                    url: 'selectCustomer.php',
+                    data: dataToPost,
+                    timeout: 30000,
+                    type: 'POST',
+                    success: function(data) {
+                        $('#accountInfo').html('');
+                        $('#customerSelect').html(data);
+                        $('#getClient').trigger('change');
+                    },
+                    error: function() {
+            
+                    }
+            
+                });
+            }
+        });
+
+    });
+
+    $(document).on('click', '#addToDHInstall', function() {
+      
+        $('#modalAddNewDevice').modal('show');
+        document.getElementById('addOwnerID').value = 'DHInstall';
+        $('#addOwnerID').val('DHINSTALL');
+    });

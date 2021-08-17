@@ -341,9 +341,22 @@ body.dark #pCritical {
     padding-left: 5px;
     background-color: rgba(255,0,0,0.5);
 }
+.dhinstall {
+    position: absolute;
+    right: 20px;
+    border: 1px solid;
+    border-radius: 7px;
+    padding: 5px;
+    background-color: #FFF;
+}
 
+body.dark .dhinstall {
+    background-color: #888888;
+}
 
-
+.dhinstallbutton {
+    border-radius:50px;
+}
 
 
 

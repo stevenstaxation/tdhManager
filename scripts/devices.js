@@ -464,3 +464,8 @@ $(document).on('click', '#deleteDevice', function (event) {
          $('#editDeviceMessage').html('');
      });
 
+function allocateDevice(deviceToAllocate) {
+    $('#modalGetCustomerAndVRN').modal('show');
+    document.getElementById('hiddenAllocateID').innerHTML = deviceToAllocate;
+
+    }

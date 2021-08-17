@@ -3927,6 +3927,7 @@
                                         <option value = '4'>For Review</option>
                                         <option value = '5'>Completed</option>
                                         <option value = '6'>For Correction</option>
+                                        <option value = '7'>More Info/Cannot Replicate</option>                                        
                                      </select>
                                 </div>
                             </div>
@@ -3968,4 +3969,54 @@
          
         </div>
     </div>
+</div>
+
+<!-- GET CUSTOMER AND VRN TO ALLOCATE DIALOG -->
+<div class="modal" id="modalGetCustomerAndVRN" data-backdrop='static'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title">Allocate to customer</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class='form-group'>
+                        <div class='row'>
+                            <div class='col-md-4'>
+                                <label class='control-label' for='selectCustomer' style='padding-top:8px;'><strong>Select Customer</strong></label>
+                            </div>
+                            <div class='col-md-8'>
+                                <div class='input-group'>
+                                    <select id='selectCustomer' name='selectCustomer' class='custom-select selectCustomer'>
+                                        <?php
+                                            $sql = "SELECT ID, businessName FROM tblCustomer ORDER BY businessName ASC";
+                                            $result = mysqli_query($link,$sql);
+
+                                            while ($deviceRow = mysqli_fetch_array($result)) {
+                                                echo "<option value = " . $deviceRow['ID'] . ">" . $deviceRow['businessName'] . "</option>";
+                                            }
+                                        ?>       
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id='optionalVRN' class='row'>
+
+
+                        </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div id='hiddenAllocateID'style='display: none'></div>
+                <button type="button" id='allocateDeviceToCustomer' onclick='allocateDeviceToCustomer()' class="btn btn-success">Allocate</button>
+
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
 </div>

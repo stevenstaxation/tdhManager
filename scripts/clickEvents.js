@@ -47,18 +47,30 @@ $(document).on('click', '#inviteNewUserEmail', function (event) {
 $(document).on('click', '#addHistoricUser', function (event) {
     event.preventDefault();
     dataToPost = {};
-    dataToPost.userName = window.prompt('Enter User Name');
-
+    // dataToPost.userName = window.prompt('Enter User Name');
+    swal ({
+        text: 'Enter name for historic user',
+        content: 'input',
+        button: {
+            text: 'Add user',
+            closeModal: true,
+        },
+    })
+    .then(name => {
+        dataToPost.userName = name;
         $.ajax ({
             url: "addOldUser.php",
             timeout: 30000,
             data: dataToPost,
             type: "POST",
             success: function(data) {
-                console.log(data);
                 $('#showGlobalSettings').trigger('click');
             }
         });
+    })
+
+
+      
 
 });
 
