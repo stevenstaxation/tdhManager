@@ -8,8 +8,15 @@ $(document).on('change', '#getClient', function() {
         type: 'POST',
         data: dataToPost,
         success: function(data) {
-         
+    
         $('#customerInfo').html(data);
+        // var thisClientName = $('#hiddenCustomerName').text();
+        // if (thisClientName=='DHD') {
+        //     $('.dhd').show();
+        // } else {
+        //     $('.dhd').hide();      
+        // }
+
         if ($('#DeviceStats').text()=="Total Devices:  0") {
            $('#addFootageRequest').prop('disabled', true);
         } else {
@@ -53,7 +60,6 @@ $('#modalAddNewCustomer').on('hidden.bs.modal', function(event) {
 function showCustomers(customer = 0) {
     var dataToPost = {};
     dataToPost.customerID = customer;
-
     $.ajax({
         url: 'selectCustomer.php',
         data: dataToPost,
@@ -427,4 +433,40 @@ function deleteCustomer() {
         $('#modalAddNewDevice').modal('show');
         document.getElementById('addOwnerID').value = 'DHInstall';
         $('#addOwnerID').val('DHINSTALL');
+    });
+
+    $(document).on('click', '#goToDHD', function() {
+        // find ID of DHD
+        // Select customer
+        $.ajax ({
+            url: 'getDHDID.php',
+            timeout: 30000,
+            success: function(data) {
+                var dataToPost = {};
+                dataToPost.customerID = data;
+                $.ajax({
+                    url: 'selectCustomer.php',
+                    data: dataToPost,
+                    timeout: 30000,
+                    type: 'POST',
+                    success: function(data) {
+                        $('#accountInfo').html('');
+                        $('#customerSelect').html(data);
+                        $('#getClient').trigger('change');
+                    },
+                    error: function() {
+            
+                    }
+            
+                });
+            }
+        });
+
+    });
+
+    $(document).on('click', '#addToDHD', function() {
+      
+        $('#modalAddNewDevice').modal('show');
+        document.getElementById('addOwnerID').value = 'DHD';
+        $('#addOwnerID').val('DHD');
     });

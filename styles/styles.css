@@ -341,7 +341,7 @@ body.dark #pCritical {
     padding-left: 5px;
     background-color: rgba(255,0,0,0.5);
 }
-.dhinstall {
+.dhinstall, .dhd {
     position: absolute;
     right: 20px;
     border: 1px solid;
@@ -350,11 +350,11 @@ body.dark #pCritical {
     background-color: #FFF;
 }
 
-body.dark .dhinstall {
+body.dark .dhinstall, body.dark .dhd {
     background-color: #888888;
 }
 
-.dhinstallbutton {
+.dhinstallbutton, .dhdbutton {
     border-radius:50px;
 }
 

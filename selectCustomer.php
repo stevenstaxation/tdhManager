@@ -55,11 +55,15 @@ $returnString = "
             
 
     </div>
-    <div class='dhinstall'>
+
+    
+    <div class='dhinstall'>    
         <button class='btn btn-danger btn-sm dhinstallbutton' id='goToDHInstall' style='padding: 5px 20px' type='button'>DH<br>Install</button>  
-        <button class='btn btn-warning btn-sm dhinstallbutton' id='addToDHInstall' style='padding: 5px 15px' type='button'>Add DHI<br>Device</button>  
+        <button class='btn btn-warning btn-sm dhinstallbutton' id='addToDHInstall' style='padding: 5px 15px' type='button'>Add DHI<br>Device</button> 
+        <button class='btn btn-primary btn-sm dhdbutton' id='goToDHD' style='padding: 5px 20px' type='button'>DHD</button>  
+        <button class='btn btn-info btn-sm dhdbutton' id='addToDHD' style='padding: 5px 15px' type='button'>Add DHD<br>Device</button>  
     </div>
-               
+    
 </div>
 
             

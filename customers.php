@@ -45,8 +45,10 @@ if (mysqli_num_rows($result)==1) {
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_array($result);
 }
+$thisClientName = $row['businessName'];
 
-if ($row['businessName'] != 'DHINSTALL') {
+
+if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
 
 
 $dateNow = new DateTime();
@@ -63,7 +65,9 @@ else {
 
 
 $returnString = "
-<div id='hiddenCustomerID' style='display: none;'>" . $row[0] . "</div>
+<div id='hiddenCustomerID' style='display: none'>" . $row[0] . "</div>
+<div id='hiddenCustomerName' style='display: none'>" . $thisClientName . "</div>
+
 <div class='row' style='font-size:100%;'>
     <div class='col-lg-6 col-xl-4'>
         <form id='customerForm'>
@@ -943,13 +947,14 @@ $result = mysqli_query($link, $sql);
     // DH INSTALL
     
     
-$returnString = "<div id='deviceLongList' class='listHeader'><h4><strong>Unassigned Devices</strong></h4></div>";
+$returnString = "
+<div id='deviceLongList' class='listHeader'><h4><strong>Unassigned Devices</strong></h4></div>";
 
-$sql = "SELECT *, tblCustomer.businessName FROM tblDevice JOIN tblCustomer ON tblDevice.ownerID = tblCustomer.ID WHERE tblCustomer.businessName='DHINSTALL'";
+$sql = "SELECT *, tblCustomer.businessName FROM tblDevice JOIN tblCustomer ON tblDevice.ownerID = tblCustomer.ID WHERE tblCustomer.businessName='$thisClientName'";
     $result = mysqli_query($link, $sql);
     $devices_NUMBEROF = mysqli_num_rows($result);
 
-    $sql = "SELECT COUNT(tblDevice.ID), tblDevice.status, tblDeviceStatus.status, tblCustomer.businessName FROM tblDevice INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.ID INNER JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID WHERE tblCustomer.businessName='DHINSTALL' GROUP BY tblDevicestatus.ID";
+    $sql = "SELECT COUNT(tblDevice.ID), tblDevice.status, tblDeviceStatus.status, tblCustomer.businessName FROM tblDevice INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.ID INNER JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID WHERE tblCustomer.businessName='$thisClientName' GROUP BY tblDevicestatus.ID";
     $result = mysqli_query($link, $sql);
     $returnString = $returnString . "
         <div id='DeviceStats' style='font-size:120%'>";
@@ -970,7 +975,9 @@ $sql = "SELECT *, tblCustomer.businessName FROM tblDevice JOIN tblCustomer ON tb
 
             $returnString = $returnString . $devicesString;
             $returnString = $returnString . "
-        </div><br>";
+        </div>
+        <div id='hiddenCustomerName' style='display: none'>" . $thisClientName . "</div>
+        <br>";
 
 $returnString .= "
 <div class='container'>
@@ -989,7 +996,7 @@ $returnString .= "
   FROM tblDevice LEFT JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID LEFT JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID 
   LEFT JOIN tblDeviceDescription ON tblDevice.deviceDescriptionID =tblDeviceDescription.ID LEFT JOIN tblDeviceStatus ON tblDevice.status 
   = tblDeviceStatus.ID LEFT JOIN tblSIMStatus ON tblDevice.SIMStatus = tblSIMStatus.ID LEFT JOIN tblInstaller ON tblDevice.installerID = tblInstaller.ID 
-  WHERE tblCustomer.businessName = 'DHINSTALL' ORDER BY tblCustomer.businessName ASC, tblVehicle.regNumber ASC
+  WHERE tblCustomer.businessName = '$thisClientName' ORDER BY tblCustomer.businessName ASC, tblVehicle.regNumber ASC
   ";
 
 
@@ -1170,6 +1177,7 @@ $returnString .= "
 
 
 }
+
 
 echo $returnString;
 ?>
