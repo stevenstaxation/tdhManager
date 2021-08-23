@@ -194,7 +194,6 @@ function showVehicleForEdit(rowNumber) {
         document.getElementById('hiddenVehicleSelector').value = 'vehicle';
         rowNumber = rowNumber.replace("vehicle", '');
     }
-    
    
     var dataToPost = {};
     dataToPost.vehicleID = rowNumber;
@@ -206,7 +205,7 @@ function showVehicleForEdit(rowNumber) {
       type: "POST",
       success: function(data) {
         data = $.parseJSON(data);
-    
+   
             document.getElementById('editVehicleRegNumber').value = data['regNumber'];
         //    document.getElementById('editVehicleMake').value = data['make'];
         //    document.getElementById('editVehicleModel').value = data['model'];
@@ -230,7 +229,7 @@ function showVehicleForEdit(rowNumber) {
             
             $('#editVehicleInstalldate').val(data['installDate']);
             $('#editVehicleNotes').html(data['vehicleNotes']);
-
+    
            $('#modalVehicleShow').modal('show');
       },
       error: function() {
@@ -269,6 +268,13 @@ function editCurrentVehicle() {
         if (data.includes('success')) {
             $('#modalVehicleShow').modal('hide');
             $('#vehicleFilterClicked').trigger('click');
+            if (document.getElementById('hiddenVehicleSelector').value == 'vehicle') {
+                $('#showVehicleList').trigger('click');
+            } else {
+                $('#getClient').trigger('change');
+                var newID = parseInt(data.replace('success', ''), 10);
+                showCustomers(newID);
+            }
         } else {
             $('#editVehicleErrorBox').html(data);
         }
@@ -323,7 +329,13 @@ function editCurrentVehicleNotes() {
                 $('#editVehicleNotesMessage').html('');
                 $('#modalEditVehicleNotes').modal('hide');
                 
-                $('#showVehicleList').trigger('click');
+                if (document.getElementById('hiddenVehicleNotesSelector').value=='vehicle') {
+                    $('#showVehicleList').trigger('click'); 
+                } else {
+                    $('#getClient').trigger('change');
+                    var newID = parseInt(data.replace('success', ''), 10);
+                    showCustomers(newID); 
+                }
                 
 
             } else {
@@ -378,8 +390,8 @@ $(document).on('show.bs.modal', '#modalAddVehicle', function (event) {
     $('#addVehicleErrorBox').html('');
 });
 
-$(document).on('show.bs.modal', '#modalVehicleShow', function (event) {
-    // $(this).find('form').trigger('reset');
+$(document).on('hide.bs.modal', '#modalVehicleShow', function (event) {
+    $(this).find('form').trigger('reset');  
     $('#editVehicleErrorBox').html('');
 });
 

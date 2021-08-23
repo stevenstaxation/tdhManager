@@ -198,7 +198,9 @@ $ix++;
     });
 
     $(document).ready(function() {
+   
       $('#deviceListTable').DataTable({
+        stateSave: true,
         columnDefs: [
           {visible: false, targets: [16] },
           {orderable: false, targets: [14,15] },
@@ -247,6 +249,8 @@ $ix++;
           });
         }
       });
+
+
   });
     </script>
 ";
