@@ -47,6 +47,27 @@ if (empty($_POST['password'])) {
             }
         }   
 
+// login Type
+$userType = $_POST['logInType'];        
+$userIsAdmin = 0;
+$userIsInstaller = 0;
+$userIsEngineer= 0;
+
+switch ($userType) {
+    case '1':
+        $userIsAdmin = 1;
+        break;
+    case '3':
+        $userIsInstaller = 1;
+        break;
+    case '4':
+        $userIsEngineer = 1;
+        break;
+    default:
+        break;
+}
+
+
 
 // Are there any errors?
 if ($errors) {
@@ -77,7 +98,7 @@ if(mysqli_num_rows($result)) {
 
 // create a unique activation
 $activationKey = bin2hex(openssl_random_pseudo_bytes(16));
-$sql = "INSERT INTO tblUsers (email, userName, password, activation) VALUES ('$userEmail', '$userName', '$password', '$activationKey')";
+$sql = "INSERT INTO tblUsers (email, userName, password, activation, isAdmin, isInstaller, isEngineer) VALUES ('$userEmail', '$userName', '$password', '$activationKey', '$userIsAdmin', '$userIsInstaller', '$userIsEngineer')";
 $result = mysqli_query($link, $sql);
 
 if (!$result) {

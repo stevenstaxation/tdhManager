@@ -6,9 +6,12 @@ function showFullDevice(rowNumber) {
     if (rowNumber.includes("customer")) {
         document.getElementById('hiddenDeviceSelector').value = 'customer';
         rowNumber = rowNumber.replace("customer", '');
-    } else {
+    } else if (rowNumber.includes("device")) {
         document.getElementById('hiddenDeviceSelector').value = 'device';
         rowNumber = rowNumber.replace("device", '');
+    } else if (rowNumber.includes("DHI")) {
+        document.getElementById('hiddenDeviceSelector').value = 'DHI';
+        rowNumber = rowNumber.replace("DHI", '');
     }
   
     var dataToPost = {};
@@ -33,7 +36,9 @@ function showFullDevice(rowNumber) {
             document.getElementById('editConfigFile').value = data['config'];
             document.getElementById('editDeviceInstallReference').value = data['assocOrderNumber'];
             document.getElementById('editDeviceSupplierInvoice').value = data['supplierInvoice'];
-            document.getElementById('editSIMDate').value = data['SIMDeactivationDate'];
+            document.getElementById('editSIMScheduleDate').value = data['scheduledDate'];
+            
+            document.getElementById('editSIMSuspensionDate').value = data['SIMDeactivationDate'];
             document.getElementById('editDeviceInstallDate').value = data['installDate'];
             document.getElementById('editDeviceNoteText').value = data['deviceNote'];
             document.getElementById('editDeviceInstaller').value = data['installerID'];
@@ -152,7 +157,8 @@ function editCurrentDevice() {
     dataToPost.SIMNumber = document.getElementById('editSIMNumber').value;
     dataToPost.SIMPhone = document.getElementById('editSIMPhone').value;
     dataToPost.SIMStatus = document.getElementById('editSIMStatus').value;
-    dataToPost.SIMDeactivationDate = document.getElementById('editSIMDate').value;
+    dataToPost.SIMScheduleDate = document.getElementById('editSIMScheduleDate').value;
+    dataToPost.SIMDeactivationDate = document.getElementById('editSIMSuspensionDate').value;
     dataToPost.config = document.getElementById('editConfigFile').value;
     dataToPost.regNumber = document.getElementById('editVRN').value;
     dataToPost.status = document.getElementById('editDeviceStatus').value;
@@ -220,10 +226,14 @@ function showDeviceNotes(rowNumber) {
     if (rowNumber.includes("customer")) {
         document.getElementById('hiddenDeviceNotesSelector').value = 'customer';
         rowNumber = rowNumber.replace("customer", '');
-    } else {
+    } else if (rowNumber.includes("device")) {
         document.getElementById('hiddenDeviceNotesSelector').value = 'device';
         rowNumber = rowNumber.replace("device", '');
+    } else if (rowNumber.includes("DHI")) {
+        document.getElementById('hiddenDeviceNotesSelector').value = 'DHI';
+        rowNumber = rowNumber.replace("DHI", '');
     }
+
     var dataToPost = {};
     dataToPost.deviceID = rowNumber;
     $.ajax({
@@ -260,9 +270,12 @@ function editCurrentDeviceNotes() {
             if (data.includes("success")) {
                 $('#editDeviceNotesMessage').html('');
                 $('#modalEditDeviceNotes').modal('hide');
-                
-                $('#showDeviceList').trigger('click');
-                
+         
+                if (document.getElementById('hiddenDeviceNotesSelector').value=='device') {
+                    $('#showDeviceList').trigger('click');
+                } else {
+                    $('#getClient').trigger('click');
+                }
 
             } else {
                 $('#editDeviceMessage').html(data);
@@ -323,6 +336,7 @@ $(document).on('click', '#deviceFilterClicked', function (event) {
         url: 'filterDevices.php',
         data: dataToPost,
         type: 'POST',
+        timeout: 60000,
         success: function (data) {
             dataToPost.SQLFilter = data;
             $.ajax({
@@ -349,6 +363,7 @@ $(document).on("click", '#showDeviceList', function () {
     $.ajax({
         url: "deviceList.php",
         type: "POST",
+        timeout: 60000,
         data: dataToPost,
         success: function (data) {
             $('#accountInfo').html('');
@@ -357,6 +372,7 @@ $(document).on("click", '#showDeviceList', function () {
             $('#overlay').html('');
             $('#homeScreen').hide();
             $('#eventLog').html('');
+            $('#bulkUploadsPage').html('');
             $('#devicesList').html(data);
             $('#vehicleList').html('');
         },

@@ -12,7 +12,7 @@ $(document).on('click', '#showInsurers', function () {
             $('#overlay').html('');
             $('#eventLog').html('');
             $('#homeScreen').html('');
-            
+            $('#bulkUploadsPage').html('');
             $('#devicesList').html(data);
             $('#insurerNameSelection option:first').attr('selected', 'selected');
             $('#insurerNameSelection').trigger('change');

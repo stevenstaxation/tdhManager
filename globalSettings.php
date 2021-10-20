@@ -287,12 +287,12 @@ $returnString .=" </select>
                   <h6>
                       <strong style='margin-top:10px;'>Users</strong>
                   </h6>";
-          $sql = 'SELECT tblUsers.userID, tblUsers.userName, tblUsers.isAdmin, tblUsers.activation, tblUserRecord.firstName, tblUserRecord.lastName FROM tblUsers JOIN tblUserRecord ON tblUserRecord.userID = tblUsers.userID ORDER BY userName ASC';
+          $sql = 'SELECT tblUsers.userID, tblUsers.userName, tblUsers.isAdmin, tblUsers.isInstaller, tblUsers.isEngineer, tblUsers.activation, tblUserRecord.firstName, tblUserRecord.lastName FROM tblUsers JOIN tblUserRecord ON tblUserRecord.userID = tblUsers.userID ORDER BY userName ASC';
           $result = mysqli_query($link,$sql);
 
           $returnString .= "<table class='table table-sm' style='width:100%; font-size: 75%;'><thead>
           <tr>
-          <th style='display: none'>ID</th><th>Username</th><th>Name</th><th>Admin</th><th>Active</th>
+          <th style='display: none'>ID</th><th>Username</th><th>Name</th><th class='text-center align-middle'>Active</th><th class='text-center align-middle'>DH Admin</th><th class='text-center align-middle'>Installer</th><th class='text-center align-middle'>Engineer</th>
           </tr>
           </thead><tbody>";
           while ($row = mysqli_fetch_array($result)) {
@@ -301,10 +301,18 @@ $returnString .=" </select>
             } else {
               $activeFlag = 0;
             }
-              $returnString .= "<tr><td style='display: none' class='userUpdateID' name='userUpdateID' value='".$row['userID']."'>" . $row['userID'] . "</td><td>" . $row['userName'] . "</td><td>" . $row['firstName'] . " " . $row['lastName'] . "</td><td>
-              <center><input type='checkbox' class='isAdministrator' name='isAdministrator' " .($row['isAdmin'] == 1 ? 'checked' : '')." value = '". $row['isAdmin'] ."'>&nbsp;</center></td>
-              <td><center><input type='checkbox' class='isActivated' name='isActivated' " .($row['activation'] == 'activated' ? 'checked' : '') . " value = '" . $activeFlag . "'>&nbsp;</center></td></tr>";
-          }
+              $returnString .= "
+              <tr>
+                <td style='display: none' class='userUpdateID' name='userUpdateID' value='".$row['userID']."'>" . $row['userID'] . "</td>
+                <td>" . $row['userName'] . "</td>
+                <td>" . $row['firstName'] . " " . $row['lastName'] . "</td>           
+                <td class='text-center align-middle'><input type='checkbox' class='isActivated' name='isActivated' " .($row['activation'] == 'activated' ? 'checked' : '') . " value = '" . $activeFlag . "'>&nbsp;</center></td>
+                <td class='text-center align-middle'><input type='checkbox' class='isAdministrator' name='isAdministrator' " .($row['isAdmin'] == 1 ? 'checked' : '')." value = '". $row['isAdmin'] ."'>&nbsp;</center></td>
+                <td class='text-center align-middle'><input type='checkbox' class='isInstaller' name='isInstaller' " .($row['isInstaller'] == 1 ? 'checked' : '')." value = '". $row['isInstaller'] ."'>&nbsp;</center></td>
+                <td class='text-center align-middle'><input type='checkbox' class='isEngineer' name='isEngineer' " .($row['isEngineer'] == 1 ? 'checked' : '')." value = '". $row['isEngineer'] ."'>&nbsp;</center></td>
+                
+              </tr>";
+            }
           $returnString .="</tbody></table>
           <hr color=#3276B1>
 

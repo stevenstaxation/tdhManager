@@ -32,6 +32,7 @@ input[type=text],
 input[type=email],
 input[type=password],
 input[type=date]
+input[type=number]
   {
     background-color: #ffffff;
     border: 1px solid;
@@ -163,6 +164,29 @@ table.table-bordered > tbody > tr:hover {
     color: #FF4714;
 }
 
+.collapsible {
+    background-color: #ffaaaa;
+    color: #444444;
+    cursor: pointer;
+    padding: 6px 6px;
+    border: none;
+    text-align: center;
+    outline: none;
+    margin-top: 2px;
+    margin-right: 2px;
+    font-size: 12px; 
+    width: 15%;
+}
+
+/* .active, .collapsible:hover {
+    background-color: #cc8888;
+} */
+
+.canCollapse {
+    display: none; 
+    overflow: hidden;
+}
+
 
 
 /* DARK MODE */
@@ -171,6 +195,7 @@ body.dark input[type=text],
 body.dark input[type=date],
 body.dark input[type=email],
 body.dark input[type=password],
+body.dark input[type=number],
 body.dark select,
 body.dark textarea {
     background-color: #545454;
@@ -358,12 +383,109 @@ body.dark .dhinstall, body.dark .dhd {
     border-radius:50px;
 }
 
+.multiselect {
+    width: 200px;
+  }
+  
+  .selectBox {
+    position: relative;
+  }
+  
+  
+  .overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  
+  #checkboxes {
+    display: none;
+    background-color: white;
+    font-size: 115%;
+    padding-left: 8px;
+  }
+  
+  #checkboxes label {
+    display: block;
+    background-color: white;
+    padding-top:2px;
+  
+  }
+  
+  #checkboxes label:hover {
+    background-color: rgba(236,204,204);
+  }
 
+  body.dark #checkboxes {
+    background-color: #555555;
+  }
 
+  body.dark #checkboxes label {
+    background-color: #555555;
+  }
 
+  body.dark #checkboxes label:hover {
+    background-color: #222222;
+  }
 
+.navbar-wrap {
+    transition: top 0.2s;
+}
 
+.showVRNPlate {
+    border-width: 0;
+    background-color: #FFDD00;
+    color: 0;
 
+}
+
+.uploadFormatDetails {
+    background-color: #fffff4;
+    border: 1px solid #ff4444;
+    border-radius: 8px;
+    color: #222222;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+body.dark .uploadFormatDetails {
+    background-color: #000000;
+    border-color: #77ff77;
+    color: #fffff4;
+}
+
+/* FILE DROP ZONE */
+#dropZone {
+    background-color: white;
+    border: #222222 5px dashed;
+    font-size: 18px;
+    margin-top: 2rem;
+    padding: 8px;
+    width: 50%;
+}
+body.dark #dropZone {
+    background-color: #000000;
+    border: #77ff77 5px dashed;
+}
+
+#fileDragUpload {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#fileDragUpload p {
+    text-align: center;
+}
+
+#fileDragUpload img {
+    margin: 60px auto;
+    margin-bottom: 0;
+}
+#fileDragUpload #selectFile {
+    display: none;
+}
 
 
 
@@ -440,3 +562,5 @@ body.dark .dhinstall, body.dark .dhd {
         display: none !important;
     }
 }
+
+

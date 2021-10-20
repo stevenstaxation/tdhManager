@@ -12,6 +12,7 @@ $(document).on("click", '#showFootageList', function () {
             $('#overlay').html('');
             $('#homeScreen').hide();
             $('#eventLog').html('');
+            $('#bulkUploadsPage').html('');
             $('#devicesList').html(data);
             $('#vehicleList').html('');
         },

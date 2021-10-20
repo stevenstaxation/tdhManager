@@ -6,27 +6,94 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 }
 
 $jobID = $_POST['jobID'];
+$LTAlarm = $_POST['LTAlarm'];
+$SSSensor = $_POST['SideSensor'];
+$TDHSignOff = $_POST['TDHSignOff'];
+$cameraType = $_POST['cameraType'];
+$customerID = $_POST['customerID'];
+$jobCompleted = $_POST['jobCompleted'];
+$jobContact = $_POST['jobContact'];
+$jobDateBooked = $_POST['jobDateBooked'];
+$jobEmail = $_POST['jobEmail'];
+$jobEngineer = $_POST['jobEngineer'];
+$jobInstallAddress = $_POST['jobInstallAddress'];
+$jobLocation = $_POST['jobLocation'];
+$jobNotes = $_POST['jobNotes'];
+$jobPhone = $_POST['jobPhone'];
+$jobPriority = $_POST['jobPriority'];
+$jobRate = $_POST['jobRate'];
 $jobStatus = $_POST['jobStatus'];
+$jobType = $_POST['jobType'];
+$jobVRN = $_POST['jobVRN'];
+$oldVRN = $_POST['oldVRN'];
+$picRegistration = $_POST['picReg'];
+$picDevice = $_POST['picDevice'];
 
-if ($jobStatus == 'allowUpdate') {
+if ($LTAlarm=='true') {$LTAlarm = 1;} else {$LTAlarm=0;};
+if ($SSSensor=='true') {$SSSensor = 2;} else {$SSSensor=0;};
 
-    $sql = "UPDATE tblJobs SET status = '1' WHERE ID = '$jobID'";
 
+$otherKitFlag = 0 | $LTAlarm;
+$otherKitFlag = $otherKitFlag | $SSSensor;
+
+if ($jobCompleted=='true') {
+    $jobComplete = 1;
 } else {
-    $jobDate = $_POST['jobDate'];
-    $jobType = $_POST['jobType'];
-    $jobVRN = $_POST['jobVRN'];
-    $jobNotes = $_POST['jobNotes'];
-    if ($jobStatus == 'updateOnly') {
-        $sql = "UPDATE tblJobs SET date = '$jobDate', jobType='$jobType', VRN='$jobVRN', notes='$jobNotes' WHERE ID='$jobID'";
-    } else if ($jobStatus == 'allowEdit') {
-        $sql = "UPDATE tblJobs SET date = '$jobDate', jobType='$jobType', VRN='$jobVRN', notes='$jobNotes', status='0' WHERE ID='$jobID'";
-    }
+    $jobComplete = 0;
 }
+
+if ($TDHSignOff=='true') {
+    $jobTDHComplete = 1;
+} else {
+    $jobTDHComplete = 0;
+}
+
+
+$errors="";
+
+if ($jobRate==null) {
+    $errors .= "Job rate is missing<br>";
+}
+if ($jobContact==null || $jobContact=='') {
+    $errors .= "Please enter a contact name<br>";
+}
+if (($jobEmail ==null || $jobEmail=='') && ($jobPhone ==null || $jobPhone=='') ) {
+    $errors .= "You should enter a contact email or phone number<br>";
+}
+if ($jobInstallAddress==null || $jobInstallAddress=='' ) {
+    $errors .= "Installation address must be entered<br>";
+}
+
+if ($errors !="") {
+    echo "<div class='alert alert-danger>" . $errors . "</div>";
+}
+
+$sql = "SELECT regPicFilename, regPicDeviceDetails FROM tblJobs WHERE tblJobs.ID='$jobID'";
+$result = mysqli_query($link, $sql);
+$pics = mysqli_fetch_array($result);
+
+if ($pics['regPicFilename'] != $picRegistration) {
+    unlink ($pics['regPicFilename']);
+}
+if ($pics['regPicDeviceDetails'] != $picDevice) {
+    unlink ($pics['regPicDeviceDetails']);
+}
+
+
+$sql = "UPDATE tblJobs SET ownerID='$customerID', date=NULLIF('$jobDateBooked',''), jobType='$jobType', VRN='$jobVRN', notes='$jobNotes', 
+status='$jobStatus', cameratypeid='$cameraType', OtherKitFlag='$otherKitFlag', PriorityIsUrgent='$jobPriority', JobRate='$jobRate', 
+BookingContact='$jobContact', BookingEmail='$jobEmail', BookingTelephone='$jobPhone', BookingAddress='$jobInstallAddress', 
+EquipmentLocationID='$jobLocation', EngineerID='$jobEngineer', JobCompleteFlag='$jobComplete', TDHSignOff='$jobTDHComplete', regPicFilename=NULLIF('$picRegistration',''), regPicDeviceDetails=NULLIF('$picDevice',''), oldVRN=NULLIF('$oldVRN','') WHERE tblJobs.ID='$jobID'";
 
 $result = mysqli_query($link, $sql);
 
-echo $jobStatus;
+
+if ($result) {
+    echo 'success';
+} else {
+    echo "Could not update database";
+}
+
 
 
 ?>

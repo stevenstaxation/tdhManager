@@ -32,10 +32,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <link href="https://fonts.cdnfonts.com/css/uk-number-plate" rel="stylesheet">
 
 
-    <link rel="stylesheet" type="text/css" href="styles/styles.css">
-    <link rel="stylesheet" type="text/css" href="styles/custombootstrap.css">
-    <link rel="stylesheet" type="text/css" href="styles/navbar.css">
-    <link rel='stylesheet' type='text/css' href='styles/bootstrap-combobox.css'>
+   
 
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -45,16 +42,28 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
     <script src='scripts/bootstrap-combobox.js'></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
- 
-
+   
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <!-- <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> -->
  
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.9/css/fixedHeader.dataTables.min.css"/>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>
 
 
 
+    <!-- Select2 plugin -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="styles/custombootstrap.css">
+    <link rel="stylesheet" type="text/css" href="styles/navbar.css">
+    <link rel='stylesheet' type='text/css' href='styles/bootstrap-combobox.css'>
+    <link rel="stylesheet" type="text/css" href="styles/datatables.css">
+    <link rel="stylesheet" type="text/css" href="styles/select2.css">
+    
  
     <title>TDH Manager</title>
 
@@ -106,6 +115,9 @@ function purgeEventLog() {
         }
     });
 }    
+
+
+
 </script>
 
 </HEAD>
@@ -126,9 +138,12 @@ function purgeEventLog() {
     <div id='overlay' class='container-fluid'></div>
     <div id='vehicleList' class='container'></div>
     <div id='devicesList' class='container-fluid'></div>
+    <div id='bulkUploadsPage' class='container'></div>
     <div id='hiddenDeviceSelector' style='display: none;'></div>
     <div id='hiddenVehicleSelector' style='display: none;'></div>
     <div id='hiddenDeviceNotesSelector' style='display: none;'></div>
+    <div id='hiddenJobNotesSelector' style='display: none;'></div>
+    <div id='hiddenJobSelector' style='display: none;'></div>
     <div id='hiddenVehicleNotesSelector' style='display: none;'></div>
     <div id='homeScreen' class='container'></div>
     
@@ -150,6 +165,8 @@ function purgeEventLog() {
 <script src='scripts/devices.js'></script>
 <script src='scripts/footage.js'></script>
 <script src='scripts/vehicles.js'></script>
+<script src='scripts/jobs.js'></script>
+
 
 
 <script>
@@ -234,6 +251,7 @@ function purgeEventLog() {
             $('#overlay').html('');
             $('#customerInfo').html('');
             $('#customerSelect').html('');
+            $('#bulkUploadsPage').html('');
 
             var dataToPost = {};
             $.ajax({
@@ -265,6 +283,7 @@ function purgeEventLog() {
                 $('#homeScreen').hide();
                 $('#eventLog').html('');
                 $('#devicesList').html('');
+                $('#bulkUploadsPage').html('');
                 $('#vehicleList').html(data);
             },
         error: function() {
@@ -288,6 +307,7 @@ function purgeEventLog() {
                 $('#homeScreen').hide();
                 $('#eventLog').html('');
                 $('#devicesList').html('');
+                $('#bulkUploadsPage').html('');
                 $('#vehicleList').html(data);
             },
         error: function() {
@@ -304,6 +324,20 @@ function purgeEventLog() {
         });
 
         $(document).on('click', '.isAdministrator', function() {
+          if ($(this).val() != 1) {
+            $(this).prop("value", 1);
+          } else {
+            $(this).prop("value", 0);
+        }
+        });
+        $(document).on('click', '.isInstaller', function() {
+          if ($(this).val() != 1) {
+            $(this).prop("value", 1);
+          } else {
+            $(this).prop("value", 0);
+        }
+        });
+        $(document).on('click', '.isEngineer', function() {
           if ($(this).val() != 1) {
             $(this).prop("value", 1);
           } else {
@@ -329,6 +363,8 @@ function purgeEventLog() {
               dataToPost.userID = $(this).find('.userUpdateID').text();
               dataToPost.isAnAdmin = $(this).find('.isAdministrator').val();
               dataToPost.isActive = $(this).find('.isActivated').val();
+              dataToPost.isInstaller = $(this).find('.isInstaller').val();
+              dataToPost.isEngineer = $(this).find('.isEngineer').val();
               dataListToPost.push(dataToPost);
             });
             dataListToPost = dataListToPost.splice(1,1000); // this will break if there are more than 999 Users
@@ -377,10 +413,7 @@ function purgeEventLog() {
             $('#contactMessage').html('');
         });
 
-        $('#modalAddNewJobRequest').on('hidden.bs.modal', function() {
-            $(this).find('form').trigger('reset');
-            $('#jobRequestMessage').html('');
-        });
+        
 
         $('#modalAddNewFootage').on('hidden.bs.modal', function() {
             $('#footageFileTableBodyBlock').html('');
@@ -536,64 +569,6 @@ $('.dropdown-menu a.dropdown-toggle').on('mouseover', function (e) {
     return false;
 });
 
-$(document).on("click", '#showJobList', function () {
-    var dataToPost = {};
-    dataToPost.SQLFilter = '';
-    $.ajax({
-        url: "jobList.php",
-        type: "POST",
-        data: dataToPost,
-        success: function (data) {
-            $('#accountInfo').html('');
-            $('#customerSelect').html('');
-            $('#customerInfo').html('');
-            $('#overlay').html('');
-            $('#homeScreen').hide();
-            $('#eventLog').html('');
-            $('#devicesList').html(data);
-            $('#vehicleList').html('');
-        },
-        error: function () {
-            $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-        }
-    });
-});
-
-$(document).on('click', '#jobsFilterClicked', function (event) {
-    "use strict";
-    event.preventDefault();
-    var dataToPost = {};
-    dataToPost.FilterCustomer = document.getElementById('getCustomerSelect').value;
-    dataToPost.FilterType = document.getElementById('byDeviceType').value;
-    dataToPost.FilterOtherTerm = document.getElementById('byOther').value;
-    dataToPost.SQLFilter = '';
-    $.ajax({
-        url: 'filterJobs.php',
-        data: dataToPost,
-        type: 'POST',
-        success: function (data) {
-            dataToPost.SQLFilter = data;
-            $.ajax({
-                url: "jobList.php",
-                type: "POST",
-                data: dataToPost,
-                success: function (data) {
-                    $('#devicesList').html(data);
-                },
-                error: function () {
-                    $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-                }
-            });
-        },
-        error: function () {
-
-        }
-    });
-});
-
-
-
-
     $(document).on("click", '#closeUser', function() {
         location.reload(true);
     });
@@ -674,152 +649,12 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
 
 
 
-    $(document).on('click', '#statusList', function(event) {
-        event.preventDefault();
-        if (!event.target.options) {
-            document.getElementById('textAddOrUpdateStatus').value = event.target.innerText;
-            $('#addOrUpdateStatus').text('Update');
-            document.getElementById('addOrUpdateStatus').disabled = false;
-            document.getElementById('deleteStatus').disabled = false;
-            document.getElementById('cancelUpdateStatus').style.display = "block";
-            document.getElementById('cancelUpdateStatus').disabled = false;
-        }
-    });
-
-        $(document).on('click', '#SIMStatusList', function(event) {
-        event.preventDefault();
-        if (!event.target.options) {
-            document.getElementById('textAddOrUpdateSIMStatus').value = event.target.innerText;
-            $('#addOrUpdateSIMStatus').text('Update');
-            document.getElementById('addOrUpdateSIMStatus').disabled = false;
-            document.getElementById('deleteSIMStatus').disabled = false;
-            document.getElementById('cancelUpdateSIMStatus').style.display = "block";
-            document.getElementById('cancelUpdateSIMStatus').disabled = false;
-        }
-    });
-
-    $(document).on('click', '#footageStatusList', function(event) {
-        event.preventDefault();
-        if (!event.target.options) {
-            document.getElementById('textAddOrUpdateFootageStatus').value = event.target.innerText;
-            $('#addOrUpdateFootageStatus').text('Update');
-            document.getElementById('addOrUpdateFootageStatus').disabled = false;
-            document.getElementById('deleteFootageStatus').disabled = false;
-            document.getElementById('cancelUpdateFootageStatus').style.display = "block";
-            document.getElementById('cancelUpdateFootageStatus').disabled = false;
-        }
-    });
-
-    $(document).on('click', '#renewalTypeList', function(event) {
-        event.preventDefault();
-        if (!event.target.options) {
-            document.getElementById('textAddOrUpdateRenewalType').value = event.target.innerText;
-            $('#addOrUpdateRenewalType').text('Update');
-            document.getElementById('addOrUpdateRenewalType').disabled = false;
-            document.getElementById('deleteRenewalType').disabled = false;
-            document.getElementById('cancelUpdateRenewalType').style.display = "block";
-            document.getElementById('cancelUpdateRenewalType').disabled = false;
-        }
-    });
-    $(document).on('click', '#jobTypeList', function(event) {
-        event.preventDefault();
-        if (!event.target.options) {
-            document.getElementById('textAddOrUpdateJobType').value = event.target.innerText;
-            $('#addOrUpdateJobType').text('Update');
-            document.getElementById('addOrUpdateJobType').disabled = false;
-            document.getElementById('deleteJobType').disabled = false;
-            document.getElementById('cancelUpdateJobType').style.display = "block";
-            document.getElementById('cancelUpdateJobType').disabled = false;
-        }
-    });
-    $(document).on('click', '#healthStatusList', function(event) {
-        event.preventDefault();
-        if (!event.target.options) {
-            document.getElementById('textAddOrUpdateHealthcheckType').value = event.target.innerText;
-            $('#addOrUpdateHealthcheckType').text('Update');
-            document.getElementById('addOrUpdateHealthcheckType').disabled = false;
-            document.getElementById('deleteHealthcheckType').disabled = false;
-            document.getElementById('cancelUpdateHealthcheckType').style.display = "block";
-            document.getElementById('cancelUpdateHealthcheckType').disabled = false;
-        }
-    });
 
 
 
-    $(document).on('click', '#cancelUpdateStatus', function(event) {
-        event.preventDefault();
-       $('#showGlobalSettings').trigger('click');
-    });
-
-    $(document).on('click', '#cancelUpdateSIMStatus', function(event) {
-        event.preventDefault();
-       $('#showGlobalSettings').trigger('click');
-    });
-
-    $(document).on('click', '#cancelUpdateFootageStatus', function(event) {
-        event.preventDefault();
-       $('#showGlobalSettings').trigger('click');
-    });
-
-    $(document).on('click', '#cancelUpdateRenewalType', function(event) {
-        event.preventDefault();
-       $('#showGlobalSettings').trigger('click');
-    });
-    $(document).on('click', '#cancelUpdateJobType', function(event) {
-        event.preventDefault();
-       $('#showGlobalSettings').trigger('click');
-    });
-    $(document).on('click', '#cancelUpdateHealthcheckType', function(event) {
-        event.preventDefault();
-       $('#showGlobalSettings').trigger('click');
-    });
 
 
-     $(document).on('click', '#deleteStatus', function(event) {
-       event.preventDefault();
-        var dataToPost = {};
-            dataToPost.statusIDToDelete = $("#statusList option:selected").val();
 
-            $.ajax({
-                url: "deleteStatus.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateStatus').text('Add');
-                    } else {
-                        $('#statusErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-    });
-
-    $(document).on('click', '#deleteSIMStatus', function(event) {
-       event.preventDefault();
-        var dataToPost = {};
-            dataToPost.SIMStatusIDToDelete = $("#SIMStatusList option:selected").val();
-
-            $.ajax({
-                url: "deleteSIMStatus.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateSIMStatus').text('Add');
-                    } else {
-                        $('#SIMStatusErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-    });
 
     // $(document).on('click', '#hideNavbar', function() {
     //         $('.navbar').animate({'height':'24px'}, 'fast');
@@ -834,518 +669,7 @@ $(document).on('click', '#jobsFilterClicked', function (event) {
     // });
 
 
-    $(document).on('click', '#deleteFootageStatus', function(event) {
-      event.preventDefault();
-        var dataToPost = {};
-            dataToPost.FootageStatusIDToDelete = $("#footageStatusList option:selected").val();
-
-            $.ajax({
-                url: "deleteFootageStatus.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateFootageStatus').text('Add');
-                    } else {
-                        $('#footageStatusErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-    });
-
-    $(document).on('click', '#deleteRenewalType', function(event) {
-      event.preventDefault();
-        var dataToPost = {};
-            dataToPost.RenewalTypeIDToDelete = $("#renewalTypeList option:selected").val();
-
-            $.ajax({
-                url: "deleteRenewalType.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateRenewalType').text('Add');
-                    } else {
-                        $('#renewalTypeErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-    });
-
-    $(document).on('click', '#deleteJobType', function(event) {
-      event.preventDefault();
-        var dataToPost = {};
-            dataToPost.JobTypeIDToDelete = $("#jobTypeList option:selected").val();
-
-            $.ajax({
-                url: "deleteJobType.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateJobType').text('Add');
-                    } else {
-                        $('#jobTypeErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-    });
-
-    $(document).on('click', '#deleteHealthcheckType', function(event) {
-      event.preventDefault();
-        var dataToPost = {};
-            dataToPost.HealthcheckTypeIDToDelete = $("#healthStatusList option:selected").val();
-
-            $.ajax({
-                url: "deleteHealthcheckType.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateHealthcheckType').text('Add');
-                    } else {
-                        $('#jobTypeErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-    });
-
-
-
-        $(document).on('click', '#addOrUpdateStatus', function(event) {
-       event.preventDefault();
-        if ($('#addOrUpdateStatus').text() == 'Add') {
-            var dataToPost = {};
-            dataToPost.statusNameToAdd = document.getElementById('textAddOrUpdateStatus').value;
-            $.ajax({
-                url: "addStatus.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                    } else {
-                        $('#statusErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-        if ($('#addOrUpdateStatus').text() == 'Update') {
-            var dataToPost = {};
-            dataToPost.statusIDToUpdate = $("#statusList option:selected").val();
-            dataToPost.statusNameToUpdate = document.getElementById('textAddOrUpdateStatus').value;
-
-            $.ajax({
-                url: "updateStatus.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateStatus').text('Add');
-                    } else {
-                        $('#statusErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-        });
-
-     $(document).on('click', '#addOrUpdateSIMStatus', function(event) {
-       event.preventDefault();
-        if ($('#addOrUpdateSIMStatus').text() == 'Add') {
-            var dataToPost = {};
-            dataToPost.SIMStatusNameToAdd = document.getElementById('textAddOrUpdateSIMStatus').value;
-            $.ajax({
-                url: "addSIMStatus.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                    } else {
-                        $('#SIMStatusErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-        if ($('#addOrUpdateSIMStatus').text() == 'Update') {
-            var dataToPost = {};
-            dataToPost.SIMStatusIDToUpdate = $("#SIMStatusList option:selected").val();
-            dataToPost.SIMStatusNameToUpdate = document.getElementById('textAddOrUpdateSIMStatus').value;
-
-            $.ajax({
-                url: "updateSIMStatus.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateSIMStatus').text('Add');
-                    } else {
-                        $('#SIMStatusErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-        });
-
-    $(document).on('click', '#addOrUpdateFootageStatus', function(event) {
-       event.preventDefault();
-        if ($('#addOrUpdateFootageStatus').text() == 'Add') {
-            var dataToPost = {};
-            dataToPost.FootageStatusNameToAdd = document.getElementById('textAddOrUpdateFootageStatus').value;
-            $.ajax({
-                url: "addFootageStatus.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                    } else {
-                        $('#footageStatusErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-        if ($('#addOrUpdateFootageStatus').text() == 'Update') {
-            var dataToPost = {};
-            dataToPost.FootageStatusIDToUpdate = $("#footageStatusList option:selected").val();
-            dataToPost.FootageStatusNameToUpdate = document.getElementById('textAddOrUpdateFootageStatus').value;
-
-            $.ajax({
-                url: "updateFootageStatus.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateFootageStatus').text('Add');
-                    } else {
-                        $('#footageStatusErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-    });
-
-    $(document).on('click', '#addOrUpdateRenewalType', function(event) {
-       event.preventDefault();
-        if ($('#addOrUpdateRenewalType').text() == 'Add') {
-            var dataToPost = {};
-            dataToPost.RenewalTypeNameToAdd = document.getElementById('textAddOrUpdateRenewalType').value;
-            $.ajax({
-                url: "addRenewalType.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                    } else {
-                        $('#renewalTypeErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-        if ($('#addOrUpdateRenewalType').text() == 'Update') {
-            var dataToPost = {};
-            dataToPost.RenewalTypeIDToUpdate = $("#renewalTypeList option:selected").val();
-            dataToPost.RenewalTypeNameToUpdate = document.getElementById('textAddOrUpdateRenewalType').value;
-
-            $.ajax({
-                url: "updateRenewalType.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateRenewalType').text('Add');
-                    } else {
-                        $('#renewalTypeErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-    });
-
-
-    $(document).on('click', '#addOrUpdateJobType', function(event) {
-       event.preventDefault();
-        if ($('#addOrUpdateJobType').text() == 'Add') {
-            var dataToPost = {};
-            dataToPost.JobTypeNameToAdd = document.getElementById('textAddOrUpdateJobType').value;
-            $.ajax({
-                url: "addJobType.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                    } else {
-                        $('#jobTypeErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-        if ($('#addOrUpdateJobType').text() == 'Update') {
-            var dataToPost = {};
-            dataToPost.JobTypeIDToUpdate = $("#jobTypeList option:selected").val();
-            dataToPost.JobTypeNameToUpdate = document.getElementById('textAddOrUpdateJobType').value;
-
-            $.ajax({
-                url: "updateJobType.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateJobType').text('Add');
-                    } else {
-                        $('#jobTypeErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-    });
-
-    $(document).on('click', '#addOrUpdateHealthcheckType', function(event) {
-       event.preventDefault();
-        if ($('#addOrUpdateHealthcheckType').text() == 'Add') {
-            var dataToPost = {};
-            dataToPost.HealthcheckTypeNameToAdd = document.getElementById('textAddOrUpdateHealthcheckType').value;
-            $.ajax({
-                url: "addHealthcheckType.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                    } else {
-                        $('#healthcheckTypeErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-        if ($('#addOrUpdateHealthcheckType').text() == 'Update') {
-            var dataToPost = {};
-            dataToPost.HealthcheckTypeIDToUpdate = $("#healthStatusList option:selected").val();
-            dataToPost.HealthcheckTypeNameToUpdate = document.getElementById('textAddOrUpdateHealthcheckType').value;
-
-            $.ajax({
-                url: "updateHealthcheckType.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('success')) {
-                        $('#showGlobalSettings').trigger('click');
-                        $('#addOrUpdateHealthcheckType').text('Add');
-                    } else {
-                        $('#healthcheckTypeErrorBox').html(data);
-                    }
-                },
-                error: function() {
-                }
-            });
-        }
-    });
-
-    $(document).on('click', '#lookupVRNByAPI', function(event) {
-        // prevent default PHP processing
-        "use strict";
-        var dataToPost = {};
-        dataToPost.VRN = document.getElementById('VRNToFind').value.replaceAll(" ","");
-        dataToPost.VRN = dataToPost.VRN.replaceAll(".","");
-        dataToPost.VRN = dataToPost.VRN.replaceAll("-","");
-        dataToPost.VRN = dataToPost.VRN.replaceAll("/","");
-        dataToPost.VRN = dataToPost.VRN.replaceAll("'","");
-        console.log(dataToPost.VRN);
-
-        event.preventDefault();
-        $.ajax({
-            url: "VRNLookup.php",
-            data: dataToPost,
-            datatype: "json",
-            type: "POST",
-            success: function(data) {
-                var output = $.parseJSON(data);
-                if (output['Response']['StatusCode']!='Success') {
-                    $('#VRNToFindMessage').html("<div class='alert alert-danger'>No information found</div>");
-                    $('#VehicleLookupInfo').html('')
-                } else {
-                    var postData = {};
-                    postData.APIData = output;
-                    $.ajax({
-                        url: "getVehicleFromAPI.php",
-                        data: postData,
-                        type: "POST",
-                        success: function(data) {
-                            $('#VRNToFindMessage').html('');
-                            $('#VehicleLookupInfo').html(data);
-                        }
-                    });
-                              
-                }
-            },
-            error: function() {
-            }
-        });
-    });
-
-       
-    $(document).on('click', '#showEventLog', function(event) {
-        // prevent default PHP processing
-        "use strict";
-        event.preventDefault();
-        $.ajax({
-            url: "eventLogOptions.php",
-            type: "POST",
-            success: function(data) {
-                // $('#getClient').trigger('change');
-                $('#accountInfo').html('');
-                $('#customerSelect').html('');
-                $('#customerInfo').html('');
-                $('#overlay').html('');
-                $('#vehicleList').html('');
-                $('#devicesList').html('');
-                $('#homeScreen').hide();
-                $('#eventLog').html(data);
-            },
-            error: function() {
-                $('#brokerContactMessage').html("<div class='alert alert-danger'>TDH Manager is not available at the moment. Contact your administrator.</div>");
-            }
-        });
-    });
-
-    $(document).on('click','#toggleCompletedIssues', function() {
-        var currentFilter = $('#issueFilter').html();
-        if (currentFilter==5) {
-            currentFilter = 0;
-        } else {
-            currentFilter = 5;    
-        }
-        $('#issueFilter').html(currentFilter);
-        $('#showIssueLog').trigger('click');
-    });
-
-
-    $(document).on("click", '#showIssueLog', function () {
-        var dataToPost = {};
-        dataToPost.filteredStatus = $('#issueFilter').html();
-        if (!dataToPost.filteredStatus) {
-            dataToPost.filteredStatus='5';
-        }
-    
-        $.ajax({
-        url: "issueList.php",
-        data: dataToPost,
-        type: "POST",
-        success: function (data) {
-            $('#accountInfo').html('');
-            $('#customerSelect').html('');
-            $('#customerInfo').html('');
-            $('#overlay').html('');
-            $('#homeScreen').hide();
-            $('#eventLog').html('');
-            $('#devicesList').html(data);
-            $('#vehicleList').html('');
-        },
-        error: function () {
-            $('#issueRequestMessage').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-        }
-    });
-});
-
-    $(document).on('click', '#showGlobalSettings', function(event) {
-        // prevent default PHP processing
-        "use strict";
-        event.preventDefault();
-        $.ajax({
-            url: "globalSettings.php",
-            type: "POST",
-            success: function(data) {
-                // $('#getClient').trigger('change');
-                $('#accountInfo').html('');
-                $('#customerSelect').html('');
-                $('#customerInfo').html('');
-                $('#eventLog').html('');
-                $('#devicesList').html('');
-                $('#vehicleList').html('');
-                $('#homeScreen').hide();
-                $('#overlay').html(data);
-                
-            },
-            error: function() {
-                $('#brokerContactMessage').html("<div class='alert alert-danger'>TDH Manager is not available at the moment. Contact your administrator.</div>");
-            }
-        });
-    });
-
-    $(document).on('click', '#updateDefaults', function(event) {
-        event.preventDefault();
-        var dataToPost = {};
-        dataToPost.defaultInstaller = document.getElementById('selectDefaultInstaller').value;
-        dataToPost.defaultSupplier = document.getElementById('selectDefaultSupplier').value;
-        $.ajax({
-            url:"updateDefaultValues.php",
-            timeout: 30000,
-            data: dataToPost,
-            type: "POST",
-            success: function() {
-                
-            }
-        })
-    })
-
+   
 
 
 
@@ -1367,28 +691,6 @@ function printVRNLookup() {
     popupWin.document.close();    
 }
 
-
-
-
-
-
-    
-
-   
-
-    function ShowJobRequests() {
-        $.ajax({
-            url: 'getOSJobRequests',
-            type: 'POST',
-            success: function(data) {
-                           document.getElementById('alertScreen').innerHTML = data;
-            }
-        });
-    }
-
-
-
-  
 
 
     function toggleGender(gender) {
@@ -1417,6 +719,7 @@ function printVRNLookup() {
                 $('#eventLog').html('');
                 $('#vehicleList').html('');
                 $('#devicesList').html('');
+                $('#bulkUploadsPage').html('');
                 $('#accountInfo').html(data);
             },
             error: function() {
@@ -1702,50 +1005,7 @@ function printVRNLookup() {
 
     }
 
-    function addNewJob() {
-        var dataToPost = {};
-        dataToPost.jobDate = document.getElementById('addJobDate').value;
-        dataToPost.jobType = document.getElementById('addJobTypeType').value;
-        dataToPost.jobVRN = document.getElementById('addJobTypeVRN').value;
-        dataToPost.jobDetails = document.getElementById('addJobNotes').value;
-        
-        $.ajax({
-            url: "addNewJob.php",
-            timeout: 30000,
-            type: "POST",
-            data: dataToPost,
-            success: function(data) {
-                if (data.includes('success')) {
-                    var newID = parseInt(data.replace("success",''),10);
-                    $('#getClient').trigger('change');
-                    showCustomers(newID);
-                    $('#modalAddNewJobRequest').modal('hide');
-                    var dataToPost = {};
-                    dataToPost.selectedValue = newID;
-
-                    $.ajax({
-                        url: 'customers.php',
-                        type: 'POST',
-                        data: dataToPost,
-                        success: function(data) {
-                            $('#customerInfo').html(data);
-                        },
-                        error: function() {}
-                    });
-                }
-            },
-            error: function() {
-
-            }
-        });
-
-
-
-   }
-
     
-
-
     function editContact(rowNumber) {
         var dataToPost = {};
         dataToPost.contactID = rowNumber;
@@ -1865,138 +1125,11 @@ function printVRNLookup() {
             type: "POST",
             data: dataToPost,
             success: function(data) {
-                console.log(data);
+                // console.log(data);
             }
         });
 
     }
-
-   
-    function showFullJob(rowNumber) {
-        var dataToPost = {};
-        // dataToPost.jobCustomer = '';
-        var editMode = '';
-        if (rowNumber.includes('edit')) {
-            rowNumber = rowNumber.replace('edit','');
-            editMode = 'edit';
-        } else {
-            rowNumber = rowNumber.replace('view','');
-            editMode = 'view';
-        }
-
-
-        if (rowNumber.includes('j')) {
-            rowNumber = rowNumber.replace('j','');
-            var dtp = {};
-            dtp.jobID = rowNumber;
-            $.ajax ({
-                url: 'getJobCustomer.php',
-                data: dtp,
-                type: "POST",
-                success: function(data) {
-                    $('#hiddenCustomerID').text(data);
-                    console.log('A' + data);
-                    }
-                })
-        } 
-        dataToPost.jobCustomer = $('#hiddenCustomerID').text();  
-        dataToPost.jobID = rowNumber;
-        document.getElementById('hiddenJobID').text = rowNumber;
-                
-        $.ajax({
-            url: 'getJobDropDowns.php',
-            timeout: 30000,
-            data: dataToPost,
-            type: 'POST',
-            success: function(data) {
-                data = $.parseJSON(data);
-  
-                var VRNHTML= "<select id='getJobVRN' name='getJobVRN' class='custom-select getJobVRN'>";
-                for (var x=0; x < data['VRN'].length; x++) {
-                    if (data['selectedVehicle'] == data['VRNID'][x]) {
-                        VRNHTML += "<option value = '" + data['VRNID'][x] + "' selected>" + data['VRN'][x] + "</option>";
-                    } else {
-                        VRNHTML += "<option value = '" + data['VRNID'][x] + "'>" + data['VRN'][x] + "</option>";
-                    }
-                }
-                    VRNHTML += "</select>";
-                $('#editJobTypeVRN').html(VRNHTML);
-
-                $('#editJobTypeType').val(data['jobType']);
-                $('#editJobDate').val(data['date']);
-                $('#editJobNotes').text(data['notes']);
-
-                if (editMode == 'view') {
-                    document.getElementById('editJobDate').disabled = true;
-                    document.getElementById('editJobTypeType').disabled = true;
-                    document.getElementById('editJobTypeVRN').disabled = true;
-                    document.getElementById('editJobNotes').disabled = true;
-                    $('#editJobComplete').text("Mark as Outstanding");
-                    document.getElementById('editJobUpdate').style.display = "none";
-                    document.getElementById('editJobCancel').style.display = "none";
-                 } else {
-                    document.getElementById('editJobDate').disabled = false;
-                    document.getElementById('editJobTypeType').disabled = false;
-                    document.getElementById('editJobTypeVRN').disabled = false;
-                    document.getElementById('editJobNotes').disabled = false;
-                    $('#editJobComplete').text("Mark as Complete");
-                    document.getElementById('editJobUpdate').style.display = "block";
-                    document.getElementById('editJobCancel').style.display = "block";
-                }
-
-                $('#modalEditNewJobRequest').modal('show');
-            },
-            error: function() {
-
-            }
-        });
-    }
-
-    function editJobComplete(buttonClicked) {
-        var updateType = $('#editJobComplete').text();
-        if (buttonClicked == 2) {
-            updateType='Update';
-        }
-
-        var dataToPost = {};
-        dataToPost.jobID = document.getElementById('hiddenJobID').text;
-
-
-        if (updateType=='Mark as Outstanding') {
-            dataToPost.jobStatus = 'allowUpdate';
-        } else if (updateType=='Mark as Complete') {
-            dataToPost.jobStatus = 'allowEdit';
-            dataToPost.jobDate = document.getElementById('editJobDate').value;
-            dataToPost.jobType = document.getElementById('editJobTypeType').value;
-            dataToPost.jobVRN = document.getElementById('editJobTypeVRN').value;
-            dataToPost.jobNotes = document.getElementById('editJobNotes').value;
-        } else if (updateType=='Update') {
-            dataToPost.jobStatus = 'updateOnly';
-            dataToPost.jobDate = document.getElementById('editJobDate').value;
-            dataToPost.jobType = document.getElementById('editJobTypeType').value;
-            dataToPost.jobVRN = document.getElementById('editJobTypeVRN').value;
-            dataToPost.jobNotes = document.getElementById('editJobNotes').value;
-        }
-
-        $.ajax ({
-            url: 'updateJobRequest.php',
-            timeout: 30000,
-            data: dataToPost,
-            type: 'POST',
-            success: function(data) {
-                $('#getClient').trigger('change');
-                $('#showJobList').trigger('change')
-                $('#modalEditNewJobRequest').modal('hide');
-        
-            },
-            error: function() {
-
-            }
-        });
-
-
-    }
-
 
     function showFullFootage(rowNumber) {
         var dataToPost = {};

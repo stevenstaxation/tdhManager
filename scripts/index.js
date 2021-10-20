@@ -13,7 +13,12 @@ $('#signUpForm').submit(function (event) {
     // collect user inputs
     var dataToPost = $(this).serializeArray();
     // send to register.php using AJAX
-    
+    dataToPost.push({
+        name: 'logInType',
+        value: $('#hiddenUserType').html()
+    });
+
+
     $.ajax({
         url: "register.php",
         type: "POST",

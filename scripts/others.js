@@ -12,6 +12,7 @@ $(document).on('click', '#showOthers', function () {
             $('#overlay').html('');
             $('#eventLog').html('');
             $('#homeScreen').html('');
+            $('#bulkUploadsPage').html('');
             $('#devicesList').html(data);
             $('#otherNameSelection option:first').attr('selected', 'selected');
             $('#otherNameSelection').trigger('change');
@@ -243,3 +244,170 @@ $(document).on('click', '#queryDeleteOther', function () {
         });
     }
 });
+
+function readURL(input) {
+    
+    if (input.files && input.files[0]) {
+  
+      var reader = new FileReader();
+  
+      reader.onload = function(e) {
+        $('.image-upload-wrap').hide();
+  
+        $('.file-upload-image').attr('src', e.target.result);
+        $('.file-upload-content').show();
+  
+        $('.image-title').html(input.files[0].name);
+      };
+  
+    
+    //    reader.readAsDataURL(input.files[0]);
+     
+  
+    } else {
+      removeUpload();
+    }
+  }
+   
+  function readURL2(input) {
+    if (input.files && input.files[0]) {
+  
+      var reader = new FileReader();
+  
+      reader.onload = function(e) {
+        $('.image-upload-wrap2').hide();
+  
+        $('.file-upload-image2').attr('src', e.target.result);
+        $('.file-upload-content2').show();
+  
+        $('.image-title').html(input.files[0].name);
+      };
+  
+    //   reader.readAsDataURL(input.files[0]);
+  
+    } else {
+      removeUpload();
+    }
+  }
+
+  function formatAsCurrency(number) {
+    if (number==='') {return};
+    
+    if (number.indexOf('.') >=0) {
+        var decimal_position = number.indexOf('.');
+        var pounds = number.substring(0,decimal_position);
+        var pence = number.substring(decimal_position);
+        pence = pence.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, "");
+        pence +="00";
+        pence = pence.substring(0,2);
+        number = pounds +"." + pence;
+    } else {
+        number = number.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, "");
+        number +=".00";
+    }
+
+    return number;
+
+  }
+
+var fileObject;
+
+function uploadFile(e) {
+    e.preventDefault();
+    fileObject = e.dataTransfer.files[0];
+    ajaxFileUpload(fileObject);
+}
+
+$(document).on('click', '#uploadButton', function (event) {
+    document.getElementById('selectFile').click();
+    document.getElementById('selectFile').onchange = function() {
+        fileObject = document.getElementById('selectFile').files[0];
+        ajaxFileUpload(fileObject);
+    }
+})
+
+$(document).on('click', '#uploadRegPic', function(event) {
+    document.getElementById('uploadRegPic').click();
+    document.getElementById('uploadRegPic').onchange = function() {
+        fileObject = document.getElementById('uploadRegPic').files[0];
+        var regPicContent = document.querySelector('#regPicContent');
+        ajaxFileGetUpload(fileObject, regPicContent);
+    }
+})
+
+$(document).on('click', '#uploadDevicePic', function(event) {
+    document.getElementById('uploadDevicePic').click();
+    document.getElementById('uploadDevicePic').onchange = function() {
+        fileObject = document.getElementById('uploadDevicePic').files[0];
+        var regDeviceContent = document.querySelector('#devicePicContent');
+        ajaxFileGetUpload(fileObject, regDeviceContent);
+    }
+})
+
+
+function ajaxFileGetUpload(fileObj, picSelector) {
+
+    if (fileObj !=undefined) {
+        var formData = new FormData();
+        formData.append('file', fileObj);
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "uploadImage.php", true);
+        
+        xhttp.onload = function(event) {
+            oOutput = picSelector;
+
+            if (xhttp.status == 200) {
+                oOutput.innerHTML = "<img src='" + this.responseText + "' width='200'>";
+            } else {
+                oOutput.innerHTML = "Error " + xhttp.status + " occurred when trying to upload your file.";
+            }
+        }
+
+        xhttp.send(formData);
+    }
+}
+
+function ajaxFileUpload(fileObj) {
+
+    if (fileObj !=undefined) {
+        var formData = new FormData();
+        formData.append('file', fileObj);
+        formData.append('selector', $('#hiddenUploadTypeSelector').val());
+        
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "upload.php", true);
+        
+        xhttp.onload = function(event) {
+            oOutput = document.querySelector('.imageContent');
+
+            if (xhttp.status == 200) {
+                oOutput.innerHTML = this.responseText;
+            } else {
+                oOutput.innerHTML = "Error " + xhttp.status + " occurred when trying to upload your file.";
+            }
+        }
+
+        xhttp.send(formData);
+    }
+}
+
+$(document).on('click', '#downloadDeviceTemplate', function (event) {
+    var csv = "Model, Platform, Serial, IMEI, DeviceStatus, DRIDNumber, SimSerialNo, SimPhone, Customer\n";
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'bulkUploadDevices.csv';
+    hiddenElement.click();
+
+})
+
+$(document).on('click', '#downloadVehicleTemplate', function (event) {
+    var csv = "RegNumber, CameraRequired, Status, InstallDate, Customer\n";
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'bulkUploadVehicles.csv';
+    hiddenElement.click();
+
+})

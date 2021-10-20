@@ -128,7 +128,7 @@ if (mysqli_num_rows($result)!=0) {
         <td class='text-right align-middle' style='padding-right: 20px;'>" . $ix . "</td>
         <td class='align-middle' style='padding-left: 3px;padding-right:3px'>" . $row['businessName'] . "</td>
         <td class='align-middle' style='padding-left: 3px;padding-right:3px'>" . $row['Description'] . "</td>
-        <td class='text-center align-middle' style='padding-left: 3px;padding-right:3px' data-sort='" .$row['renewalDate'] ."'>" . date('d/m/Y', strtotime($row['renewalDate'])) . "</td>
+        <td class='text-center align-middle' style='padding-left: 3px;padding-right:3px' data-order='" .date('Y-m-d', strtotime($row['renewalDate'])) ."'>" . date('d/m/Y', strtotime($row['renewalDate'])) . "</td>
         <td class='align-middle' style='padding-left: 3px;padding-right:3px' >" . $row['insurerName'] . "</td>
       </tr>";
       $ix++;

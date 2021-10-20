@@ -12,8 +12,8 @@ $customerAddress2 = $_POST['customerAddr2'];
 $customerAddress3 = $_POST['customerAddr3'];
 $customerAddress4 = $_POST['customerAddr4'];
 $customerAddress5 = $_POST['customerAddr5'];
-$customerPhone  = $_POST['customerPhone'];
-$customerEmail = $_POST['customerEmail'];
+// $customerPhone  = $_POST['customerPhone'];
+// $customerEmail = $_POST['customerEmail'];
 // $customerRenewalType = $_POST['customerRenewalType'];
 // $customerRenewalDate = $_POST['customerRenewalDate'];
 // $customerRegNo = $_POST['customerRegNo'];
@@ -40,9 +40,9 @@ if (!(checkPostcode($customerAddress5)) && $customerAddress5 != "") {
     $errors .= "Postcode is not valid<br>";
 }
 
-if (!filter_var($customerEmail, FILTER_VALIDATE_EMAIL) && $customerEmail!='') {
-    $errors .= "Email address does not look to be valid<br>";
-}
+// if (!filter_var($customerEmail, FILTER_VALIDATE_EMAIL) && $customerEmail!='') {
+//     $errors .= "Email address does not look to be valid<br>";
+// }
 
 // check VAT Number
 // if ($customerVATNo !='') {
@@ -91,12 +91,12 @@ $customerAddress2 = mysqli_real_escape_string($link,filter_var($customerAddress2
 $customerAddress3 = mysqli_real_escape_string($link,filter_var($customerAddress3, FILTER_SANITIZE_STRING));
 $customerAddress4 = mysqli_real_escape_string($link,filter_var($customerAddress4, FILTER_SANITIZE_STRING));
 $customerAddress5 = mysqli_real_escape_string($link,filter_var($customerAddress5, FILTER_SANITIZE_STRING));
-$customerPhone = mysqli_real_escape_string($link,filter_var($customerPhone, FILTER_SANITIZE_STRING));
+// $customerPhone = mysqli_real_escape_string($link,filter_var($customerPhone, FILTER_SANITIZE_STRING));
 // $customerRegNo = mysqli_real_escape_string($link,filter_var($customerRegNo, FILTER_SANITIZE_STRING));
 // $customerVATNo = mysqli_real_escape_string($link,filter_var($customerVATNo, FILTER_SANITIZE_STRING));
-$customerEmail = mysqli_real_escape_string($link,filter_var($customerEmail, FILTER_SANITIZE_EMAIL));
+// $customerEmail = mysqli_real_escape_string($link,filter_var($customerEmail, FILTER_SANITIZE_EMAIL));
 
-$sql = "UPDATE tblCustomer SET businessName='$customerName', custAddressLine1 = '$customerAddress1', custAddressLine2 = '$customerAddress2', custAddressLine3 = '$customerAddress3', custAddressLine4 = '$customerAddress4', custAddressLine5 = '$customerAddress5', businessPhone='$customerPhone', businessEmail='$customerEmail' WHERE ID = '$customerNumber'";
+$sql = "UPDATE tblCustomer SET businessName='$customerName', custAddressLine1 = '$customerAddress1', custAddressLine2 = '$customerAddress2', custAddressLine3 = '$customerAddress3', custAddressLine4 = '$customerAddress4', custAddressLine5 = '$customerAddress5' WHERE ID = '$customerNumber'";
 
 $result = mysqli_query($link, $sql);
 

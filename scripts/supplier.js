@@ -12,6 +12,7 @@ $(document).on('click', '#showSuppliers', function () {
             $('#overlay').html('');
             $('#eventLog').html('');
             $('#homeScreen').html('');
+            $('#bulkUploadsPage').html('');
             $('#devicesList').html(data);
             $('#supplierNameSelection option:first').attr('selected', 'selected');
             $('#supplierNameSelection').trigger('change');

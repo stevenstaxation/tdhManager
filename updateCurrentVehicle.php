@@ -13,7 +13,8 @@ $required = $_POST['required'];
 $vehicleStatus = $_POST['vehicleStatus'];
 $installDate = $_POST['installDate'];
 $vehicleNotes = $_POST['vehicleNotes'];
-
+$LTAlarmDate = $_POST['LTAlarmDate']; 
+$SideScanDate = $_POST['SideScanDate']; 
 $errors = "";
 
 if ($regNumber == '' || $regNumber == NULL) {
@@ -46,7 +47,7 @@ if ($errors) {
 
 
 $sql = "UPDATE tblVehicle SET cameraRequired='$required', vehicleNotes='$vehicleNotes', installDate=NULLIF('$installDate',''), vehicleStatus='$vehicleStatus',
-regNumber='$regNumber' WHERE ID = '$vehicleID'";
+regNumber='$regNumber', LTAlarmDate=NULLIF('$LTAlarmDate',''), SideScanDate=NULLIF('$SideScanDate','') WHERE ID = '$vehicleID'";
 
 
 $result = mysqli_query($link, $sql);

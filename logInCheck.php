@@ -60,6 +60,9 @@ if ($errors) {
         $_SESSION['darkMode'] = $row['darkmode'];
         $_SESSION['userID'] = $row['userID'];
         $_SESSION['isAdmin'] = $row['isAdmin'];
+        $_SESSION['isInstaller'] = $row['isInstaller'];
+        $_SESSION['isEngineer'] = $row['isEngineer'];
+        
        
         $_SESSION['Alerts'] = getAlerts($link);
 

@@ -3,9 +3,7 @@ session_start();
 include "connect.php";
 
 //check if user and activation key are present and correct
-
-print_r($_GET);
-
+$logInType = "";
 if (isset($_GET['email']) && isset($_GET['activationKey'])) {
     $sql = "SELECT * FROM tblInvites WHERE email='" . $_GET['email'] . "' AND activationKey='" . $_GET['activationKey'] . "'";
     $result = mysqli_query($link, $sql);
@@ -14,6 +12,8 @@ if (isset($_GET['email']) && isset($_GET['activationKey'])) {
         echo "You are not authorised to access this page";
         exit();
     }  
+    $row = mysqli_fetch_array($result);
+    $logInType = $row['loginType'];
 
     // invite can only be used once and so delete it now
     $sql = "DELETE FROM tblInvites WHERE email='" . $_GET['email'] . "' AND activationKey='" . $_GET['activationKey'] . "'";
@@ -84,9 +84,13 @@ if (isset($_GET['email']) && isset($_GET['activationKey'])) {
                                 <div class='form-group'>
                                     <input type='password' class='form-input' name='password2' id='password2' placeholder='Confirm your password...' autocomplete='new-password'>
                                 </div> 
+                                <div class='form-group'>
+                                    <div id='hiddenUserType' style='display:none'><?php echo $logInType?></div>
+                                </div>
                                 <div class='form-group text-center'>
                                     <button type='submit' name='submit' id='submit' class='form-submit btn btn-success' style='border-radius: 10px;'>Register Account</button>
                                 </div>
+                               
                         </form>
                         <p class='logInInstead text-center'>
                         <small>Already Registered? Then <a href='index.php' class='logMeInLink'>log in here</a></small>

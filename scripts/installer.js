@@ -12,6 +12,7 @@ $(document).on('click', '#showInstallers', function() {
             $('#overlay').html('');
             $('#eventLog').html('');
             $('#homeScreen').html('');
+            $('#bulkUploadsPage').html('');
             $('#devicesList').html(data);
             $('#installerNameSelection option:first').attr('selected', 'selected');
             $('#installerNameSelection').trigger('change');

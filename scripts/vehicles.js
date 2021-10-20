@@ -42,12 +42,12 @@ $(document).on('click', '#vehicleFilterClicked', function(event) {
 
 $(document).on("input","#vehicleStatusPending", function() {
     if($("#vehicleStatusPending").is(':checked')) {
-        $('#vehicleInstallDateLabel').html("<strong>Upcoming install date</strong>");
+        $('#vehicleInstallDateLabel').html("Upcoming install date");
     }
 });
 $(document).on("input","#vehicleStatusInstalled", function() {
     if($("#vehicleStatusInstalled").is(':checked')) {
-        $('#vehicleInstallDateLabel').html("<strong>Installation date</strong>");
+        $('#vehicleInstallDateLabel').html("Installation date");
     }
 });
 
@@ -66,6 +66,7 @@ $(document).on("click", '#showVehicleList', function() {
           $('#homeScreen').hide();
           $('#eventLog').html('');
           $('#devicesList').html('');
+          $('#bulkUploadsPage').html('');
           $('#vehicleList').html(data);
         },
         error: function() {
@@ -161,6 +162,8 @@ function addNewVehicle() {
     }
     dataToPost.installationDate = $('#vehicleInstalldate').val();
     dataToPost.vehicleNotes = document.getElementById('addVehicleNotes').value;  
+    dataToPost.LTAlarmDate = $('#LTAlarmInstalldate').val();  
+    dataToPost.SSSensorDate = $('#SideScanInstalldate').val();
     // dataToPost.allocateTo = document.getElementById('hiddenVehicleID').value;
 
     // dataToPost.make = document.getElementById('addVehicleMake').value;
@@ -172,12 +175,9 @@ function addNewVehicle() {
         type: "POST",
         data: dataToPost,
         success: function(data) {
-            if (data=='success') {
+        
                 $('#modalAddVehicle').modal('hide');
                 $('#getClient').trigger('change');
-            } else {
-                $('#addVehicleErrorBox').html(data);
-            }
         },
         error: function() {
 
@@ -228,9 +228,28 @@ function showVehicleForEdit(rowNumber) {
             }
             
             $('#editVehicleInstalldate').val(data['installDate']);
+            $('#editLTAlarmDate').val(data['LTAlarmDate']);
+            $('#editSideScanDate').val(data['SideScanDate']);
+            
             $('#editVehicleNotes').html(data['vehicleNotes']);
-    
+
            $('#modalVehicleShow').modal('show');
+
+        if (data['LTAlarmDate']) {
+            $('#labelEditLeftTurn').css('color', 'limegreen');
+            $('#editLTAlarmDate').css('color', 'limegreen');
+        } else {
+            $('#labelEditLeftTurn').css('color', '#888888');
+            $('#editLTAlarmDate').css('color', '#888888');
+        }
+        if (data['SideScanDate']) {
+            $('#labelEditSideScan').css('color', 'limegreen');
+            $('#editSideScanDate').css('color', 'limegreen');
+        } else {
+            $('#labelEditSideScan').css('color', '#888888');
+            $('#editSideScanDate').css('color', '#888888');
+        }
+        
       },
       error: function() {
 
@@ -238,6 +257,28 @@ function showVehicleForEdit(rowNumber) {
   });
 }
 
+$(document).on("change", '#editLTAlarmDate', function() {
+    var thisDate = new Date($('#editLTAlarmDate').val());
+
+    if (thisDate != 'Invalid Date') {
+        $('#labelEditLeftTurn').css('color', 'limegreen');
+        $('#editLTAlarmDate').css('color', 'limegreen');
+    } else {
+        $('#labelEditLeftTurn').css('color', '#888888');
+        $('#editLTAlarmDate').css('color', '#888888'); 
+    }
+});
+$(document).on("change", '#editSideScanDate', function() {
+    var thisDate = new Date($('#editSideScanDate').val());
+
+    if (thisDate != 'Invalid Date') {
+        $('#labelEditSideScan').css('color', 'limegreen');
+        $('#editSideScanDate').css('color', 'limegreen');
+    } else {
+        $('#labelEditSideScan').css('color', '#888888');
+        $('#editSideScanDate').css('color', '#888888'); 
+    }
+});
   
 function editCurrentVehicle() {
   var dataToPost = {};
@@ -257,6 +298,9 @@ function editCurrentVehicle() {
 }
 
   dataToPost.installDate = document.getElementById('editVehicleInstalldate').value;
+  dataToPost.LTAlarmDate = document.getElementById('editLTAlarmDate').value;
+  dataToPost.SideScanDate = document.getElementById('editSideScanDate').value;
+  
   dataToPost.vehicleNotes = document.getElementById('editVehicleNotes').value; 
 
   $.ajax({

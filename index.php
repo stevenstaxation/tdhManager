@@ -29,7 +29,7 @@ session_start();
 
 
     <title>TDH Manager</title>
-
+    <script src='scripts/clickEvents.js'></script>
 </HEAD>
 
 <BODY>
@@ -45,12 +45,16 @@ session_start();
                             <input type='text' class='form-input' name='userName' id='userName' placeholder='Enter your email address...' autocomplete='username'>
                         </div>
                         <div id='logInMessage'></div>
-                        <div class='form-group'>
-                            <input type='password' class='form-input' name='password' id='password' placeholder='Enter a password...' autocomplete='current-password'>
-                            <span toggle='#password'></span>
+                        <div class='input-group'>
+                            <input style='width: 87%; margin-left: 0' type='password' class='form-control py-2 border-right-0 border' name='password' id='password' placeholder='Enter a password...' autocomplete='current-password'>
+                            <span class='input-group-append'>
+                                <button class='btn btn-outline-secondary border-left-0 border' type='button' onclick='togglePassword()'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>
+                                </button>
+                            </span>
                         </div>
                         <div class='form-group text-center'>
-                            <button type='submit' name='submit' id='submit' class='form-submit btn btn-success' style='border-radius: 10px;'>Log In</button>
+                            <button type='submit' name='submit' id='submit' class='form-submit btn btn-success' style='border-radius: 10px; margin-top: 15px'>Log In</button>
                         </div>
                     </form>
                     <p class='forgotPassword text-center'>
@@ -61,7 +65,7 @@ session_start();
             </div>
         </section>
     </div>
-
+  
     <script src='scripts/index.js'></script>
 </BODY>
 

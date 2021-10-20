@@ -19,6 +19,9 @@ if ($cameraRequired == 'true') {
 $installationStatus = $_POST['installation'];
 $installationDate = $_POST['installationDate'];
 $vehicleNotes = $_POST['vehicleNotes'];
+$LTAlarmDate = $_POST['LTAlarmDate'];
+$SideSensorDate = $_POST['SSSensorDate'];
+
 $customerID = $_SESSION['currentCustomer'];
 
 $errors="";
@@ -67,12 +70,12 @@ if ($installationStatus=='installed') {
     $vehicleStatus = 0;
 }
 
-$sql = "INSERT INTO tblVehicle (regNumber, ownerID, vehicleStatus, installDate, vehicleNotes, cameraRequired) VALUES ( '$regNumber', '$customerID', '$vehicleStatus', NULLIF('$installationDate',''), '$vehicleNotes', '$cameraRequired')";
+$sql = "INSERT INTO tblVehicle (regNumber, ownerID, vehicleStatus, installDate, vehicleNotes, cameraRequired, LTAlarmDate, SideScanDate) VALUES ( '$regNumber', '$customerID', '$vehicleStatus', NULLIF('$installationDate',''), '$vehicleNotes', '$cameraRequired', NULLIF('$LTAlarmDate',''), NULLIF('$SideSensorDate',''))";
 
 $result = mysqli_query($link, $sql);
 
 if (!$result) {
-    echo '<div class="alert alert-danger">Error updating renewal type description</div>';
+    echo '<div class="alert alert-danger">Error adding vehicle</div>';
     echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
     exit();
 }
@@ -85,3 +88,4 @@ echo "success";
 
 
 ?>
+

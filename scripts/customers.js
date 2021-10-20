@@ -43,7 +43,7 @@ $('#customerMenu').on('click', function() {
             $('#vehicleList').html('');
             $('#devicesList').html('');
             $('#overlay').html('');
-           
+            $('#bulkUploadsPage').html('');
             $('#customerInfo').html(data);
             $('#getRenewalTypeSelect').trigger('change');
         },
@@ -152,8 +152,8 @@ function updateCustomer() {
     dataToPost.customerAddr3 = document.getElementById('custAddressLine3').value;
     dataToPost.customerAddr4 = document.getElementById('custAddressLine4').value;
     dataToPost.customerAddr5 = document.getElementById('custAddressLine5').value;
-    dataToPost.customerPhone = document.getElementById('custPhone').value;
-    dataToPost.customerEmail = document.getElementById('custEmail').value;
+    // dataToPost.customerPhone = document.getElementById('custPhone').value;
+    // dataToPost.customerEmail = document.getElementById('custEmail').value;
     // dataToPost.customerRenewalType = document.getElementById('getRenewalTypeSelect').value;
     // dataToPost.customerRenewalDate = document.getElementById('renewalDate').value;
     // // dataToPost.customerRegNo = document.getElementById('custRegNumber').value;

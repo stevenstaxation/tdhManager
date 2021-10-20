@@ -77,11 +77,13 @@ $returnString .= "
       $dt2 = new DateTime($row['incidentDate']);
       $dateDifference = $dt1->diff($dt2);
 
+      
+
     $returnString .= "<tr>
     <td class='text-center align-middle' style='padding:0 3px;'>" . $ix . "</td>
-    <td class='text-center align-middle' style='padding:0 3px;' data-sort='" .$row['requestDateTime'] ."'>" . date('d/m/Y', strtotime($row['requestDateTime'])). "</td> 
+    <td class='text-center align-middle' style='padding:0 3px;' data-order=" . date('Y-m-d', strtotime($row['requestDateTime'])) .">" . date('d/m/Y', strtotime($row['requestDateTime'])). "</td> 
     <td class='text-center align-middle' style='padding:0 3px;'>" . date('G:i', strtotime($row['requestDateTime'])). "</td> 
-    <td class='text-center align-middle' style='padding:0 3px;' data-sort='" .$row['incidentDate'] ."'>" . date('d/m/Y', strtotime($row['incidentDate'])). "</td>
+    <td class='text-center align-middle' style='padding:0 3px;' data-order=" . date('Y-m-d', strtotime($row['incidentDate'])) .">" . date('d/m/Y', strtotime($row['incidentDate'])). "</td>
     <td class='text-center align-middle' style='padding:0 3px;'>" . $dateDifference->d . "</td>
     <td class='text-center align-middle' style='padding:0 3px;'>" . $row['regNumber']. "</td>
     <td class='align-middle' style='padding:0 3px'>" . $row['businessName'] . "</td>
@@ -90,10 +92,10 @@ $returnString .= "
 
     if ($row['responseDateTime']) {
       $returnString .="
-    <td class='text-center align-middle' style='padding:0 3px;' data-sort='" .$row['responseDateTime'] ."'>" . date('d/m/Y G:i', strtotime($row['responseDateTime'])). "</td>";
+    <td class='text-center align-middle' style='padding:0 3px;' data-order=" .date('Y-m-d',strtotime($row['responseDateTime'])) .">" . date('d/m/Y G:i', strtotime($row['responseDateTime'])). "</td>";
     } else {
       $returnString .="
-      <td class='text-center align-middle' style='padding:0 3px; color: red' data-sort='" .$row['incidentDate'] ."'>outstanding</td>";
+      <td class='text-center align-middle' style='padding:0 3px; color: red' data-order='0/0/0'>outstanding</td>";
     } 
     $returnString .="
     <td class='align-middle' style='padding:0 3px;'>" . $row['description']. "</td>

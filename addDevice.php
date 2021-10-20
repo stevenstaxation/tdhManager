@@ -23,7 +23,20 @@ if ($errors) {
 
 $newDeviceName = mysqli_real_escape_string($link,filter_var($newDeviceName, FILTER_SANITIZE_STRING));
 
-$sql = "INSERT INTO tblDeviceDescription (description) VALUES('$newDeviceName')";
+if (substr($newDeviceName,0,2)=='AI') {
+    $deviceGroup = 1;
+} elseif (substr($newDeviceName,0,3)=='CP2') {
+    $deviceGroup = 2;
+} elseif (substr($newDeviceName,0,3)=='CP4') {
+    $deviceGroup = 3;
+} elseif (substr($newDeviceName,0,3)=='KP1') {
+    $deviceGroup = 5;
+} else {
+    $deviceGroup = 4;
+}
+
+
+$sql = "INSERT INTO tblDeviceDescription (description, deviceGroup) VALUES('$newDeviceName', '$deviceGroup')";
 $result = mysqli_query($link, $sql);
 
  if (!$result) {

@@ -9,7 +9,7 @@ $vehicleNumber = $_POST['vehicleID'];
 
 
 // $sql = "SELECT tblVehicle.make, tblVehicle.model, tblVehicle.addDescription, tblVehicle.regNumber, tblCustomer.businessName FROM tblVehicle INNER JOIN tblCustomer ON tblCustomer.ID = tblVehicle.ownerID WHERE tblVehicle.ID = '" . $vehicleNumber . "'";
-$sql = "SELECT tblVehicle.regNumber, tblCustomer.businessName, tblVehicle.vehicleStatus, tblVehicle.installDate, tblVehicle.vehicleNotes, tblVehicle.cameraRequired FROM tblVehicle LEFT JOIN tblCustomer ON tblCustomer.ID = tblVehicle.ownerID WHERE tblVehicle.ID = '" . $vehicleNumber . "'";
+$sql = "SELECT tblVehicle.regNumber, tblCustomer.businessName, tblVehicle.vehicleStatus, tblVehicle.installDate, tblVehicle.vehicleNotes, tblVehicle.cameraRequired, tblVehicle.LTAlarmDate, tblVehicle.SideScanDate FROM tblVehicle LEFT JOIN tblCustomer ON tblCustomer.ID = tblVehicle.ownerID WHERE tblVehicle.ID = '" . $vehicleNumber . "'";
 $result = mysqli_query($link, $sql);
 
 

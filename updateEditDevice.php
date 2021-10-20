@@ -17,6 +17,7 @@ $deviceDRIDNumber = $_POST['DRIDNumber'];
 $deviceSIMNumber = $_POST['SIMNumber'];
 $deviceSIMPhone = $_POST['SIMPhone'];
 $deviceSIMStatus = $_POST['SIMStatus'];
+$deviceSIMScheduleDate = $_POST['SIMScheduleDate'];
 $deviceSIMDeactDate = $_POST['SIMDeactivationDate'];
 $deviceConfig = $_POST['config'];
 $deviceRegNumber = str_replace(' ', '',$_POST['regNumber']);
@@ -100,7 +101,7 @@ if ($count==1) { // vehicle exists
 $sql = "UPDATE tblDevice SET ownerID='$deviceOwnerID', isCamera='1', deviceDescriptionID='$deviceDescriptionID', TDHNumber='$deviceTDHNumber',
 serialNumber='$deviceSerialNumber', IMEI='$deviceIMEI', DRIDNumber='$deviceDRIDNumber', SIMNumber='$deviceSIMNumber', SIMPhone='$deviceSIMPhone', SIMStatus='$deviceSIMStatus',
 SIMDeactivationDate=NULLIF('$deviceSIMDeactDate',''), config='$deviceConfig', cameraUsedFor='$deviceOwnerID', vehicleID='$deviceVehicleID', status='$deviceStatus', installerID=NULLIF('$deviceInstallerID',''),
-installDate=NULLIF('$deviceInstallDate',''), assocOrderNumber='$deviceInstallerReference', supplierID=NULLIF('$deviceSupplierID',''), supplierInvoice='$deviceSupplierInvoice', purchaseDate=NULLIF('$devicePurchaseDate',''), deviceNote='$deviceNote' WHERE ID = '$deviceID'";
+installDate=NULLIF('$deviceInstallDate',''), assocOrderNumber='$deviceInstallerReference', supplierID=NULLIF('$deviceSupplierID',''), supplierInvoice='$deviceSupplierInvoice', purchaseDate=NULLIF('$devicePurchaseDate',''), deviceNote='$deviceNote', scheduledDate=NULLIF('$deviceSIMScheduleDate','') WHERE ID = '$deviceID'";
 
 
 $result = mysqli_query($link, $sql);

@@ -17,7 +17,7 @@ if (!isset($_POST['FilterVRN'])) {
 if (!isset($_POST['FilterTDHNumber'])) {
   $_POST['FilterTDHNumber'] = '';
 }
-$returnString = "<div id='alertLogList' class='listHeader'><h4><strong>Vehicles</strong></h4></div>";
+$returnString = "<div class='container'><div id='alertLogList' class='listHeader'><h4><strong>Vehicles</strong></h4></div>";
 
 $sql = "SELECT * FROM tblVehicle ORDER BY tblVehicle.regNumber ASC";
 $deviceResult = mysqli_query($link, $sql);
@@ -142,10 +142,10 @@ $result = mysqli_query($link, $sql);
 
 if (mysqli_num_rows($result)!=0) {
 $returnString .="<div id = 'vehicleSummary' class='w-auto ml-auto mr-auto' style='margin-top: 15px;'>
-<table id='vehicleListTable' class='table cell-border compact'>
+<table id='vehicleListTable' class='table cell-border table-sm table-striped compact'>
 <thead>
   <tr class='text-center align-middle'>
-    <th>No.</th>
+    
     <th>Customer</th>
     <th>Reg Number</th>
     <th>Camera Required</th>
@@ -158,11 +158,11 @@ $returnString .="<div id = 'vehicleSummary' class='w-auto ml-auto mr-auto' style
 
 <tbody>";
 
-$ix = 1;
+// $ix = 1;
 while ($row = mysqli_fetch_array($result)) {
 
     $returnString .= "<tr>
-    <td class='text-center align-middle' style='padding: 0 5px;'>" . $ix . "</td>
+    
     <td class='align-middle' style='padding-left: 5px;'>" . $row['businessName'] . "</td>
     <td class='text-center align-middle'>" . $row['regNumber'] . "</td>";
     if ($row['cameraRequired']=='1') {
@@ -182,7 +182,7 @@ while ($row = mysqli_fetch_array($result)) {
     if (date('d/m/Y', $stringyDate)=='01/01/1970' || date('d/m/Y', $stringyDate)=='01/01/0001' || date('d/m/Y', $stringyDate)==NULL) {
       $returnString .="<td class='text-center align-middle'>unknown</td>";   
     } else {
-    $returnString .="<td class='text-center align-middle'>" . date('d/m/Y', $stringyDate) . "</td>";   
+    $returnString .="<td class='text-center align-middle' data-order=" . date('Y-m-d', $stringyDate) . ">" . date('d/m/Y', $stringyDate) . "</td>";   
     }
  
     $returnString .="
@@ -198,7 +198,7 @@ while ($row = mysqli_fetch_array($result)) {
 
 $returnString .="
     </tr>";
-    $ix++;
+    // $ix++;
 }
 } else {
   $returnString .="<p class='text-center'>No results found</p>";
@@ -207,21 +207,11 @@ $returnString .="
 
 
 $returnString .= "</tbody>
-<tfoot>
-  <tr class='text-center align-middle'>
-    <th>No.</th>
-    <th>Customer</th>
-    <th>Reg Number</th>
-    <th>Camera Required</th>
-    <th>Status</th>
-    <th>Install Date</th>  
-    <th style='width:5%'>Edit</th>
-    <th style='width:5%'>Notes</th>
-  </tr>
-</tfoot>
+
 
 </table>
 
+</div>
 </div>
 <script>
  document.getElementById('VRNToLookup').addEventListener('keypress', function (event) {
@@ -231,15 +221,16 @@ $returnString .= "</tbody>
     });
 
     $(document).ready(function() {
-      $('#vehicleListTable').DataTable({
+      var table =  $('#vehicleListTable').DataTable({
         columnDefs: [
-          {orderable: false, targets: [6,7] },
-          {searchable: false, targets: [3,4] }
+          {orderable: false, targets: [5,6] },
+          {searchable: false, targets: [5,6] }
         ],
-        colReorder: true,
         processing: true,
+        responsive: true,
+        fixedHeader: true,
         paging: false,
-        dom: '<\"top\"iflp>rt<\"bottom\"><\"clear\">',
+        dom: '<\"top\"lfip>rt<\"bottom\"><\"clear\">',
         rowCallback: function(row, data, dataIndex) {
           if ($('body').hasClass('dark')) {
             $(row).css('background-color', 'rgba(68,68,68,1)')
@@ -249,26 +240,44 @@ $returnString .= "</tbody>
                   .css('color', 'rgba(68,68,68,1)');
         }
       },
-        initComplete: function() {
-          this.api().columns([1,2,5]).every (function() {
+      initComplete: function () {
+        count = 0;
+        this.api().columns([0,1,4]).every( function () {
+            var title = this.header();
+            title = $(title).html().replace(/[\W]/g, '-');
             var column = this;
-            var select = $('<br><select><option value=\"\"></option></select>')
-            .appendTo($(column.header()))
-            .on('change', function() {
-              var val = $.fn.dataTable.util.escapeRegex(
-                $(this).val()
-              );
+            var lineBreak = $('<br>')
+            .appendTo( $(column.header()));
+            var select = $('<select id=\"' + title + '\" class=\"select2\" style=\"width:100%\" ></select>')
+                .appendTo( $(column.header()))
+                .on( 'change', function () {
+                  var data = $.map( $(this).select2('data'), function( value, key ) {
+                    return value.text ? '^' + $.fn.dataTable.util.escapeRegex(value.text) + '$' : null;
+                             });       
+                  if (data.length === 0) {
+                    data = [\"\"];
+                  }
+                  var val = data.join('|');
+                  column
+                        .search( val ? val : '', true, false )
+                        .draw();
+                } );
 
-              column
-                .search(val ? '^'+val+'$' : '', true, false)
-                .draw();
-            });
-  
-            column.data().unique().sort().each(function (d,j) {
-              select.append('<option value=\"'+d+'\">'+d+'</option>')
-            });
+            column.data().unique().sort().each( function ( d, j ) {
+                select.append( '<option value=\"'+d+'\">'+d+'</option>' );
+            } );
+          
+          //use column title as selector and placeholder
+          $('#' + title).select2({
+            multiple: true,
+            closeOnSelect: false,
+            placeholder: \"\"
           });
-        }
+          
+          //initially clear select otherwise first option is selected
+          $('.select2').val(null).trigger('change');
+        } );
+    },
       });
   });
     </script>

@@ -12,6 +12,7 @@ $(document).on('click', '#showBrokers', function () {
             $('#overlay').html('');
             $('#eventLog').html('');
             $('#homeScreen').html('');
+            $('#bulkUploadsPage').html('');
             $('#devicesList').html(data);
             $('#brokerNameSelection option:first').attr('selected', 'selected');
             $('#brokerNameSelection').trigger('change');
