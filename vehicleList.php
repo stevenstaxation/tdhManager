@@ -57,77 +57,72 @@ $result = mysqli_query($link, $sql);
     $returnString .= "
     </div><br>"; 
 
-$returnString .= "<div class='container'>
-<div id='vehicleFilter'>
-    <form id='vehicleForm' class='filterBox' style='display: none'>
-    <div id='vehicleFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%' onSubmit='return false;'>
-        <div class='form-group'>
-          <div class='row'>
-            <div class='col-sm-6 col-md-4 col-lg-3' style='padding:5px 15px'>
-              <label for='byCustomer'>Customer</label>
-               <div class='input-group'>
-                  <select style='font-size: 75%' id='getCustomerSelect' name='getCustomerSelect' class='custom-select getCustomerSelect'>";
+$returnString .= "<div class='container'>";
+// $returnString .= "<div id='vehicleFilter'>
+//     <form id='vehicleForm' class='filterBox' style='display: none'>
+//     <div id='vehicleFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%' onSubmit='return false;'>
+//         <div class='form-group'>
+//           <div class='row'>
+//             <div class='col-sm-6 col-md-4 col-lg-3' style='padding:5px 15px'>
+//               <label for='byCustomer'>Customer</label>
+//                <div class='input-group'>
+//                   <select style='font-size: 75%' id='getCustomerSelect' name='getCustomerSelect' class='custom-select getCustomerSelect'>";
 
-$sql = "SELECT ID, businessName FROM tblCustomer ORDER BY businessName ASC";
-$result = mysqli_query($link, $sql);
+// $sql = "SELECT ID, businessName FROM tblCustomer ORDER BY businessName ASC";
+// $result = mysqli_query($link, $sql);
 
-$returnString .= "<option value= '0' selected='selected'>All customers</option>";
+// $returnString .= "<option value= '0' selected='selected'>All customers</option>";
 
-while ($customerRow = mysqli_fetch_array($result)) {
-    if ($_POST['FilterCustomer'] == $customerRow['ID']) {
-        $returnString .= "<option value= '" . $customerRow['ID'] . "' selected='selected'>";
-    } else {
-        $returnString .= "<option value= '" . $customerRow['ID'] . "'>";
-    }
-    $returnString .= $customerRow['businessName'] . " </option>";
-}
+// while ($customerRow = mysqli_fetch_array($result)) {
+//     if ($_POST['FilterCustomer'] == $customerRow['ID']) {
+//         $returnString .= "<option value= '" . $customerRow['ID'] . "' selected='selected'>";
+//     } else {
+//         $returnString .= "<option value= '" . $customerRow['ID'] . "'>";
+//     }
+//     $returnString .= $customerRow['businessName'] . " </option>";
+// }
 
-$returnString .= "
-                  </select>
-                 </div>
-            </div>
-            <div class='col-sm-6 col-md-4 col-lg-3' style='padding:5px 15px'>
-              <label for='byInsurer'>Insurer</label>
-               <div class='input-group'>
-                  <select style='font-size: 75%' id='getInsurerSelect' name='getInsurerSelect' class='custom-select getInsurerSelect'>";
+// $returnString .= "
+//                   </select>
+//                  </div>
+//             </div>
+//             <div class='col-sm-6 col-md-4 col-lg-3' style='padding:5px 15px'>
+//               <label for='byInsurer'>Insurer</label>
+//                <div class='input-group'>
+//                   <select style='font-size: 75%' id='getInsurerSelect' name='getInsurerSelect' class='custom-select getInsurerSelect'>";
 
-$sql = "SELECT ID, insurerName FROM tblInsurer ORDER BY insurerName ASC";
-$result = mysqli_query($link, $sql);
+// $sql = "SELECT ID, insurerName FROM tblInsurer ORDER BY insurerName ASC";
+// $result = mysqli_query($link, $sql);
 
-$returnString .= "<option value= '0' selected='selected'>All insurers</option>";
+// $returnString .= "<option value= '0' selected='selected'>All insurers</option>";
 
-while ($insurerRow = mysqli_fetch_array($result)) {
-    if ($_POST['FilterInsurer'] == $insurerRow['ID']) {
-        $returnString .= "<option value= '" . $insurerRow['ID'] . "' selected='selected'>";
-    } else {
-        $returnString .= "<option value= '" . $insurerRow['ID'] . "'>";
-    }
-    $returnString .= $insurerRow['insurerName'] . " </option>";
-}
+// while ($insurerRow = mysqli_fetch_array($result)) {
+//     if ($_POST['FilterInsurer'] == $insurerRow['ID']) {
+//         $returnString .= "<option value= '" . $insurerRow['ID'] . "' selected='selected'>";
+//     } else {
+//         $returnString .= "<option value= '" . $insurerRow['ID'] . "'>";
+//     }
+//     $returnString .= $insurerRow['insurerName'] . " </option>";
+// }
 
-$returnString .= "
-                  </select>
-                 </div>
-            </div>
-            <div class='col-sm-6 col-md-4 col-lg-3' style='padding:5px 10px'>
-              <label for='VRNToLookup'>Search Term</label>
-              <div class='input-group'>
-                <input type='text' style='font-size: 75%; padding: 5px;' id='VRNToLookup' value='" . $_POST['FilterVRN'] . "' />
-              </div>
-            </div>
+// $returnString .= "
+//                   </select>
+//                  </div>
+//             </div>
+//             <div class='col-sm-6 col-md-4 col-lg-3' style='padding:5px 10px'>
+//               <label for='VRNToLookup'>Search Term</label>
+//               <div class='input-group'>
+//                 <input type='text' style='font-size: 75%; padding: 5px;' id='VRNToLookup' value='" . $_POST['FilterVRN'] . "' />
+//               </div>
+//             </div>
            
-            <div class='col-sm-6 col-md-4 col-lg-3' style ='padding-left:15px; padding-top: 32px;'>
-              <btn type='button' class='btn btn-success' id='vehicleFilterClicked' style='border-radius: 5px;'>Apply Filter</button>
-            </div>
-          </div>
-        </div>
-    </form>
-</div>
-
-
-
-
-";
+//             <div class='col-sm-6 col-md-4 col-lg-3' style ='padding-left:15px; padding-top: 32px;'>
+//               <btn type='button' class='btn btn-success' id='vehicleFilterClicked' style='border-radius: 5px;'>Apply Filter</button>
+//             </div>
+//           </div>
+//         </div>";
+$returnString .= "</form>
+</div>";
 
 // $sql = 'SELECT * FROM tblVehicle INNER JOIN tblDevice ON tblDevice.vehicleID = tblVehicle.ID INNER JOIN tblCustomer ON tblCustomer.ID = tblVehicle.ownerID';
 
@@ -146,7 +141,7 @@ $returnString .="<div id = 'vehicleSummary' class='w-auto ml-auto mr-auto' style
 <thead>
   <tr class='text-center align-middle'>
     
-    <th>Customer</th>
+    <th class='text-left' style='padding-left: 8px;'>Customer</th>
     <th>Reg Number</th>
     <th>Camera Required</th>
     <th>Status</th>
@@ -163,7 +158,7 @@ while ($row = mysqli_fetch_array($result)) {
 
     $returnString .= "<tr>
     
-    <td class='align-middle' style='padding-left: 5px;'>" . $row['businessName'] . "</td>
+    <td class='align-middle' style='padding-left: 10px;'>" . $row['businessName'] . "</td>
     <td class='text-center align-middle'>" . $row['regNumber'] . "</td>";
     if ($row['cameraRequired']=='1') {
       $returnString .="<td class='text-center align-middle' style='padding-left: 5px;width: 6%'><img src='images/green_tick_16.png'/><span style='display:none;'>green_tick</span></td>";

@@ -1,7 +1,9 @@
 <?php
 session_start();
 include('connect.php');
-
+if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
+    header("Location: index.php");
+}
 
 $allocateToCustomer = $_POST['allocateCustomer'];
 $allocateToVRN = $_POST['allocateVRN'];

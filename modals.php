@@ -3585,16 +3585,19 @@
                                         <input class='form-check-input' type='checkbox' id='editJobCompleted' style='margin-left: 40px; font-size:125%'>  
                                     </div>
                                 </div>
-                               <div class='col-1'></div>
-                                <div class='col-3'>
-                                    <label class='form-check-label' for='hubCompleted' style='font-size:125%'>Data Hub Sign Off</label>  
-                                </div>
-                                <div class='col-2'>
-                                    <div class='form-check form-switch'>
-                                        <input class='form-check-input' type='checkbox' id='editHubCompleted' style='margin-left: 10px; font-size:125%'>  
+                                <div class='col-1'></div>
+                                <?php
+                                if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
+                              echo "<div class='col-3'>
+                                        <label class='form-check-label' for='hubCompleted' style='font-size:125%'>Data Hub Sign Off</label>  
                                     </div>
-                                </div>
-                            
+                                    <div class='col-2'>
+                                        <div class='form-check form-switch'>
+                                            <input class='form-check-input' type='checkbox' id='editHubCompleted' style='margin-left: 10px; font-size:125%'>  
+                                        </div>
+                                    </div>";
+                                }
+                             ?>
                             </div>
                         </div>
                     </div>

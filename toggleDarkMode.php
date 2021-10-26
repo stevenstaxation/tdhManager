@@ -30,7 +30,7 @@ if ($_SESSION['darkMode']==1) {
 
 // write user preference to database
 
-$sql = "UPDATE tblUsers SET darkmode='" . $_SESSION['darkMode'] . "' WHERE userID = '" .$_SESSION['userID'] . "'";
+$sql = "UPDATE tblUsers SET darkMode='" . $_SESSION['darkMode'] . "' WHERE userID = '" .$_SESSION['userID'] . "'";
 
 $result = mysqli_query($link, $sql);
 

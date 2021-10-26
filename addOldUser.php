@@ -32,7 +32,7 @@ if (array_key_exists(1, $userSplitName)) {
 
 
 
-$sql = "INSERT INTO tblUsers (userName, email, password, activation, darkmode, isAdmin) VALUES ('$userName', 'unknown@unknown.com', 'AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFF0000000011111111', 'pending', '0', '0')";
+$sql = "INSERT INTO tblUsers (userName, email, password, activation, darkMode, isAdmin) VALUES ('$userName', 'unknown@unknown.com', 'AAAAAAAABBBBBBBBCCCCCCCCDDDDDDDDEEEEEEEEFFFFFFFF0000000011111111', 'pending', '0', '0')";
 $result = mysqli_query($link, $sql);
 $lastID = $link->insert_id;
 

@@ -59,11 +59,6 @@ $returnString = $returnString .
             <div class='input-group'>
                 <input class='form-control enabler' type='password' id='inputPassword' name='inputPassword' readonly='readonly' value='" . $row['password'] . "'>
                 <div class='input-group-append'>";
-// if ($row['darkmode'] == '1') {
-//     $returnString = $returnString . "<button id='savePassword' class='btn btn-warning' type='button' data-toggle = 'modal' data-target = '#modalChangePassword'>Change</button>";
-// } else {
-//     $returnString = $returnString . "<button id='savePassword' class='btn btn-outline-secondary' type='button'>Change</button>";
-// }
 
 $returnString = $returnString .
     "</div>
@@ -229,46 +224,6 @@ $returnString = $returnString .
         </div>
     </div>
 <div><hr>";
-
-// $returnString = $returnString .
-//     "<div class='row'>
-//     <div class='col-md-4'>
-//         <div class='form-group'>
-//             <label class='control-label $foreColor' for='bankName' style='padding-top: 10px;'>
-//                 <strong>Bank Account Name</strong>
-//             </label>
-//             <div class='input-group'>
-//                 <input class='form-control' type='text' id='bankName' name='bankName' placeholder='enter name of account holder...' value='" . $row['bankAccountName'] . "'>
-//             </div>
-//         </div>
-//     </div>
-//     <div class='col-md-4'>
-//         <div class='form-group'>
-//             <label class='control-label $foreColor' for='bankSort' style='padding-top: 10px;'>
-//                 <strong>Bank Sort Code</strong>
-//             </label>
-//             <div class='input-group'>
-//                 <input class='form-control' type='text' id='bankSort' name='bankSort' placeholder='enter bank sorting code....' value='" . $row['bankSortCode'] . "'>
-//             </div>
-//         </div>
-//     </div>
-//     <div class='col-md-4'>
-//         <div class='form-group'>
-//             <label class='control-label $foreColor' for='bankAccount' style='padding-top: 10px;'>
-//                 <strong>Bank Account No.</strong>
-//             </label>
-//             <div class='input-group'>
-//                 <input class='form-control' type='text' id='bankAccount' name='bankAccount' placeholder='enter bank account no....' value='" . $row['bankAccountNo'] . "'>
-//             </div>
-//         </div>
-//     </div>
-// </div><hr>";
-
-// //$returnString = $returnString . "<h5 class= '$foreColor'><strong style='margin-top:10px;'>Preferences</strong></h5>";
-// //
-
-
-// $returnString = $returnString . "<hr>";
 
 $returnString = $returnString .
     "<div class='row'>

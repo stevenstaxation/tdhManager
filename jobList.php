@@ -176,7 +176,7 @@ if (isset($sqlFilter)) {
           {searchable: false, targets: [9] }
         ],
         colReorder: true,
-        order: [[0, 'asc']],
+        order: [[1, 'asc']],
         processing: true,
         paging: false,
         responsive: true,

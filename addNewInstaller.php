@@ -1,10 +1,10 @@
 
-  dataToPost.installerName = document.getElementById('addInstallerName').value;
+  <!-- dataToPost.installerName = document.getElementById('addInstallerName').value;
     dataToPost.installerAddress1 = document.getElementById('addInstallerAddress1').value;
     dataToPost.installerAddress2 = document.getElementById('addInstallerAddress2').value;
     dataToPost.installerAddress3 = document.getElementById('addInstallerAddress3').value;
     dataToPost.installerAddress4 = document.getElementById('addInstallerAddress4').value;
-    dataToPost.installerAddress5 
+    dataToPost.installerAddress5  -->
 
 
 <?php

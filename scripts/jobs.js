@@ -1,10 +1,12 @@
-
-
+// Reset the Add New Job Modal fields when form is closed
 $('#modalAddNewJobRequest').on('hidden.bs.modal', function() {
     $(this).find('form').trigger('reset');
     $('#jobRequestMessage').html('');
 });
 
+
+// Show the jobs list page when the Navbar button 'Jobs' is clicked
+// and clear the other panels
 $(document).on("click", '#showJobList', function () {
     var dataToPost = {};
     dataToPost.SQLFilter = '';
@@ -29,37 +31,38 @@ $(document).on("click", '#showJobList', function () {
     });
 });
 
-$(document).on('click', '#jobsFilterClicked', function (event) {
-    "use strict";
-    event.preventDefault();
-    var dataToPost = {};
-    dataToPost.FilterCustomer = document.getElementById('getCustomerSelect').value;
-    dataToPost.FilterType = document.getElementById('byDeviceType').value;
-    dataToPost.FilterOtherTerm = document.getElementById('byOther').value;
-    dataToPost.SQLFilter = '';
-    $.ajax({
-        url: 'filterJobs.php',
-        data: dataToPost,
-        type: 'POST',
-        success: function (data) {
-            dataToPost.SQLFilter = data;
-            $.ajax({
-                url: "jobList.php",
-                type: "POST",
-                data: dataToPost,
-                success: function (data) {
-                    $('#devicesList').html(data);
-                },
-                error: function () {
-                    $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-                }
-            });
-        },
-        error: function () {
+// Obsolete code for filtering jobs - now implemented using datatables library
+// $(document).on('click', '#jobsFilterClicked', function (event) {
+//     "use strict";
+//     event.preventDefault();
+//     var dataToPost = {};
+//     dataToPost.FilterCustomer = document.getElementById('getCustomerSelect').value;
+//     dataToPost.FilterType = document.getElementById('byDeviceType').value;
+//     dataToPost.FilterOtherTerm = document.getElementById('byOther').value;
+//     dataToPost.SQLFilter = '';
+//     $.ajax({
+//         url: 'filterJobs.php',
+//         data: dataToPost,
+//         type: 'POST',
+//         success: function (data) {
+//             dataToPost.SQLFilter = data;
+//             $.ajax({
+//                 url: "jobList.php",
+//                 type: "POST",
+//                 data: dataToPost,
+//                 success: function (data) {
+//                     $('#devicesList').html(data);
+//                 },
+//                 error: function () {
+//                     $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
+//                 }
+//             });
+//         },
+//         error: function () {
 
-        }
-    });
-});
+//         }
+//     });
+// });
 
 function addNewJob() {
   
@@ -184,6 +187,7 @@ function showFullJob(rowNumber) {
         data: dataToPost,
         type: 'POST',
         success: function(data) {
+
             data = $.parseJSON(data);    
                 
                     $("#editJobCustomerName").val(data['ownerID']);
@@ -202,10 +206,14 @@ function showFullJob(rowNumber) {
                     $('#editJobDateBooked').val(data['date']);
                     $('#editJobCompleted').val(data['jobCompleteFlag']);
                     $('#editHubCompleted').val(data['TDHSignOff']);
-                $(function() { 
-                    $('#editJobOldVRN').val(data['oldVRN']);
-                    $('#editJobVRN').val(data['VRN']);
-                });
+               
+                    $(function() { 
+                        document.getElementById('editJobVRN').value = data['VRN'];
+                        document.getElementById('editJobOldVRN').value = data['oldVRN'];
+                        
+                        // $('#editJobVRN').val(data['VRN']);
+                        // $('#editJobOldVRN').val(data['oldVRN']);
+                    });
                 
             
                 // ***********
@@ -261,6 +269,8 @@ function showFullJob(rowNumber) {
                 } else if (jobWhen > today) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>BOOKED</span></h6>");
                 }
+
+            
 
                 $('#modalEditNewJobRequest').modal('show');
                
@@ -595,20 +605,20 @@ function editCurrentJob() {
                 $('#showJobList').trigger('click');
             } else {
                 $('#getClient').trigger('change');
-                showCustomers(newID);
+                // showCustomers(newID);
 
-                var dataToPost = {};
-                dataToPost.selectedValue = newID;
+                // var dataToPost = {};
+                // dataToPost.selectedValue = newID;
 
-                $.ajax({
-                    url: 'customers.php',
-                    type: 'POST',
-                    data: dataToPost,
-                    success: function(data) {
-                        $('#customerInfo').html(data);
-                    },
-                    error: function() {}
-                });
+                // $.ajax({
+                //     url: 'customers.php',
+                //     type: 'POST',
+                //     data: dataToPost,
+                //     success: function(data) {
+                //         $('#customerInfo').html(data);
+                //     },
+                //     error: function() {}
+                // });
                 } 
 
         } else {
@@ -692,9 +702,26 @@ $(document).on("blur", '#editJobDateBooked', function() {
 });
 
 $(document).on("change", "#editJobCompleted", function() {
+    // switch off TDH sign off if Job Completed is switched off
+    if ($('#editJobCompleted').prop('checked')==false) {
+        $('#editHubCompleted').prop('checked', false);
+    }
+
+    // have both pics been uploaded?
+
+
     $('#editJobDateBooked').trigger('blur');
 });
+
 $(document).on("change", "#editHubCompleted", function() {
+
+    
+    if ($('#editJobCompleted').prop('checked')==false && $('#editHubCompleted').prop('checked')==true) {
+         alert ("Cannot sign off until job is completed");
+         $('#editHubCompleted').prop('checked', false);
+         return;
+     }
+
     $('#editJobDateBooked').trigger('blur');
 });
 
@@ -740,11 +767,12 @@ function addJobRequest(selector, customerID) {
     $('#hiddenJobSelector').val(selector);
         
     if (selector=='customer') {
-        $('#jobCustomerName').val($('#hiddenCustomerID').val());
-        $('#jobCustomerName').prop('disabled', 'disabled');    
+        $(function() { 
+            $('#jobCustomerName').val($('#hiddenCustomerID').text()).change();
+            $('#jobCustomerName').prop('disabled', 'disabled');    
+        });
     }   
      $('#modalAddNewJobRequest').modal('show');
-
 }
 
 

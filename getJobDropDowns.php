@@ -17,9 +17,6 @@ $row = mysqli_fetch_assoc($result);
 echo (json_encode($row));
 
 
-
-
-
 // VRNS
 // $sql = "SELECT ID, regNumber FROM tblVehicle WHERE ownerID='" . $jobCustomer . "'";
 // $result = mysqli_query($link, $sql);
