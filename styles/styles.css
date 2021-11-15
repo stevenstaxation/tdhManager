@@ -487,6 +487,15 @@ body.dark #dropZone {
     display: none;
 }
 
+#uploadFileButton, #uploadDeviceButton {
+    background-color: indigo;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 0.1rem;   
+}
+
 
 
 

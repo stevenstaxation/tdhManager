@@ -8,6 +8,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 $jobCustomerID = $_POST['jobCustomerName']; //
 $jobType = $_POST['jobJobType']; //
+$jobTypeString = $_POST['jobTypeString'];
 $jobCameraType = $_POST['jobCameraType'];
 $jobQuantity = $_POST['jobQuantity'];
 $jobOtherKitLT = $_POST['jobLT'];
@@ -68,12 +69,23 @@ if (!$jobEngineer>=1) {
 // if ($jobDate==null || $jobDate=='') {
 //     $errors .="The date booked for the job is missing<br>";
 // }
-$ix = 1;
-foreach ($jobVRN as $VRN) {
-    if ($VRN==0 || $VRN=null) {
-        $errors .= "Vehicle registration number " .$ix ." is missing<br>";
-    }
-    $ix++;
+
+if ($jobTypeString=="De-installation" || $jobTypeString=="Deinstallation") {
+    $ix = 1;
+    foreach ($jobOldVRN as $VRN) {
+        if ($VRN==0 || $VRN=null) {
+            $errors .= "Old vehicle registration number " .$ix ." is missing<br>";
+        }
+        $ix++;
+    }     
+} else {
+    $ix = 1;
+    foreach ($jobVRN as $VRN) {
+        if ($VRN==0 || $VRN=null) {
+            $errors .= "Vehicle registration number " .$ix ." is missing<br>";
+        }
+        $ix++;
+    }    
 }
 
 $otherKitFlag = 0;
@@ -95,6 +107,9 @@ $ix = 0;
 foreach ($jobVRN as $VRNforJob) {
     $oldVRN = $jobOldVRN[$ix];
     $time = date('Y-m-d');
+    if ($VRNforJob=='' || $VRNforJob==0) {
+        $VRNforJob=$oldVRN;
+    }
     $sql = "INSERT INTO tblJobs (ownerID, date, jobType, VRN, notes, cameratypeid, Quantity, OtherKitFlag, PriorityIsUrgent, JobRate, BookingContact, BookingEmail, BookingTelephone, BookingAddress, EquipmentLocationID, EngineerID, dateAdded, oldVRN) VALUES ('$jobCustomerID',NULLIF('$jobDate',''), '$jobType', '$VRNforJob', '$jobNotes', '$jobCameraType', '$jobQuantity', '$otherKitFlag', '$jobPriority', '$jobRate', '$jobContactName', '$jobContactEmail', '$jobContactPhone', '$jobContactAddress', '$jobEquipmentLocation', '$jobEngineer', '$time', NULLIF('$oldVRN',''))";
     $result = mysqli_query($link, $sql);
     $ix++;

@@ -246,6 +246,7 @@ $(document).on('click', '#queryDeleteOther', function () {
 });
 
 function readURL(input) {
+    console.log('read');
     
     if (input.files && input.files[0]) {
   
@@ -332,6 +333,7 @@ $(document).on('click', '#uploadRegPic', function(event) {
         fileObject = document.getElementById('uploadRegPic').files[0];
         var regPicContent = document.querySelector('#regPicContent');
         ajaxFileGetUpload(fileObject, regPicContent);
+        $('#regPicContent').addClass('imageLoaded');
     }
 })
 
@@ -341,6 +343,8 @@ $(document).on('click', '#uploadDevicePic', function(event) {
         fileObject = document.getElementById('uploadDevicePic').files[0];
         var regDeviceContent = document.querySelector('#devicePicContent');
         ajaxFileGetUpload(fileObject, regDeviceContent);
+        regDeviceContent.className = 'imageLoaded';
+        $('#devicePicContent').addClass('imageLoaded');
     }
 })
 
@@ -361,6 +365,7 @@ function ajaxFileGetUpload(fileObj, picSelector) {
                 oOutput.innerHTML = "<img src='" + this.responseText + "' width='200'>";
             } else {
                 oOutput.innerHTML = "Error " + xhttp.status + " occurred when trying to upload your file.";
+                oOutput.removeClass('imageLoaded');
             }
         }
 

@@ -616,7 +616,6 @@ $(document).on('click', '#deleteStatus', function(event) {
       dataToPost.VRN = dataToPost.VRN.replaceAll("-","");
       dataToPost.VRN = dataToPost.VRN.replaceAll("/","");
       dataToPost.VRN = dataToPost.VRN.replaceAll("'","");
-      // console.log(dataToPost.VRN);
 
       event.preventDefault();
       $.ajax({
@@ -690,7 +689,7 @@ $(document).on('click', '#deleteStatus', function(event) {
   $(document).on('click','#toggleCompletedJobs', function() {
     var currentFilter = $('#jobFilter').html();
     if (currentFilter==5) {
-        currentFilter = 0;
+        currentFilter = -1;
     } else {
         currentFilter = 5;    
     }

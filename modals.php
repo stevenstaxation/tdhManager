@@ -3190,7 +3190,7 @@
                         </div>
                        
                         <!-- <hr> -->
-                        <div id='jobCompletionSection' style='display:none'>
+                        <!-- <div id='jobCompletionSection' style='display:none'>
                             <h6><strong>Job Completion</strong></h6>
                             <div class='row'>
                                 <div class='col-3'>
@@ -3237,7 +3237,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         
                     <!-- </div> -->
                 </form>
@@ -3400,15 +3400,19 @@
                             </div>
                         </div>
                         <div class='row'>
-                            
-                            <div class='col-2'>
-                                <label class='control-label' for='editJobRate' style='margin-top: 18px;'>Job Rate</label>
-                            </div>
-                            <div class='col-4'>
-                                <div class='input-group'>
-                                    <input type='number' class='form-control' id='editJobRate' name='jobRate' min ='0' step='0.01' style='margin-top: 8px;'>
+                            <?php
+                               if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
+                                echo"
+                                <div class='col-2'>
+                                    <label class='control-label' for='editJobRate' style='margin-top: 18px;'>Job Rate</label>
                                 </div>
-                            </div>
+                                <div class='col-4'>
+                                    <div class='input-group'>
+                                        <input type='number' class='form-control' id='editJobRate' name='jobRate' min ='0' step='0.01' style='margin-top: 8px;'>
+                                    </div>
+                                </div>";
+                               }
+                                ?>
                         </div>
                         
                         <hr>
@@ -3541,10 +3545,8 @@
                                 </div>
                                 <div class='col-3'>
                                     <div class='file-upload'>
-                                        <button class="file-upload-btn btn btn-primary btn-sm" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Upload</button>
-                                        <div class="image-upload-wrap">
-                                            <input class="file-upload-input" type='file' id='uploadRegPic' accept="image/*" />
-                                        </div>
+                                       <input type='file' id='uploadRegPic' hidden/>
+                                       <label for='uploadRegPic' id='uploadFileButton'>Upload</label>
                                     </div>
                                 </div>
                                 <div class='col-3'>
@@ -3552,10 +3554,8 @@
                                 </div>
                                 <div class='col-3'>
                                     <div class='file-upload2'>
-                                        <button class="file-upload2-btn btn btn-primary btn-sm" type="button" onclick="$('.file-upload-input2').trigger( 'click' )">Upload</button>
-                                        <div class="image-upload-wrap2">
-                                            <input class="file-upload-input2" type='file' id='uploadDevicePic' accept="image/*" />
-                                        </div>
+                                        <input type='file' id='uploadDevicePic' hidden/>
+                                       <label for='uploadDevicePic' id='uploadDeviceButton'>Upload</label>
                                     </div>
                                 </div>
                                
@@ -3578,26 +3578,27 @@
 
                             <div class='row' style='margin-top:15px;'>
                                 <div class='col-3'>
-                                    <label class='form-check-label' for='jobCompleted' style='font-size:125%'>Job Completed</label> 
+                                    <label class='form-check-label' for='editJobCompleted' style='font-size:125%'>Job Completed</label> 
                                 </div>
                                 <div class='col-2'>    
                                     <div class='form-check form-switch'>
                                         <input class='form-check-input' type='checkbox' id='editJobCompleted' style='margin-left: 40px; font-size:125%'>  
                                     </div>
                                 </div>
-                                <div class='col-1'></div>
+                                                
                                 <?php
                                 if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
-                              echo "<div class='col-3'>
-                                        <label class='form-check-label' for='hubCompleted' style='font-size:125%'>Data Hub Sign Off</label>  
-                                    </div>
-                                    <div class='col-2'>
-                                        <div class='form-check form-switch'>
-                                            <input class='form-check-input' type='checkbox' id='editHubCompleted' style='margin-left: 10px; font-size:125%'>  
+                                  echo "
+                                        <div class='col-3 offset-1'>
+                                            <label class='form-check-label' for='editHubCompleted' style='font-size:125%'>Data Hub Sign Off</label>  
                                         </div>
-                                    </div>";
+                                        <div class='col-2'>
+                                            <div class='form-check form-switch'>
+                                                <input class='form-check-input' type='checkbox' id='editHubCompleted' style='margin-left: 10px; font-size:125%'>  
+                                            </div>
+                                        </div>";
                                 }
-                             ?>
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -3613,7 +3614,11 @@
                     <h6>STATUS: <span style='color: #FFAA00;'></span></h6>
                 </div>
                 <button type="button" id='editJobUpdate' onclick='editCurrentJob()' class="btn btn-success">Update</button>
-                <button type="button" id='deleteJobUpdate' onclick='deleteCurrentJob()' class="btn btn-danger">Delete</button>
+                <?php
+                if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
+                    echo "<button type='button' id='deleteJobUpdate' onclick='deleteCurrentJob()' class='btn btn-danger'>Delete</button>";
+                }
+                ?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>

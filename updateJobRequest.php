@@ -26,8 +26,17 @@ $jobStatus = $_POST['jobStatus'];
 $jobType = $_POST['jobType'];
 $jobVRN = $_POST['jobVRN'];
 $oldVRN = $_POST['oldVRN'];
-$picRegistration = $_POST['picReg'];
-$picDevice = $_POST['picDevice'];
+if (isset($_POST['picReg'])) {
+    $picRegistration = $_POST['picReg'];
+} else {
+    $picRegistration = NULL;
+}
+
+if (isset($_POST['picDevice'])) {
+    $picDevice = $_POST['picDevice'];
+} else {
+    $picDevice = NULL;
+}
 
 if ($LTAlarm=='true') {$LTAlarm = 1;} else {$LTAlarm=0;};
 if ($SSSensor=='true') {$SSSensor = 2;} else {$SSSensor=0;};
