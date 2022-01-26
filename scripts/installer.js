@@ -1,29 +1,3 @@
-// ******************************
-// SHOW PARTNERS >> INSTALLERS PAGE
-// ******************************
-$(document).on('click', '#showInstallers', function() {
-    $.ajax({
-        url: "installerList.php",
-        type: "POST",
-        success: function(data) {
-            $('#accountInfo').html('');
-            $('#customerSelect').html('');
-            $('#customerInfo').html('');
-            $('#overlay').html('');
-            $('#eventLog').html('');
-            $('#homeScreen').html('');
-            $('#bulkUploadsPage').html('');
-            $('#devicesList').html(data);
-            $('#installerNameSelection option:first').attr('selected', 'selected');
-            $('#installerNameSelection').trigger('change');
-            $('#vehicleList').html('');
-        },
-        error: function() {
-
-        }
-    })
-});
-
 
 // ***************************************************************************
 // ADD NEW INSTALLER WHICH RUNS WHEN MODAL DIALOG ADD INSTALLER BUTTON CLICKED

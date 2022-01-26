@@ -150,7 +150,6 @@ $(document).ready(function() {
 echo $returnString;
 
 
-
 function getAlerts($link) {
 $sql = 'SELECT * FROM tblCustomer';
 $result = mysqli_query($link, $sql);
@@ -208,19 +207,20 @@ $result = mysqli_query($link, $sql);
     $sql = "SELECT * FROM tblCustomerNote INNER JOIN tblUsers ON tblCustomerNote.userID = tblUsers.userID INNER JOIN tblCustomer ON tblCustomerNote.customerID = tblCustomer.ID WHERE (noteDate <= '" . $dateNow->format('Y-m-d H:i') ."' AND isAnAlert='1')";
 
     $result = mysqli_query($link, $sql);
-    while ($noteRows = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-
-        $alert['date'] = $noteRows['noteDate'];
-        $alert['alertType'] = 3;
-        $alertDate = new DateTime($noteRows['noteDate']);
-        $alert['days'] = $dateNow->diff($alertDate)->format('%r%a');
-        $alert['customerID'] = $noteRows['customerID'];
-        $alert['customername'] = $noteRows['businessName'];
-        $alert['text'] = $noteRows['noteText'];
-        $alert['owner'] = $noteRows['userName'];
-        $alert['userID'] = $noteRows['userID'];
-        $alert['noteID'] = $noteRows['cnID'];
-        array_push($alerts,$alert);
+    if ($result) {
+        while ($noteRows = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $alert['date'] = $noteRows['noteDate'];
+            $alert['alertType'] = 3;
+            $alertDate = new DateTime($noteRows['noteDate']);
+            $alert['days'] = $dateNow->diff($alertDate)->format('%r%a');
+            $alert['customerID'] = $noteRows['customerID'];
+            $alert['customername'] = $noteRows['businessName'];
+            $alert['text'] = $noteRows['noteText'];
+            $alert['owner'] = $noteRows['userName'];
+            $alert['userID'] = $noteRows['userID'];
+            $alert['noteID'] = $noteRows['cnID'];
+            array_push($alerts,$alert);
+        }
     }
 
     $dateNow = new dateTime();
@@ -229,18 +229,17 @@ $result = mysqli_query($link, $sql);
 
     $result = mysqli_query($link, $sql);
 
-
-    while ($noteRows = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-
-        $alert['date'] = $noteRows['installDate'];
-        $alert['alertType'] = 4;
-        $alert['text'] = "Install for " .$noteRows['businessName'] ." (" .$noteRows['regNumber'] . ") is booked for " . date('d/m/Y', strtotime($noteRows['installDate'])) ;
-        $alert['owner'] = "-";
-        $alert['userID'] = 0;
-        $alert['noteID'] = 0;
-        array_push($alerts,$alert);
+    if ($result) {
+        while ($noteRows = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $alert['date'] = $noteRows['installDate'];
+            $alert['alertType'] = 4;
+            $alert['text'] = "Install for " .$noteRows['businessName'] ." (" .$noteRows['regNumber'] . ") is booked for " . date('d/m/Y', strtotime($noteRows['installDate'])) ;
+            $alert['owner'] = "-";
+            $alert['userID'] = 0;
+            $alert['noteID'] = 0;
+            array_push($alerts,$alert);
+        }
     }
-
     sort($alerts);
     return $alerts;
 }

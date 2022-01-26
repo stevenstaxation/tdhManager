@@ -9,9 +9,9 @@ include('connect.php');
 
 // Check user inputs
 //     Define error messages 
-    $missingEmail = '<p><strong>Please enter your email address</strong></p>';
-    $invalidEmail = '<p><strong>The Email address entered is invalid</strong></p>';
-  
+    $missingEmail = '<p>Please enter your email address</p>';
+    $invalidEmail = '<p>The Email address entered is invalid</p>';
+    $errors = "";
 //     Get email
     if(empty($_POST['forgotPasswordEmail'])) {
         $errors .= $missingEmail;

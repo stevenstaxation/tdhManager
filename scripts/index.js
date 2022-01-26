@@ -50,7 +50,7 @@ $('#logInForm').submit(function (event) {
     // collect user inputs
     var dataToPost = $(this).serializeArray();
     // send to logInCheck.php using AJAX
-    
+  
     $.ajax({
         url: "logInCheck.php",
         type: "POST",

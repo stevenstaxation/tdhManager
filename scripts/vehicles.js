@@ -51,29 +51,7 @@ $(document).on("input","#vehicleStatusInstalled", function() {
     }
 });
 
-$(document).on("click", '#showVehicleList', function() {
-    var dataToPost = {};
-    dataToPost.SQLFilter='';
-    $.ajax({
-        url: "vehicleList.php",
-        type: "POST",
-        data: dataToPost,
-        success: function(data) {
-          $('#accountInfo').html('');
-          $('#customerSelect').html('');
-          $('#customerInfo').html('');
-          $('#overlay').html('');
-          $('#homeScreen').hide();
-          $('#eventLog').html('');
-          $('#devicesList').html('');
-          $('#bulkUploadsPage').html('');
-          $('#vehicleList').html(data);
-        },
-        error: function() {
-            $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-        }
-    });
-  });
+
 
   $(document).on('blur', '#editVRN', function(event) {
     // prevent default PHP processing
@@ -317,6 +295,7 @@ function editCurrentVehicle() {
             } else {
                 $('#getClient').trigger('change');
                 var newID = parseInt(data.replace('success', ''), 10);
+                console.log ("cust: " + newID);
                 showCustomers(newID);
             }
         } else {

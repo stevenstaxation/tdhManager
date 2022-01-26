@@ -28,29 +28,7 @@ $(document).on('change', '#getClient', function() {
     });
 });
 
-$('#customerMenu').on('click', function() {
-    showCustomers();
-    var dataToPost = {};
-    dataToPost.selectedValue = "<?php echo $_SESSION['firstCustomer']; ?>";
-    $.ajax({
-        url: 'customers.php',
-        type: 'POST',
-        data: dataToPost,
-        success: function(data) {
-            $('#accountInfo').html('');
-            $('#eventLog').html('');
-            $('#homeScreen').hide();
-            $('#vehicleList').html('');
-            $('#devicesList').html('');
-            $('#overlay').html('');
-            $('#bulkUploadsPage').html('');
-            $('#customerInfo').html(data);
-            $('#getRenewalTypeSelect').trigger('change');
-        },
-        error: function() {}
-    });
 
-});
 
 $('#modalAddNewCustomer').on('hidden.bs.modal', function(event) {
     $(this).find('form').trigger('reset');

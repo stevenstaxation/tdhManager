@@ -3,8 +3,8 @@ session_start();
 include('connect.php');
 
 // Define error messages
-$missingEmail = "<p><strong>You need to enter your email address to log in.</strong></p>";
-$missingPassword = "<p><strong>You need to enter your password</strong></p>";
+$missingEmail = "<p>You need to enter your email address.</p>";
+$missingPassword = "<p>You need to enter your password.</p>";
 
 $userName = $_POST['userName'];
 $password = $_POST['password'];
@@ -16,8 +16,8 @@ $errors = "";
 if (empty($userName)) {
     $errors .= $missingEmail;
 } else {
-        $userName = filter_var($userName, FILTER_SANITIZE_EMAIL);
-        }
+    $userName = filter_var($userName, FILTER_SANITIZE_EMAIL);
+}
 
 // check password
 if(empty($_POST['password'])) {
@@ -31,6 +31,7 @@ if(empty($_POST['password'])) {
 if ($errors) {
     $resultMessage = "<div class='alert alert-danger'>" . $errors . "</div>";
     echo $resultMessage;
+    exit();
 } else {
     $userName = mysqli_real_escape_string($link, $userName);
     $password = mysqli_real_escape_string($link, $password);
@@ -40,7 +41,7 @@ if ($errors) {
     $result = mysqli_query($link, $sql);
 
     if (!$result) {
-        echo '<div class="alert alert-danger">Error accessing yon database</div>';
+        echo '<div class="alert alert-danger">Error accessing the database</div>';
         echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
         exit();
     }

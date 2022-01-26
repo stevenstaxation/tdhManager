@@ -1,28 +1,7 @@
 // ******************************
 // SHOW PARTNERS >> INSURERS PAGE
 // ******************************
-$(document).on('click', '#showInsurers', function () {
-    $.ajax({
-        url: "insurerList.php",
-        type: "POST",
-        success: function (data) {
-            $('#accountInfo').html('');
-            $('#customerSelect').html('');
-            $('#customerInfo').html('');
-            $('#overlay').html('');
-            $('#eventLog').html('');
-            $('#homeScreen').html('');
-            $('#bulkUploadsPage').html('');
-            $('#devicesList').html(data);
-            $('#insurerNameSelection option:first').attr('selected', 'selected');
-            $('#insurerNameSelection').trigger('change');
-            $('#vehicleList').html('');
-        },
-        error: function () {
 
-        }
-    });
-});
 
 
 // ***********************************************************************

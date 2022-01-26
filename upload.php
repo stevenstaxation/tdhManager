@@ -44,14 +44,14 @@ if ($_FILES['file']['name']!='') {
             }
 
             if (trim(strtolower($headings[0]))!="model") {$errors .= "Column 1 heading should be Model, found " . $headings[0] ."<br>";}
-            if (strtolower($headings[1])!="platform") {$errors .= "Column 2 heading should be Platform, found " . $headings[1] ."<br>";} 
-            if (strtolower($headings[2])!="serial") {$errors .= "Column 3 heading should be Serial, found " . $headings[2] ."<br>";}
-            if (strtolower($headings[3])!="imei") {$errors .= "Column 4 heading should be IMEI, found " . $headings[3] ."<br>";}
-            if (strtolower($headings[4])!="devicestatus") {$errors .= "Column 5 heading should be DeviceStatus, found " . $headings[4] ."<br>";}
-            if (strtolower($headings[5])!="dridnumber") {$errors .= "Column 6 heading should be DRIDNumber, found " . $headings[5] ."<br>";}
-            if (strtolower($headings[6])!="simserialno") {$errors .= "Column 7 heading should be SimSerialNo, found " . $headings[6] ."<br>";}
-            if (strtolower($headings[7])!="simphone") {$errors .= "Column 8 heading should be SimPhone, found " . $headings[7] ."<br>";}
-            if (strtolower($headings[8])!="customer") {$errors .= "Column 9 heading should be Customer, found " . $headings[8] ."<br>";}
+            if (trim(strtolower($headings[1]))!="platform") {$errors .= "Column 2 heading should be Platform, found " . $headings[1] ."<br>";} 
+            if (trim(strtolower($headings[2]))!="serial") {$errors .= "Column 3 heading should be Serial, found " . $headings[2] ."<br>";}
+            if (trim(strtolower($headings[3]))!="imei") {$errors .= "Column 4 heading should be IMEI, found " . $headings[3] ."<br>";}
+            if (trim(strtolower($headings[4]))!="devicestatus") {$errors .= "Column 5 heading should be DeviceStatus, found " . $headings[4] ."<br>";}
+            if (trim(strtolower($headings[5]))!="dridnumber") {$errors .= "Column 6 heading should be DRIDNumber, found " . $headings[5] ."<br>";}
+            if (trim(strtolower($headings[6]))!="simserialno") {$errors .= "Column 7 heading should be SimSerialNo, found " . $headings[6] ."<br>";}
+            if (trim(strtolower($headings[7]))!="simphone") {$errors .= "Column 8 heading should be SimPhone, found " . $headings[7] ."<br>";}
+            if (trim(strtolower($headings[8]))!="customer") {$errors .= "Column 9 heading should be Customer, found " . $headings[8] ."<br>";}
 
             if ($errors) {
                 echo "<div class='alert alert-danger'>" . $errors . "</div>";
@@ -87,6 +87,8 @@ if ($_FILES['file']['name']!='') {
     $errorCount = 0;
     $errorString = '';
     foreach ($readFile as $readItem) {
+
+        if ($readItem[0]=='') {continue;}
         
         // $readFile[x][0] = Model must be in database
         $sqlModel = "SELECT description FROM tblDeviceDescription WHERE description='$readItem[0]'";

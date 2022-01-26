@@ -1,30 +1,3 @@
-// ******************************
-// SHOW PARTNERS >> SUPPLIERS PAGE
-// ******************************
-$(document).on('click', '#showSuppliers', function () {
-    $.ajax({
-        url: "supplierList.php",
-        type: "POST",
-        success: function (data) {
-            $('#accountInfo').html('');
-            $('#customerSelect').html('');
-            $('#customerInfo').html('');
-            $('#overlay').html('');
-            $('#eventLog').html('');
-            $('#homeScreen').html('');
-            $('#bulkUploadsPage').html('');
-            $('#devicesList').html(data);
-            $('#supplierNameSelection option:first').attr('selected', 'selected');
-            $('#supplierNameSelection').trigger('change');
-            $('#vehicleList').html('');
-        },
-        error: function () {
-
-        }
-    })
-});
-
-
 
 $('#modalAddNewSupplier').on('shown.bs.modal', function () {
     $(this).find('form').trigger('reset');

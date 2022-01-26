@@ -16,18 +16,16 @@ session_start();
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
 
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
 
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-
-
+   
     <title>TDH Manager</title>
     <script src='scripts/clickEvents.js'></script>
 </HEAD>
@@ -44,7 +42,7 @@ session_start();
                         <div class='form-group'>
                             <input type='text' class='form-input' name='userName' id='userName' placeholder='Enter your email address...' autocomplete='username'>
                         </div>
-                        <div id='logInMessage'></div>
+                        
                         <div class='input-group'>
                             <input style='width: 87%; margin-left: 0' type='password' class='form-control py-2 border-right-0 border' name='password' id='password' placeholder='Enter a password...' autocomplete='current-password'>
                             <span class='input-group-append'>
@@ -53,6 +51,7 @@ session_start();
                                 </button>
                             </span>
                         </div>
+                        <div id='logInMessage' style='margin-top:15px;'></div>
                         <div class='form-group text-center'>
                             <button type='submit' name='submit' id='submit' class='form-submit btn btn-success' style='border-radius: 10px; margin-top: 15px'>Log In</button>
                         </div>

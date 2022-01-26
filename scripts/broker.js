@@ -1,30 +1,3 @@
-// ******************************
-// SHOW PARTNERS >> SUPPLIERS PAGE
-// ******************************
-$(document).on('click', '#showBrokers', function () {
-    $.ajax({
-        url: "brokerList.php",
-        type: "POST",
-        success: function (data) {
-            $('#accountInfo').html('');
-            $('#customerSelect').html('');
-            $('#customerInfo').html('');
-            $('#overlay').html('');
-            $('#eventLog').html('');
-            $('#homeScreen').html('');
-            $('#bulkUploadsPage').html('');
-            $('#devicesList').html(data);
-            $('#brokerNameSelection option:first').attr('selected', 'selected');
-            $('#brokerNameSelection').trigger('change');
-            $('#vehicleList').html('');
-        },
-        error: function () {
-
-        }
-    })
-});
-
-
 
 $('#modalAddNewBroker').on('hidden.bs.modal', function () {
     $(this).find('form').trigger('reset');

@@ -1,28 +1,4 @@
-// ******************************
-// SHOW PARTNERS >> OTHRES PAGE
-// ******************************
-$(document).on('click', '#showOthers', function () {
-    $.ajax({
-        url: "otherList.php",
-        type: "POST",
-        success: function (data) {
-            $('#accountInfo').html('');
-            $('#customerSelect').html('');
-            $('#customerInfo').html('');
-            $('#overlay').html('');
-            $('#eventLog').html('');
-            $('#homeScreen').html('');
-            $('#bulkUploadsPage').html('');
-            $('#devicesList').html(data);
-            $('#otherNameSelection option:first').attr('selected', 'selected');
-            $('#otherNameSelection').trigger('change');
-            $('#vehicleList').html('');
-        },
-        error: function () {
 
-        }
-    })
-});
 
 $('#modalAddNewOther').on('shown.bs.modal', function () {
     $(this).find('form').trigger('reset');
@@ -416,3 +392,28 @@ $(document).on('click', '#downloadVehicleTemplate', function (event) {
     hiddenElement.click();
 
 })
+
+function printPDFJobsList() {
+    
+    $.post("PDFJobsAll.php",
+    {
+        engineerID: $('#getEngineer').val(),
+        dateBookedFrom: $('#dateBookedFrom').val(),
+        dateBookedTo: $('#dateBookedTo').val(),
+        dateAddedFrom: $('#dateAddedFrom').val(),
+        dateAddedTo: $('#dateAddedTo').val(),
+        statusComplete: $('#includeComplete').is(':checked'),
+        statusPending: $('#includePending').is(':checked'),
+        statusBooked: $('#includeBooked').is(':checked'),
+        statusOverdue: $('#includeOverdue').is(':checked'),
+        statusApproval: $('#includeApproval').is(':checked')
+    }, function (response) {
+          window.open ('PDFJobsAll.php');
+    }
+    );
+
+    console.log($('#includeComplete').is(':checked'));
+    console.log($('#includePending').is(':checked'));
+   
+}
+

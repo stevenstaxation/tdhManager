@@ -3627,94 +3627,6 @@
 </div>
 
 
-<!-- <div class="modal" id="modalEditNewJobRequest" data-backdrop='static' >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            Modal Header
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Existing Job</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-           
-            <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditJob' class='getEditJob form-block'>
-                    <div class='form-group'>
-                        <div class='row'>
-                            <div class='col-4'>
-                                <label class='control-label' for='editJobDate' style='padding-top:8px;'><strong>Date</strong></label>
-                            </div>
-                            <div class='col-8'>
-                                <div class='input-group'>
-                                    <input type='date' class='form-control' id='editJobDate'>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class='row'>
-                            <div class='col-4'>
-                                <label class='control-label' for='editJobTypeType' style='padding-top:8px;'><strong>Job Type</strong></label>
-                            </div>
-                            <div class='col-8'>
-                                <div class='input-group'>
-                                    <select id='editJobTypeType' name='editJobTypeType' class='custom-select editJobTypeType' style='margin-top:3px;'>
-                                    <?php
-                                        // $sql = "SELECT * FROM tblJobType ORDER BY description ASC";
-                                        // $result = mysqli_query($link,$sql);
-                                        // while ($jobRow = mysqli_fetch_array($result)) {
-                                        //     echo "<option value = " . $jobRow['ID'] . ">" . $jobRow['description'] . "</option>";
-                                        // }
-                                    ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='row'>
-                            <div class='col-4'>
-                                <label class='control-label' for='editJobTypeVRN' style='padding-top:8px;'><strong>VRN</strong></label>
-                            </div>
-                            <div class='col-8'>
-                                <div class='input-group'>
-                                    <select id='editJobTypeVRN' name='editJobTypeVRN' class='custom-select editJobTypeVRN' style='margin-top:3px;'>
-                                    <?php
-                                        // $sql = "SELECT ID,regNumber FROM tblVehicle WHERE tblVehicle.ownerID = '" . $_SESSION['currentCustomer']."' ORDER BY regNumber ASC";
-                                        // $result = mysqli_query($link,$sql);
-                                        // while ($VRNRow = mysqli_fetch_array($result)) {
-                                        //     echo "<option value = " . $VRNRow['ID'] . ">" . $VRNRow['regNumber'] . "</option>";
-                                        // }
-                                    ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='row'>
-                            <div class='col-4'>
-                                <label class='control-label' for='editJobNotes' style='padding-top:8px;'><strong>Job Details</strong></label>
-                            </div>
-                            <div class='col-8'>
-                                <div class='input-group'>
-                                       <textarea rows='8' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='editJobNotes' id='editJobNotes' style='margin-top:3px;'></textarea>                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <div id='jobRequestEditMessage'></div>
-            </div>
-
-
-             Modal footer
-            <div class="modal-footer">
-                <div id='editJobHide' style='display: none'></div>
-                <button type="button" id='editJobComplete' onclick='editJobComplete(1)' class="btn btn-info">Mark as Complete</button>
-                <button type="button" id='editJobUpdate' onclick='editJobComplete(2)' class="btn btn-success">Update</button>
-                <button type="button" id='editJobCancel' class="btn btn-warning" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-                         
-
-
 <!-- ----------------------------------- END OF JOB REQUEST DIALOGS ---------------------------------------- -->
 
 <!-- ---------------------------------------- INSTALLER DIALOGS ---------------------------------------------- -->
@@ -4819,3 +4731,99 @@
 
 </div>
 
+
+<div class="modal" id="modalGetJobReportParameters" data-backdrop='static'>
+    <div class="modal-dialog" style='max-width:40%'>
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" style='color:green'>Select Report Parameters</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form method='POST' id='getNewVRN' class='getNewVRN' class='form-block'>
+                    <div class='form-group'>
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <label class='control-label-inline' style='padding-top:8px;' for='getEngineer'>Select Engineer</label>
+                            </div>
+                            <div class='col-lg-8'>
+                                <select id='getEngineer' name='getEngineer' class='custom-select'>
+                                    <option value='0' selected>All engineers</option>
+                                        <?php     
+                                            $sql = "SELECT userID, userName, activation, isInstaller, isEngineer FROM tblUsers WHERE activation='activated' AND isEngineer=1";
+                                            $result = mysqli_query($link, $sql);
+                                            while ($engineerRow = mysqli_fetch_array($result)) {
+                                                echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
+                                            }
+                                       ?>
+                                    <option value='9999' class='otherOptionSelection'>Unregistered Engineer</option>
+                                </select>
+                            </div>
+                        </div><hr>
+                            <div class='row' style='padding-top: 8px; text-align: center'>
+                                <div class='col-lg-4'></div><div class='col-lg-4'>from</div><div class='col-lg-4'>to</div>
+                            </div>
+                            <div class='row'>
+                            <div class='col-lg-4'>
+                                <label class='control-label-inline' style='padding-top:8px;' for='dateAdded'>Date Added Range</label>
+                            </div>
+                            <div class = 'col-lg-4'>
+                                <input type='date' class='form-control' name = 'dateAddedFrom' id='dateAddedFrom'>
+                            </div>
+                            <div class = 'col-lg-4'>
+                                <input type='date' class='form-control' name = 'dateAddedTo' id='dateAddedTo'  value="<?php echo date('Y-m-d');?>">
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-lg-4'>
+                                <label class='control-label-inline' style='padding-top:8px;' for='dateBooked'>Date Booked Range</label>
+                            </div>
+                            <div class = 'col-lg-4'>
+                                <input type='date' class='form-control' name = 'dateBookedFrom' id='dateBookedFrom'>
+                            </div>
+                            <div class = 'col-lg-4'>
+                                <input type='date' class='form-control' name = 'dateBookedTo' id='dateBookedTo' value="<?php echo date('Y-m-d');?>">
+                            </div>
+                        </div><hr>
+                        <div class='row'>
+                            <div class='col-lg-3'>
+                                <label class='control-label-inline' style='padding-top:8px;' for='getStatus'>Job Status</label>
+                            </div>
+                            <div class='col-lg-3'>
+                                <label for ='includeComplete'>
+                                <input type='checkbox' class='form-check-input' name='includeComplete' id='includeComplete'/>Completed</label>
+                            </div>
+                            <div class='col-lg-3'>
+                                <label for ='includePending'>
+                                <input type='checkbox' class='form-check-input' name='includePending' id='includePending' checked/>Pending</label>
+                            </div>
+                            <div class='col-lg-3'>
+                                <label for ='includeBooked'>
+                                <input type='checkbox' class='form-check-input' name='includeBooked' id='includeBooked' checked/>Booked</label>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-lg-3'></div>
+                            <div class='col-lg-5'>
+                                <label for ='includeOverdue'>
+                                <input type='checkbox' class='form-check-input' name='includeOverdue' id='includeOverdue' checked/>Booked - Date Passed</label>
+                            </div>
+                            <div class='col-lg-4'>
+                                <label for ='includeApproval'>
+                                <input type='checkbox' class='form-check-input' name='includeApproval' id='includeApproval' checked/>Awaiting Approval</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='reportParamsMessage'></div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id='sendReportParameters' onclick='printPDFJobsList()' class="btn btn-success">Show</button>
+            </div>
+        </div>
+    </div>
+
+</div>

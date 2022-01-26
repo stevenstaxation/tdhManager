@@ -8,18 +8,18 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 $jobCustomerID = $_POST['jobCustomerName']; //
 $jobType = $_POST['jobJobType']; //
-$jobTypeString = $_POST['jobTypeString'];
+$jobTypeString =  mysqli_real_escape_string($link, $_POST['jobTypeString']);
 $jobCameraType = $_POST['jobCameraType'];
 $jobQuantity = $_POST['jobQuantity'];
 $jobOtherKitLT = $_POST['jobLT'];
 $jobOtherKitSS = $_POST['jobSS'];
 $jobPriority = $_POST['jobPriority'];
-$jobRate = $_POST['jobRate'];
-$jobNotes = $_POST['jobNotes'];
-$jobContactName = $_POST['jobContactName'];
-$jobContactEmail = $_POST['jobContactEmail'];
-$jobContactPhone = $_POST['jobContactPhone'];
-$jobContactAddress = $_POST['jobInstallAddress'];
+$jobRate =  mysqli_real_escape_string($link, $_POST['jobRate']);
+$jobNotes =  mysqli_real_escape_string($link, $_POST['jobNotes']);
+$jobContactName =  mysqli_real_escape_string($link, $_POST['jobContactName']);
+$jobContactEmail =  mysqli_real_escape_string($link, $_POST['jobContactEmail']);
+$jobContactPhone =  mysqli_real_escape_string($link, $_POST['jobContactPhone']);
+$jobContactAddress =  mysqli_real_escape_string($link, $_POST['jobInstallAddress']);
 $jobEquipmentLocation = $_POST['bookingLocation'];
 $jobEngineer = $_POST['engineerAssigned'];
 $jobDate = $_POST['jobDateBooked'];

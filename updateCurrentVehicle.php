@@ -52,7 +52,10 @@ regNumber='$regNumber', LTAlarmDate=NULLIF('$LTAlarmDate',''), SideScanDate=NULL
 
 $result = mysqli_query($link, $sql);
 
-echo "success";
+  $sql = "SELECT ownerID FROM tblVehicle WHERE ID = '$vehicleID'";
+  $getOwnerQuery = mysqli_query($link, $sql);
+  $getOwner = mysqli_fetch_array($getOwnerQuery);
 
+  echo "success" . $getOwner['ownerID'];
 
 ?>

@@ -26,8 +26,11 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js" integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
    
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
     <script src="https://use.fontawesome.com/887b334360.js"></script>
     <link href="https://fonts.cdnfonts.com/css/uk-number-plate" rel="stylesheet">
 
@@ -166,6 +169,10 @@ function purgeEventLog() {
 <script src='scripts/footage.js'></script>
 <script src='scripts/vehicles.js'></script>
 <script src='scripts/jobs.js'></script>
+<script src='scripts/uploads.js'></script>
+<script src='scripts/menus.js'></script>
+
+
 
 
 
@@ -216,11 +223,7 @@ function purgeEventLog() {
             }
         });
 
-        
-
-
-      
-
+       
         $('body').on('change', '#getRenewalTypeSelect', function() {
             var dataToPost = {};
             dataToPost.renewalTypeID = this.value;
@@ -242,80 +245,9 @@ function purgeEventLog() {
             });
         })
 
-
-        $('#homeMenu').on('click', function() {
-            $('#accountInfo').html('');
-            $('#eventLog').html('');
-            $('#vehicleList').html('');
-            $('#devicesList').html('');
-            $('#overlay').html('');
-            $('#customerInfo').html('');
-            $('#customerSelect').html('');
-            $('#bulkUploadsPage').html('');
-
-            var dataToPost = {};
-            $.ajax({
-                url: 'getHomeScreen.php',
-                type: 'POST',
-                data: dataToPost,
-                success: function(data) {
-                    $('#homeScreen').html(data);
-                }
-            });
       
-            $('#homeScreen').show();
-        
-        });
-     
 
-        $(document).on("click", '#showRenewalList', function() {
-        var dataToPost = {};
-        dataToPost.SQLFilter='';
-        $.ajax({
-            url: "renewalsList.php",
-            type: "POST",
-            data: dataToPost,
-            success: function(data) {
-                $('#accountInfo').html('');
-                $('#customerSelect').html('');
-                $('#customerInfo').html('');
-                $('#overlay').html('');
-                $('#homeScreen').hide();
-                $('#eventLog').html('');
-                $('#devicesList').html('');
-                $('#bulkUploadsPage').html('');
-                $('#vehicleList').html(data);
-            },
-        error: function() {
-            $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-        }
-    });
-  });
-
-  $(document).on("click", '#importHealthChecks', function() {
-        var dataToPost = {};
-        dataToPost.SQLFilter='';
-        $.ajax({
-            url: "healthcheckList.php",
-            type: "POST",
-            data: dataToPost,
-            success: function(data) {
-                $('#accountInfo').html('');
-                $('#customerSelect').html('');
-                $('#customerInfo').html('');
-                $('#overlay').html('');
-                $('#homeScreen').hide();
-                $('#eventLog').html('');
-                $('#devicesList').html('');
-                $('#bulkUploadsPage').html('');
-                $('#vehicleList').html(data);
-            },
-        error: function() {
-            $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-        }
-    });
-  });
-
+  
 
         $(document).ready(function() {
           $('.willCollapse').click(function(event) {
@@ -412,8 +344,6 @@ function purgeEventLog() {
             $(this).find('form').trigger('reset');
             $('#contactMessage').html('');
         });
-
-        
 
         $('#modalAddNewFootage').on('hidden.bs.modal', function() {
             $('#footageFileTableBodyBlock').html('');
@@ -553,21 +483,7 @@ function purgeEventLog() {
    
 
 
-$('.dropdown-menu a.dropdown-toggle').on('mouseover', function (e) {
-    if (!$(this).next().hasClass('show')) {
-        $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-    }
-    var $subMenu = $(this).next(".dropdown-menu");
-    $subMenu.toggleClass('show');
 
-
-    $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
-        $('.dropdown-submenu .show').removeClass("show");
-    });
-
-
-    return false;
-});
 
     $(document).on("click", '#closeUser', function() {
         location.reload(true);
@@ -648,31 +564,6 @@ $('.dropdown-menu a.dropdown-toggle').on('mouseover', function (e) {
     });
 
 
-
-
-
-
-
-
-
-
-    // $(document).on('click', '#hideNavbar', function() {
-    //         $('.navbar').animate({'height':'24px'}, 'fast');
-    //         $('#hideNavbar').css('display', 'none');
-    //         $('#showNavbar').css('display', 'block');
-    // });
-
-    // $(document).on('click', '#showNavbar', function() {
-    //         $('.navbar').animate({'height':'96px'}, 'fast');
-    //         $('#showNavbar').css('display', 'none');
-    //         $('#hideNavbar').css('display', 'block');
-    // });
-
-
-   
-
-
-
     
 
 function printDiv() {
@@ -691,17 +582,15 @@ function printVRNLookup() {
     popupWin.document.close();    
 }
 
-
-
-    function toggleGender(gender) {
-            if (gender == 'male') {
-            $('#gender_radio').html("<a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('female')>Female</a>");
-            $('#genderHidden').val('male');
-        } else {
-            $('#gender_radio').html("<a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('female')>Female</a>");
-            $('#genderHidden').val('female');
-        }
+function toggleGender(gender) {
+    if (gender == 'male') {
+        $('#gender_radio').html("<a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('female')>Female</a>");
+        $('#genderHidden').val('male');
+    } else {
+        $('#gender_radio').html("<a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('female')>Female</a>");
+        $('#genderHidden').val('female');
     }
+}
 
     function showMyAccount() {
         var dataToPost = {};
@@ -770,59 +659,7 @@ function printVRNLookup() {
         });
     }
 
-    // function updateRenewal() {
-    //     var dataToPost = {};
-    //     dataToPost.renewalType = document.getElementById('renewalType').value;
-    //     dataToPost.renewalDate = document.getElementById('renewalDate').value;
-
-    //     $.ajax({
-    //         url: 'updateRenewal.php',
-    //         data: dataToPost,
-    //         timeout: 30000,
-    //         type: "POST",
-    //         success: function(data) {
-    //             if (data.includes('success')) {
-    //                 $('#renewalUpdateMessage').html('<div class="alert alert-success">Updated successfully</div>');
-    //                 $('#renewalUpdateMessage').delay(2500).hide(0);
-    //                 $('#renewalUpdateMessage').show();
-
-    //                 $.ajax({
-    //                     url: 'getAlerts.php',
-    //                     type: 'GET',
-    //                      success: function(data) {
-    //                         var arr = data.split('^^^');
-
-    //                          if ((arr[0] + arr[1]) != 0) {
-    //                             $('#renewalTotal').html(+arr[0] + +arr[1]);
-    //                             $('#renewalTotalWrapper').show();
-    //                         } else {
-    //                             $('#renewalTotalWrapper').hide();
-    //                         }
-    //                         if (arr[3] != 0) {
-    //                             $('#installTotal').html(arr[3]);
-    //                             $('#installTotalWrapper').show();
-    //                         } else {
-    //                             $('#installTotalWrapper').hide();
-    //                         }
-    //                         if (arr[2] != 0) {
-    //                             $('#alertTotal').html(arr[2]);
-    //                             $('#alertTotalWrapper').show();
-    //                         } else {
-    //                             $('#alertTotalWrapper').hide();
-    //                         }
-    //                     }
-    //                 });
-    //             } else {
-    //                 $('#renewalUpdateMessage').html(data);
-    //                 $('#renewalUpdateMessage').show();
-    //             }
-    //         },
-    //         error: function() {
-    //         }
-    //     });
-    // }
-
-   
+  
 
     function addNewIssue() {
         var dataToPost = {};
@@ -904,107 +741,10 @@ function printVRNLookup() {
         });
     }
 
-    $(document).ready(function() {
-        $(document).on('change', '#file', function() {
-            var fileProperty = document.getElementById('file').files[0];
-            var issueImageFileName = fileProperty.name;
-            var issueImageExtension = issueImageFileName.split('.').pop().toLowerCase();
-            // is it an allowed extenstion?
-            if(jQuery.inArray(issueImageExtension, ['png', 'jpg', 'jpeg', 'gif']) == -1) {
-                swal ('Invalid Image File','Only PNG, JPEG and GIF allowed', 'error');
-                return
-            }
-            var issueImageSize = fileProperty.size;
-            if (issueImageSize > 2000000) {
-                swal ('File is too large to upload','Maximum file size is 2Mb', 'error');
-                return
-            } else {
-                var form_data = new FormData();
-                form_data.append("file", fileProperty);
-                $.ajax({
-                    url: "upload.php",
-                    method: 'POST',
-                    data: form_data,
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    beforeSend: function() {
-                        $('#uploaded_image').html("<label class='text-success'>Screenshot Uploading...</label>")
-                    },
-                    success: function(data) {
-                        $('#uploaded_image').html(data);
-                    }
-                })
-            }
-
-        });
-    })
+  
     
 
-    function addNewFootage() {
-        var dataToPost = {};
-        dataToPost = $('#getAddNewFootage').serializeArray();
-
-        var FileList = [];
-        $('#footageFileTableBody tr').each(function() {
-            $(this).find('td').each(function () {
-                FileList.push($(this).text());
-            });
-        });
-        var ContactList = [];
-        $('#footageRecipientsList tr').each(function() {
-            $(this).find('td').each(function () {
-                if ($(this).find('input[type="checkbox"]').is(':checked')) {
-                    ContactList.push("checked");
-                } else {
-                    ContactList.push($(this).text());
-                }
-            });
-        });
-
-        dataToPost.push({
-            name: 'fileList',
-            value: FileList
-        });
-        dataToPost.push({
-            name: 'contactList',
-            value: ContactList
-        });
-
-        $.ajax ({
-            url: "addNewFootageRequest.php",
-            timeout: 30000,
-            type: "POST",
-            data: dataToPost,
-            success: function(data) {
-                if (data.includes('success')) {
-                    var newID = parseInt(data.replace("success",''),10);
-                    $('#getClient').trigger('change');
-                    showCustomers(newID);
-                    $('#modalAddNewFootage').modal('hide');
-                    var dataToPost = {};
-                    dataToPost.selectedValue = newID;
-
-                    $.ajax({
-                        url: 'customers.php',
-                        type: 'POST',
-                        data: dataToPost,
-                        success: function(data) {
-                            $('#customerInfo').html(data);
-                        },
-                        error: function() {}
-                    });
-                } else {
-                    $('#addFootageMessage').html(data);
-                }
-            },
-            error: function() {
-
-            }
-        });
-
-    }
-
+    
     
     function editContact(rowNumber) {
         var dataToPost = {};
@@ -1048,180 +788,8 @@ function printVRNLookup() {
 
 
 
-    function editCurrentFootage() {
-        var dataToPost = {};
-        dataToPost.footageID = document.getElementById('hiddenFootageID').value;
-        dataToPost.ownerID = document.getElementById('editFootageOwnerID').value;
-        dataToPost.incidentDate = document.getElementById('footageEditIncidentDate').value;
-        dataToPost.vehicleID = document.getElementById('getFootageVRN').value;
-        dataToPost.claimReference = document.getElementById('footageEditClaimReference').value;
-        dataToPost.requestDate = document.getElementById('footageEditRequestDate').value;
-        dataToPost.requestNotes = document.getElementById('footageEditRequestNotes').value;
-        dataToPost.responseDate = document.getElementById('footageEditResponseDate').value;
-        dataToPost.allocatedTo = document.getElementById('footageEditTDHEmployee').value;
-        dataToPost.responseNotes = document.getElementById('footageEditResponseNotes').value;
-        dataToPost.requestStatus = document.getElementById('footageEditCurrentStatusList').value;
-
-        $.ajax({
-            url: 'updateEditFootage.php',
-            timeout: 30000,
-            data: dataToPost,
-            type: "POST",
-            success: function(data) {
-                if (data.includes("success")) {
-                    $('#editFootageMessage').html('');
-                    $('#getClient').trigger('change');
-                    $('#modalEditFootage').modal('hide');
-
-                    $.ajax({
-                        url: 'getAlerts.php',
-                        type: 'GET',
-                        success: function(data) {
-                            var arr = data.split('^^^');
-
-                            if ((arr[0] + arr[1]) != 0) {
-                                $('#renewalTotal').html(+arr[0] + +arr[1]);
-                                $('#renewalTotalWrapper').show();
-                            } else {
-                                $('#renewalTotalWrapper').hide();
-                            }
-                            if (arr[3] != 0) {
-                                $('#installTotal').html(arr[3]);
-                                $('#installTotalWrapper').show();
-                            } else {
-                                $('#installTotalWrapper').hide();
-                            }
-                            if (arr[2] != 0) {
-                                $('#alertTotal').html(arr[2]);
-                                $('#alertTotalWrapper').show();
-                            } else {
-                                $('#alertTotalWrapper').hide();
-                            }
-                        }
-                    });
-                } else {
-                    $('#editFootageMessage').html(data);
-                }
-            },
-            error: function() {
-
-            }
-        });
-
-        // get file names from table, then pass them to PHP to add to table
-        var fileNames = [];
-        var table = $("#footageEditFileTableBodyBlock");
-        table.find('tr').each(function(i) {
-            var tds = $(this).find('td');
-            fileName = tds.eq(0).text();
-            fileNames.push(fileName);
-        })
-
-        var dataToPost = {};
-        dataToPost.fileNames = fileNames;
-        dataToPost.requestID = document.getElementById('hiddenFootageID').value;
-        $.ajax ({
-            url: "updateUploads.php",
-            type: "POST",
-            data: dataToPost,
-            success: function(data) {
-                // console.log(data);
-            }
-        });
-
-    }
-
-    function showFullFootage(rowNumber) {
-        var dataToPost = {};
-        dataToPost.footageCustomer = $('#hiddenCustomerID').text();
-        dataToPost.footageID = rowNumber;
-        $.ajax({
-            url: "getFootageDropDowns.php",
-            timeout: 30000,
-            data: dataToPost,
-            type: "POST",
-            success: function(data) {
-                data = $.parseJSON(data);
-
-                var VRNHTML= "<select id='getFootageVRN' name='getFootageVRN' class='custom-select getFootageVRN'>";
-                for (var x=0; x < data['VRN'].length; x++) {
-                    if (data['selectedVehicle'] == data['VRNID'][x]) {
-                        VRNHTML += "<option value = '" + data['VRNID'][x] + "' selected>" + data['VRN'][x] + "</option>";
-                    } else {
-                        VRNHTML += "<option value = '" + data['VRNID'][x] + "'>" + data['VRN'][x] + "</option>";
-                    }
-                }
-                    VRNHTML += "</select>";
-                $('#footageEditVRNList').html(VRNHTML);
-
-                var filePathHTML = '';''
-                for (x = 0; x < data['filePath'].length; x++) {
-                    filePathHTML += "<tr>";
-                    filePathHTML += "<td>" + data['filePath'][x] + "</td>";
-                    filePathHTML += "<td><btn class= 'btn btn-success btn-sm' id='footageInfo'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-info' viewBox='0 0 16 16'><path d='m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z'/></svg></btn></td>";
-                    filePathHTML += "<td><btn class= 'btn btn-danger btn-sm' id='footageRemove'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z'/></svg></btn></td>";
-                    filePathHTML += "</tr>";
-                }
-                $('#footageEditFileTableBody').append(filePathHTML);
-
-                var contactsHTML = "<table class='table table-sm table-scrollable'><thead><tr><th>Contact Name</th><th>Email Address</th><th>Type</th><th>Sent</th></tr></thead><tbody>";
-
-                for (var x=0; x < data['footageContactEmail'].length; x++) {
-                    contactsHTML += "<tr>";
-                    contactsHTML += "<td>" + data['footageContactName'][x] + "</td>";
-                    contactsHTML += "<td>" + data['footageContactEmail'][x] + "</td>";
-                    contactsHTML += "<td>" + data['footageContactType'][x] + "</td>";
-                if (data['footageContactSent'][x] == 1) {
-                    contactsHTML += "<td><input type='checkbox' checked></td>";
-                } else {
-                    contactsHTML += "<td><input type='checkbox'></td>";
-                }
-                    contactsHTML += "</tr>";
-                }
-               contactsHTML += "</tbody></table>"
-
-
-            $('#footageEditRecipientsList').html(contactsHTML);
-
-            },
-            error: function() {
-
-            }
-        });
-
-        dataToPost.footageID = rowNumber;
-        $.ajax({
-            url: "getCurrentFootage.php",
-            timeout: 30000,
-            data: dataToPost,
-            datatype: "json",
-            type: "POST",
-            success: function(data) {
-               data = $.parseJSON(data);
-                document.getElementById('footageEditIncidentDate').value = data['incidentDate'].replace(' ','T');
-                document.getElementById('footageEditCustomerID').value = data['businessName'];
-                document.getElementById('footageEditClaimReference').value = data['claimRef'];
-                document.getElementById('footageEditRequestDate').value = data['requestDateTime'].replace(' ','T');
-                document.getElementById('footageEditRequestNotes').value = data['requestNotes'];
-                if (data['responseDateTime']!=null) {
-                    data['responseDateTime'] = data['responseDateTime'].replace(' ','T');
-                }
-                document.getElementById('footageEditResponseDate').value = data['responseDateTime'];
-                document.getElementById('footageEditTDHEmployee').value = data['userID'];
-                document.getElementById('footageEditResponseNotes').value = data['responseText'];
-                document.getElementById('footageEditCurrentStatusList').value = data['statusID'];
-                document.getElementById('hiddenFootageID').value = rowNumber;
-                document.getElementById('editFootageOwnerID').value = data['ID'];
-
-                $('#modalEditFootage').modal('show');
-            },
-            error: function() {
-
-            }
-        })
-
-    }
-
+   
+   
 
     function editNote(rowNumber) {
         var dataToPost = {};
@@ -1351,57 +919,8 @@ function printVRNLookup() {
         return true;
     }
 
-    function fileExplorer(editOrAdd) {
-        if (editOrAdd == 'Add') {
-            document.getElementById('footageFileName').onchange = function() {
-                fileObj = document.getElementById('footageFileName').files[0];
-                uploadFileToServer(fileObj, editOrAdd);
-            }
-        } else if (editOrAdd == 'Edit') {
-            document.getElementById('footageEditFileName').onchange = function() {
-                fileObj = document.getElementById('footageEditFileName').files[0];
-                uploadFileToServer(fileObj, editOrAdd);
-            }
-        }
-    }
-
-    function uploadFileToServer(file_obj, editOrAdd) {
-        if (file_obj !=undefined) {
-            var form_data = new FormData();
-            form_data.append('file', file_obj);
-            $.ajax ({
-                type: "POST",
-                url: "uploads.php",
-                contentType: false,
-                processData: false,
-                data: form_data,
-                success: function(response) {
-                    // add filename to table/
-                    if (response.includes('success')) {
-                        var fileName = {};
-                        fileName = response.replace('success', '');
-                        var data = '';
-                        if (editOrAdd== 'Add') {
-                            // data = '<tr><td>' + fileName + '</td></tr>'
-                            // $('#footageFileTableBody').append(data);
-                            data = '<tr><td>' + fileName + "</td><td><btn class= 'btn btn-success btn-sm'><svg xmlns='http://www.w3.org/2000/svg' width='12px' height='12px' fill='currentColor' class='bi bi-info' viewBox='0 0 16 16'><path d='m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z'/></svg></btn></td></td>";
-                            data = data + "<td class='text-center align-middle'><btn class= 'btn btn-danger btn-sm'><svg xmlns='http://www.w3.org/2000/svg' width='12px' height='12px' fill='currentColor' class='bi bi-x-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z'/></svg></btn></td></tr>'";
-                            $('#footageFileTableBody').append(data);
-                        } else if (editOrAdd == 'Edit') {
-                            data = '<tr><td>' + fileName + "</td><td><btn class= 'btn btn-success btn-sm'><svg xmlns='http://www.w3.org/2000/svg' width='12px' height='12px' fill='currentColor' class='bi bi-info' viewBox='0 0 16 16'><path d='m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z'/></svg></btn></td></td>";
-                            data = data + "<td class='text-center align-middle'><btn class= 'btn btn-danger btn-sm'><svg xmlns='http://www.w3.org/2000/svg' width='12px' height='12px' fill='currentColor' class='bi bi-x-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z'/></svg></btn></td></tr>'";
-                            $('#footageEditFileTableBody').append(data);
-                        }
-                    } else {
-                        window.alert(response);
-                    }
-                },
-                error: function() {
-
-                }
-            });
-        }
-    }
+   
+   
 
 
 

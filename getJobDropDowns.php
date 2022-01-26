@@ -14,6 +14,7 @@ $sql = "SELECT * FROM tblJobs WHERE ID='$jobID'";
 $result = mysqli_query($link, $sql);
 $row = mysqli_fetch_assoc($result);
 
+
 echo (json_encode($row));
 
 

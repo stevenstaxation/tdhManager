@@ -295,31 +295,50 @@ function deletePhysicalDevice() {
         // }
         dataToPost.deviceNumber = document.getElementById('hiddenDeviceID').value;
         
-        $.ajax({
-            url: "deletePhysicalDevice.php",
-            timeout: 30000,
-            data: dataToPost,
-            type: "POST",
-            success: function(data) {
-                if (data.includes("success")) {
-                    $('#editDeviceMessage').html('');
-                    $('#modalEditDevice').modal('hide');
-                    if (document.getElementById('hiddenDeviceSelector').value == 'device') {
-                        $('#showDeviceList').trigger('click');
-                    } else {
-                        $('#getClient').trigger('change');
-                        var newID = parseInt(data.replace('success', ''), 10);
-                        showCustomers(newID);
+        
+
+        swal ({
+            title: "Confirm delete",
+            text: "Are you sure you want to delete?",
+            icon: "warning",
+            buttons: ['Cancel', 'Yes - Delete'],
+            dangerMode: true,
+        }).then (function(isConfirm){
+            if (isConfirm) {
+                $.ajax({
+                    url: "deletePhysicalDevice.php",
+                    timeout: 30000,
+                    data: dataToPost,
+                    type: "POST",
+                    success: function(data) {
+                        if (data.includes("success")) {
+                            $('#editDeviceMessage').html('');
+                            $('#modalEditDevice').modal('hide');
+                            if (document.getElementById('hiddenDeviceSelector').value == 'device') {
+                                $('#showDeviceList').trigger('click');
+                            } else {
+                                $('#getClient').trigger('change');
+                                var newID = parseInt(data.replace('success', ''), 10);
+                                showCustomers(newID);
+                            }
+            
+                        } else {
+                            $('#editDeviceMessage').html(data);
+                        }
+        
                     }
-    
-                } else {
-                    $('#editDeviceMessage').html(data);
-                }
-
+        
+                })
+        
             }
+        });
+    
+        return;
 
-        })
 
+
+
+        
 
 }
 
@@ -357,30 +376,6 @@ $(document).on('click', '#deviceFilterClicked', function (event) {
     });
 });
 
-$(document).on("click", '#showDeviceList', function () {
-    var dataToPost = {};
-    dataToPost.SQLFilter = '';
-    $.ajax({
-        url: "deviceList.php",
-        type: "POST",
-        timeout: 60000,
-        data: dataToPost,
-        success: function (data) {
-            $('#accountInfo').html('');
-            $('#customerSelect').html('');
-            $('#customerInfo').html('');
-            $('#overlay').html('');
-            $('#homeScreen').hide();
-            $('#eventLog').html('');
-            $('#bulkUploadsPage').html('');
-            $('#devicesList').html(data);
-            $('#vehicleList').html('');
-        },
-        error: function () {
-            $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-        }
-    });
-});
 
 $(document).on('focusin', '#textAddOrUpdateDevice', function (event) {
     event.preventDefault();
@@ -452,6 +447,7 @@ $(document).on('click', '#deleteDevice', function (event) {
     event.preventDefault();
     var dataToPost = {};
     dataToPost.deviceIDToDelete = $("#deviceList option:selected").val();
+    console.log ('pre delete');
 
     $.ajax({
         url: "deleteDevice.php",

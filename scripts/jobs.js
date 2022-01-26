@@ -5,34 +5,6 @@ $('#modalAddNewJobRequest').on('hidden.bs.modal', function() {
 });
 
 
-// Show the jobs list page when the Navbar button 'Jobs' is clicked and clear the other panels
-$(document).on("click", '#showJobList', function () {
-    var dataToPost = {};
-    dataToPost.SQLFilter = $('#jobFilter').html();
-    if (!dataToPost.SQLFilter) {
-        dataToPost.SQLFilter = -1;
-    }
-    $.ajax({
-        url: "jobList.php",
-        type: "POST",
-        data: dataToPost,
-        success: function (data) {
-            $('#accountInfo').html('');
-            $('#customerSelect').html('');
-            $('#customerInfo').html('');
-            $('#overlay').html('');
-            $('#homeScreen').hide();
-            $('#eventLog').html('');
-            $('#bulkUploadsPage').html('');
-            $('#devicesList').html(data);
-            $('#vehicleList').html('');
-        },
-        error: function () {
-            $('#errorBox').html("<div class='alert alert-warning'>There was an error retrieving the jobs list, try again later or contact TDHManager administrator.</div>");
-        }
-    });
-});
-
 // When adding a job and the customer name is changed then this routine will
 // change the customer's vehicle list and get the customer's default contact
 $(document).on("change", '#jobCustomerName', function () {
@@ -275,6 +247,7 @@ function addNewJob() {
 
 
 function showFullJob(rowNumber) {
+   
     var dataToPost = {};
     // dataToPost.jobCustomer = '';
     var editMode = '';
@@ -305,49 +278,37 @@ function showFullJob(rowNumber) {
     dataToPost.jobCustomer = $('#hiddenCustomerID').text();  
     dataToPost.jobID = rowNumber;
     document.getElementById('hiddenJobID').text = rowNumber;
-            
-    $.ajax({
-        url: 'getJobDropDowns.php',
-        timeout: 30000,
-        data: dataToPost,
-        type: 'POST',
-        success: function(data) {
+    var currentVRN;
+    var oldVRN;
 
-            data = $.parseJSON(data);    
+    $.when(
+        $.ajax({
+            url: 'getJobDropDowns.php',
+            timeout: 30000,
+            data: dataToPost,
+            type: 'POST',
+            success: function(data) {
+                data = $.parseJSON(data);  
+                $("#editJobCustomerName").val(data['ownerID']);
+                $('#editJobCustomerName').trigger('change');
+                $('#editJobType').val(data['jobType']);
+                $('#editJobCameraType').val(data['cameraTypeID']);
+                $('#editJobPriority').val(data['priorityIsUrgent']);
+                $('#editJobRate').val(formatAsCurrency(data['JobRate']));
+                $('#editJobNotes').val(data['notes']);
+                $('#editJobContactName').val(data['bookingContact']);
+                $('#editJobContactEmail').val(data['bookingEmail']);
+                $('#editJobContactPhone').val(data['BookingTelephone']);
+                $('#editJobInstallAddress').val(data['bookingAddress']);
+                $('#editBookingLocation').val(data['equipmentLocationID']);
+                $('#editEngineerAssigned').val(data['engineerID']);
+                $('#editJobDateBooked').val(data['date']);
+                $('#editJobCompleted').val(data['jobCompleteFlag']);
+                $('#editHubCompleted').val(data['TDHSignOff']);
                 
-                    $("#editJobCustomerName").val(data['ownerID']);
-                    $('#editJobCustomerName').trigger('change');
-                    $('#editJobType').val(data['jobType']);
-                    $('#editJobCameraType').val(data['cameraTypeID']);
-                    $('#editJobPriority').val(data['priorityIsUrgent']);
-                    $('#editJobRate').val(formatAsCurrency(data['JobRate']));
-                    $('#editJobNotes').val(data['notes']);
-                    $('#editJobContactName').val(data['bookingContact']);
-                    $('#editJobContactEmail').val(data['bookingEmail']);
-                    $('#editJobContactPhone').val(data['BookingTelephone']);
-                    $('#editJobInstallAddress').val(data['bookingAddress']);
-                    $('#editBookingLocation').val(data['equipmentLocationID']);
-                    $('#editEngineerAssigned').val(data['engineerID']);
-                    $('#editJobDateBooked').val(data['date']);
-                    $('#editJobCompleted').val(data['jobCompleteFlag']);
-                    $('#editHubCompleted').val(data['TDHSignOff']);
-               
-                    $(function() { 
-                        document.getElementById('editJobVRN').value = data['VRN'];
-                        document.getElementById('editJobOldVRN').value = data['oldVRN'];
-                        
-                        // $('#editJobVRN').val(data['VRN']);
-                        // $('#editJobOldVRN').val(data['oldVRN']);
-                    });
-                
-            
-                // ***********
-
-               
-        
-                
-
-
+                currentVRN =  data['VRN'];
+                oldVRN = data['oldVRN'];
+              
                 document.getElementById('regPicContent').innerHTML = '';
                 document.getElementById('devicePicContent').innerHTML = ''; 
                 $("#regPicContent").removeClass('imageLoaded');
@@ -371,7 +332,6 @@ function showFullJob(rowNumber) {
                 } else {
                     $('#editSS').prop('checked',false);    
                 }
-
                 if (data['jobCompleteFlag'] == 1) {
                     $('#editJobCompleted').prop('checked', true);
                 } else {
@@ -400,15 +360,19 @@ function showFullJob(rowNumber) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>BOOKED</span></h6>");
                 }
 
-            
-
-                $('#modalEditNewJobRequest').modal('show');
-               
+                $('#modalEditNewJobRequest').modal('show');         
            
         },
         error: function() {
 
         }
+    })
+).done (function () {
+        $('#editJobVRN').val(parseInt(currentVRN)).change();
+        // document.getElementById('editJobVRN').value = currentVRN;
+        $('#editJobOldVRN').val(parseInt(oldVRN)).change();
+        // document.getElementById('editJobOldVRN').value = oldVRN;
+
     });
 }
 
@@ -540,7 +504,12 @@ function editCurrentJob() {
     dataToPost.jobPriority = document.getElementById('editJobPriority').value;
     dataToPost.LTAlarm = $('#editLT').prop('checked');
     dataToPost.SideSensor = $('#editSS').prop('checked');
-    dataToPost.jobRate = document.getElementById('editJobRate').value;
+    var jR = document.getElementById('editJobRate');
+    if (jR != null) {
+        dataToPost.jobRate = jR.value;
+    } else {
+        dataToPost.jobRate = 0;
+    }
     dataToPost.jobNotes = document.getElementById('editJobNotes').value;
     dataToPost.jobContact = document.getElementById('editJobContactName').value;
     dataToPost.jobEmail = document.getElementById('editJobContactEmail').value;
@@ -651,7 +620,7 @@ function deleteCurrentJob() {
                     });
                     } 
             } else {
-                console.log(data);
+   
             }
         },
         error: function () {
@@ -661,10 +630,6 @@ function deleteCurrentJob() {
    
 
 }
-
-
-
-
 
 
 $(document).on("change", "#editJobCompleted", function() {

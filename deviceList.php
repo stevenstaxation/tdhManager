@@ -198,7 +198,7 @@ $returnString .= "
       <td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMNumber']. "</td>
       <td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMPhone']. "</td>";
 
-      $simDate =  date('d/m/Y', strtotime($row['SIMDeactivationDate']));
+      $simDate =  date('d/m/Y', strtotime($row['scheduledDate']));
       if ($simDate=='' || $simDate==null || $simDate=='01/01/1970') {
         $simDate = '';
         $returnString .="<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>" .$simDate . "</td>";

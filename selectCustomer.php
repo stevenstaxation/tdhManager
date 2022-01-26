@@ -9,6 +9,13 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 $customerID = intval($_POST['customerID']);
 $_SESSION['firstCustomer'] = '0';
 
+if (!isset($_SESSION['currentCustomer]'])) {
+    // get first customer (by ID)
+    $sql = "SELECT ID FROM tblCustomer ORDER BY ID ASC LIMIT 1";
+    $result = mysqli_query($link, $sql);
+    $firstCustomer = mysqli_fetch_array($result);
+    $_SESSION['currentCustomer'] = $firstCustomer['ID'];
+}
 if ($customerID ==0) {
     $customerID = $_SESSION['currentCustomer'];
 }
@@ -23,9 +30,7 @@ $returnString = "
         <input type='hidden' value>";
             
    
-            $returnString .="
-   
-    
+            $returnString .="   
             <select id='getClient' name='getClient' class='combobox form-control getClient' style='display: none;'><option></option>";
 
                 $sql = "SELECT * FROM tblCustomer ORDER BY businessName ASC";

@@ -10,20 +10,6 @@ var currentScrollPos = window.pageYOffset;
 }
 
 
-// LOG OUT
-$('#logOut').on('click', function () {
-    $.ajax({
-        url: "logOut.php",
-        type: "GET",
-        success: function () {
-            window.location.href = "index.php";
-        },
-        error: function () {
-            window.location.href = "index.php";
-        }
-    });
-});
-
 // INVITE NEW USER
 
 $(document).on('click', '#inviteNewUser', function (event) {
@@ -108,10 +94,6 @@ $(document).on('click', '#addHistoricUser', function (event) {
     });
 
 
-$('#myAccount').on('click', function () {
-    showMyAccount();
-});
-
 var expanded = false;
 
 function showCheckboxes() {
@@ -149,23 +131,7 @@ function togglePassword() {
     
 }
 
-$(document).on('click', '#bulkUpload', function () {
-    $.ajax({
-        url: 'showBulkUpload.php',
-        type: 'POST',
-        success: function (data) {
-            $('#accountInfo').html('');
-            $('#customerSelect').html('');
-            $('#customerInfo').html('');
-            $('#eventLog').html('');
-            $('#overlay').html('');
-            $('#vehicleList').html('');
-            $('#devicesList').html('');
-            $('#homeScreen').html('');
-            $('#bulkUploadsPage').html(data);
-        }
-    });
-});
+
 
 $(document).on('click', '#cancelUpdateStatus', function(event) {
     event.preventDefault();
@@ -649,30 +615,7 @@ $(document).on('click', '#deleteStatus', function(event) {
   });
 
      
-  $(document).on('click', '#showEventLog', function(event) {
-      // prevent default PHP processing
-      "use strict";
-      event.preventDefault();
-      $.ajax({
-          url: "eventLogOptions.php",
-          type: "POST",
-          success: function(data) {
-              // $('#getClient').trigger('change');
-              $('#accountInfo').html('');
-              $('#customerSelect').html('');
-              $('#customerInfo').html('');
-              $('#overlay').html('');
-              $('#vehicleList').html('');
-              $('#devicesList').html('');
-              $('#homeScreen').hide();
-              $('#bulkUploadsPage').html('');
-              $('#eventLog').html(data);
-          },
-          error: function() {
-              $('#brokerContactMessage').html("<div class='alert alert-danger'>TDH Manager is not available at the moment. Contact your administrator.</div>");
-          }
-      });
-  });
+  
 
   $(document).on('click','#toggleCompletedIssues', function() {
       var currentFilter = $('#issueFilter').html();
@@ -703,7 +646,7 @@ $(document).on('click', '#deleteStatus', function(event) {
       if (!dataToPost.filteredStatus) {
           dataToPost.filteredStatus='5';
       }
-        console.log("FILET " + dataToPost.filteredStatus);
+        
       $.ajax({
       url: "issueList.php",
       data: dataToPost,
@@ -725,31 +668,6 @@ $(document).on('click', '#deleteStatus', function(event) {
   });
 });
 
-  $(document).on('click', '#showGlobalSettings', function(event) {
-      // prevent default PHP processing
-      "use strict";
-      event.preventDefault();
-      $.ajax({
-          url: "globalSettings.php",
-          type: "POST",
-          success: function(data) {
-              // $('#getClient').trigger('change');
-              $('#accountInfo').html('');
-              $('#customerSelect').html('');
-              $('#customerInfo').html('');
-              $('#eventLog').html('');
-              $('#devicesList').html('');
-              $('#vehicleList').html('');
-              $('#homeScreen').hide();
-              $('#bulkUploadsPage').html('');
-              $('#overlay').html(data);
-              
-          },
-          error: function() {
-              $('#brokerContactMessage').html("<div class='alert alert-danger'>TDH Manager is not available at the moment. Contact your administrator.</div>");
-          }
-      });
-  });
 
   $(document).on('click', '#updateDefaults', function(event) {
       event.preventDefault();
@@ -869,4 +787,6 @@ $(document).on('click', '#bulkUploadVehicles', function() {
     $('#hiddenUploadTypeSelector').val('vehicles');
     $('.imageContent').html('');
 });
+
+
 
