@@ -631,14 +631,17 @@ $(document).on('click', '#deleteStatus', function(event) {
 
   $(document).on('click','#toggleCompletedJobs', function() {
     var currentFilter = $('#jobFilter').html();
-    if (currentFilter==5) {
-        currentFilter = -1;
+   
+    if ((currentFilter & 5)==5) {
+        console.log(currentFilter);
+        currentFilter = (currentFilter & 65530);
+        console.log(currentFilter);
     } else {
-        currentFilter = 5;    
+        currentFilter = (currentFilter & 5);    
     }
     $('#jobFilter').html(currentFilter);
     $('#showJobList').trigger('click');
-});
+  });
 
   $(document).on("click", '#showIssueLog', function () {
       var dataToPost = {};

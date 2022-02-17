@@ -57,20 +57,22 @@ if ($jobContactName=='' || $jobContactName==null) {
 if ($jobContactEmail =='' && $jobContactPhone=='') {
     $errors .="You should enter at least one contact method, email or telephone - preferably both<br>";
 }
-if ($jobContactAddress =='' || $jobContactAddress==null) {
+
+if (($jobContactAddress =='' || $jobContactAddress==null) && ($jobDate!=null && $jobDate!='' && $jobDate!='01/01/1970')) {
     $errors .="A contact address should be included<br>";
 }
 if (!$jobEquipmentLocation>=1) {
     $errors .="Current location of equipment is missing<br>";
 }
-if (!$jobEngineer>=1) {
+if ((!$jobEngineer>=1) && ($jobDate!=null && $jobDate!='' && $jobDate!='01/01/1970')){
     $errors .="Please select the assigned engineer<br>";
 }
 // if ($jobDate==null || $jobDate=='') {
 //     $errors .="The date booked for the job is missing<br>";
 // }
 
-if ($jobTypeString=="De-installation" || $jobTypeString=="Deinstallation") {
+$ParsedJobString = strtoupper($jobTypeString);
+if ($ParsedJobString=="DE-INSTALLATION" || $ParsedJobString=="DEINSTALLATION") {
     $ix = 1;
     foreach ($jobOldVRN as $VRN) {
         if ($VRN==0 || $VRN=null) {
@@ -110,7 +112,22 @@ foreach ($jobVRN as $VRNforJob) {
     if ($VRNforJob=='' || $VRNforJob==0) {
         $VRNforJob=$oldVRN;
     }
-    $sql = "INSERT INTO tblJobs (ownerID, date, jobType, VRN, notes, cameratypeid, Quantity, OtherKitFlag, PriorityIsUrgent, JobRate, BookingContact, BookingEmail, BookingTelephone, BookingAddress, EquipmentLocationID, EngineerID, dateAdded, oldVRN) VALUES ('$jobCustomerID',NULLIF('$jobDate',''), '$jobType', '$VRNforJob', '$jobNotes', '$jobCameraType', '$jobQuantity', '$otherKitFlag', '$jobPriority', '$jobRate', '$jobContactName', '$jobContactEmail', '$jobContactPhone', '$jobContactAddress', '$jobEquipmentLocation', '$jobEngineer', '$time', NULLIF('$oldVRN',''))";
+
+    $now = date('U');
+    if($jobDate!='') {
+        $jobWhen = date('U', $jobDate);
+
+        if ($now < $jobWhen) {
+            $jobStatus = 3;
+        } else {
+            $jobStatus = 2;
+        }
+    } else {
+        $jobStatus = 1;
+    }
+
+
+    $sql = "INSERT INTO tblJobs (ownerID, date, jobType, VRN, notes, cameratypeid, Quantity, OtherKitFlag, PriorityIsUrgent, JobRate, BookingContact, BookingEmail, BookingTelephone, BookingAddress, EquipmentLocationID, EngineerID, dateAdded, oldVRN, status) VALUES ('$jobCustomerID',NULLIF('$jobDate',''), '$jobType', '$VRNforJob', '$jobNotes', '$jobCameraType', '$jobQuantity', '$otherKitFlag', '$jobPriority', '$jobRate', '$jobContactName', '$jobContactEmail', '$jobContactPhone', nullif('$jobContactAddress',''), '$jobEquipmentLocation', nullif('$jobEngineer',''), '$time', NULLIF('$oldVRN',''), '$jobStatus')";
     $result = mysqli_query($link, $sql);
     $ix++;
 }

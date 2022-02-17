@@ -227,9 +227,9 @@ $returnString = "
         <table class='table table-sm table-bordered table-hover' id='customerNotesTable' style='table-layout: fixed;'>
             <thead>
                 <tr>
-                    <th style='padding:0 3px;'>Date</th>
+                    <th style='padding:0 3px; width: 20%'>Date</th>
                     <th style='padding:0 3px;'>Note</th>
-                    <th style='padding:0 3px;'>User</th>
+                    
                 </tr>
             </thead>
             <tbody>";
@@ -248,7 +248,7 @@ $returnString = "
 
                     $returnString .= "<td class='align-middle' style='padding:0 3px;'>" . $dateOfNote . "</td>";
                     $returnString .= "<td class='align-middle' style='padding:0 3px;'>" . $contact['noteText'] ."</td>";
-                    $returnString .= "<td class='align-middle' style='padding:0 3px;'>" . $contact['userName'] ."</td>";
+                    
                     $returnString .= "</tr>";
                 }
 
@@ -800,7 +800,7 @@ $returnString = "
 
             $sql = "SELECT tblDevice.ID, tblDevice.ownerID, tblDevice.TDHNumber, tblDevice.serialNumber, tblDevice.IMEI, tblDevice.DRIDNumber, 
             tblDevice.SIMNumber, tblDevice.SIMPhone, tblDevice.SIMDeactivationDate, tblDevice.config, tblDevice.deviceNote, tblDeviceStatus.status, tblVehicle.regNumber, 
-            tblCustomer.businessName, tblDeviceDescription.description, tblSIMStatus.SIMStatus, tblInstaller.installerName, tblDevice.installDate  
+            tblCustomer.businessName, tblDeviceDescription.description, tblSIMStatus.SIMStatus, tblInstaller.installerName, tblDevice.installDate, tblDevice.scheduledDate  
             
             FROM tblDevice 
             LEFT JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID 
@@ -848,12 +848,12 @@ $returnString = "
                         $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMNumber']. "</td>";
                         $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMPhone']. "</td>";
                         
-                        $simDate =  date('d/m/Y', strtotime($row['SIMDeactivationDate']));
+                        $simDate =  date('d/m/Y', strtotime($row['scheduledDate']));
                         if ($simDate=='' || $simDate==null || $simDate=='01/01/1970') {
                           $simDate = '';
                           $returnString .="<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>" .$simDate . "</td>";
                         } else {
-                          $returnString .="<td class='text-center align-middle' style='padding:0 3px;' data-order=" . date('Y-m-d', strtotime($row['SIMDeactivationDate'])) . ">" .$simDate . "</td>";
+                          $returnString .="<td class='text-center align-middle' style='padding:0 3px;' data-order=" . date('Y-m-d', strtotime($row['scheduledDate'])) . ">" .$simDate . "</td>";
                         }
                         $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMStatus']. "</td>";
                         $returnString = $returnString . "<td class='align-middle' style='padding:0 3px;'>" . $row['config']. "</td>";
@@ -1304,12 +1304,14 @@ $returnString .= "
         <td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMNumber']. "</td>
         <td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMPhone']. "</td>";
         
+        // $simDate =  date('d/m/Y', strtotime($row['SIMDeactivationDate']));
         $simDate =  date('d/m/Y', strtotime($row['SIMDeactivationDate']));
+      
         if ($simDate=='' || $simDate==null || $simDate=='01/01/1970') {
           $simDate = '';
           $returnString .="<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>" . $simDate . "</td>";
         } else {
-            $returnString .="<td class='text-center align-middle' style='padding:0 3px;' data-order=" . date('Y-m-d',date('d/m/Y', strtotime($row['SIMDeactivationDate']))) .">" . $simDate . "</td>";
+            $returnString .="<td class='text-center align-middle' style='padding:0 3px;' data-order='" . strtotime($row['SIMDeactivationDate']) ."'>" . $simDate . "</td>";
         }
 
         $returnString .= "
@@ -1321,7 +1323,7 @@ $returnString .= "
       if(date('d/m/Y', $stringyDate)=='01/01/1970' || date('d/m/Y', $stringyDate)=='01/01/0001' || date('d/m/Y', $stringyDate)==NULL) {
         $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>unknown</td>";
       } else {
-        $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='" .date('Y-m-d', strtotime($row['installDate'])) ."'>" . date('d/m/Y', strtotime($row['installDate'])) . "</td>";
+        $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='" .strtotime($row['installDate']) ."'>" . date('d/m/Y', strtotime($row['installDate'])) . "</td>";
       }
 
 

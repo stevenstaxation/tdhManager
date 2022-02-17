@@ -117,7 +117,7 @@ $returnString .= "
 
   $sql = 'SELECT tblDevice.ID, tblDevice.ownerID, tblDevice.TDHNumber, tblDevice.serialNumber, tblDevice.IMEI, tblDevice.DRIDNumber, 
   tblDevice.SIMNumber, tblDevice.SIMPhone, tblDevice.SIMDeactivationDate, tblDevice.config, tblDevice.deviceNote, tblDeviceStatus.status, tblVehicle.regNumber, 
-  tblCustomer.businessName, tblDeviceDescription.description, tblSIMStatus.SIMStatus, tblInstaller.installerName, tblDevice.installDate  
+  tblCustomer.businessName, tblDeviceDescription.description, tblSIMStatus.SIMStatus, tblInstaller.installerName, tblDevice.installDate, tblDevice.scheduledDate
   
   FROM tblDevice LEFT JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID LEFT JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID 
   LEFT JOIN tblDeviceDescription ON tblDevice.deviceDescriptionID =tblDeviceDescription.ID LEFT JOIN tblDeviceStatus ON tblDevice.status 
@@ -203,7 +203,7 @@ $returnString .= "
         $simDate = '';
         $returnString .="<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>" .$simDate . "</td>";
       } else {
-        $returnString .="<td class='text-center align-middle' style='padding:0 3px;' data-order=" . date('Y-m-d', strtotime($row['SIMDeactivationDate'])) . ">" .$simDate . "</td>";
+        $returnString .="<td class='text-center align-middle' style='padding:0 3px;' data-order=" . date('Y-m-d', strtotime($row['scheduledDate'])) . ">" .$simDate . "</td>";
       }
       $returnString .="
       <td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMStatus']. "</td>

@@ -8,7 +8,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 $noteNumber = $_POST['noteID'];
 
 
-$sql = "SELECT * FROM tblCustomerNote WHERE cnID = '" . $noteNumber . "'";
+$sql = "SELECT tblCustomerNote.noteDate, tblCustomerNote.noteText, tblCustomerNote.isImportant, tblCustomerNote.isAnAlert, tblCustomerNote.customerID, tblCustomerNote.cnID, tblUsers.userName, tblCustomerNote.userID FROM tblCustomerNote INNER JOIN tblUsers ON tblCustomerNote.userID = tblUsers.userID WHERE cnID = '" . $noteNumber . "'";
 $result = mysqli_query($link, $sql);
 
 $row = mysqli_fetch_array($result);
@@ -20,6 +20,8 @@ echo $row['isAnAlert'] . "^^^";
 echo $row['customerID'] . "^^^";
 echo $row['cnID'] . "^^^";
 echo $row['userID'] . "^^^";
+echo $row['userName'] . "^^^";
+
 
 
 

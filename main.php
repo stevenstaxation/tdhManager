@@ -14,7 +14,9 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" description content="TDH Manager">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
@@ -33,9 +35,6 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
     <script src="https://use.fontawesome.com/887b334360.js"></script>
     <link href="https://fonts.cdnfonts.com/css/uk-number-plate" rel="stylesheet">
-
-
-   
 
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -805,6 +804,9 @@ function toggleGender(gender) {
 
                 document.getElementById('noteEditDate').value = arr[0].substring(0, arr[0].length - 3);
                 document.getElementById('noteEditText').value = arr[1];
+                document.getElementById('noteUserName').innerHTML = arr[7];
+               
+                
                 if (arr[2] == 1) {
                     document.getElementById('isImportantEditNote').checked = true;
                 } else {
@@ -821,8 +823,27 @@ function toggleGender(gender) {
                 document.getElementById('noteEditUser').value = arr[6];
 
                 if (arr[6] == <?php echo $_SESSION['userID']; ?>) {
-                    $('#modalEditCustomerNote').modal('show');
+                    $("#updateCustomerNoteEdit").removeAttr("disabled");
+                    $('#updateCustomerNoteEdit').removeClass('disabled');
+                    $('#noteEditText').removeAttr("disabled");
+                    $('#noteEditText').removeClass('disabled');
+                    $('#isImportantEditNote').removeAttr("disabled");
+                    $('#isImportantEditNote').removeClass('disabled');
+                    $('#createEditAlert').removeAttr("disabled");
+                    $('#createEditAlert').removeClass('disabled');
+                    
+                } else {
+                    $('#updateCustomerNoteEdit').attr("disabled", true);
+                    $('#updateCustomerNoteEdit').addClass('disabled');
+                    $('#noteEditText').attr("disabled", true);
+                    $('#noteEditText').addClass('disabled');
+                    $('#isImportantEditNote').attr("disabled", true);
+                    $('#noteisImportantEditNoteEditText').addClass('disabled');
+                    $('#createEditAlert').attr("disabled", true);
+                    $('#createEditAlert').addClass('disabled');
                 }
+
+                $('#modalEditCustomerNote').modal('show');
             },
             error: function() {}
         });

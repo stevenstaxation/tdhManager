@@ -2169,7 +2169,7 @@
 
 <!-- EDIT CUSTOMER NOTE -->
 <div class="modal" id="modalEditCustomerNote" data-backdrop='static'>
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -2181,24 +2181,32 @@
                 <form method='POST' id='editCustomerNote' class='editCustomerNote' class='form-block'>
                     <div class='form-group'>
                         <div class='row'>
-                            <div class='col-4'>
+                            <div class='col-3'>
                                 <label class='control-label inline' for='noteEditDate' style='width: 40%; padding-top:8px;'><strong>Date</strong></label>
                             </div>
-                            <div class='col-8'>
+                            <div class='col-9'>
                                 <div class='input-group'>
                                     <input class='form-control dateType' type='datetime' placeholder="Enter date..." name='noteEditDate' id='noteEditDate' readonly='readonly' min='<?php echo date("Y-m-d\TH:i");?>' value='<?php echo date("Y-m-d\TH:i");?>'>
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-4'>
+                            <div class='col-3'>
                                 <label class='control-label inline' for='noteEditText' style='padding-top:8px;'><strong>Note Text</strong></label>
                             </div>
-                            <div class='col-8'>
+                            <div class='col-9'>
                                 <div class='input-group'>
                                     <textarea rows='5' cols='60' class='form-control' placeholder='Enter note text (max 512 characters)...' id='noteEditText' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
+                        </div>
+                        <div class='row' style='margin-top: 20px'>
+                            <div class='col-3'>
+                                <label class='control-label inline' for='noteUserName' style='font-size: 75%; padding-top:8px;'><strong>Original note by</strong></label>
+                            </div>
+                            <div class='col-9'>
+                                <p id='noteUserName'></p>
+                            </div>                
                         </div>
                         <div class='row' style='margin-top: 20px;'>
                             <div class='col-4'>
@@ -3133,19 +3141,19 @@
                                     <input type='text' class='form-control' id='jobContactPhone' name='jobContactPhone' placeholder='contact telephone...'>                                    </div>
                                 </div>
                             <div class='col-2' style='display:inline-flex'>
-                                <label class='control-label' for='jobDateBooked' style='padding:10px 25px;'>Date Booked For</label>
+                                <label class='control-label' for='jobDateBooked' style='padding:10px 25px;'>Date/Time Booked For</label>
                             </div>
                             
                             <div class='col-4'>
                                 <div class='input-group'>
-                                    <input type='date' class='form-control' name = 'jobDateBooked' id='jobDateBooked'>
+                                    <input type='datetime-local' class='form-control' name = 'jobDateBooked' id='jobDateBooked'>
                                 </div>
                             </div>                    
                             </div> 
                         </div>
                         <div class='row'>
                             <div class='col-2'>
-                                <label class='control-label' for='jobInstallAddress'  style='padding-top: 8px;'>Install Address</label>
+                                <label class='control-label' for='jobInstallAddress'  style='padding-top: 8px;' placeholder='Postcode'>Install Address</label>
                             </div>
                             <div class='col-10'>
                                 <div class='input-group'>
@@ -3302,7 +3310,7 @@
                                 <label class='control-label' for='jobJobType' style='padding: 8px 25px;'>Job Type</label>
                             </div>
                             <div class='col-4'>
-                                <div class='input-group' id='jobJobType'>
+                                <div class='input-group' id='editJobJobType'> <!--  was editJobType -->
                                     <select id='editJobType' name='jobJobType' class='custom-select'>
                                        
                                         <?php
@@ -3483,7 +3491,7 @@
                                         <label class='control-label' for='editJobDateBooked' style='padding:10px 25px;'>Date Booked For</label>
                                     </div>
                                     <div class='col-4'>
-                                        <input type='date' class='form-control' name = 'editJobDateBooked' id='editJobDateBooked'>
+                                        <input type='datetime-local' class='form-control' name = 'editJobDateBooked' id='editJobDateBooked'>
                                     </div>
                                 </div>
                                 <div class='row'>

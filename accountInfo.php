@@ -19,7 +19,7 @@ if (!$result) {
 $count = mysqli_num_rows($result);
 
 if ($count !== 1) {
-    echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
+    echo '<div class="alert alert-danger">' . $sql . mysqli_error($link) . '</div>';
     exit();
 }
 

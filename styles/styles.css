@@ -498,14 +498,13 @@ body.dark #dropZone {
 
 
 
-
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     body {
         font-size: 12px;
     }
        .table td, .table th {
-        font-size: 10px;
+        font-size: 12px;
     }
 }
 
@@ -513,7 +512,7 @@ body.dark #dropZone {
 @media only screen and (min-width: 600px) {
 
     .table td, .table th {
-        font-size: 11px;
+        font-size: 13px;
     }
 }
 
@@ -523,7 +522,7 @@ body.dark #dropZone {
         font-size: 14px;
     }
     .table td, .table th {
-        font-size: 10px;
+        font-size: 12px;
     }
 
 }
@@ -537,7 +536,7 @@ body.dark #dropZone {
         font-size: 8px;
     }
     .navbar{
-        font-size: 11px;
+        font-size: 13px;
     }
 }
 
@@ -547,7 +546,7 @@ body.dark #dropZone {
         font-size: 16px;
     }
     .table td, .table th {
-        font-size: 10px;
+        font-size: 12px;
     }
 }
 

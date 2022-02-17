@@ -97,14 +97,25 @@ $(document).on("change", '#editJobCustomerName', function () {
 // If selected job type does not include either 'deinstall' or 'de-install' 
 // then disable the Old VRM dropdown
 $(document).on("change", '#jobJobType', function() {
-    var selectedType = $('#jobJobType option:selected').text().toLowerCase();
+    var selectedType = $('#jobJobType option:selected').text().toUpperCase();
     
-    if (selectedType.includes('deinstall') || selectedType.includes('de-install')) {
+    if (selectedType.includes('DEINSTALL') || selectedType.includes('DE-INSTALL')) {
         $('.addJobTypeOldVRN').prop('disabled', false);
         $('.addJobTypeVRN').prop('disabled', true);       
     } else {
         $('.addJobTypeOldVRN').prop('disabled', true);
         $('.addJobTypeVRN').prop('disabled', false);
+    }
+});
+$(document).on("change", '#editJobType', function() {
+    var selectedType = $('#editJobType option:selected').text().toUpperCase();
+
+    if (selectedType.includes('DEINSTALL') || selectedType.includes('DE-INSTALL')) {
+        $('#editJobOldVRN').prop('disabled', false);
+        $('#editJobVRN').prop('disabled', true);       
+    } else {
+        $('#editJobOldVRN').prop('disabled', true);
+        $('#editJobVRN').prop('disabled', false);
     }
 });
 
@@ -302,13 +313,16 @@ function showFullJob(rowNumber) {
                 $('#editJobInstallAddress').val(data['bookingAddress']);
                 $('#editBookingLocation').val(data['equipmentLocationID']);
                 $('#editEngineerAssigned').val(data['engineerID']);
-                $('#editJobDateBooked').val(data['date']);
+                if ((data['date'])!=null) {
+                    $bookedDate = data['date'].substring(0,10)  + "T" + data['date'].substring(11);
+                } else {
+                    $bookedDate='';
+                }
+                $('#editJobDateBooked').val($bookedDate);
                 $('#editJobCompleted').val(data['jobCompleteFlag']);
                 $('#editHubCompleted').val(data['TDHSignOff']);
-                
                 currentVRN =  data['VRN'];
                 oldVRN = data['oldVRN'];
-              
                 document.getElementById('regPicContent').innerHTML = '';
                 document.getElementById('devicePicContent').innerHTML = ''; 
                 $("#regPicContent").removeClass('imageLoaded');
@@ -360,19 +374,33 @@ function showFullJob(rowNumber) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>BOOKED</span></h6>");
                 }
 
-                $('#modalEditNewJobRequest').modal('show');         
-           
+                $('#modalEditNewJobRequest').modal('show'); 
+
+                
         },
         error: function() {
 
         }
     })
 ).done (function () {
-        $('#editJobVRN').val(parseInt(currentVRN)).change();
-        // document.getElementById('editJobVRN').value = currentVRN;
-        $('#editJobOldVRN').val(parseInt(oldVRN)).change();
-        // document.getElementById('editJobOldVRN').value = oldVRN;
-
+    if (currentVRN == null) {
+        currentVRN=0;
+    }
+    if (oldVRN == null) {
+        console ('twas nil')
+        oldVRN=0;
+    }
+    console.log($('#editJobVRN').val());
+    console.log($('#editJobOldVRN').val());
+    
+    $('#editJobVRN').val(parseInt(currentVRN)).change();
+    $('#editJobOldVRN').val(parseInt(oldVRN)).change();
+    
+    console.log(parseInt(currentVRN));
+    console.log(parseInt(oldVRN));
+    console.log($('#editJobVRN').val());
+    console.log($('#editJobOldVRN').val());
+    
     });
 }
 
@@ -460,7 +488,6 @@ function showJobNotes(rowNumber) {
 
         }
     });
-
 }
 
 function editCurrentJobNotes() {
@@ -726,4 +753,73 @@ function addJobRequest(selector, customerID) {
      $('#modalAddNewJobRequest').modal('show');
 }
 
+
+function showJobMap() {
+    window.open('googleMap.php', '_newtab');
+}
+
+$(document).on("click", '#updateMapView', function () {
+
+var dataToPost = {};
+var map;
+dataToPost.startDate = document.getElementById('startReportDate').value;
+dataToPost.endDate = document.getElementById('endReportDate').value;
+dataToPost.engineerID = document.getElementById('engineerSelector').value;
+
+var jobs = [];
+
+$.ajax({
+url: 'getJobCoordinates.php',
+data: dataToPost,
+type: "POST",
+success: function(data) {
+  console.log(data);
+    data = $.parseJSON(data);
+    $.each(data, function(index, element) {
+        jobs[index] = new Array( data[index]['userName'] + " job at <b>" + data[index]['businessName'] + "</b><br>" + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11,5) +" (" + data[index]['date'].substr(8,2) +"/" +  data[index]['date'].substr(5,2) +"/" +  data[index]['date'].substr(0,4)  +")</b><br><br>" + data[index]['notes'], parseFloat(data[index]['latitude']), parseFloat(data[index]['longitude']), data[index]['userName']); 
+    });
+    redrawJobs(jobs);
+},
+error: function() {
+
+}
+});
+
+
+function redrawJobs(jobs) {
+
+map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 8,
+    center: {lat: 52.4322625, lng: -1.7960350},
+});
+
+var infowindow = new google.maps.InfoWindow();
+var marker, i
+
+
+for (var i = 0; i < jobs.length; i++) {
+   
+    var job = jobs[i];
+    if (job[3]!=null) {
+        iconString = "images/" + job[3].charAt(0) + "_Icon.png";
+    } else {
+        iconString ="images/red_warning_24.png"; 
+    }
+    marker = new google.maps.Marker({
+        animation: google.maps.Animation.DROP,
+        position: {lat: job[1], lng: job[2]},
+        map: map,
+        icon: iconString
+    });
+
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    return function() {
+      infowindow.setContent(jobs[i][0]);
+      infowindow.open(map, marker);
+    }
+  })(marker, i));
+}
+}
+
+});
 
