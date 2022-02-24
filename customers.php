@@ -56,7 +56,7 @@ $dateNow = new DateTime();
 $renewalDate = new DateTime($row['renewalDate']);
 $daysToRenewal = $dateNow->diff($renewalDate)->format('%r%a');
 
-if ($daysToRenewal <= 30) { $renewalColour='#FF7777' ; } elseif ($daysToRenewal <=60) { 
+if ($daysToRenewal <= 30) { $renewalColour='#B60000' ; } elseif ($daysToRenewal <=60) { 
     $renewalColour='orange' ; 
 }
 else { 
@@ -212,7 +212,7 @@ $returnString = "
         $renewalDate = new DateTime($row['renewalDate']);
         $daysToRenewal = $dateNow->diff($renewalDate)->format('%r%a');
 
-        if ($daysToRenewal <= 30) { $renewalColour='#FF7777' ; } elseif ($daysToRenewal <=60) { 
+        if ($daysToRenewal <= 30) { $renewalColour='#B60000' ; } elseif ($daysToRenewal <=60) { 
             $renewalColour='orange' ; 
         }
         else { 
@@ -220,7 +220,7 @@ $returnString = "
         }
         $returnString=$returnString. "
         <form id='notesForm'>
-<div id='showAccountInfo' class='settings-dialog'>
+<div id='showAccountInfo' class='settings-dialog customerTable'>
     <h6><strong style='margin-top:10px;'>CUSTOMER NOTES</strong></h6>
     <div id='errorBox'></div>
     <div class='scrollBox' style='max-height: 30vh; overflow: auto;'>
@@ -260,13 +260,25 @@ $returnString = "
         <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addCustomerNote' type='button' data-toggle='modal' data-target='#modalAddNewNote'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
         <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
         </svg> New Note</btn>
-
-        <btn class='btn btn-primary btn-sm' style='margin: 0 10px'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'>
-        <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/>
-        </svg> Search </btn>
     </div>
 </div>
 </form>
+<script>
+    $(document).ready(function() {  
+        $('#customerNotesTable').DataTable({
+            stateSave: true,
+            order: [0, 'asc'],
+            processiong: true,
+            fixedHeader: true,
+            paging: false,
+            deferRender: true,
+            responsive: true,
+            dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">'
+        });
+
+    });
+</script>
+
 
 
 <form id='renewalForm'>
@@ -328,7 +340,7 @@ $returnString = "
 <div class='col-lg-6 col-xl-4'>
 
 <form id='contactsForm'>
-        <div id='showAccountInfo' class='settings-dialog'>
+        <div id='showAccountInfo' class='settings-dialog customerTable'>
             <h6><strong style='margin-top:10px;'>BUSINESS CONTACTS</strong></h6>
             <div id='errorBox'></div>
             <div class='scrollBox' style='max-height: 20vh; overflow: auto; font-size: 80%;'>
@@ -370,8 +382,24 @@ $returnString = "
             </div>
         </div>
     </form>
+    <script>
+    $(document).ready(function() {  
+        $('#customerContactTable').DataTable({
+            stateSave: true,
+            order: [0, 'asc'],
+            processiong: true,
+            fixedHeader: true,
+            paging: false,
+            deferRender: true,
+            responsive: true,
+            dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">'
+        });
 
-            <form id='insurerForm'>
+    });
+</script>
+
+
+            <form id='insurerForm' class='customerTable'>
                 <div id='showAccountInfo' class='settings-dialog'>
                     <h6><strong style='margin-top:10px;'>INSURER</strong></h6>
                     <div id='errorBox'></div>
@@ -402,10 +430,10 @@ $returnString = "
                     </div>
                     <hr>
                    
-                    <div class='form-group style='display: flex' style='font-size: 70%'>
-                        <p style='font-size: 143%'><strong>Contacts</strong></p>
+                    <div class='form-group'>
+                        <p><strong>Contacts</strong></p>
                         <div class='scrollBox' style='max-height: 20vh; overflow: auto;'>
-                            <table class='table table-sm table-bordered table-hover' style='table-layout: fixed;'>
+                            <table class='table table-sm table-bordered table-hover' id='insurerContactTable' style='table-layout: fixed;'>
                                 <thead>
                                     <tr>
                                         <th class='align-middle' style='padding: 0 3px;'>Name</th>
@@ -446,7 +474,23 @@ $returnString = "
                         <div id='renewalUpdateMessage'></div>
                     </div>
                 </div>
+                <script>
+                $(document).ready(function() {  
+                    $('#insurerContactTable').DataTable({
+                        stateSave: true,
+                        order: [0, 'asc'],
+                        processiong: true,
+                        fixedHeader: true,
+                        paging: false,
+                        deferRender: true,
+                        responsive: true,
+                        dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">'
+                    });
+            
+                });
+            </script>
             </form>
+           
      
     <form id='brokerForm'>
         <div id='showAccountInfo' class='settings-dialog'>
@@ -680,7 +724,7 @@ $returnString = "
 
 
 <form id='footageForm'>
-<div id='showAccountInfo'  class='settings-dialog'>
+<div id='showAccountInfo'  class='settings-dialog customerTable'>
     <h6><strong style='margin-top:10px;'>FOOTAGE REQUESTS</strong></h6>
     <div id='errorBox'></div>
     <div class='scrollBox' style='max-height: 30vh; overflow: auto;'>
@@ -722,12 +766,24 @@ $returnString = "
     <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
         <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addFootageRequest' type='button' onclick='populateFootageBox()'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
         </svg> New Request </btn>
-        <btn class='btn btn-primary btn-sm' style='margin: 0 10px'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'>
-        <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/>
-        </svg> Search </btn>
     </div>
 </div>
 </form>
+<script>
+    $(document).ready(function() {  
+        $('#footageTable').DataTable({
+            stateSave: true,
+            order: [0, 'asc'],
+            processiong: true,
+            fixedHeader: true,
+            paging: false,
+            deferRender: true,
+            responsive: true,
+            dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">'
+        });
+
+    });
+</script>
 </div>
 
 <div class='col-12' style='font-size: 80%'>
@@ -944,7 +1000,7 @@ $(document).ready(function() {
                 .css('color', 'rgba(68,68,68,1)');
         }
         if ($(row).hasClass('faulty')) {
-            $(row).css('background-color', 'rgba(255,32,32,0.75)')
+            $(row).css('background-color', 'rgba(186,0,0,0.75)')
             .css('color', 'rgba(255,255,255,0.75)');
         }
         if ($(row).hasClass('inactive')) {
@@ -1407,7 +1463,7 @@ $returnString .= "
                   .css('color', 'rgba(68,68,68,1)');
         }
         if ($(row).hasClass('faulty')) {
-          $(row).css('background-color', 'rgba(255,32,32,0.75)')
+          $(row).css('background-color', 'rgba(182,0,0,0.75)')
                   .css('color', 'rgba(255,255,255,0.75)');
         }
         if ($(row).hasClass('inactive')) {

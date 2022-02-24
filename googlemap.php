@@ -74,6 +74,25 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
                 <div class='col-2'>
                     <btn class='btn btn-success' id='updateMapView'>Update Map</btn>
                 </div>
+                <div class='col-2'>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td style='padding: 4px 5px;'><img src='images/pendingPin.png'></td><td style='padding: 4px 5px;'>Pending</td>
+                                <td style='padding: 4px 5px;'><img src='images/bookedPassedPin.png'></td><td style='padding: 4px 5px;'>Booked - Date Passed</td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 4px 5px;'><img src='images/bookedPin.png'></td><td style='padding: 4px 5px;'>Booked</td>
+                                <td style='padding: 4px 5px;'><img src='images/approvalPin.png'></td><td style='padding: 4px 5px;'>Awaiting Approval</td>
+                            </tr>
+                            <tr>
+                                <td style='padding: 4px 5px;'><img src='images/completePin.png'></td><td style='padding: 4px 5px;'>Completed</td>  
+                                <td style='padding: 4px 5px;'><img src='images/cancelPin.png'></td><td style='padding: 4px 5px;'>Cancelled</td>  
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
         <div class='container-fluid'>
@@ -103,7 +122,7 @@ $.ajax({
         data = $.parseJSON(data);
 
         $.each(data, function(index, element) {
-        jobs[index] = new Array( data[index]['userName'] + " job at <b>" + data[index]['businessName'] + "</b><br>" + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11,5) +" (" + data[index]['date'].substr(8,2) +"/" +  data[index]['date'].substr(5,2) +"/" +  data[index]['date'].substr(0,4)  +")</b><br><br>" + data[index]['notes'], parseFloat(data[index]['latitude']), parseFloat(data[index]['longitude']), data[index]['userName']); 
+        jobs[index] = new Array( data[index]['userName'] + " job at <b>" + data[index]['businessName'] + "</b><br>" + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11,5) +" (" + data[index]['date'].substr(8,2) +"/" +  data[index]['date'].substr(5,2) +"/" +  data[index]['date'].substr(0,4)  +")</b><br><br>" + data[index]['notes'] + "<br><br>VRM: " + data[index]['regNumber'], parseFloat(data[index]['latitude']), parseFloat(data[index]['longitude']), data[index]['userName'], data[index]['status']); 
     });
  
         drawJobs(jobs);
@@ -135,7 +154,30 @@ function drawJobs(jobs) {
     for (var i = 0; i < jobs.length; i++) {
        
         var job = jobs[i];
-        iconString = "images/" + job[3].charAt(0) + "_Icon.png";
+        switch (parseInt(job[4])) {
+            case 1:
+                iconString = "images/pendingPin.png";
+                break;
+            case 2:
+                iconString = "images/bookedPin.png";
+                break;
+            case 4:
+                iconString = "images/bookedPassedPin.png";
+                break;
+            case 8:
+                iconString = "images/approvalPin.png";
+                break;
+            case 16:
+                iconString = "images/completePin.png";
+                break;
+            case 32:
+                iconString = "images/cancelPin.png";
+                break;
+            // default:
+            //     iconString = "images/red_warning_24.png";
+            //     break;
+        }
+        // iconString = "images/" + job[3].charAt(0) + "_Icon.png";
 
         marker = new google.maps.Marker({
             animation: google.maps.Animation.DROP,

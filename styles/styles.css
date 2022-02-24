@@ -103,7 +103,8 @@ label {
 }
 
 body.dark .listHeader {
-    color:#83cbf1;
+    /* color:#83cbf1; */
+    color:#1E90FF;
     
 }
 
@@ -161,7 +162,7 @@ table.table-bordered > tbody > tr:hover {
 
 .reminderScreen {
     font-weight: bold;
-    color: #FF4714;
+    color: #b60000;
 }
 
 .collapsible {
@@ -280,7 +281,7 @@ body.dark table.table-bordered > tbody > tr:hover {
 
 body.dark .reminderScreen {
     font-weight: bold;
-    color: rgba(255,71,20,0.75);
+    color: rgba(182,0,0,0.75);
 }
 
 .btn-file-input {
@@ -326,7 +327,7 @@ div.container { max-width: 1200px }
 
 #pBlueSky {
     padding-left: 5px;
-    background-color: #00BBFF;
+    background-color: #1E90FF;
 }
 
 #pLow  {
@@ -335,7 +336,7 @@ div.container { max-width: 1200px }
 }
 #pMedium {
     padding-left: 5px;
-    background-color: #FFBB00;
+    background-color: #FFF035;
 }
 #pHigh {
     padding-left: 5px;
@@ -343,11 +344,11 @@ div.container { max-width: 1200px }
 }
 #pCritical {
     padding-left: 5px;
-    background-color: #FF0000;
+    background-color: #b60000;
 }
 body.dark #pBlueSky {
     padding-left: 5px;
-    background-color: #00BBFF;
+    background-color: #1E90FF;
 }
 
 body.dark #pLow  {
@@ -356,7 +357,7 @@ body.dark #pLow  {
 }
 body.dark #pMedium {
     padding-left: 5px;
-    background-color: rgba(255,187,0,0.5)
+    background-color: rgba(255,240,53,0.5)
 }
 body.dark #pHigh {
     padding-left: 5px;
@@ -364,7 +365,7 @@ body.dark #pHigh {
 }
 body.dark #pCritical {
     padding-left: 5px;
-    background-color: rgba(255,0,0,0.5);
+    background-color: rgba(182,0,0,0.75);
 }
 .dhinstall, .dhd {
     position: absolute;
@@ -436,14 +437,14 @@ body.dark .dhinstall, body.dark .dhd {
 
 .showVRNPlate {
     border-width: 0;
-    background-color: #FFDD00;
+    background-color: #FFF035;
     color: 0;
 
 }
 
 .uploadFormatDetails {
     background-color: #fffff4;
-    border: 1px solid #ff4444;
+    border: 1px solid #b60000;
     border-radius: 8px;
     color: #222222;
     margin-top: 30px;

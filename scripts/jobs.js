@@ -121,9 +121,9 @@ $(document).on("change", '#editJobType', function() {
 
 // When adding a job, if the job quantity is changed then
 $(document).on("change", '#jobQuantity', function() {
-    // Maximum quantity is 9
-    if ($('#jobQuantity').val() > 9) {
-        $('#jobQuantity').val('9'); 
+    // Maximum quantity is 50
+    if ($('#jobQuantity').val() > 50) {
+        $('#jobQuantity').val('50'); 
     }
     // Get empty template for old VRN dropdown list, VRN dropdown list and new button for the quantity selected
     var dataToPost = {};
@@ -161,7 +161,7 @@ $(document).on("blur", '#editJobDateBooked', function() {
     else if (isNaN(jobWhen)) {
         $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #FFAA00;'>PENDING</span></h6>")
     } else if (today > jobWhen) {
-        $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: red;'>BOOKED - DATE PASSED</span></h6>")
+        $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #b60000;'>BOOKED - DATE PASSED</span></h6>")
     } else if (jobWhen > today) {
         $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #FFAA00;'>BOOKED</span></h6>")
     } else {
@@ -362,14 +362,16 @@ function showFullJob(rowNumber) {
 
                 if (data['TDHSignOff'] == 1) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #198754;'>COMPLETE</span></h6>");
+                    $('#engineerInvoice').val(data['engineerInvoiceNo']);
                 } else if (data['jobCompleteFlag'] ==1) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>AWAITING APPROVAL</span></h6>"); 
+                    $('#engineerInvoice').val(data['engineerInvoiceNo']);
                 }
                 else if (jobWhen == 0) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>PENDING</span></h6>");
                 } else if (today > jobWhen) {
                     $('#editJobDateBooked').prop('color','red');
-                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: red;'>BOOKED - DATE PASSED</span></h6>");
+                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #b60000;'>BOOKED - DATE PASSED</span></h6>");
                 } else if (jobWhen > today) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>BOOKED</span></h6>");
                 }
@@ -556,18 +558,18 @@ function editCurrentJob() {
     var jobWhen = new Date(document.getElementById('editJobDateBooked').value).getTime();
 
     if (dataToPost.TDHSignOff == true) {
-        dataToPost.jobStatus = 5; //complete
+        dataToPost.jobStatus = 16; //complete
     } else if (dataToPost.jobCompleted == true) {
-        dataToPost.jobStatus = 4; // Awaiting Approval
+        dataToPost.jobStatus = 8; // Awaiting Approval
     }
     else if (isNaN(jobWhen)) {
         dataToPost.jobStatus = 1; // Pending
     } else if (today > jobWhen) {
-        dataToPost.jobStatus = 3; // Booked - date passed
+        dataToPost.jobStatus = 4; // Booked - date passed
     } else if (jobWhen > today) {
         dataToPost.jobStatus = 2; // booked
     } else {
-        dataToPost.jobStatus = 0; // new job??
+        dataToPost.jobStatus = 1; // new job??
     }
 
     
@@ -703,6 +705,57 @@ $(document).on("change", "#editHubCompleted", function() {
     $('#editJobDateBooked').trigger('blur');
 });
 
+function cancelCurrentJob() {
+    var dataToPost = {};
+    dataToPost.jobID = document.getElementById('hiddenJobID').text;
+    console.log (dataToPost);
+
+    swal ({
+        title: "Confirm cancellation",
+        text: "Are you sure you want to cancel this job?",
+        icon: "warning",
+        buttons: ['No Don\'t', 'Yes - Cancel'],
+        dangerMode: true,
+    }).then (function(isConfirm){
+        if (isConfirm) {
+            $.ajax({
+                url: "cancelJob.php",
+                timeout: 30000,
+                data: dataToPost,
+                type: "POST",
+                success: function(data) {
+                    if (data.includes('complete8')) {
+                        swal ({
+                            text: 'Cannot cancel job, it is just awaiting approval.',
+                            icon: "info",
+                            showCloseButton: true
+                        })
+                    }
+                   if (data.includes('complete16')) {
+                        swal ({
+                            text: 'Cannot cancel job, it has already been completed.',
+                            icon: "info",
+                            showCloseButton: true
+                        })
+                    }
+                    if (data.includes('complete32')) {
+                        swal ({
+                            text: 'Job is already cancelled.',
+                            icon: "info",                            
+                            showCloseButton: true
+                        })
+                    }
+                
+                    $('#modalEditNewJobRequest').modal('hide');
+                    $('#showJobList').trigger('click');
+
+                }
+            })
+        }
+    });
+   
+}
+
 
 $(document).on('click', '.addVRNButton', function (event) {
    
@@ -737,6 +790,12 @@ $(document).on("click", '#addNewVRNToCustomer', function () {
             }
 
         });
+
+        if (document.getElementById('hiddenJobSelector').value=='job') {
+            $('#showJobList').trigger('click');
+        } else {
+            $('#getClient').trigger('change');
+        }
 
 });
 
@@ -773,10 +832,10 @@ url: 'getJobCoordinates.php',
 data: dataToPost,
 type: "POST",
 success: function(data) {
-  console.log(data);
     data = $.parseJSON(data);
+    console.log(data);
     $.each(data, function(index, element) {
-        jobs[index] = new Array( data[index]['userName'] + " job at <b>" + data[index]['businessName'] + "</b><br>" + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11,5) +" (" + data[index]['date'].substr(8,2) +"/" +  data[index]['date'].substr(5,2) +"/" +  data[index]['date'].substr(0,4)  +")</b><br><br>" + data[index]['notes'], parseFloat(data[index]['latitude']), parseFloat(data[index]['longitude']), data[index]['userName']); 
+        jobs[index] = new Array( data[index]['userName'] + " job at <b>" + data[index]['businessName'] + "</b><br>" + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11,5) +" (" + data[index]['date'].substr(8,2) +"/" +  data[index]['date'].substr(5,2) +"/" +  data[index]['date'].substr(0,4)  +")</b><br><br>" + data[index]['notes'] + "<br><br>VRM: " + data[index]['regNumber'], parseFloat(data[index]['latitude']), parseFloat(data[index]['longitude']), data[index]['userName'], data[index]['status']); 
     });
     redrawJobs(jobs);
 },
@@ -798,13 +857,37 @@ var marker, i
 
 
 for (var i = 0; i < jobs.length; i++) {
-   
+       
     var job = jobs[i];
-    if (job[3]!=null) {
-        iconString = "images/" + job[3].charAt(0) + "_Icon.png";
-    } else {
-        iconString ="images/red_warning_24.png"; 
-    }
+console.log(job[4]);
+
+var job = jobs[i];
+switch (parseInt(job[4])) {
+    case 1:
+        iconString = "images/pendingPin.png";
+        break;
+    case 2:
+        iconString = "images/bookedPin.png";
+        break;
+    case 4:
+        iconString = "images/bookedPassedPin.png";
+        break;
+    case 8:
+        iconString = "images/approvalPin.png";
+        break;
+    case 16:
+        iconString = "images/completePin.png";
+        break;
+    case 32:
+        iconString = "images/cancelPin.png";
+        break;
+    default:
+        iconString = "images/red_warning_24.png";
+        break;
+}
+    // iconString = "images/" + job[3].charAt(0) + "_Icon.png";
+console.log('icon: ' + iconString);
+
     marker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
         position: {lat: job[1], lng: job[2]},

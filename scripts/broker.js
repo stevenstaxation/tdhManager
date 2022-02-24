@@ -259,6 +259,10 @@ function editBroker() {
     var dataToPost = {};
     var e = document.getElementById('getBrokerSelect');
     dataToPost.brokerNumber = e.options[e.selectedIndex].value;
+    if (dataToPost.brokerNumber == 0) {
+        return;0
+    }
+    
     $.ajax({
         url: 'editBroker.php',
         timeout: 30000,

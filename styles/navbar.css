@@ -79,10 +79,10 @@
 }
 
 .nav-item:hover .nav-link {
-    color: #ff4242 !important;
+    color: #b60000 !important;
 }
 .nav-item:hover svg {
-    fill: #ff4242 !important;
+    fill: #b60000 !important;
 }
 .nav-item.active .nav-link{
     color: #777 !important;
@@ -101,7 +101,7 @@
     width: 100%;
     height: 2px;
     content: '';
-    background-color: #ff4242;
+    background-color: #b60000;
     opacity: 0;
     transition: all 200ms linear;
 }
@@ -143,7 +143,7 @@
     color:#222222;
    }
 .dropdown-item:hover {
-    background-color:#ff4242;
+    background-color:#b60000;
     color: #EFEFEF;
    }
 
@@ -184,7 +184,7 @@ body.dark .nav-link{
    }
 body.dark .nav-item:hover .nav-link
     {
-    color: #9999ff !important;
+    color: #1E90FF !important;
    }
    body.dark .nav-item svg {
     fill: #cdcdcd;
@@ -194,10 +194,10 @@ body.dark .nav-item.active .nav-link{
    }
   
 body.dark .nav-item:hover svg {
-    fill: #9999ff !important;
+    fill: #1E90FF !important;
 }
 body.dark .nav-item:after {
-    background-color: #9999ff !important;
+    background-color: #1E90FF !important;
    }
 
 body.dark .dropdown-menu {
@@ -209,7 +209,7 @@ body.dark .dropdown-item {
     color:#e0e0e0;
    }
 body.dark .dropdown-item:hover {
-    background-color:#9999ff;
+    background-color:#1E90FF;
     color: #333333;
    }
 body.dark .dropdown-menu:hover {

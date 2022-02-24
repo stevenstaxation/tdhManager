@@ -631,13 +631,43 @@ $(document).on('click', '#deleteStatus', function(event) {
 
   $(document).on('click','#toggleCompletedJobs', function() {
     var currentFilter = $('#jobFilter').html();
-   
-    if ((currentFilter & 5)==5) {
-        console.log(currentFilter);
-        currentFilter = (currentFilter & 65530);
-        console.log(currentFilter);
+    if ((currentFilter & 16)==16) {
+        currentFilter = (currentFilter & 65519);
     } else {
-        currentFilter = (currentFilter & 5);    
+        currentFilter = (currentFilter | 16);    
+    }
+    $('#jobFilter').html(currentFilter);
+    $('#showJobList').trigger('click');
+  });
+
+  $(document).on('click','#toggleCancelledJobs', function() {
+    var currentFilter = $('#jobFilter').html();
+    if ((currentFilter & 32)==32) {
+        currentFilter = (currentFilter & 65503);
+    } else {
+        currentFilter = (currentFilter | 32);    
+    }
+    $('#jobFilter').html(currentFilter);
+    $('#showJobList').trigger('click');
+  });
+
+  $(document).on('click','#togglePendingJobs', function() {
+    var currentFilter = $('#jobFilter').html();
+    if ((currentFilter & 1)==1) {
+        currentFilter = (currentFilter & 65534);
+    } else {
+        currentFilter = (currentFilter | 1);    
+    }
+    $('#jobFilter').html(currentFilter);
+    $('#showJobList').trigger('click');
+  });
+
+  $(document).on('click','#toggleDatePassedJobs', function() {
+    var currentFilter = $('#jobFilter').html();
+    if ((currentFilter & 4)==4) {
+        currentFilter = (currentFilter & 65531);
+    } else {
+        currentFilter = (currentFilter | 4);    
     }
     $('#jobFilter').html(currentFilter);
     $('#showJobList').trigger('click');

@@ -158,7 +158,7 @@ $(document).on("click", '#showJobList', function () {
     var dataToPost = {};
     dataToPost.SQLFilter = $('#jobFilter').html();
     if (!dataToPost.SQLFilter) {
-        dataToPost.SQLFilter = -1;
+        dataToPost.SQLFilter = 0;
     }
     $.ajax({
         url: "jobList.php",

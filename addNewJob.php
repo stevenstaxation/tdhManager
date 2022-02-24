@@ -118,7 +118,7 @@ foreach ($jobVRN as $VRNforJob) {
         $jobWhen = date('U', $jobDate);
 
         if ($now < $jobWhen) {
-            $jobStatus = 3;
+            $jobStatus = 4;
         } else {
             $jobStatus = 2;
         }
@@ -145,11 +145,6 @@ $result = mysqli_query($link, $sql);
 
 $lastID = $_SESSION['currentCustomer'];
 
-//   if (!$result) {
-//         echo '<div class="alert alert-danger">Error updating insurer</div>';
-//         echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
-//         exit();
-//     }
 
 echo $lastID . "success";
 

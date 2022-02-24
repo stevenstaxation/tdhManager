@@ -292,6 +292,7 @@ $returnString .="<td class='text-center align-middle'>" . $hiddenVRN . "</td></t
         lengthMenu: [[50, 100, 250, 500, -1], [50, 100, 250, 500, 'All']],
         deferRender: true,
         responsive: true,
+        stateSave: true,
         dom: '<\"top\"lfip>rt<\"bottom\"><\"clear\">',
         rowCallback: function(row, data, dataIndex) {
           if ($('body').hasClass('dark')) {
@@ -302,11 +303,11 @@ $returnString .="<td class='text-center align-middle'>" . $hiddenVRN . "</td></t
                   .css('color', 'rgba(68,68,68,1)');
         }
         if ($(row).hasClass('faulty')) {
-          $(row).css('background-color', 'rgba(255,32,32,0.75)')
+          $(row).css('background-color', 'rgba(182,0,0,0.75)')
                   .css('color', 'rgba(255,255,255,0.75)');
         }
         if ($(row).hasClass('inactive')) {
-          $(row).css('background-color', 'rgba(255,176,0,0.75)')
+          $(row).css('background-color', 'rgba(255,240,53,0.75)')
           .css('color', 'rgb(0,0,0,0.75)');
       }
       },

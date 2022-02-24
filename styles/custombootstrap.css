@@ -1,7 +1,7 @@
 /* BOOTSTRAP BUTTONS */
 
 .btn-primary {
-    background-color: #3276B1;
+    background-color: #1E90FF;
     color: #eeeeee;
 }
 
@@ -10,13 +10,13 @@
     color: #eeeeee;
 }
 
-.btn-warning, .badge-warning {
-    background-color: #ffaa00;
+.btn-warning, .badge-warning, .bg-warning {
+    background-color: #fff035!important;
     color: #333333;
 }
 
 .btn-danger, .bg-danger {
-    background-color: #FF4714;
+    background-color: #b60000!important;
     color: #eeeeee;
 }
 
@@ -30,7 +30,7 @@
 }
 
 body.dark .btn-primary {
-    background-color: rgba(50,118,177,0.5);
+    background-color: rgba(30,144,255,0.75);
     color: #eeeeee;
 }
 
@@ -40,11 +40,11 @@ body.dark .btn-success {
 }
 
 body.dark .btn-warning, body.dark .badge-warning {
-    background-color: rgba(255,170,0,0.5);
+    background-color: rgba(255,240,53,0.5);
     color: #333333;
 }
 body.dark .btn-danger {
-    background-color: rgba(255, 71, 20, 0.5);
+    background-color: rgba(182, 0, 0, 0.75);
     color: #eeeeee;
 }
 
@@ -74,7 +74,7 @@ body.dark .btn-info {
 }
 
 .modal-body h6 {
-    color: blue;
+    color: #1E90FF;
 }
 
 body.dark .modal-body h6 {

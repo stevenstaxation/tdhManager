@@ -644,15 +644,7 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <!-- <div class='col-md-6'></div>
-                            <div class='col-md-2'>
-                                <label class='control-label' for='editVehicleDescription' style='padding-top:14px;'><strong>Description</strong></label>
-                            </div>
-                            <div class='col-md-4'>
-                                <div class='input-group'>
-                                    <input type='text' class='form-control' readonly='readonly' id='editVehicleDescription' style='margin-top:3px; font-size: 88%'>
-                                </div>
-                            </div> -->
+                          
                         </div>
                         <div class='row'>
                           
@@ -2109,7 +2101,7 @@
 <!-- CUSTOMER NOTE DIALOGS -->
 <!-- ADD NEW CUSTOMER NOTE -->
 <div class="modal" id="modalAddNewNote" data-backdrop='static'>
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -2121,33 +2113,33 @@
                 <form method='POST' id='getNewCustomerNote' class='getNewCustomerNote' class='form-block'>
                     <div class='form-group'>
                         <div class='row'>
-                            <div class='col-4'>
+                            <div class='col-sm-4 col-xl-3'>
                                 <label class='control-label inline' for='noteDate' style='width: 40%; padding-top:8px;'><strong>Date</strong></label>
                             </div>
-                            <div class='col-8'>
+                            <div class='col-sm-8 col-xl-9'>
                                 <div class='input-group'>
                                     <input class='form-control dateType' type='datetime-local' placeholder="Enter date..." name='noteDate' id='noteDate' min='<?php echo date("Y-m-d\TH:i");?>' value='<?php echo date("Y-m-d\TH:i");?>'>
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-4'>
+                            <div class='col-sm-4 col-xl-3'>
                                 <label class='control-label inline' for='noteText' style='padding-top:8px;'><strong>Note Text</strong></label>
                             </div>
-                            <div class='col-8'>
+                            <div class='col-sm-8 col-xl-9'>
                                 <div class='input-group'>
-                                    <textarea rows='5' cols='60' class='form-control' placeholder='Enter note text (max 512 characters)...' id='noteText' style='margin-top:3px;'></textarea>
+                                    <textarea rows='32' cols='64' class='form-control' placeholder='Enter note text (max 2,048 characters)...' id='noteText' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class='row' style='margin-top: 20px;'>
-                            <div class='col-4'>
+                            <div class='col-sm-4 col-xl-3'>
                                 <label class='control-label inline' for='isImportantNote' style='font-size: 75%; padding-top:8px;'><strong>Mark as important</strong></label>
                             </div>
                             <div class='col-2'>
                                 <input type='checkbox' class='form-check-input' value='checked' id='isImportantNote' style='margin: 5px 0;padding: 10px 10px;'>
                             </div>
-                            <div class='col-4'>
+                            <div class='col-sm-4 col-xl-3'>
                                 <label class='control-label inline' for='createAlert' style='font-size: 75%; padding-top:8px;'><strong>Create an alert</strong></label>
                             </div>
                             <div class='col-2'>
@@ -2169,7 +2161,7 @@
 
 <!-- EDIT CUSTOMER NOTE -->
 <div class="modal" id="modalEditCustomerNote" data-backdrop='static'>
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -2196,7 +2188,7 @@
                             </div>
                             <div class='col-9'>
                                 <div class='input-group'>
-                                    <textarea rows='5' cols='60' class='form-control' placeholder='Enter note text (max 512 characters)...' id='noteEditText' style='margin-top:3px;'></textarea>
+                                    <textarea rows='32' cols='64' class='form-control' placeholder='Enter note text (max 2,048 characters)...' id='noteEditText' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>
@@ -3068,7 +3060,7 @@
                             </div>
                             <div class='col-4'>
                                 <div class='input-group'>
-                                    <input type='number' class='form-control' id='jobQuantity' name='jobQuantity' min='1' max='9' value='1' maxlength='1'>
+                                    <input type='number' class='form-control' id='jobQuantity' name='jobQuantity' min='1' max='50' value='1' maxlength='2'>
                                 </div>
                             </div>    
 
@@ -3196,58 +3188,6 @@
                                 </div>
                             </div>
                         </div>
-                       
-                        <!-- <hr> -->
-                        <!-- <div id='jobCompletionSection' style='display:none'>
-                            <h6><strong>Job Completion</strong></h6>
-                            <div class='row'>
-                                <div class='col-3'>
-                                    <label class='control-label' for='picRegistrationText' style='padding-top:10px;'>Picture of Vehicle Registration</label>
-                                </div>
-                                <div class='col-5'>
-                                    <div class='file-upload'>
-                                        <button class="file-upload-btn btn btn-primary btn-sm" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Upload</button>
-                                        <div class="image-upload-wrap">
-                                            <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-                                        </div>
-                                        <div class="file-upload-content">
-                                            <img class="file-upload-image" src="#" alt="your image"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='col-4' style='font-size:125%'>
-                                    <div class='form-check form-switch'>
-                                        <input class='form-check-input' type='checkbox' id='jobCompleted'>  
-                                        <label class='form-check-label' for='jobCompleted'>Job Completed</label>  
-                                    </div>
-                                </div>
-                            </div>
-                       
-                            <div class='row'>
-                                <div class='col-3'>
-                                    <label class='control-label' for='picCameraText' style='padding-top:8px;'>Picture of Device Details</label>
-                                </div>
-                                <div class='col-5'>
-                                    <div class='file-upload2'>
-                                        <button class="file-upload2-btn btn btn-primary btn-sm" type="button" onclick="$('.file-upload-input2').trigger( 'click' )">Upload</button>
-                                        <div class="image-upload-wrap2">
-                                            <input class="file-upload-input2" type='file' onchange="readURL2(this);" accept="image/*" />
-                                        </div>
-                                        <div class="file-upload-content2">
-                                            <img class="file-upload-image2" src="#" alt="your image"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='col-4' style='font-size:125%'>
-                                    <div class='form-check form-switch'>
-                                        <input class='form-check-input' type='checkbox' id='hubCompleted'>  
-                                        <label class='form-check-label' for='hubCompleted'>Data Hub Sign Off</label>  
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        
-                    <!-- </div> -->
                 </form>
                 <div id='jobRequestMessage'></div>
             </div>
@@ -3258,7 +3198,7 @@
                 <div id='addJobHide' style='display: none'></div>
                 <div id='jobCustomerHide'></div>
                 <div class='mr-auto' id='jobStatus'>
-                    <h6>STATUS: <span style='color: #FFAA00;'>NEW JOB SETUP</span></h6>
+                    <h6>STATUS: <span style='color: #FFF035;'>NEW JOB SETUP</span></h6>
                 </div>
                 <button type="button" id='addJobUpdate' onclick='addNewJob()' class="btn btn-success">Add</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -3418,7 +3358,16 @@
                                     <div class='input-group'>
                                         <input type='number' class='form-control' id='editJobRate' name='jobRate' min ='0' step='0.01' style='margin-top: 8px;'>
                                     </div>
-                                </div>";
+                                </div>
+                                <div class='col-2'>
+                                    <label class='control-label' for='engineerInvoice' style='padding:18px 25px;'>Engineer Invoice</label>
+                                </div>
+                                <div class='col-3'>
+                                    <div class='input-group'>
+                                        <input type='text' class='form-control' id='engineerInvoice' name='engineerInvoice' style='margin-top: 8px;'>
+                                    </div>
+                                </div>
+                            ";
                                }
                                 ?>
                         </div>
@@ -3576,13 +3525,9 @@
                                 </div>             
                                 <div class='col-5'>
                                     <div class='mr-auto ml-auto' id='devicePicContent' style='margin-top:10px'></div>
-                                </div>             
-                                           
+                                </div>       
                             </div>
-                          
-
-                        
-
+                            
 
                             <div class='row' style='margin-top:15px;'>
                                 <div class='col-3'>
@@ -3604,10 +3549,13 @@
                                             <div class='form-check form-switch'>
                                                 <input class='form-check-input' type='checkbox' id='editHubCompleted' style='margin-left: 10px; font-size:125%'>  
                                             </div>
-                                        </div>";
+                                        </div>
+                                        
+                                        ";
                                 }
                                 ?>
                             </div>
+                            
                         </div>
                     </div>
                 </form>
@@ -3621,13 +3569,14 @@
                 <div class='mr-auto' id='jobCurrentStatus'>
                     <h6>STATUS: <span style='color: #FFAA00;'></span></h6>
                 </div>
-                <button type="button" id='editJobUpdate' onclick='editCurrentJob()' class="btn btn-success">Update</button>
+                <button type="button" id='editJobUpdate' onclick='editCurrentJob()' class="btn btn-success">Update Job</button>
                 <?php
                 if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
-                    echo "<button type='button' id='deleteJobUpdate' onclick='deleteCurrentJob()' class='btn btn-danger'>Delete</button>";
+                    echo "<button type='button' id='cancelJobUpdate' onclick='cancelCurrentJob()' class='btn btn-secondary'>Cancel Job</button>";
+                    echo "<button type='button' id='deleteJobUpdate' onclick='deleteCurrentJob()' class='btn btn-danger'>Delete Job</button>";
                 }
                 ?>
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Discard</button>
             </div>
         </div>
     </div>
