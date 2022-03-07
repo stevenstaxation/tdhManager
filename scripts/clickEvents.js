@@ -673,6 +673,28 @@ $(document).on('click', '#deleteStatus', function(event) {
     $('#showJobList').trigger('click');
   });
 
+  $(document).on('click','#toggleBookedJobs', function() {
+    var currentFilter = $('#jobFilter').html();
+    if ((currentFilter & 8)==8) {
+        currentFilter = (currentFilter & 65527);
+    } else {
+        currentFilter = (currentFilter | 8);    
+    }
+    $('#jobFilter').html(currentFilter);
+    $('#showJobList').trigger('click');
+  });
+
+  $(document).on('click','#toggleArchivedJobs', function() {
+    var currentFilter = $('#jobFilter').html();
+    if ((currentFilter & 64)==64) {
+        currentFilter = (currentFilter & 65471);
+    } else {
+        currentFilter = (currentFilter | 64);    
+    }
+    $('#jobFilter').html(currentFilter);
+    $('#showJobList').trigger('click');
+  });
+
   $(document).on("click", '#showIssueLog', function () {
       var dataToPost = {};
       dataToPost.filteredStatus = $('#issueFilter').html();

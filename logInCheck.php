@@ -67,7 +67,7 @@ if ($errors) {
        
         $_SESSION['Alerts'] = getAlerts($link);
 
-        $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Successful log in', '" . $row['userID']. "')";
+        $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Successful LOG IN', '" . $row['userID']. "')";
         $result = mysqli_query($link, $sql);
         echo 'success';
 

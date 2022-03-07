@@ -25,22 +25,21 @@ if ($count !== 1) {
 
 $row = mysqli_fetch_array($result);
 
-$foreColor = 'text-dark';
-// $darkmode = 'nodarkmode';
+
 $returnString = "";
 
 
-$returnString = $returnString . "<h3 style='margin-top:50px;' class='$foreColor'><strong>Profile Information</strong></h3>";
+$returnString = $returnString . "<h3 style='margin-top:50px;'><strong>Profile Information</strong></h3>";
 
 
-$returnString = $returnString . "<form id='profileForm'><div id='showAccountInfo' class='settings-dialog' style='margin-top:15px; margin-bottom: 100px; border-width: 1px; border-style: solid; border-radius: 8px; padding: 20px;'><h5><strong style='margin-top:10px;class='$foreColor'>Settings</strong></h5><div id='errorBox'></div>";
+$returnString = $returnString . "<form id='profileForm'><div id='showAccountInfo' class='settings-dialog' style='margin-top:15px; margin-bottom: 100px; border-width: 1px; border-style: solid; border-radius: 8px; padding: 20px;'><h5><strong style='margin-top:10px;'>Settings</strong></h5><div id='errorBox'></div>";
 
 
 $returnString = $returnString .
     "<div class='row'>
     <div class='col-md-6'>
         <div class='form-group'>
-            <label class='control-label $foreColor' for='emailAddress'>
+            <label class='control-label' for='emailAddress'>
                 <strong>Email Address </strong>
                 <a style=color:red>*</style></a>
             </label>
@@ -52,7 +51,7 @@ $returnString = $returnString .
 
     <div class='col-md-6'>
         <div class='form-group'>
-            <label class='control-label $foreColor' for='password'>
+            <label class='control-label' for='password'>
                 <strong>Password </strong>
                 <a style=color:red>*</style></a>
             </label>
@@ -71,7 +70,7 @@ $returnString = $returnString .
     "<div class='row'>
     <div class='col-md-6'>
         <div class='form-group'>
-            <label class='control-label $foreColor' style='padding-top:10px;' for='firstName'>
+            <label class='control-label' style='padding-top:10px;' for='firstName'>
                 <strong>First Name </strong>
                 <a style=color:red>*</style></a>
             </label>
@@ -82,7 +81,7 @@ $returnString = $returnString .
     </div>
     <div class='col-md-6'>
         <div class='form-group'>
-            <label class='control-label $foreColor' style='padding-top:10px;' for='lastName'>
+            <label class='control-label' style='padding-top:10px;' for='lastName'>
                 <strong>Last Name </strong>
                 <a style=color:red>*</style></a>
             </label>
@@ -97,7 +96,7 @@ $returnString = $returnString .
     "<div class='row'>
     <div class='col-md-6'>
         <div class='form-group'>
-            <label class='control-label $foreColor' for='address1' style='padding-top: 10px;'>
+            <label class='control-label' for='address1' style='padding-top: 10px;'>
                 <strong>Home Address</strong>
             </label>
             <div class='input-group' style='padding-top: 2px;'>
@@ -117,13 +116,13 @@ $returnString = $returnString .
     </div>
     <div class='col-md-6'>
         <div class='form-group'>
-            <label class='control-label $foreColor' for='mobileNumber' style='padding-top: 10px;'>
+            <label class='control-label' for='mobileNumber' style='padding-top: 10px;'>
                 <strong>Mobile Telephone</strong>
             </label>
             <div class='input-group'>
                 <input class='form-control' type='text' id='mobileNumber' name='mobileNumber' placeholder='enter your mobile number...' value='" . $row['mobileNo'] . "'>
             </div>
-            <label class='control-label $foreColor' for='personalEmail' style='padding-top: 10px;'>
+            <label class='control-label' for='personalEmail' style='padding-top: 10px;'>
                 <strong>Personal Email</strong>
             </label>
             <div class='input-group'>
@@ -145,7 +144,7 @@ $returnString = $returnString .
     "<div class='row'>
     <div class='col-md-4'>
         <div class='form-group'>
-            <label class='control-label $foreColor' for='dateOfBirth' style='padding-top: 10px;'>
+            <label class='control-label' for='dateOfBirth' style='padding-top: 10px;'>
                 <strong>Date of Birth</strong>
             </label>
             <div class='input-group'>
@@ -155,7 +154,7 @@ $returnString = $returnString .
     </div>
     <div class='col-md-4'>
         <div class='form-group'>
-            <label class='control-label $foreColor' for='NINO' style='padding-top: 10px;'>
+            <label class='control-label' for='NINO' style='padding-top: 10px;'>
                 <strong>National Insurance No.</strong>
             </label>
             <div class='input-group'>
@@ -165,7 +164,7 @@ $returnString = $returnString .
     </div>
     <div class='col-md-4'>
         <div class='form-group'>
-            <label for='gender_radio' style='padding-top: 10px;' class='control-label text-right $foreColor'>
+            <label for='gender_radio' style='padding-top: 10px;' class='control-label text-right'>
                 <strong>Gender</strong>
             </label>
             <div class='input-group'>
@@ -183,7 +182,7 @@ $returnString = $returnString .
     "<div class='row'>
     <div class='col-md-8'>
         <div class='form-group'>
-            <label class='control-label $foreColor' for='jobTitle' style='padding-top: 10px;'>
+            <label class='control-label' for='jobTitle' style='padding-top: 10px;'>
                 <strong>Job Title</strong>
             </label>
             <div class='input-group'>
@@ -193,7 +192,7 @@ $returnString = $returnString .
     </div>
     <div class='col-md-4'>
         <div class='form-group'>
-            <label class='control-label $foreColor' for='startDate' style='padding-top: 10px;'>
+            <label class='control-label' for='startDate' style='padding-top: 10px;'>
                 <strong>Start Date</strong>
             </label>
             <div class='input-group'>
@@ -203,7 +202,7 @@ $returnString = $returnString .
     </div>
     <div class='col-md-4'>
         <div class='form-group'>
-            <label class='control-label $foreColor' for='emergencyName' style='padding-top: 10px;'>
+            <label class='control-label' for='emergencyName' style='padding-top: 10px;'>
                 <strong>Emergency Contact</strong>
                 <a style=color:red>*</style></a>
             </label>
@@ -214,7 +213,7 @@ $returnString = $returnString .
     </div>
     <div class='col-md-4'>
         <div class='form-group'>
-            <label class='control-label $foreColor' for='contactNo' style='padding-top: 10px;'>
+            <label class='control-label' for='contactNo' style='padding-top: 10px;'>
                 <strong>Contact Number</strong>
                 <a style=color:red>*</style></a>
             </label>

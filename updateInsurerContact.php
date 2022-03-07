@@ -95,8 +95,11 @@ $contactTelephone = mysqli_real_escape_string($link,$contactTelephone);
 $contactEmail = mysqli_real_escape_string($link,$contactEmail);
 $contactJobTitle = mysqli_real_escape_string($link,$contactJobTitle);
 
- $sql = "UPDATE tblInsurerContact SET firstName='$contactFirstName', lastName='$contactLastName', mobileNo='$contactMobileNumber', telephone='$contactTelephone', email='$contactEmail', jobTitle='$contactJobTitle', isFootageRecipient='$contactFootage', isHealthCheck='$isHealthCheck' WHERE ID = '$contactCustomer'";
+//before update
+$sql = "SELECT * FROM tblInsurerContact WHERE ID = '$contactCustomer'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
+$sql = "UPDATE tblInsurerContact SET firstName='$contactFirstName', lastName='$contactLastName', mobileNo='$contactMobileNumber', telephone='$contactTelephone', email='$contactEmail', jobTitle='$contactJobTitle', isFootageRecipient='$contactFootage', isHealthCheck='$isHealthCheck' WHERE ID = '$contactCustomer'";
 $result = mysqli_query($link, $sql);
 
     if (!$result) {
@@ -105,8 +108,23 @@ $result = mysqli_query($link, $sql);
         exit();
     }
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Insurer contact $contactFirstName $contactLastName was edited', '" . $_SESSION['userID']. "')";
-    $result = mysqli_query($link, $sql);
+// after update
+$sql = "SELECT * FROM tblInsurerContact WHERE ID = '$contactCustomer'";
+$updated = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// get changes
+$updatedColumns = array_diff_assoc($updated, $prev);
+
+// parse changes
+$description="Insurer contact " . $contactFirstName . " " . $contactLastName . " was edited - " ;
+foreach ($updatedColumns as $column=>$value) {
+    $description .= $column . " was changed to " .$value .", ";
+}
+$description = substr($description,0,strlen($description)-2);
+
+
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
+$result = mysqli_query($link, $sql);
       
 
 echo "success";

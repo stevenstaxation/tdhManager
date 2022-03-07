@@ -69,7 +69,7 @@ $lastID = $_SESSION['currentCustomer'];
     }
 
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Installer $newInstallerName** was created', '" . $_SESSION['userID']. "')";
+    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Installer $newInstallerName was created', '" . $_SESSION['userID']. "')";
     $result = mysqli_query($link, $sql);
     
 

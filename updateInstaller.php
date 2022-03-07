@@ -44,13 +44,30 @@ $installerAddress3 = mysqli_real_escape_string($link,filter_var($installerAddres
 $installerAddress4 = mysqli_real_escape_string($link,filter_var($installerAddress4, FILTER_SANITIZE_STRING));
 $installerAddress5 = mysqli_real_escape_string($link,filter_var(strtoupper($installerAddress5), FILTER_SANITIZE_STRING));
 
+// before update
+$sql = "SELECT * FROM tblInstaller  WHERE ID = '$installerID'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// update
 $sql = "UPDATE tblInstaller SET installerName='$installerName', installerAddress1 = '$installerAddress1', installerAddress2 = '$installerAddress2', installerAddress3 = '$installerAddress3', installerAddress4 = '$installerAddress4', installerAddress5 = '$installerAddress5' WHERE ID = '$installerID'";
-
-
 $result = mysqli_query($link, $sql);
 
+// after update
+$sql = "SELECT * FROM tblInstaller WHERE ID = '$installerID'";
+$updated = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
-$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Installer $installerName record was edited', '" . $_SESSION['userID']. "')";
+// get changes
+$updatedColumns = array_diff_assoc($updated, $prev);
+
+// parse changes
+$description="Installer " . $installerName . " record was edited - " ;
+foreach ($updatedColumns as $column=>$value) {
+    $description .= $column . " was changed to " .$value .", ";
+}
+$description = substr($description,0,strlen($description)-2);
+
+
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
 
 

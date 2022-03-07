@@ -62,10 +62,32 @@ $sql = "SELECT * FROM tblDevice";
                         }
                       }
                       $devicesString = substr($devicesString,0, -2) . "]";
+                    }
+
+                    if (strpos($row['status'],'Hub')) {
+                      $devicesString = $devicesString . " [";
+                      $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
+                      INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID 
+                      INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
+                      WHERE tbldevicestatus.status LIKE '%In Hub%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
+
+                      $UKresult = mysqli_query($link, $sql);
+                      
+                      while ($UKMI = mysqli_fetch_array($UKresult)) {
+                        if ($UKMI['deviceGroup']==1 && $UKMI['sum(devCount)']!=0) { //AI-12
+                          $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, "; 
+                        }  elseif ($UKMI['deviceGroup']==2 && $UKMI['sum(devCount)']!=0) { //CP2 group 
+                          $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";  
+                        }   elseif ($UKMI['deviceGroup']==3 && $UKMI['sum(devCount)']!=0) { //CP4 group 
+                          $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";  
+                        } elseif ($UKMI['deviceGroup']==5 && $UKMI['sum(devCount)']!=0)  { // KP1
+                          $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";   
+                        } elseif ($UKMI['deviceGroup']==4 && $UKMI['sum(devCount)']!=0)  { // others
+                          $devicesString .= $UKMI['sum(devCount)'] . " = Other, "; 
+                        }
+                      }
+                      $devicesString = substr($devicesString,0, -2) . "]";
                     } 
-
-
-
 
                     if (strpos($row['status'],'UK Mobile')) {
                       $devicesString = $devicesString . " [";
@@ -91,7 +113,63 @@ $sql = "SELECT * FROM tblDevice";
                       }
                       $devicesString = substr($devicesString,0, -2) . "]";
                     } 
+                         
+                    if (strpos($row['status'],'Charlie')) {
+                      
+                      $devicesString = $devicesString . " [";
+                      $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
+                      INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID 
+                      INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
+                      WHERE tbldevicestatus.status LIKE '%Charlie%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
+                     
+
+                      $UKresult = mysqli_query($link, $sql);
+                     
+                      while ($UKMI = mysqli_fetch_array($UKresult)) {
+                        if ($UKMI['deviceGroup']==1 && $UKMI['sum(devCount)']!=0) { //AI-12
+                          $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, "; 
+                        }  elseif ($UKMI['deviceGroup']==2 && $UKMI['sum(devCount)']!=0) { //CP2 group 
+                          $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";  
+                        }   elseif ($UKMI['deviceGroup']==3 && $UKMI['sum(devCount)']!=0) { //CP4 group 
+                          $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";  
+                        } elseif ($UKMI['deviceGroup']==5 && $UKMI['sum(devCount)']!=0)  { // KP1
+                          $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";   
+                        } elseif ($UKMI['deviceGroup']==4 && $UKMI['sum(devCount)']!=0)  { // others
+                          $devicesString .= $UKMI['sum(devCount)'] . " = Other, "; 
+                        }
+                      }
+                      $devicesString = substr($devicesString,0, -2) . "]";
+                    } 
+
+                    if (strpos($row['status'],'Jimmy')) {
+                      
+                      $devicesString = $devicesString . " [";
+                      $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
+                      INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID 
+                      INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
+                      WHERE tbldevicestatus.status LIKE '%Jimmy%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
+                     
+
+                      $UKresult = mysqli_query($link, $sql);
+                     
+                      while ($UKMI = mysqli_fetch_array($UKresult)) {
+                        if ($UKMI['deviceGroup']==1 && $UKMI['sum(devCount)']!=0) { //AI-12
+                          $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, "; 
+                        }  elseif ($UKMI['deviceGroup']==2 && $UKMI['sum(devCount)']!=0) { //CP2 group 
+                          $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";  
+                        }   elseif ($UKMI['deviceGroup']==3 && $UKMI['sum(devCount)']!=0) { //CP4 group 
+                          $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";  
+                        } elseif ($UKMI['deviceGroup']==5 && $UKMI['sum(devCount)']!=0)  { // KP1
+                          $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";   
+                        } elseif ($UKMI['deviceGroup']==4 && $UKMI['sum(devCount)']!=0)  { // others
+                          $devicesString .= $UKMI['sum(devCount)'] . " = Other, "; 
+                        }
+                      }
+                      $devicesString = substr($devicesString,0, -2) . "]";
+                    } 
+
                     $devicesString .= "<br>";
+
                   }
                   if ($row['COUNT(tblDevice.ID)']!=0 && $row['isActive']=='0') {
                     $inactiveString = $inactiveString . $row['status']. " - " . $row['COUNT(tblDevice.ID)'] . "<br>";
@@ -133,7 +211,7 @@ $returnString .= "
 
     if (mysqli_num_rows($result)!=0) {
       $returnString .="<div id = 'deviceSummary' class='m-4 w-2' style='margin-top: 15px;'>
-      <table id='deviceListTable' class='table cell-border table-sm table-striped compact'>
+      <table id='deviceListTable' class='table cell-border table-sm compact'>
       <thead>
         <tr>
           <!--<th class='text-center align-middle'><strong>No.</strong></th>-->

@@ -22,10 +22,8 @@ $invalidStartDate = "<p>Your employment start date is invalid.</p>";
 $missingContactName = "<p>You must include an emergency contact name.</p>";
 $missingContactNumber = "<p>You must include an emergency contact number.</p>";
 $invalidContactNumber = "<p>You must enter a valid contact number.</p>";
-// $invalidSortCode = "<p>Sort code appears to be invalid.</p>";
-// $invalidAccountNo = "<p>Bank account number should only be numeric.</p>";
-// $shortAccountNo = "<p>Bank account number must be at least 8 digits.</p>";
 
+// Get parameters passed from Javascript
 $emailaddress = $_POST['inputEmailAddress'];
 $password = $_POST['inputPassword'];
 $firstname = $_POST['inputFirstName'];
@@ -44,16 +42,7 @@ $jobTitle = $_POST['jobTitle'];
 $startDate = $_POST['startDate'];
 $emergencyName = $_POST['emergencyName'];
 $emergencyNumber = $_POST['contactNo'];
-// $bankName = $_POST['bankName'];
-// $bankSort = $_POST['bankSort'];
-// $bankAccount = $_POST['bankAccount'];
-//$darkMode = $_POST['darkMode'];
 
-//if ($darkMode=='on') {
-//    $darkMode = 1;
-//} else {
-//    $darkMode = 0;
-//}
 if ($gender=='male' || $gender=='1') {
     $gender = 1;
 } else {
@@ -61,7 +50,7 @@ if ($gender=='male' || $gender=='1') {
 }
 
 $errors = "";
-//Check email address exists and is valid
+// Check email address exists and is valid
 if (empty($emailaddress)) {
     $errors .= $missingEmail;
 } else {
@@ -71,27 +60,30 @@ if (empty($emailaddress)) {
         $errors .= $invalidCEmail;
     }
 }
-//Check password is not blank
+
+// Check password is not blank
 if (empty($password)) {
     $errors .= $missingPassword;
 } else {
     $password = mysqli_real_escape_string($link,filter_var($password, FILTER_SANITIZE_STRING));
 }
-//Check first name is not blank
+
+// Check first name is not blank
 if (empty($firstname)) {
     $errors .= $missingFirstName;
 } else {
     $firstname = mysqli_real_escape_string($link,filter_var($firstname, FILTER_SANITIZE_STRING));
 }
-//Check last name is not blank
+
+// Check last name is not blank
 if (empty($lastname)) {
     $errors .= $missingLastName;
 } else {
     $lastname = mysqli_real_escape_string($link,filter_var($lastname, FILTER_SANITIZE_STRING));
 }
 
-//First four address fields require no validation or checks
-//Fifth field should be in postcode format but empty is allowed
+// First four address fields require no validation or checks
+// Fifth field should be in postcode format but empty is allowed
 if (!empty($address5)) {
     $valid = postcodeCheck($address5);
     if ($valid) {
@@ -100,8 +92,9 @@ if (!empty($address5)) {
         $errors .= $invalidPostcode;
     }
 }
-//Mobile number must be numeric only
-//Remove spaces, tabs etc too
+
+// Mobile number must be numeric only
+// Remove spaces, tabs etc too
 if ($mobileNo) {
 $mobileNo = preg_replace('/\s+/', '', $mobileNo);
 if (!is_numeric($mobileNo)) {
@@ -110,7 +103,8 @@ if (!is_numeric($mobileNo)) {
     $mobileNo = mysqli_real_escape_string($link,filter_var($mobileNo, FILTER_SANITIZE_STRING));
 }
 }
-//If personal email address exists check it is valid
+
+// If personal email address exists check it is valid
 if (!empty($personalEmail))  {
     $personalEmail = mysqli_real_escape_string($link,filter_var($personalEmail, FILTER_SANITIZE_EMAIL));
 
@@ -160,7 +154,6 @@ if (!validateDate($startDate)) {
          }
 }
 }
-
 
 // Emergency contact name must exist
 if (!$emergencyName) {
@@ -227,18 +220,33 @@ if ($errors) {
         exit();
     }
 
-    $sql = "UPDATE tblUserRecord SET firstName='$firstname', lastName='$lastname', mobileNo=NULLIF('$mobileNo',''), personalEmail=NULLIF('$personalEmail',''), addressLine1=NULLIF('$address1',''), addressLine2=NULLIF('$address2',''), addressLine3=NULLIF('$address3',''), addressLine4=NULLIF('$address4',''), addressLine5 = NULLIF('$address5',''), genderIsMale='$gender', jobTitle=NULLIF('$jobTitle',''), dateOfBirth=NULLIF('$dateOfBirth',''), NINO=NULLIF('$NINO',''),startDate=NULLIF('$startDate',''), bankSortCode=NULLIF('$bankSort',''), bankAccountNo=NULLIF('$bankAccount',''), bankAccountName=NULLIF('$bankName',''), emergencyContactName='$emergencyName', emergencyContactNumber='$emergencyNumber' WHERE userID='$userID'";
+    // get user record before update
+    $sql = "SELECT * FROM tblUserRecord WHERE userID='$userID'";
+    $prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
+    // update user record
+    $sql = "UPDATE tblUserRecord SET firstName='$firstname', lastName='$lastname', mobileNo=NULLIF('$mobileNo',''), personalEmail=NULLIF('$personalEmail',''), addressLine1=NULLIF('$address1',''), addressLine2=NULLIF('$address2',''), addressLine3=NULLIF('$address3',''), addressLine4=NULLIF('$address4',''), addressLine5 = NULLIF('$address5',''), genderIsMale='$gender', jobTitle=NULLIF('$jobTitle',''), dateOfBirth=NULLIF('$dateOfBirth',''), NINO=NULLIF('$NINO',''),startDate=NULLIF('$startDate',''), emergencyContactName='$emergencyName', emergencyContactNumber='$emergencyNumber' WHERE userID='$userID'";
     $result = mysqli_query($link, $sql);
-
     if (!$result) {
         echo '<div class="alert alert-danger">Cannot update the database</div>';
         echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
         exit();
     }
 
+    // get user record after update
+    $sql = "SELECT * FROM tblUserRecord WHERE userID='$userID'";
+    $updated = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('User profile updated', '" . $userID . "')";  
+    $updatedColumns = array_diff_assoc($updated, $prev);
+
+    // parse updated columns to add to event log
+    $description = 'User profile updated - ';
+    foreach ($updatedColumns as $key=>$column) {
+        $description .= $key . " updated to " . $column .", ";
+    }
+    $description = substr($description,0, strlen($description)-2);
+
+    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $userID . "')";  
     $result = mysqli_query($link, $sql);
 
 

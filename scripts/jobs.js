@@ -360,7 +360,13 @@ function showFullJob(rowNumber) {
                 var today = new Date().getTime();
                 var jobWhen = new Date(data['date']).getTime();
 
-                if (data['TDHSignOff'] == 1) {
+                if (data['status']=='32') {
+                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ff00ff;'>CANCELLED</span></h6>"); 
+                    $('#engineerInvoice').val(data['engineerInvoiceNo']); 
+                } else  if (data['status']=='64') {
+                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #2255FF;'>NO LONGER REQUIRED</span></h6>"); 
+                    $('#engineerInvoice').val(data['engineerInvoiceNo']); 
+                } else if (data['TDHSignOff'] == 1) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #198754;'>COMPLETE</span></h6>");
                     $('#engineerInvoice').val(data['engineerInvoiceNo']);
                 } else if (data['jobCompleteFlag'] ==1) {
@@ -711,46 +717,76 @@ function cancelCurrentJob() {
     console.log (dataToPost);
 
     swal ({
-        title: "Confirm cancellation",
         text: "Are you sure you want to cancel this job?",
         icon: "warning",
         buttons: ['No Don\'t', 'Yes - Cancel'],
         dangerMode: true,
     }).then (function(isConfirm){
         if (isConfirm) {
-            $.ajax({
-                url: "cancelJob.php",
-                timeout: 30000,
-                data: dataToPost,
-                type: "POST",
-                success: function(data) {
-                    if (data.includes('complete8')) {
-                        swal ({
-                            text: 'Cannot cancel job, it is just awaiting approval.',
-                            icon: "info",
-                            showCloseButton: true
-                        })
-                    }
-                   if (data.includes('complete16')) {
-                        swal ({
-                            text: 'Cannot cancel job, it has already been completed.',
-                            icon: "info",
-                            showCloseButton: true
-                        })
-                    }
-                    if (data.includes('complete32')) {
-                        swal ({
-                            text: 'Job is already cancelled.',
-                            icon: "info",                            
-                            showCloseButton: true
-                        })
-                    }
-                
-                    $('#modalEditNewJobRequest').modal('hide');
-                    $('#showJobList').trigger('click');
 
+            swal ({
+                title: 'Confirm cancellation',
+                icon: 'info',
+                buttons: ['Just Archive', 'Cancellation Fee'],
+                dangerMode: true,
+            }). then (function(isCancelled) {
+                if (isCancelled) {
+                    $.ajax({
+                        url: "cancelJob.php",
+                        timeout: 30000,
+                        data: dataToPost,
+                        type: "POST",
+                        success: function(data) {
+                            console.log(data);
+                            if (data.includes('complete8')) {
+                                swal ({
+                                    text: 'Cannot cancel job, it is just awaiting approval.',
+                                    icon: "info",
+                                    showCloseButton: true
+                                })
+                            }
+                           if (data.includes('complete16')) {
+                                swal ({
+                                    text: 'Cannot cancel job, it has already been completed.',
+                                    icon: "info",
+                                    showCloseButton: true
+                                })
+                            }
+                            if (data.includes('complete32')) {
+                                swal ({
+                                    text: 'Job is already cancelled.',
+                                    icon: "info",                            
+                                    showCloseButton: true
+                                })
+                            }
+                            if (data.includes('complete64')) {
+                                swal ({
+                                    text: 'Job is already archived.',
+                                    icon: "info",                            
+                                    showCloseButton: true
+                                })
+                            }
+                        
+                            $('#modalEditNewJobRequest').modal('hide');
+                            $('#showJobList').trigger('click');
+        
+                        }
+                    })
+                } else {
+                    $.ajax ({
+                        //archive job
+                        url: 'archiveJob.php',
+                        timeout: 30000,
+                        data: dataToPost,
+                        type: 'POST',
+                        success: function() {
+                            $('#modalEditNewJobRequest').modal('hide');
+                            $('#showJobList').trigger('click');
+                        }
+                    })
                 }
-            })
+            });
+            
         }
     });
    

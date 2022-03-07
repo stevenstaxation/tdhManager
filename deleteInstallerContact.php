@@ -23,7 +23,7 @@ $result = mysqli_query($link, $sql);
         exit();
     }
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Contact $contactName deleted from $installerName', '" . $_SESSION['userID']. "')";
+    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Installer contact $contactName was deleted from $installerName', '" . $_SESSION['userID']. "')";
     $result = mysqli_query($link, $sql); 
 
 echo "success";

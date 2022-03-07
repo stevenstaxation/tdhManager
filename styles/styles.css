@@ -102,11 +102,7 @@ label {
     color:#0078bd;
 }
 
-body.dark .listHeader {
-    /* color:#83cbf1; */
-    color:#1E90FF;
-    
-}
+
 
 /* #showAccountInfo label, #showAccountInfo input {
     line-height: 1;
@@ -119,6 +115,9 @@ body.dark .listHeader {
 
 table {
     background-color: #f8f8f8;
+}
+body.dark table {
+    background-color: #666666;
 }
 
 thead, tfoot {
@@ -230,11 +229,16 @@ body.dark table {
     background-color: #666666;
 }
 
-body.dark thead, body.dark tfoot  {
+body.dark thead, body.dark tfoot, body.dark tbody  {
     background-color: #666666;
     color: #efefef;
 }
 
+body.dark .listHeader {
+    /* color:#83cbf1; */
+    color:#1E90FF;
+    
+}
 
 body.dark input[type=text]:hover,
 body.dark input[type=email]:hover,
@@ -392,8 +396,7 @@ body.dark .dhinstall, body.dark .dhd {
     position: relative;
   }
   
-  
-  .overSelect {
+.overSelect {
     position: absolute;
     left: 0;
     right: 0;

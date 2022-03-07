@@ -273,7 +273,16 @@ $returnString = "
             paging: false,
             deferRender: true,
             responsive: true,
-            dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">'
+            dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">',
+            rowCallback: function(row, data, dataIndex) {
+                if ($('body').hasClass('dark')) {
+                  $(row).css('background-color', 'rgba(68,68,68,1)')
+                        .css('color', 'white');
+                } else {
+                  $(row).css('background-color', 'rgba(255,255,255,1)')
+                        .css('color', 'rgba(68,68,68,1)');
+              }
+            }
         });
 
     });
@@ -331,6 +340,7 @@ $returnString = "
 
 
  
+    
     
     
     
@@ -392,9 +402,17 @@ $returnString = "
             paging: false,
             deferRender: true,
             responsive: true,
-            dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">'
+            dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">',
+            rowCallback: function(row, data, dataIndex) {
+                if ($('body').hasClass('dark')) {
+                  $(row).css('background-color', 'rgba(68,68,68,1)')
+                        .css('color', 'white');
+                } else {
+                  $(row).css('background-color', 'rgba(255,255,255,1)')
+                        .css('color', 'rgba(68,68,68,1)');
+              }
+            }
         });
-
     });
 </script>
 
@@ -484,7 +502,16 @@ $returnString = "
                         paging: false,
                         deferRender: true,
                         responsive: true,
-                        dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">'
+                        dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">',
+                        rowCallback: function(row, data, dataIndex) {
+                            if ($('body').hasClass('dark')) {
+                              $(row).css('background-color', 'rgba(68,68,68,1)')
+                                    .css('color', 'white');
+                            } else {
+                              $(row).css('background-color', 'rgba(255,255,255,1)')
+                                    .css('color', 'rgba(68,68,68,1)');
+                          }
+                        }
                     });
             
                 });
@@ -779,7 +806,16 @@ $returnString = "
             paging: false,
             deferRender: true,
             responsive: true,
-            dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">'
+            dom: '<\"top\"fi>rt<\"bottom\"><\"clear\">',
+            rowCallback: function(row, data, dataIndex) {
+                if ($('body').hasClass('dark')) {
+                  $(row).css('background-color', 'rgba(68,68,68,1)')
+                        .css('color', 'white');
+                } else {
+                  $(row).css('background-color', 'rgba(255,255,255,1)')
+                        .css('color', 'rgba(68,68,68,1)');
+              }
+            }
         });
 
     });
@@ -824,7 +860,7 @@ $returnString = "
 
         $returnString .= "
         <div class='scrollBox' style='max-height: 30vh; overflow: auto;'>
-            <table id='devicesTable' style='table-layout:fixed;' class='table cell-border table-sm compact table-striped'>";
+            <table id='devicesTable' style='table-layout:fixed;' class='table cell-border table-sm compact'>";
 
             // <table class='table table-sm table-bordered table-hover' id='devicesTable' style='table-layout: fixed;'>
             $returnString .="    <thead>

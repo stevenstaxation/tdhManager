@@ -44,12 +44,30 @@ $insurerAddress3 = mysqli_real_escape_string($link,filter_var($insurerAddress3, 
 $insurerAddress4 = mysqli_real_escape_string($link,filter_var($insurerAddress4, FILTER_SANITIZE_STRING));
 $insurerAddress5 = mysqli_real_escape_string($link,filter_var(strtoupper($insurerAddress5), FILTER_SANITIZE_STRING));
 
-$sql = "UPDATE tblInsurer SET insurerName='$insurerName', insurerAddress1 = '$insurerAddress1', insurerAddress2 = '$insurerAddress2', insurerAddress3 = '$insurerAddress3', insurerAddress4 = '$insurerAddress4', insurerAddress5 = '$insurerAddress5' WHERE ID = '$insurerID'";
+// before update
+$sql = "SELECT * FROM tblInsurer WHERE ID = '$insurerID'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
+// update
+$sql = "UPDATE tblInsurer SET insurerName='$insurerName', insurerAddress1 = '$insurerAddress1', insurerAddress2 = '$insurerAddress2', insurerAddress3 = '$insurerAddress3', insurerAddress4 = '$insurerAddress4', insurerAddress5 = '$insurerAddress5' WHERE ID = '$insurerID'";
 $result = mysqli_query($link, $sql);
 
+// after update
+$sql = "SELECT * FROM tblInsurer WHERE ID = '$insurerID'";
+$updated = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
-$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Insurer $insurerName record was edited', '" . $_SESSION['userID']. "')";
+// get changes
+$updatedColumns = array_diff_assoc($updated, $prev);
+
+// parse changes
+$description="Insurer " . $insurerName . " record was edited - " ;
+foreach ($updatedColumns as $column=>$value) {
+    $description .= $column . " was changed to " .$value .", ";
+}
+$description = substr($description,0,strlen($description)-2);
+
+
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('" .$description ."', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
 
 

@@ -2101,7 +2101,7 @@
 <!-- CUSTOMER NOTE DIALOGS -->
 <!-- ADD NEW CUSTOMER NOTE -->
 <div class="modal" id="modalAddNewNote" data-backdrop='static'>
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -2128,7 +2128,7 @@
                             </div>
                             <div class='col-sm-8 col-xl-9'>
                                 <div class='input-group'>
-                                    <textarea rows='32' cols='64' class='form-control' placeholder='Enter note text (max 2,048 characters)...' id='noteText' style='margin-top:3px;'></textarea>
+                                    <textarea rows='24' cols='64' class='form-control' placeholder='Enter note text (max 2,048 characters)...' id='noteText' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>
@@ -2161,7 +2161,7 @@
 
 <!-- EDIT CUSTOMER NOTE -->
 <div class="modal" id="modalEditCustomerNote" data-backdrop='static'>
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -2188,7 +2188,7 @@
                             </div>
                             <div class='col-9'>
                                 <div class='input-group'>
-                                    <textarea rows='32' cols='64' class='form-control' placeholder='Enter note text (max 2,048 characters)...' id='noteEditText' style='margin-top:3px;'></textarea>
+                                    <textarea rows='24' cols='64' class='form-control' placeholder='Enter note text (max 2,048 characters)...' id='noteEditText' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>

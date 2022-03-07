@@ -137,7 +137,7 @@ $result = mysqli_query($link, $sql);
 
 if (mysqli_num_rows($result)!=0) {
 $returnString .="<div id = 'vehicleSummary' class='w-auto ml-auto mr-auto' style='margin-top: 15px;'>
-<table id='vehicleListTable' class='table cell-border table-sm table-striped compact'>
+<table id='vehicleListTable' class='table cell-border table-sm compact'>
 <thead>
   <tr class='text-center align-middle'>
     

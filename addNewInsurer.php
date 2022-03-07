@@ -36,8 +36,8 @@ $newInsurerAddress3 = mysqli_real_escape_string($link,filter_var($newInsurerAddr
 $newInsurerAddress4 = mysqli_real_escape_string($link,filter_var($newInsurerAddress4, FILTER_SANITIZE_STRING));
 $newInsurerAddress5 = mysqli_real_escape_string($link,filter_var(strtoupper($newInsurerAddress5), FILTER_SANITIZE_STRING));
 
-$sql = "INSERT INTO tblInsurer (insurerName, insurerAddress1, insurerAddress2, insurerAddress3, insurerAddress4, insurerAddress5) VALUES ('$newInsurerName','$newInsurerAddress1', '$newInsurerAddress2', '$newInsurerAddress3', '$newInsurerAddress4', '$newInsurerAddress5')";
 
+$sql = "INSERT INTO tblInsurer (insurerName, insurerAddress1, insurerAddress2, insurerAddress3, insurerAddress4, insurerAddress5) VALUES ('$newInsurerName','$newInsurerAddress1', '$newInsurerAddress2', '$newInsurerAddress3', '$newInsurerAddress4', '$newInsurerAddress5')";
 $result = mysqli_query($link, $sql);
 
 $lastInsurerID = $link->insert_id;
@@ -49,16 +49,9 @@ $lastInsurerID = $link->insert_id;
     }
 
 
-
-
 $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Insurer $newInsurerName was created', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
 
-
-// update customer with new insurer
-// $sql = "UPDATE tblCustomer SET insurerID = '$lastInsurerID' WHERE ID = " . $_SESSION['currentCustomer'];
-
-// $result = mysqli_query($link, $sql);
 
 $lastID = $_SESSION['currentCustomer'];
 
