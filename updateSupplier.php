@@ -44,21 +44,37 @@ $supplierAddress3 = mysqli_real_escape_string($link,filter_var($supplierAddress3
 $supplierAddress4 = mysqli_real_escape_string($link,filter_var($supplierAddress4, FILTER_SANITIZE_STRING));
 $supplierAddress5 = mysqli_real_escape_string($link,filter_var(strtoupper($supplierAddress5), FILTER_SANITIZE_STRING));
 
+// before update
+$sql = "SELECT * FROM tblSupplier WHERE ID = '$supplierID'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// update
 $sql = "UPDATE tblSupplier SET supplierName='$supplierName', supplierAddress1 = '$supplierAddress1', supplierAddress2 = '$supplierAddress2', supplierAddress3 = '$supplierAddress3', supplierAddress4 = '$supplierAddress4', supplierAddress5 = '$supplierAddress5' WHERE ID = '$supplierID'";
+$result = mysqli_query($link, $sql);
+if (!$result) {
+    echo '<div class="alert alert-danger">Error accessing the database</div>';
+    echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
+    exit();
+}
 
+// after update
+$sql = "SELECT * FROM tblSupplier WHERE ID = '$supplierID'";
+$updated = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
+// get changes
+$updatedColumns = array_diff_assoc($updated, $prev);
+
+// parse changes
+$description="Supplier " . $supplierName . " record was edited - " ;
+foreach ($updatedColumns as $column=>$value) {
+    $description .= $column . " was changed to " .$value .", ";
+}
+$description = substr($description,0,strlen($description)-2);
+
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
 
-
-$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Supplier $supplierName record was edited', '" . $_SESSION['userID']. "')";
-$result = mysqli_query($link, $sql);
-
-
-    if (!$result) {
-        echo '<div class="alert alert-danger">Error accessing the database</div>';
-        echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
-        exit();
-    }
+   
 
 echo "success";
 

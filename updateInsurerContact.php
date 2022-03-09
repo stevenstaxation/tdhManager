@@ -95,7 +95,7 @@ $contactTelephone = mysqli_real_escape_string($link,$contactTelephone);
 $contactEmail = mysqli_real_escape_string($link,$contactEmail);
 $contactJobTitle = mysqli_real_escape_string($link,$contactJobTitle);
 
-//before update
+// before update
 $sql = "SELECT * FROM tblInsurerContact WHERE ID = '$contactCustomer'";
 $prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
 

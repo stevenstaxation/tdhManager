@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('connect.php');
+
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
 }
@@ -25,15 +26,15 @@ $sql = "DELETE FROM tblBroker WHERE ID = '$brokerID'";
 
 $result = mysqli_query($link, $sql);
 
-    if (!$result) {
-        echo '<div class="alert alert-danger">Error accessing the database</div>';
-        echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
-        exit();
-    }
+if (!$result) {
+    echo '<div class="alert alert-danger">Error accessing the database</div>';
+    echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
+    exit();
+}
 
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Broker $brokerName was deleted', '" . $_SESSION['userID']. "')";
+$result = mysqli_query($link, $sql);
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Broker $brokerName was deleted', '" . $_SESSION['userID']. "')";
-    $result = mysqli_query($link, $sql);
 
 echo "success";
 

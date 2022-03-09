@@ -6,7 +6,9 @@ if (!file_exists('uploads')) {
     mkdir('uploads', 0777);
 }
  
-
+/**
+ * Upload file
+ */
 $uploadFileName = 'uploads/' . $_FILES['file']['name'];
 
 

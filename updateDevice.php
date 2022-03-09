@@ -24,10 +24,12 @@ if ($errors) {
 
 $updateDeviceName = mysqli_real_escape_string($link,filter_var($updateDeviceName, FILTER_SANITIZE_STRING));
 
+// get old device name
+$sql = "SELECT description FROM tblDeviceDescription WHERE ID='$updateDeviceID'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// update
 $sql = "UPDATE tblDeviceDescription SET description = '$updateDeviceName' WHERE ID='$updateDeviceID'";
-
-
-
 $result = mysqli_query($link, $sql);
 
  if (!$result) {
@@ -36,7 +38,13 @@ $result = mysqli_query($link, $sql);
         exit();
     }
 
-echo "success";
+$description = "Device description " . $prev['description'] . " was changed to " . $updateDeviceName;
+
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
+$result = mysqli_query($link, $sql);
+    
+    
+    echo "success";
 
 
 

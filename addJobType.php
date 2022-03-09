@@ -32,6 +32,10 @@ $result = mysqli_query($link, $sql);
         exit();
     }
 
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Job type $newJobTypeName was created', '" . $_SESSION['userID']. "')";
+$result = mysqli_query($link, $sql);
+        
+
 echo "success";
 
 

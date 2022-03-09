@@ -7,6 +7,22 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 $renewalTypeIDToDelete = $_POST['RenewalTypeIDToDelete'];
 
+$sql = "SELECT * FROM tblCustomer WHERE renewalType='$renewalTypeIDToDelete'";
+$result = mysqli_query($link, $sql);
+$total = mysqli_num_rows($result);
+
+if ($total == 1) {
+    $device = " customer.";
+} else {
+    $device = " customers.";
+}
+
+if ($total>0) {
+    echo '<div class="alert alert-danger">Cannot delete this renewal type.<br>
+    It is attached to ' . $total . $device .'</div>';
+    exit();
+}
+
 $sql = "SELECT Description FROM tblRenewalType WHERE ID='$renewalTypeIDToDelete'";
 $result = mysqli_query($link, $sql);
 $row=mysqli_fetch_array($result);

@@ -161,39 +161,52 @@ function deleteInstaller() {
     if (e.selectedIndex==-1) {
         return;
     }
-    dataToPost.installerNumber = e.options[e.selectedIndex].value;
-    $.ajax({
-        url: 'checkInstallerDeletion.php',
-        timeout: 30000,
-        data: dataToPost,
-        type: "POST",
-        success: function (data) {
-            if (data.includes('deleted')) {
-                $('#currentInstallerMessageBox').html(data);
 
-                $.ajax({
-                    url: "installerList.php",
-                    type: "POST",
-                    success: function (data) {
-                        setTimeout(function () {
-                            $('#devicesList').html(data);
-                            $('#installerNameSelection option:first').attr('selected', 'selected');
-                            $('#installerNameSelection').trigger('change');
-                            $('#modalAddNewInstaller').modal('hide');
-                        }, 3000);
-                    },
-                    error: function () {}
-                });
-            } else {
-                $('#currentInstallerMessageBox').html(data);
+    swal ({
+        title: "Confirm delete",
+        text: "Are you sure you want to delete?",
+        icon: "warning",
+        buttons: ['Cancel', 'Yes - Delete'],
+        dangerMode: true,
+    }).then (function(isConfirm){
+  
+    if (isConfirm) {
+        dataToPost.installerNumber = e.options[e.selectedIndex].value;
+        $.ajax({
+            url: 'checkInstallerDeletion.php',
+            timeout: 30000,
+            data: dataToPost,
+            type: "POST",
+            success: function (data) {
+                if (data.includes('deleted')) {
+                    $('#currentInstallerMessageBox').html(data);
+
+                    $.ajax({
+                        url: "installerList.php",
+                        type: "POST",
+                        success: function (data) {
+                            setTimeout(function () {
+                                $('#devicesList').html(data);
+                                $('#installerNameSelection option:first').attr('selected', 'selected');
+                                $('#installerNameSelection').trigger('change');
+                                $('#modalAddNewInstaller').modal('hide');
+                            }, 3000);
+                        },
+                        error: function () {}
+                    });
+                } else {
+                    $('#currentInstallerMessageBox').html(data);
                 }
-        },
-        error: function () {}
+            },
+            error: function () {}
+        });
+    }
     });
 }
 
 $(document).on('click', '#queryDeleteInstaller', function () {
     var queryDelete = document.getElementById('goAheadDeleteInstaller').checked;
+
     if (queryDelete == false) {
         $('#currentInstallerMessageBox').html('');
     } else {
@@ -222,11 +235,9 @@ $(document).on('click', '#queryDeleteInstaller', function () {
                         error: function () {}
                     });
                 } else {
-    
                     $('#currentInstallerMessageBox').html(data);
                     $('#currentInstallerMessageBox').delay(3000).hide(0);
                 }
-
             },
             error: function () {}
         });

@@ -85,18 +85,35 @@ $contactTelephone = mysqli_real_escape_string($link,$contactTelephone);
 $contactEmail = mysqli_real_escape_string($link,$contactEmail);
 $contactDepartment = mysqli_real_escape_string($link,$contactDepartment);
 
- $sql = "UPDATE tblSupplierContact SET firstName='$contactFirstName', lastName='$contactLastName', mobileNo='$contactMobileNumber', telephone='$contactTelephone', email='$contactEmail', department='$contactDepartment' WHERE ID = '$contactCustomer'";
+// before update
+$sql = "SELECT * FROM tblSupplierContact WHERE ID = '$contactCustomer'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
+// update
+$sql = "UPDATE tblSupplierContact SET firstName='$contactFirstName', lastName='$contactLastName', mobileNo='$contactMobileNumber', telephone='$contactTelephone', email='$contactEmail', department='$contactDepartment' WHERE ID = '$contactCustomer'";
 $result = mysqli_query($link, $sql);
-
     if (!$result) {
         echo '<div class="alert alert-danger">Error accessing the database</div>';
         echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
         exit();
     }
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Contact $contactFirstName $contactLastName was edited', '" . $_SESSION['userID']. "')";
-    $result = mysqli_query($link, $sql);
+// after update
+$sql = "SELECT * FROM tblSupplierContact WHERE ID = '$contactCustomer'";
+$updated = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// get changes
+$updatedColumns = array_diff_assoc($updated, $prev);
+
+// parse changes
+$description="Suppier contact " . $contactFirstName . " " . $contactLastName  . " record was edited - " ;
+foreach ($updatedColumns as $column=>$value) {
+    $description .= $column . " was changed to " .$value .", ";
+}
+$description = substr($description,0,strlen($description)-2);
+
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
+$result = mysqli_query($link, $sql);
       
 
 echo "success";

@@ -47,22 +47,35 @@ $otherAddress5 = mysqli_real_escape_string($link,filter_var(strtoupper($otherAdd
 $otherService = mysqli_real_escape_string($link,filter_var($otherService, FILTER_SANITIZE_STRING));
 
 
+// before update
+$sql = "SELECT * FROM tblOther WHERE ID = '$otherID'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
+//update
 $sql = "UPDATE tblOther SET otherName='$otherName', otherAddress1 = '$otherAddress1', otherAddress2 = '$otherAddress2', otherAddress3 = '$otherAddress3', otherAddress4 = '$otherAddress4', otherAddress5 = '$otherAddress5', otherService = '$otherService' WHERE ID = '$otherID'";
-
-
 $result = mysqli_query($link, $sql);
+if (!$result) {
+    echo '<div class="alert alert-danger">Error accessing the database</div>';
+    echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
+    exit();
+}
 
+// after update
+$sql = "SELECT * FROM tblOther WHERE ID = '$otherID'";
+$updated = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
-$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Partner $otherName record was edited', '" . $_SESSION['userID']. "')";
+// get changes
+$updatedColumns = array_diff_assoc($updated, $prev);
+
+// parse changes
+$description="Other partner " . $insurerName . " record was edited - " ;
+foreach ($updatedColumns as $column=>$value) {
+    $description .= $column . " was changed to " .$value .", ";
+}
+$description = substr($description,0,strlen($description)-2);
+
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
-
-
-    if (!$result) {
-        echo '<div class="alert alert-danger">Error accessing the database</div>';
-        echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
-        exit();
-    }
 
 echo "success";
 

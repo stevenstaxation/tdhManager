@@ -70,13 +70,6 @@ $description = substr($description,0,strlen($description)-2);
 $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('" .$description ."', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
 
-
-    if (!$result) {
-        echo '<div class="alert alert-danger">Error accessing the database</div>';
-        echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
-        exit();
-    }
-
 echo "success";
 
 ?>

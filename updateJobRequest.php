@@ -92,10 +92,9 @@ if ($pics['regPicDeviceDetails'] != $picDevice) {
 $sql = "UPDATE tblJobs SET ownerID='$customerID', date=NULLIF('$jobDateBooked',''), jobType='$jobType', VRN='$jobVRN', notes='$jobNotes', 
 status='$jobStatus', cameratypeid='$cameraType', OtherKitFlag='$otherKitFlag', PriorityIsUrgent='$jobPriority', JobRate='$jobRate', 
 BookingContact='$jobContact', BookingEmail='$jobEmail', BookingTelephone='$jobPhone', BookingAddress='$jobInstallAddress', 
-EquipmentLocationID='$jobLocation', EngineerID='$jobEngineer', JobCompleteFlag='$jobComplete', TDHSignOff='$jobTDHComplete', regPicFilename=NULLIF('$picRegistration',''), regPicDeviceDetails=NULLIF('$picDevice',''), oldVRN=NULLIF('$oldVRN','') WHERE tblJobs.ID='$jobID'";
+EquipmentLocationID='$jobLocation', EngineerID=NULLIF('$jobEngineer',''), JobCompleteFlag='$jobComplete', TDHSignOff='$jobTDHComplete', regPicFilename=NULLIF('$picRegistration',''), regPicDeviceDetails=NULLIF('$picDevice',''), oldVRN=NULLIF('$oldVRN','') WHERE tblJobs.ID='$jobID'";
 
 $result = mysqli_query($link, $sql);
-
 
 if ($result) {
     echo 'success';

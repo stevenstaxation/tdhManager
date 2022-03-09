@@ -25,6 +25,12 @@ if($_POST['healthCheck']=='true') {
     $healthCheck = 0;
 }
 $contactCustomer = $_POST['employeeOf'];
+
+$sql = "SELECT brokerName FROM tblBroker WHERE ID = '$brokerID'";
+$result = mysqli_query($link, $sql);
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+$brokerName = $row['brokerName'];
+
 $errors = "";
 // rules
 // Must include first name /
@@ -105,7 +111,7 @@ $result = mysqli_query($link, $sql);
         exit();
     }
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Broker contact $contactFirstName $contactLastName was created', '" . $_SESSION['userID']. "')";
+    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Broker contact $contactFirstName $contactLastName was created in $brokerName', '" . $_SESSION['userID']. "')";
     $result = mysqli_query($link, $sql);
       
 

@@ -65,7 +65,7 @@ $lastID = $_SESSION['currentCustomer'];
         exit();
     }
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Partner $newOtherName was created', '" . $_SESSION['userID']. "')";
+    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Other partner $newOtherName was created', '" . $_SESSION['userID']. "')";
     $result = mysqli_query($link, $sql);
 
 

@@ -24,6 +24,11 @@ if ($errors) {
 
 $updateHealthcheckTypeName = mysqli_real_escape_string($link,filter_var($updateHealthcheckTypeName, FILTER_SANITIZE_STRING));
 
+// get old status name
+$sql = "SELECT Description FROM tblHealthStatus WHERE ID='$updateHealthcheckTypeID'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// update
 $sql = "UPDATE tblHealthStatus SET Description = '$updateHealthcheckTypeName' WHERE ID='$updateHealthcheckTypeID'";
 $result = mysqli_query($link, $sql);
 
@@ -33,7 +38,9 @@ if (!$result) {
     exit();
 }
 
-$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Healthcheck status $updateHealthcheckTypeName was amended', '" . $_SESSION['userID']. "')";
+$description = "Healthcheck status description " . $prev['Description'] . " was changed to " . $updateHealthcheckTypeName;
+
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
 
 

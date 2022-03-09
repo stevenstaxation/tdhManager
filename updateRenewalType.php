@@ -24,6 +24,11 @@ if ($errors) {
 
 $updateRenewalTypeName = mysqli_real_escape_string($link,filter_var($updateRenewalTypeName, FILTER_SANITIZE_STRING));
 
+// get old status name
+$sql = "SELECT Description FROM tblRenewalType WHERE ID='$updateRenewalTypeID'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// update
 $sql = "UPDATE tblRenewalType SET Description = '$updateRenewalTypeName' WHERE ID='$updateRenewalTypeID'";
 $result = mysqli_query($link, $sql);
 
@@ -33,7 +38,9 @@ if (!$result) {
     exit();
 }
 
-$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Renewal type $updateRenewalTypeName was amended', '" . $_SESSION['userID']. "')";
+$description = "Renewal type description " . $prev['Description'] . " was changed to " . $updateRenewalTypeName;
+
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
 
 

@@ -1,9 +1,18 @@
 <?php
 session_start();
 include('connect.php');
+
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
 }
+
+
+/**
+ * Check contents of Add New Broker modal are valid when Add button is clickecd and add to tblBroker in database
+ * @author Lee Stevens
+ * @copyright The Data Analysis Hub Ltd
+ * 
+ */
 
 $newBrokerName = $_POST['BrokerName'];
 $newBrokerAddress1 = $_POST['BrokerAddress1'];
@@ -11,7 +20,6 @@ $newBrokerAddress2 = $_POST['BrokerAddress2'];
 $newBrokerAddress3 = $_POST['BrokerAddress3'];
 $newBrokerAddress4 = $_POST['BrokerAddress4'];
 $newBrokerAddress5 = $_POST['BrokerAddress5'];
-
 
 $errors = "";
 
@@ -42,31 +50,19 @@ $result = mysqli_query($link, $sql);
 
 $lastBrokerID = $link->insert_id;
 
+if (!$result) {
+    echo '<div class="alert alert-danger">Error accessing the database</div>';
+    echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
+    exit();
+}
 
 
-    if (!$result) {
-        echo '<div class="alert alert-danger">Error accessing the database</div>';
-        echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
-        exit();
-    }
+// record in event log
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Broker $newBrokerName was created', '" . $_SESSION['userID']. "')";
+$result = mysqli_query($link, $sql);
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Broker $newBrokerName was created', '" . $_SESSION['userID']. "')";
-    $result = mysqli_query($link, $sql);
-
-
-// update customer with new broker
-// $sql = "UPDATE tblCustomer SET brokerID = '$lastID' WHERE ID = " . $_SESSION['currentCustomer'];
-
-// $result = mysqli_query($link, $sql);
-
+// return customerID and new brokerID
 $lastID = $_SESSION['currentCustomer'];
-
-  if (!$result) {
-        echo '<div class="alert alert-danger">Error updating insurer</div>';
-        echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
-        exit();
-    }
-
 echo $lastID . "/" . $lastBrokerID. "success";
 
 ?>

@@ -45,11 +45,6 @@ if ($returnString !="<div class='alert alert-danger'>") {
 }
 
 
-
-
-
-
-
 if ($affectedRows==0) {
     $sql = "DELETE FROM tblInsurer WHERE tblInsurer.ID = '$insurerNumber'";
     $result = mysqli_query($link, $sql);

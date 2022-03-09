@@ -377,12 +377,6 @@ $(document).on('click', '#deviceFilterClicked', function (event) {
 });
 
 
-$(document).on('focusin', '#textAddOrUpdateDevice', function (event) {
-    event.preventDefault();
-    document.getElementById('addOrUpdateDevice').disabled = false;
-    $('#deviceErrorBox').html('')
-});
-
 $(document).on('click', '#deviceList', function (event) {
     event.preventDefault();
     if (!event.target.options) {
@@ -395,76 +389,6 @@ $(document).on('click', '#deviceList', function (event) {
     }
 });
 
-$(document).on('click', '#cancelUpdateDevice', function (event) {
-    event.preventDefault();
-    $('#showGlobalSettings').trigger('click');
-});
-
-$(document).on('click', '#addOrUpdateDevice', function (event) {
-    event.preventDefault();
-    if ($('#addOrUpdateDevice').text() == 'Add') {
-        var dataToPost = {};
-        dataToPost.deviceNameToAdd = document.getElementById('textAddOrUpdateDevice').value;
-        $.ajax({
-            url: "addDevice.php",
-            timeout: 30000,
-            data: dataToPost,
-            type: "POST",
-            success: function (data) {
-                if (data.includes('success')) {
-                    $('#showGlobalSettings').trigger('click');
-                } else {
-                    $('#deviceErrorBox').html(data);
-                }
-            },
-            error: function () {}
-        });
-    }
-    if ($('#addOrUpdateDevice').text() == 'Update') {
-        var dataToPost = {};
-        dataToPost.deviceIDToUpdate = $("#deviceList option:selected").val();
-        dataToPost.deviceNameToUpdate = document.getElementById('textAddOrUpdateDevice').value;
-
-        $.ajax({
-            url: "updateDevice.php",
-            timeout: 30000,
-            data: dataToPost,
-            type: "POST",
-            success: function (data) {
-                if (data.includes('success')) {
-                    $('#showGlobalSettings').trigger('click');
-                    $('#addOrUpdateDevice').text('Add');
-                } else {
-                    $('#deviceErrorBox').html(data);
-                }
-            },
-            error: function () {}
-        });
-    }
-});
-
-$(document).on('click', '#deleteDevice', function (event) {
-    event.preventDefault();
-    var dataToPost = {};
-    dataToPost.deviceIDToDelete = $("#deviceList option:selected").val();
-    console.log ('pre delete');
-
-    $.ajax({
-        url: "deleteDevice.php",
-        timeout: 30000,
-        data: dataToPost,
-        type: "POST",
-        success: function (data) {
-            if (data.includes('success')) {
-                $('#showGlobalSettings').trigger('click');
-                $('#addOrUpdateDevice').text('Add');
-            } else {
-                $('#deviceErrorBox').html(data);
-            }
-        },
-        error: function () {}
-    });
-});
 
      $(document).on('show.bs.modal', '#modalAddNewDevice', function (event) {
          $(this).find('form').trigger('reset');

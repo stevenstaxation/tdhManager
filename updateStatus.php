@@ -24,10 +24,12 @@ if ($errors) {
 
 $updateStatusName = mysqli_real_escape_string($link,filter_var($updateStatusName, FILTER_SANITIZE_STRING));
 
+// get old status name
+$sql = "SELECT status FROM tblDeviceStatus WHERE ID='$updateStatusID'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// update
 $sql = "UPDATE tblDeviceStatus SET status = '$updateStatusName' WHERE ID='$updateStatusID'";
-
-
-
 $result = mysqli_query($link, $sql);
 
  if (!$result) {
@@ -36,13 +38,12 @@ $result = mysqli_query($link, $sql);
         exit();
     }
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Status $updateStatusName was amended', '" . $_SESSION['userID']. "')";
-    $result = mysqli_query($link, $sql);
+$description = "Status description " . $prev['status'] . " was changed to " . $updateStatusName;
 
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
+$result = mysqli_query($link, $sql);
 
 
 echo "success";
-
-
 
 ?>

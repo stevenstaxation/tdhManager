@@ -1,26 +1,27 @@
+// $('#modalAddNewBroker').on('hidden.bs.modal', function () {
+//     $(this).find('form').trigger('reset');
+// });
 
-$('#modalAddNewBroker').on('hidden.bs.modal', function () {
-    $(this).find('form').trigger('reset');
-});
 
-//****************************************************************
-// JUST BEFORE THE ADD SUPPLIER MODAL IS SHOWN, STORE THE CALLER IN
-// ID = addBrokerCaller.  THIS WILL BE EITHER CUSTOMER SCREEN OR 
-// PARTNERS >> SUPPLIERS MENU SELECTION
-//****************************************************************
+/**
+ * Event handler fires when Add New Broker dialog is shown
+ * Function: Stores the callerID in #addBrokerCaller then
+ * resets all form fields before showing
+ */
 $(document).on('show.bs.modal', '#modalAddNewBroker', function (event) {
     var callerID = $(event.relatedTarget).data('caller');
     $('#addBrokerCaller').val(callerID);
     $(this).find('form').trigger('reset');
 });
 
-// ************************************************
-// WHEN ADD CANCEL IN ADD SUPPLIER MODAL IS CLICKED
-// ************************************************
-// ***********************************************************************
-// ADD NEW INSURER WHICH RUNS WHEN MODAL DIALOG ADD INSURER BUTTON CLICKED
-// ***********************************************************************
+/**
+ * Add a new broker to database
+ * @constructor
+ */
 function addNewBroker() {
+    /**
+     * Get the Broker name and address from the Add New Broker modal dialog
+     */
     var dataToPost = {};
     dataToPost.BrokerName = document.getElementById('addBrokerName').value;
     dataToPost.BrokerAddress1 = document.getElementById('addBrokerAddress1').value;
@@ -28,7 +29,10 @@ function addNewBroker() {
     dataToPost.BrokerAddress3 = document.getElementById('addBrokerAddress3').value;
     dataToPost.BrokerAddress4 = document.getElementById('addBrokerAddress4').value;
     dataToPost.BrokerAddress5 = document.getElementById('addBrokerAddress5').value;
-
+    /**
+     * Call addNewBroker.php which checks broker name is included and postcode is valid
+     * and then adds the broker to the tblBroker table 
+     */
     $.ajax({
         url: 'addNewBroker.php',
         timeout: 30000,
@@ -36,13 +40,18 @@ function addNewBroker() {
         type: 'POST',
         success: function (data) {
             if (data.includes('success')) {
-                // var getIDs = parseInt(data.replace('success', ''), 10);
+                /**
+                 * If successful update and, if called from Customer screen refresh
+                 * Customer record; if called from Admin>Partners>Broker menu refresh
+                 * the broker list
+                 */
                 var getIDs = data.replace('success', '');
                 var getID = getIDs.split("/");
                 var newID = getID[0];
                 var newBrokerID = getID[1];
 
                 $('#brokerMessage').show();
+                
                 if ($('#addBrokerCaller').val() == 'customer') {
                     $('#getClient').trigger('change');
                     showCustomers(newID);
@@ -73,6 +82,10 @@ function addNewBroker() {
                 }
 
             } else {
+                /**
+                 * If call to addNewBroker.php is not successful then return
+                 * an error message
+                 */
                 $('#brokerMessage').html(data);
                 $('#brokerMessage').show();
             }
@@ -169,35 +182,52 @@ function updateEditBroker() {
 function deleteBroker() {
     var dataToPost = {};
     var e = document.getElementById('brokerNameSelection');
-    dataToPost.brokerNumber = e.options[e.selectedIndex].value;
-    $.ajax({
-        url: 'checkBrokerDeletion.php',
-        timeout: 30000,
-        data: dataToPost,
-        type: "POST",
-        success: function (data) {
-            if (data.includes('deleted')) {
-                $('#currentBrokerMessageBox').html(data);
+    if (e.selectedIndex==-1) {
+        return;
+    }
 
-                $.ajax({
-                    url: "brokerList.php",
-                    type: "POST",
-                    success: function (data) {
-                        setTimeout(function () {
-                            $('#devicesList').html(data);
-                            $('#brokerNameSelection option:first').attr('selected', 'selected');
-                            $('#brokerNameSelection').trigger('change');
-                        }, 3000);
-                    },
-                    error: function () {}
-                });
-            } else {
-                $('#currentBrokerMessageBox').html(data);
-            }
-        },
-        error: function () {}
+    swal ({
+        title: "Confirm delete",
+        text: "Are you sure you want to delete?",
+        icon: "warning",
+        buttons: ['Cancel', 'Yes - Delete'],
+        dangerMode: true,
+    }).then (function(isConfirm){
+  
+    if (isConfirm) {
+
+        dataToPost.brokerNumber = e.options[e.selectedIndex].value;
+        $.ajax({
+            url: 'checkBrokerDeletion.php',
+            timeout: 30000,
+            data: dataToPost,
+            type: "POST",
+            success: function (data) {
+                if (data.includes('deleted')) {
+                    $('#currentBrokerMessageBox').html(data);
+
+                    $.ajax({
+                        url: "brokerList.php",
+                        type: "POST",
+                        success: function (data) {
+                            setTimeout(function () {
+                                $('#devicesList').html(data);
+                                $('#brokerNameSelection option:first').attr('selected', 'selected');
+                                $('#brokerNameSelection').trigger('change');
+                            }, 3000);
+                        },
+                        error: function () {}
+                    });
+                } else {
+                    $('#currentBrokerMessageBox').html(data);
+                }
+            },
+            error: function () {}
+        });
+    }
     });
 }
+
 
 $(document).on('click', '#queryDeleteBroker', function () {
     var queryDelete = document.getElementById('goAheadDeleteBroker').checked;

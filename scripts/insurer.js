@@ -213,7 +213,7 @@ $(document).on('change', '#insurerNameSelection', function (event) {
 // ********************************
 // When delete is requested, check if insurer is assigned to any
 // customer(s).  If so give user the option to set to 'change insurer'
-// for these custromers first or set all to 'none selected'
+// for these customers first or set all to 'none selected'
 
 function deleteInsurer() {
     var dataToPost = {};
@@ -221,48 +221,58 @@ function deleteInsurer() {
     if (e.selectedIndex==-1) {
         return;
     }
-    dataToPost.insurerNumber = e.options[e.selectedIndex].value;
-    $.ajax({
-        url: 'checkInsurerDeletion.php',
-        timeout: 30000,
-        data: dataToPost,
-        type: "POST",
-        success: function (data) {
-            if (data.includes('deleted')) {
-                $('#currentInsurerMessageBox').html(data);
-               
+
+    swal ({
+        title: "Confirm delete",
+        text: "Are you sure you want to delete?",
+        icon: "warning",
+        buttons: ['Cancel', 'Yes - Delete'],
+        dangerMode: true,
+    }).then (function(isConfirm){
+  
+    if (isConfirm) {
+        dataToPost.insurerNumber = e.options[e.selectedIndex].value;
+        $.ajax({
+            url: 'checkInsurerDeletion.php',
+            timeout: 30000,
+            data: dataToPost,
+            type: "POST",
+            success: function (data) {
+                if (data.includes('deleted')) {
+                    $('#currentInsurerMessageBox').html(data);
                 
-                $.ajax({
-                    url: "insurerList.php",
-                    type: "POST",
-                    success: function (data) {
-                        setTimeout(function () {
-                            $('#devicesList').html(data);
-                            $('#insurerNameSelection option:first').attr('selected', 'selected');
-                            $('#insurerNameSelection').trigger('change');
-                            $('#modalAddNewInsurer').modal('hide');
-                            
-                        }, 3000);
-                    },
-                    error: function () {}
-                });
-                
-                
-            } else {
-                $('#currentInsurerMessageBox').html(data);
-            }
-        },
-        error: function () {}
+                    $.ajax({
+                        url: "insurerList.php",
+                        type: "POST",
+                        success: function (data) {
+                            setTimeout(function () {
+                                $('#devicesList').html(data);
+                                $('#insurerNameSelection option:first').attr('selected', 'selected');
+                                $('#insurerNameSelection').trigger('change');
+                                $('#modalAddNewInsurer').modal('hide');        
+                            }, 3000);
+                        },
+                        error: function () {}
+                    });
+                } else {
+                    $('#currentInsurerMessageBox').html(data);
+                }
+            },
+            error: function () {}
+        });
+    }
     });
 }
 
 $(document).on('click', '#queryDeleteInsurer', function () {
     var queryDelete = document.getElementById('goAheadDeleteInsurer').checked;
+ 
     if (queryDelete == false) {
         $('#currentInsurerMessageBox').html('');
-    } else {
+    } else {   
         var dataToPost = {};
         dataToPost.insurerID = ($('#hiddenIDToDelete').text());
+           
         $.ajax({
             url: 'deleteInsurer.php',
             data: dataToPost,
@@ -288,9 +298,7 @@ $(document).on('click', '#queryDeleteInsurer', function () {
                 } else {
                     $('#currentInsurerMessageBox').html(data);
                     $('#currentInsurerMessageBox').delay(3000).hide(0);
-                    
-                }
-               
+                }       
             },
             error: function () {}
         });

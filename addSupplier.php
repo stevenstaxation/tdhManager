@@ -52,13 +52,6 @@ $lastSupplierID = $link->insert_id;
     }
 
 
-
-
-// // update customer with new insurer
-// $sql = "UPDATE tblCustomer SET insurerID = '$lastID' WHERE ID = " . $_SESSION['currentCustomer'];
-
-// $result = mysqli_query($link, $sql);
-
 $lastID = $_SESSION['currentCustomer'];
 
   if (!$result) {
@@ -69,7 +62,6 @@ $lastID = $_SESSION['currentCustomer'];
 
     $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Supplier $newSupplierName was created', '" . $_SESSION['userID']. "')";
     $result = mysqli_query($link, $sql);
-
 
     echo $lastID . "/" . $lastSupplierID . "success";
 ?>

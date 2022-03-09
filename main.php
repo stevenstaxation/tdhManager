@@ -14,7 +14,6 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" description content="TDH Manager">
 
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
@@ -23,7 +22,6 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> -->
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js" integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
@@ -47,13 +45,10 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
    
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <!-- <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> -->
- 
+   
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.9/css/fixedHeader.dataTables.min.css"/>
     <script src="https://cdn.datatables.net/fixedheader/3.1.9/js/dataTables.fixedHeader.min.js"></script>
-
-
 
     <!-- Select2 plugin -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
@@ -176,6 +171,8 @@ function purgeEventLog() {
 <script src='scripts/uploads.js'></script>
 <script src='scripts/menus.js'></script>
 <script src='scripts/users.js'></script>
+<script src='scripts/globals.js'></script>
+
 
 
 
@@ -392,12 +389,6 @@ function purgeEventLog() {
 
     }
 
-   
-
-
-
-
-
 
     $(document).on("click", '#savePassword', function() {
         xxx;
@@ -438,43 +429,7 @@ function purgeEventLog() {
             }
         });
     }
-
-
-    $(document).on('focusin', '#textAddOrUpdateStatus', function(event) {
-        event.preventDefault();
-        document.getElementById('addOrUpdateStatus').disabled = false;
-        $('#statusErrorBox').html('')
-    });
-
-    $(document).on('focusin', '#textAddOrUpdateSIMStatus', function(event) {
-        event.preventDefault();
-        document.getElementById('addOrUpdateSIMStatus').disabled = false;
-        $('#SIMStatusErrorBox').html('')
-    });
-
-    $(document).on('focusin', '#textAddOrUpdateFootageStatus', function(event) {
-        event.preventDefault();
-        document.getElementById('addOrUpdateFootageStatus').disabled = false;
-        $('#footageStatusErrorBox').html('')
-    });
-    $(document).on('focusin', '#textAddOrUpdateRenewalType', function(event) {
-        event.preventDefault();
-        document.getElementById('addOrUpdateRenewalType').disabled = false;
-        $('#renewalTypeErrorBox').html('')
-    });
-    $(document).on('focusin', '#textAddOrUpdateJobType', function(event) {
-        event.preventDefault();
-        document.getElementById('addOrUpdateJobType').disabled = false;
-        $('#jobTypeErrorBox').html('')
-    });
-    $(document).on('focusin', '#textAddOrUpdateHealthcheckType', function(event) {
-        event.preventDefault();
-        document.getElementById('addOrUpdateHealthcheckType').disabled = false;
-        $('#healthcheckTypeErrorBox').html('')
-    });
-
-
-    
+  
 
 function printDiv() {
     var divToPrint = document.getElementById('filteredEventList');
@@ -651,11 +606,6 @@ function toggleGender(gender) {
         });
     }
 
-  
-    
-
-    
-    
     function editContact(rowNumber) {
         var dataToPost = {};
         dataToPost.contactID = rowNumber;
@@ -695,11 +645,6 @@ function toggleGender(gender) {
             }
         });
     }
-
-
-
-   
-   
 
     function editNote(rowNumber) {
         var dataToPost = {};
@@ -816,10 +761,6 @@ function toggleGender(gender) {
 
     }
 
-
-    
-
-
     function VRNLookup() {
         var dataToPost = {};
         dataToPost.VRN = document.getElementById('addVRN').value;
@@ -850,11 +791,6 @@ function toggleGender(gender) {
             return false;
         return true;
     }
-
-   
-   
-
-
 
 </script>
 

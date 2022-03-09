@@ -163,34 +163,46 @@ function deleteSupplier() {
     if (e.selectedIndex==-1) {
         return;
     }
-    dataToPost.supplierNumber = e.options[e.selectedIndex].value;
-    $.ajax({
-        url: 'checkSupplierDeletion.php',
-        timeout: 30000,
-        data: dataToPost,
-        type: "POST",
-        success: function (data) {
-            if (data.includes('deleted')) {
-                $('#currentSupplierMessageBox').html(data);
 
-                $.ajax({
-                    url: "supplierList.php",
-                    type: "POST",
-                    success: function (data) {
-                        setTimeout(function () {
-                            $('#devicesList').html(data);
-                            $('#supplierNameSelection option:first').attr('selected', 'selected');
-                            $('#supplierNameSelection').trigger('change');
-                            $('#modalAddNewSupplier').modal('hide');
-                        }, 3000);
-                    },
-                    error: function () {}
-                });
-            } else {
-                $('#currentSupplierMessageBox').html(data);
-            }
-        },
-        error: function () {}
+    swal ({
+        title: "Confirm delete",
+        text: "Are you sure you want to delete?",
+        icon: "warning",
+        buttons: ['Cancel', 'Yes - Delete'],
+        dangerMode: true,
+    }).then (function(isConfirm){
+  
+    if (isConfirm) {
+        dataToPost.supplierNumber = e.options[e.selectedIndex].value;
+        $.ajax({
+            url: 'checkSupplierDeletion.php',
+            timeout: 30000,
+            data: dataToPost,
+            type: "POST",
+            success: function (data) {
+                if (data.includes('deleted')) {
+                    $('#currentSupplierMessageBox').html(data);
+
+                    $.ajax({
+                        url: "supplierList.php",
+                        type: "POST",
+                        success: function (data) {
+                            setTimeout(function () {
+                                $('#devicesList').html(data);
+                                $('#supplierNameSelection option:first').attr('selected', 'selected');
+                                $('#supplierNameSelection').trigger('change');
+                                $('#modalAddNewSupplier').modal('hide');
+                            }, 3000);
+                        },
+                        error: function () {}
+                    });
+                } else {
+                    $('#currentSupplierMessageBox').html(data);
+                }
+            },
+            error: function () {}
+        });
+    }
     });
 }
 

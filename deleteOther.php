@@ -31,7 +31,7 @@ $result = mysqli_query($link, $sql);
         exit();
     }
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Partner $otherName was deleted', '" . $_SESSION['userID']. "')";
+    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Other partner $otherName was deleted', '" . $_SESSION['userID']. "')";
     $result = mysqli_query($link, $sql);
 
 echo "success";

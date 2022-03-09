@@ -120,8 +120,15 @@ function deleteSupplierContact() {
     dataToPost.contactLastName = document.getElementById('editSupplierContactLastName').value;
     dataToPost.contactNumber = document.getElementById('editSupplierContactHide').value;
 
-    var proceed = confirm("Are you sure you want to delete the contact " + dataToPost.contactFirstName + " " + dataToPost.contactLastName + "?  This cannot be undone once you click OK");
-    if (proceed) {
+    swal ({
+        title: "Confirm delete",
+        text: "Are you sure you want to delete?",
+        icon: "warning",
+        buttons: ['Cancel', 'Yes - Delete'],
+        dangerMode: true,
+    }).then (function(isConfirm){
+  
+    if (isConfirm) {
         $.ajax({
             url: 'deleteSupplierContact.php',
             timeout: 30000,
@@ -140,4 +147,5 @@ function deleteSupplierContact() {
             error: function() {}
         });
     }
+    });
 }

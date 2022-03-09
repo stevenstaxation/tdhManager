@@ -7,6 +7,22 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 $healthcheckTypeIDToDelete = $_POST['HealthcheckTypeIDToDelete'];
 
+$sql = "SELECT * FROM tblHealthCheck WHERE healthStatusID='$healthcheckTypeIDToDelete'";
+$result = mysqli_query($link, $sql);
+$total = mysqli_num_rows($result);
+
+if ($total == 1) {
+    $device = " healthcheck record.";
+} else {
+    $device = " healthcheck records.";
+}
+
+if ($total>0) {
+    echo '<div class="alert alert-danger">Cannot delete this healthcheck description.<br>
+    It is attached to ' . $total . $device .'</div>';
+    exit();
+}
+
 $sql = "SELECT Description FROM tblHealthStatus WHERE ID='$healthcheckTypeIDToDelete'";
 $result = mysqli_query($link, $sql);
 $row=mysqli_fetch_array($result);

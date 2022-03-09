@@ -7,6 +7,22 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 $SIMStatusIDToDelete = $_POST['SIMStatusIDToDelete'];
 
+$sql = "SELECT * FROM tblDevice WHERE SIMStatus='$SIMStatusIDToDelete'";
+$result = mysqli_query($link, $sql);
+$total = mysqli_num_rows($result);
+
+if ($total == 1) {
+    $device = " device.";
+} else {
+    $device = " devices.";
+}
+
+if ($total>0) {
+    echo '<div class="alert alert-danger">Cannot delete this SIM status description.<br>
+    It is attached to ' . $total . $device .'</div>';
+    exit();
+}
+
 $sql = "SELECT SIMStatus FROM tblSIMStatus WHERE ID='$SIMStatusIDToDelete'";
 $result = mysqli_query($link, $sql);
 $row=mysqli_fetch_array($result);

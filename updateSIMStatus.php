@@ -24,10 +24,12 @@ if ($errors) {
 
 $updateSIMStatusName = mysqli_real_escape_string($link,filter_var($updateSIMStatusName, FILTER_SANITIZE_STRING));
 
+// get old status name
+$sql = "SELECT SIMStatus FROM tblSIMStatus WHERE ID='$updateSIMStatusID'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// update
 $sql = "UPDATE tblSIMStatus SET SIMStatus = '$updateSIMStatusName' WHERE ID='$updateSIMStatusID'";
-
-
-
 $result = mysqli_query($link, $sql);
 
  if (!$result) {
@@ -36,7 +38,9 @@ $result = mysqli_query($link, $sql);
         exit();
     }
 
-    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Status $updateSIMStatusName was amended', '" . $_SESSION['userID']. "')";
+$description = "SIM Status description " . $prev['SIMStatus'] . " was changed to " . $updateSIMStatusName;
+
+    $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
     $result = mysqli_query($link, $sql);
 
 

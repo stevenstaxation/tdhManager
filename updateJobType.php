@@ -24,6 +24,11 @@ if ($errors) {
 
 $updateJobTypeName = mysqli_real_escape_string($link,filter_var($updateJobTypeName, FILTER_SANITIZE_STRING));
 
+// get old status name
+$sql = "SELECT description FROM tblJobType WHERE ID='$updateJobTypeID'";
+$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// update
 $sql = "UPDATE tblJobType SET description = '$updateJobTypeName' WHERE ID='$updateJobTypeID'";
 $result = mysqli_query($link, $sql);
 
@@ -33,7 +38,9 @@ if (!$result) {
     exit();
 }
 
-$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Job type $updateJobTypeName was amended', '" . $_SESSION['userID']. "')";
+$description = "Job type description " . $prev['description'] . " was changed to " . $updateJobTypeName;
+
+$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
 
 

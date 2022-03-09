@@ -146,37 +146,48 @@ function deleteOther() {
     if (e.selectedIndex==-1) {
         return;
     }
-    dataToPost.otherNumber = e.options[e.selectedIndex].value;
-    $.ajax({
-        url: 'checkOtherDeletion.php',
-        timeout: 30000,
-        data: dataToPost,
-        type: "POST",
-        success: function (data) {
-            if (data.includes('deleted')) {
-                $('#currentOtherMessageBox').html(data);
+
+
+    swal ({
+        title: "Confirm delete",
+        text: "Are you sure you want to delete?",
+        icon: "warning",
+        buttons: ['Cancel', 'Yes - Delete'],
+        dangerMode: true,
+    }).then (function(isConfirm){
+  
+    if (isConfirm) {
+        dataToPost.otherNumber = e.options[e.selectedIndex].value;
+        $.ajax({
+            url: 'checkOtherDeletion.php',
+            timeout: 30000,
+            data: dataToPost,
+            type: "POST",
+            success: function (data) {
+                if (data.includes('deleted')) {
+                    $('#currentOtherMessageBox').html(data);
                                
-                $.ajax({
-                    url: "otherList.php",
-                    type: "POST",
-                    success: function (data) {
-                        setTimeout(function () {
-                            $('#devicesList').html(data);
-                            $('#otherNameSelection option:first').attr('selected', 'selected');
-                            $('#otherNameSelection').trigger('change');
-                            $('#modalAddNewOther').modal('hide');
+                    $.ajax({
+                        url: "otherList.php",
+                        type: "POST",
+                        success: function (data) {
+                            setTimeout(function () {
+                                $('#devicesList').html(data);
+                                $('#otherNameSelection option:first').attr('selected', 'selected');
+                                $('#otherNameSelection').trigger('change');
+                                $('#modalAddNewOther').modal('hide');
                             
-                        }, 3000);
-                    },
-                    error: function () {}
-                });
-                
-                
-            } else {
-                $('#currentOtherMessageBox').html(data);
-            }
-        },
-        error: function () {}
+                            }, 3000);
+                        },
+                        error: function () {}
+                    });                
+                } else {
+                    $('#currentOtherMessageBox').html(data);
+                }
+            },
+            error: function () {}
+        });
+    }
     });
 }
 
