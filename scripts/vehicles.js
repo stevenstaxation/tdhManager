@@ -396,16 +396,11 @@ function deleteVehicle() {
                     var newID = parseInt(data.replace('success', ''), 10);
                     showCustomers(newID);
                 }
-
             } else {
                 $('#editVehicleMessage').html(data);
             }
-
         }
-
     })
-
-
 }
 
 $(document).on('show.bs.modal', '#modalAddVehicle', function (event) {
@@ -419,5 +414,11 @@ $(document).on('hide.bs.modal', '#modalVehicleShow', function (event) {
 });
 
 
-
+$(document).on('click','#vehicleListTable tbody td', function() {
+    let dt=$('#vehicleListTable').DataTable();
+    let vIndex = $(this).index();
+    let colIndex = dt.column.index('fromVisible', vIndex);
+    let clip = dt.column(colIndex).data();
+    copyArrayToClipboard (clip);      
+});
 

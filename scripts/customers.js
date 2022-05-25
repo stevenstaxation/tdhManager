@@ -28,7 +28,10 @@ $(document).on('change', '#getClient', function() {
     });
 });
 
-
+$(document).on('blur', '#VCOReference', function() {
+    $('#VCOReference').val($('#VCOReference').val().replace(/\s/g,''));
+    $('#VCOReference').val($('#VCOReference').val().toUpperCase());
+})
 
 $('#modalAddNewCustomer').on('hidden.bs.modal', function(event) {
     $(this).find('form').trigger('reset');
@@ -130,6 +133,8 @@ function updateCustomer() {
     dataToPost.customerAddr3 = document.getElementById('custAddressLine3').value;
     dataToPost.customerAddr4 = document.getElementById('custAddressLine4').value;
     dataToPost.customerAddr5 = document.getElementById('custAddressLine5').value;
+    dataToPost.VCOReference = document.getElementById('VCOReference').value;
+    
     // dataToPost.customerPhone = document.getElementById('custPhone').value;
     // dataToPost.customerEmail = document.getElementById('custEmail').value;
     // dataToPost.customerRenewalType = document.getElementById('getRenewalTypeSelect').value;
@@ -371,7 +376,8 @@ function deleteCustomer() {
                     $('#modalGetCustomerAndVRN').modal('hide');
                     $('#getClient').trigger('change');
                 } else {
-                    swal ("Error", data, "warning");
+console.log(data);
+                    // swal ("Error", data, "warning");
                 }
             }
         }); 

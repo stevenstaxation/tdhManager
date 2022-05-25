@@ -29,7 +29,9 @@ $jobVRN = $_POST['VRN'];
 $jobOldVRN = $_POST['OldVRN'];
 
 
+
 $errors = "";
+$warning = "";
 
 // must select customer
 if (!$jobCustomerID >=1) {
@@ -44,8 +46,8 @@ if (!$jobCameraType >=1) {
     $errors .="You must choose the device type<br>";
 }
 
-if ($jobQuantity<1 || $jobQuantity>9) {
-    $errors .="Job quantity must be between 1 and 9<br>";
+if ($jobQuantity<1 || $jobQuantity>50) {
+    $errors .="Job quantity must be between 1 and 50<br>";
 }
 if ($jobRate =='' || $jobRate==null) {
     $errors .="The job rate should be entered, if unknown enter 0.00<br>";
@@ -72,23 +74,32 @@ if ((!$jobEngineer>=1) && ($jobDate!=null && $jobDate!='' && $jobDate!='01/01/19
 // }
 
 $ParsedJobString = strtoupper($jobTypeString);
-if ($ParsedJobString=="DE-INSTALLATION" || $ParsedJobString=="DEINSTALLATION") {
-    $ix = 1;
-    foreach ($jobOldVRN as $VRN) {
-        if ($VRN==0 || $VRN=null) {
-            $errors .= "Old vehicle registration number " .$ix ." is missing<br>";
-        }
-        $ix++;
-    }     
-} else {
-    $ix = 1;
-    foreach ($jobVRN as $VRN) {
-        if ($VRN==0 || $VRN=null) {
-            $errors .= "Vehicle registration number " .$ix ." is missing<br>";
-        }
-        $ix++;
-    }    
-}
+
+
+    if ($ParsedJobString=="DE-INSTALLATION" || $ParsedJobString=="DEINSTALLATION") {
+        $ix = 1;
+        foreach ($jobOldVRN as $key=>$VRN) {
+            if ($VRN==0 || $VRN=null) {
+                $_POST['NewVRN']= 'TBC ' . $ix . " (" . date('YmdGis') . ")";
+                $_POST['customerID']=$jobCustomerID;
+                include ('addNewRegistration.php');
+                $jobOldVRN[$key]['value'] = intval($vrString);
+            }
+            $ix++;
+        }     
+    } else {
+        $ix = 1;
+        foreach ($jobVRN as $key=>$VRN) {
+            if ($VRN==0 || $VRN=null) {
+                $_POST['NewVRN']= 'TBC ' . $ix  . " (" . date('YmdGis') . ")";
+                $_POST['customerID']=$jobCustomerID;
+                include ('addNewRegistration.php');
+                $jobVRN[$key]['value'] = intval($vrString);
+            }
+            $ix++;
+        }    
+    }
+
 
 $otherKitFlag = 0;
 if ($jobOtherKitLT == 'on') {
@@ -130,6 +141,7 @@ foreach ($jobVRN as $VRNforJob) {
     $sql = "INSERT INTO tblJobs (ownerID, date, jobType, VRN, notes, cameratypeid, Quantity, OtherKitFlag, PriorityIsUrgent, JobRate, BookingContact, BookingEmail, BookingTelephone, BookingAddress, EquipmentLocationID, EngineerID, dateAdded, oldVRN, status) VALUES ('$jobCustomerID',NULLIF('$jobDate',''), '$jobType', '$VRNforJob', '$jobNotes', '$jobCameraType', '$jobQuantity', '$otherKitFlag', '$jobPriority', '$jobRate', '$jobContactName', '$jobContactEmail', '$jobContactPhone', nullif('$jobContactAddress',''), '$jobEquipmentLocation', nullif('$jobEngineer',''), '$time', NULLIF('$oldVRN',''), '$jobStatus')";
     $result = mysqli_query($link, $sql);
     $ix++;
+
 }
 
 

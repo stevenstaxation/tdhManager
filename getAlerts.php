@@ -22,13 +22,16 @@ $_SESSION['Alerts'] = getAlerts($link);
 $xCount = [];
 
 $totalCount = '';
-foreach ($_SESSION['Alerts'] as $alert) {
+if (!empty($_SESSION['Alerts'])) {
+    foreach ($_SESSION['Alerts'] as $alert) {
         $xCount[$alert['alertType']] ++;
+    }
 }
-
-
-$totalCount = $xCount[1] . "^^^" . $xCount[2] . "^^^" . $xCount[3] . "^^^" . $xCount[4];
-
+if (!empty($xCount)) {
+    $totalCount = $xCount[1] . "^^^" . $xCount[2] . "^^^" . $xCount[3] . "^^^" . $xCount[4];
+} else {
+    $totalCount = 0 . "^^^" . 0 . "^^^" . 0 . "^^^" . 0;
+}
 
 echo $totalCount;
 
@@ -108,6 +111,9 @@ $result = mysqli_query($link, $sql);
     $sql = "SELECT * FROM tblDevice INNER JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID INNER JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID WHERE (installDate >= '" . $dateNow->format('Y-m-d') ."')";
 
     $result = mysqli_query($link, $sql);
+    if (!$result) {
+        return '';
+    }
 
     while ($noteRows = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         $alert['date'] = $noteRows['installDate'];

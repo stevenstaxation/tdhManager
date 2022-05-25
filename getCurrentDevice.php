@@ -14,6 +14,12 @@ $result = mysqli_query($link, $sql);
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
 
+$sql = "SELECT VCOReference FROM tblCustomer WHERE tblCustomer.ID ='" . $row['ownerID'] . "'";
+$result = mysqli_query($link, $sql);
+$vco = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+array_push($row, $vco);
+
 
  echo json_encode($row);
 

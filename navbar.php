@@ -129,6 +129,12 @@
                                     <div class='dropdown-divider'></div>
                                 </li>
                                 <li>
+                                    <a class='dropdown-item willCollapse' href='#' id='showJobRates'><svg xmlns='http://www.w3.org/2000/svg' width='20px' fill='currentColor' class='bi bi-currency-pound' viewBox='0 0 16 16'><path d='M4 8.585h1.969c.115.465.186.939.186 1.43 0 1.385-.736 2.496-2.075 2.771V14H12v-1.24H6.492v-.129c.825-.525 1.135-1.446 1.135-2.694 0-.465-.07-.913-.168-1.352h3.29v-.972H7.22c-.186-.723-.372-1.455-.372-2.247 0-1.274 1.047-2.066 2.58-2.066a5.32 5.32 0 0 1 2.103.465V2.456A5.629 5.629 0 0 0 9.348 2C6.865 2 5.322 3.291 5.322 5.366c0 .775.195 1.515.399 2.247H4v.972z'/></svg> Job Rates</a>
+                                </li>
+                                <li>
+                                    <div class='dropdown-divider'></div>
+                                </li>
+                                <li>
                                     <a class='dropdown-item willCollapse' href='#' id='importHealthChecks'><svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='20px' viewBox='0 0 1000 1000' enable-background='new 0 0 1000 1000' xml:space='preserve'><metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata><g><path d='M823.8,588.7c13.8-20.2,27.2-40.1,39.7-59.2H990v59.2H823.8z M818.6,529.6L818.6,529.6h-150L568.4,221.1L468.1,529.6h-6.6l-70.7-217.5l-70.7,217.5h-150l0,0c-14.3-21.7-27.5-42.3-39.1-60.8c-31.7-40.3-50.8-91-50.8-146.3c0-130.7,105.9-236.6,236.6-236.6c70.8,0,134.1,31.2,177.5,80.5c43.4-49.2,106.7-80.5,177.5-80.5c130.7,0,236.6,105.9,236.6,236.6c0,55.3-19.1,106-50.8,146.3C846.1,487.3,832.9,507.9,818.6,529.6z M165,588.7H10v-59.2h115.3C137.8,548.6,151.2,568.5,165,588.7z M363.2,588.7l27.7-85.2l73.9,227.6l103.5-318.6l57.3,176.2h153.3l0,0C676,739.3,494.4,914.1,494.4,914.1S312.9,739.3,210,588.7L363.2,588.7L363.2,588.7z'/></g></svg> Healthchecks</a>   
                                 </li>
                                 <li>
@@ -148,6 +154,12 @@
                                 </li>
                                 <li>
                                     <a class='dropdown-item willCollapse' href='#' id='showIssueLog' style='padding-bottom:10px;'><svg xmlns='http://www.w3.org/2000/svg' width='20px' fill='currentColor' class='bi bi-bug-fill' viewBox='0 0 16 16'><path d='M4.978.855a.5.5 0 1 0-.956.29l.41 1.352A4.985 4.985 0 0 0 3 6h10a4.985 4.985 0 0 0-1.432-3.503l.41-1.352a.5.5 0 1 0-.956-.29l-.291.956A4.978 4.978 0 0 0 8 1a4.979 4.979 0 0 0-2.731.811l-.29-.956z'/><path d='M13 6v1H8.5v8.975A5 5 0 0 0 13 11h.5a.5.5 0 0 1 .5.5v.5a.5.5 0 1 0 1 0v-.5a1.5 1.5 0 0 0-1.5-1.5H13V9h1.5a.5.5 0 0 0 0-1H13V7h.5A1.5 1.5 0 0 0 15 5.5V5a.5.5 0 0 0-1 0v.5a.5.5 0 0 1-.5.5H13zm-5.5 9.975V7H3V6h-.5a.5.5 0 0 1-.5-.5V5a.5.5 0 0 0-1 0v.5A1.5 1.5 0 0 0 2.5 7H3v1H1.5a.5.5 0 0 0 0 1H3v1h-.5A1.5 1.5 0 0 0 1 11.5v.5a.5.5 0 1 0 1 0v-.5a.5.5 0 0 1 .5-.5H3a5 5 0 0 0 4.5 4.975z'/></svg> Issues Log</a>
+                                </li>
+                                <li>
+                                    <div class='dropdown-divider'></div>
+                                </li>
+                                <li>
+                                    <a class='dropdown-item willCollapse' href='#' id='showSystemInfo' style='padding-bottom:10px;'><svg xmlns='http://www.w3.org/2000/svg' width='20px' height='16' fill='currentColor' class='bi bi-info-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z'/></svg> System Info</a>
                                 </li>
                             </ul>
                         </li>

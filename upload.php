@@ -37,7 +37,7 @@ if ($_FILES['file']['name']!='') {
             // check headings match required mapping
             $errors = '';
             if ($ix!=9) {
-                $errors = "Incorrect number of columns in file<br>";
+                $errors = "Incorrect number of columns in file $ix<br>";
                 echo "<div class='alert alert-danger'>" . $errors . "</div>";
                 unlink($location);
                 exit();

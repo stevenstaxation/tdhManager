@@ -222,15 +222,16 @@ function deleteInsurer() {
         return;
     }
 
-    swal ({
+    new swal ({
         title: "Confirm delete",
         text: "Are you sure you want to delete?",
         icon: "warning",
-        buttons: ['Cancel', 'Yes - Delete'],
-        dangerMode: true,
-    }).then (function(isConfirm){
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) =>{
   
-    if (isConfirm) {
+    if (result.isConfirmed) {
         dataToPost.insurerNumber = e.options[e.selectedIndex].value;
         $.ajax({
             url: 'checkInsurerDeletion.php',

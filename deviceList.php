@@ -211,7 +211,7 @@ $returnString .= "
 
     if (mysqli_num_rows($result)!=0) {
       $returnString .="<div id = 'deviceSummary' class='m-4 w-2' style='margin-top: 15px;'>
-      <table id='deviceListTable' class='table cell-border table-sm compact'>
+      <table id='deviceListTable' class='table cell-border table-sm display compact'>
       <thead>
         <tr>
           <!--<th class='text-center align-middle'><strong>No.</strong></th>-->
@@ -239,7 +239,6 @@ $returnString .= "
     
       <tbody>";
 
-      // $ix = 1;
       $rowBackgroundClass = '';
       
       while ($row= mysqli_fetch_array($result)) {
@@ -256,14 +255,7 @@ $returnString .= "
             $rowBackgroundClass= "";
             break;
         }
-      //   if ($row['status']=='Faulty') {
-      //     $rowBackgroundClass= "faulty";
-      // } elseif ($row['status']=='Inactive') {
-      //     $rowBackgroundClass= "inactive";
-      // } else {
-      //     $rowBackgroundClass= "";
-      // }
-
+     
       $returnString .= "<tr class='" . $rowBackgroundClass . "'>
      
       <td class='align-middle' style='padding:0 3px'>" . $row['businessName'] . "</td>
@@ -312,8 +304,11 @@ if ($row['regNumber']=='') {
 }
 $returnString .="<td class='text-center align-middle'>" . $hiddenVRN . "</td></tr>";
 
-// $ix++;
+
 }
+
+mysqli_free_result($result);
+unset($result);
 
     } else {
       $returnString .="<p class='text-center'>No results found</p>";
@@ -371,7 +366,23 @@ $returnString .="<td class='text-center align-middle'>" . $hiddenVRN . "</td></t
         deferRender: true,
         responsive: true,
         stateSave: true,
-        dom: '<\"top\"lfip>rt<\"bottom\"><\"clear\">',
+        orderClasses: false,
+        
+        dom: '<\"top\"lfipB>rt<\"bottom\"lfipB><\"clear\">',
+        buttons: [
+          {
+              extend: 'colvis',
+              text: 'Show/Hide Columns'
+          },
+          {
+              extend: 'excel',
+              text: 'Export to Excel',
+          },
+          {
+              extend: 'csv',
+              text: 'Export as CSV',
+          },
+      ],
         rowCallback: function(row, data, dataIndex) {
           if ($('body').hasClass('dark')) {
             $(row).css('background-color', 'rgba(68,68,68,1)')

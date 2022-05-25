@@ -99,7 +99,8 @@ $result = mysqli_query($link, $sql);
 if ($result) {
     echo 'success';
 } else {
-    echo "Could not update database";
+    echo "Could not update database " . $sql;
+
 }
 
 

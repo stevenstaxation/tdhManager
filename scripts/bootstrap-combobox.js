@@ -221,7 +221,7 @@
         return '<strong>' + match + '</strong>';
       })
     }
-
+   
   , render: function (items) {
       var that = this;
 

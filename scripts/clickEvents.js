@@ -52,16 +52,15 @@ $(document).on('click', '#addHistoricUser', function (event) {
     event.preventDefault();
     dataToPost = {};
     // dataToPost.userName = window.prompt('Enter User Name');
-    swal ({
+    new swal ({
         text: 'Enter name for historic user',
-        content: 'input',
-        button: {
-            text: 'Add user',
-            closeModal: true,
-        },
+        input: 'text',
+        confirmButtonText: 'Add user',
     })
-    .then(name => {
-        dataToPost.userName = name;
+    .then((result) => {
+        if (result.isConfirmed) {
+
+        dataToPost.userName = result.value;
         $.ajax ({
             url: "addOldUser.php",
             timeout: 30000,
@@ -71,6 +70,7 @@ $(document).on('click', '#addHistoricUser', function (event) {
                 $('#showGlobalSettings').trigger('click');
             }
         });
+    }
     })
 
 
@@ -238,10 +238,10 @@ function togglePassword() {
 
   $(document).on('click','#toggleBookedJobs', function() {
     var currentFilter = $('#jobFilter').html();
-    if ((currentFilter & 8)==8) {
-        currentFilter = (currentFilter & 65527);
+    if ((currentFilter & 2)==2) {
+        currentFilter = (currentFilter & 65533);
     } else {
-        currentFilter = (currentFilter | 8);    
+        currentFilter = (currentFilter | 2);    
     }
     $('#jobFilter').html(currentFilter);
     $('#showJobList').trigger('click');
@@ -406,5 +406,22 @@ $(document).on('click', '#bulkUploadVehicles', function() {
     $('.imageContent').html('');
 });
 
+$(document).on("click", '#showSystemInfo', function () {
+    $.ajax ({
+        url: "getSystemInfo.php",
+        type: "POST",
+        success: function(data) {
+            data = $.parseJSON(data);
+            console.log(data);
 
+            var OpSystem = navigator.userAgentData.platform;
+            OpSystem = OpSystem.replace('"','');
+
+            Swal.fire({
+                title: 'TDH Manager',
+                html: "Operating System: " + OpSystem + "<br><br>Customers: " + data[1] + "<br>Devices: " + data[2] + "<br>Vehicles: " + data[3] + "<br>Open Jobs: " + data[4] + "<br>Complete Jobs: " + data[5] + "<br>Footage Requests: " + data[6] + "<br>Healthchecks: " + data[7]
+            });
+        }
+    }) 
+});
 

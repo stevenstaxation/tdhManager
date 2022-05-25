@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 include('connect.php');
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
@@ -53,12 +55,14 @@ if (!$result) {
     exit();
 }
 
+$vehicleID = mysqli_insert_id($link);
+
 $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('New vehicle $regNumber added', '" . $_SESSION['userID']. "')";
 $result = mysqli_query($link, $sql);
 
 
-echo "success";
+$vrString = $vehicleID;
 
-
+return "success";
 ?>
 

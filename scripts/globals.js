@@ -75,15 +75,16 @@ $(document).on('click', '#cancelUpdateHealthcheckType', function(event) {
 $(document).on('click', '#deleteDevice', function (event) {
     event.preventDefault();
 
-    swal ({
+    new swal ({
         title: "Confirm delete",
         text: "Are you sure you want to delete?",
         icon: "warning",
-        buttons: ['Cancel', 'Yes - Delete'],
-        dangerMode: true,
-    }).then (function(isConfirm){
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) =>{
   
-    if (isConfirm) {
+    if (result.isConfirmed) {
         var dataToPost = {};
         dataToPost.deviceIDToDelete = $("#deviceList option:selected").val();
 
@@ -115,15 +116,16 @@ $(document).on('click', '#deleteDevice', function (event) {
 $(document).on('click', '#deleteStatus', function(event) {
     event.preventDefault();
    
-    swal ({
+    new swal ({
         title: "Confirm delete",
         text: "Are you sure you want to delete?",
         icon: "warning",
-        buttons: ['Cancel', 'Yes - Delete'],
-        dangerMode: true,
-    }).then (function(isConfirm){
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) =>{
   
-    if (isConfirm) {
+    if (result.isConfirmed) {
         var dataToPost = {};
         dataToPost.statusIDToDelete = $("#statusList option:selected").val();
 
@@ -153,15 +155,16 @@ $(document).on('click', '#deleteStatus', function(event) {
 $(document).on('click', '#deleteSIMStatus', function(event) {
     event.preventDefault();
 
-    swal ({
+    new swal ({
         title: "Confirm delete",
         text: "Are you sure you want to delete?",
         icon: "warning",
-        buttons: ['Cancel', 'Yes - Delete'],
-        dangerMode: true,
-    }).then (function(isConfirm){
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) =>{
   
-    if (isConfirm) {
+    if (result.isConfirmed) {
         var dataToPost = {};
         dataToPost.SIMStatusIDToDelete = $("#SIMStatusList option:selected").val();
 
@@ -190,15 +193,16 @@ $(document).on('click', '#deleteSIMStatus', function(event) {
 $(document).on('click', '#deleteFootageStatus', function(event) {
     event.preventDefault();
 
-    swal ({
+    new swal ({
         title: "Confirm delete",
         text: "Are you sure you want to delete?",
         icon: "warning",
-        buttons: ['Cancel', 'Yes - Delete'],
-        dangerMode: true,
-    }).then (function(isConfirm){
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) =>{
   
-    if (isConfirm) {
+    if (result.isConfirmed) {
         var dataToPost = {};
         dataToPost.FootageStatusIDToDelete = $("#footageStatusList option:selected").val();
 
@@ -228,15 +232,16 @@ $(document).on('click', '#deleteFootageStatus', function(event) {
 $(document).on('click', '#deleteRenewalType', function(event) {
     event.preventDefault();
 
-    swal ({
+    new swal ({
         title: "Confirm delete",
         text: "Are you sure you want to delete?",
         icon: "warning",
-        buttons: ['Cancel', 'Yes - Delete'],
-        dangerMode: true,
-    }).then (function(isConfirm){
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) =>{
   
-    if (isConfirm) {
+    if (result.isConfirmed) {
         var dataToPost = {};
         dataToPost.RenewalTypeIDToDelete = $("#renewalTypeList option:selected").val();
 
@@ -266,15 +271,16 @@ $(document).on('click', '#deleteRenewalType', function(event) {
 $(document).on('click', '#deleteJobType', function(event) {
     event.preventDefault();
 
-    swal ({
+    new swal ({
         title: "Confirm delete",
         text: "Are you sure you want to delete?",
         icon: "warning",
-        buttons: ['Cancel', 'Yes - Delete'],
-        dangerMode: true,
-    }).then (function(isConfirm){
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) =>{
   
-    if (isConfirm) {
+    if (result.isConfirmed) {
         var dataToPost = {};
         dataToPost.JobTypeIDToDelete = $("#jobTypeList option:selected").val();
 
@@ -304,15 +310,16 @@ $(document).on('click', '#deleteJobType', function(event) {
 $(document).on('click', '#deleteHealthcheckType', function(event) {
     event.preventDefault();
 
-    swal ({
+    new swal ({
         title: "Confirm delete",
         text: "Are you sure you want to delete?",
         icon: "warning",
-        buttons: ['Cancel', 'Yes - Delete'],
-        dangerMode: true,
-    }).then (function(isConfirm){
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) =>{
   
-    if (isConfirm) {
+    if (result.isConfirmed) {
         var dataToPost = {};
         dataToPost.HealthcheckTypeIDToDelete = $("#healthStatusList option:selected").val();
 
@@ -652,4 +659,28 @@ $(document).on('click', '#addOrUpdateDevice', function (event) {
          });
      }
  });
+
+ function copyTextToClipboard (textToCopy) {
+     let dummy = document.createElement('textarea');
+     document.body.appendChild(dummy);
+     dummy.value = textToCopy;
+     dummy.select();
+     document.execCommand('copy');
+     document.body.removeChild(dummy);
+ }
+
+ function copyArrayToClipboard (arrayToCopy) {
+     textToCopy = "";
+    for (ix=0; ix<arrayToCopy.length; ix++) {
+        textToCopy += arrayToCopy[ix] + "\n";
+    }
+    textToCopy = textToCopy.replaceAll('&amp;','\&');
+ 
+    let dummy = document.createElement('textarea');
+    document.body.appendChild(dummy);
+    dummy.value = textToCopy;
+    dummy.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummy);
+}
 

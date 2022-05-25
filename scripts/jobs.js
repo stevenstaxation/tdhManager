@@ -106,7 +106,20 @@ $(document).on("change", '#jobJobType', function() {
         $('.addJobTypeOldVRN').prop('disabled', true);
         $('.addJobTypeVRN').prop('disabled', false);
     }
+
+    if ($('#jobCameraType').val()!=null) {
+        updateJobRate();
+    };
 });
+
+$(document).on("change", '#jobCameraType', function() {
+
+    if ($('#jobJobType').val()!=null) {
+        updateJobRate();
+    };
+});
+
+
 $(document).on("change", '#editJobType', function() {
     var selectedType = $('#editJobType option:selected').text().toUpperCase();
 
@@ -169,6 +182,10 @@ $(document).on("blur", '#editJobDateBooked', function() {
     }
 });
 
+$(document).on("click", '#editMultipleJobs', function() {
+    $('#modalEditMultipleJobs').modal('show');
+});
+
 
 
 function addNewJob() {
@@ -215,7 +232,7 @@ function addNewJob() {
     dataToPost.engineerAssigned = $('#engineerAssigned').val();
     dataToPost.jobDateBooked = $('#jobDateBooked').val();
     dataToPost.jobStatus = 0; // new job setup
-      
+    dataToPost.VRNError = $('#jobVRNErrorCount').val();
     $.ajax({
         url: "addNewJob.php",
         timeout: 30000,
@@ -258,9 +275,8 @@ function addNewJob() {
 
 
 function showFullJob(rowNumber) {
-   
     var dataToPost = {};
-    // dataToPost.jobCustomer = '';
+     dataToPost.jobCustomer = '';
     var editMode = '';
     if (rowNumber.includes('edit')) {
         rowNumber = rowNumber.replace('edit','');
@@ -269,7 +285,7 @@ function showFullJob(rowNumber) {
         rowNumber = rowNumber.replace('view','');
         editMode = 'view';
     }
-
+ 
     if (rowNumber.includes('j')) {
         rowNumber = rowNumber.replace('j','');
         $('#hiddenJobSelector').val('job');
@@ -300,6 +316,7 @@ function showFullJob(rowNumber) {
             type: 'POST',
             success: function(data) {
                 data = $.parseJSON(data);  
+                $('#modalEditNewJobRequest').modal('show'); 
                 $("#editJobCustomerName").val(data['ownerID']);
                 $('#editJobCustomerName').trigger('change');
                 $('#editJobType').val(data['jobType']);
@@ -323,19 +340,30 @@ function showFullJob(rowNumber) {
                 $('#editHubCompleted').val(data['TDHSignOff']);
                 currentVRN =  data['VRN'];
                 oldVRN = data['oldVRN'];
-                document.getElementById('regPicContent').innerHTML = '';
-                document.getElementById('devicePicContent').innerHTML = ''; 
+                
+                if ($('regPicContent').length >0) {
+                    document.getElementById('regPicContent').innerHTML = '';
+                }
+              
+                if ($('devicePicContent').length >0) {
+                    document.getElementById('devicePicContent').innerHTML = ''; 
+                }
                 $("#regPicContent").removeClass('imageLoaded');
                 $("#devicePicContent").removeClass('imageLoaded');
 
-                if (data['regPicFilename']) {
-                    document.getElementById('regPicContent').innerHTML = "<img src = '" + data['regPicFilename'] +"' width='160'>";
-                    $("#regPicContent").addClass('imageLoaded');
-                }
-                if (data['regPicDeviceDetails']) {
+                 
+                    if (data['regPicFilename'] && $('#regPicContent').length>0) {
+                        document.getElementById('regPicContent').innerHTML = "<img src = '" + data['regPicFilename'] +"' width='160'>";
+                        $("#regPicContent").addClass('imageLoaded');
+                    }
+                
+           
+                if (data['regPicDeviceDetails'] && $('#devicePicContent').length>0) {
                     document.getElementById('devicePicContent').innerHTML = "<img src = '" + data ['regPicDeviceDetails'] +"' width='160'>";
                     $("#devicePicContent").addClass('imageLoaded');
                 }
+          
+         
                 if ((data['otherKitFlag'] & 1) ==1) {
                     $('#editLT').prop('checked',true);
                 } else {
@@ -356,7 +384,7 @@ function showFullJob(rowNumber) {
                 } else {
                     $('#editHubCompleted').prop('checked', false); 
                 }
-             
+           
                 var today = new Date().getTime();
                 var jobWhen = new Date(data['date']).getTime();
 
@@ -381,29 +409,27 @@ function showFullJob(rowNumber) {
                 } else if (jobWhen > today) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>BOOKED</span></h6>");
                 }
-
-                $('#modalEditNewJobRequest').modal('show'); 
-
-                
         },
         error: function() {
-
+            console.log("Job error");
         }
     })
 ).done (function () {
+
     if (currentVRN == null) {
         currentVRN=0;
     }
     if (oldVRN == null) {
-        console ('twas nil')
         oldVRN=0;
     }
-    console.log($('#editJobVRN').val());
-    console.log($('#editJobOldVRN').val());
-    
-    $('#editJobVRN').val(parseInt(currentVRN)).change();
-    $('#editJobOldVRN').val(parseInt(oldVRN)).change();
-    
+ 
+    if (currentVRN!=0) { 
+        $('#editJobVRN').val(parseInt(currentVRN)).change();
+    }
+    if (oldVRN!=0) {
+        $('#editJobOldVRN').val(parseInt(oldVRN)).change(); 
+    }
+
     console.log(parseInt(currentVRN));
     console.log(parseInt(oldVRN));
     console.log($('#editJobVRN').val());
@@ -444,6 +470,7 @@ function editJobComplete(buttonClicked) {
         data: dataToPost,
         type: 'POST',
         success: function(data) {
+            alert(data);
             $('#getClient').trigger('change');
             $('#showJobList').trigger('change')
             $('#modalEditNewJobRequest').modal('hide');
@@ -579,7 +606,6 @@ function editCurrentJob() {
     }
 
     
-  
    // check data entered and save (or not)
    $.ajax({
     url: 'updateJobRequest.php',
@@ -626,6 +652,14 @@ function deleteCurrentJob() {
     var dataToPost = {};
     dataToPost.jobID = document.getElementById('hiddenJobID').text;
 
+    new swal ({
+        text: "Are you sure you want to delete this job?",
+        icon: "warning",
+        showDenyButton: true,
+        confirmButtonText: 'Yes - cancel',
+        denyButtonText: 'No Don\'t',
+    }).then ((result) =>{
+        if (result.isConfirmed) {
    
     $.ajax ({
         url: "deleteJob.php",
@@ -663,7 +697,8 @@ function deleteCurrentJob() {
         }
     })
    
-
+        }
+    });
 }
 
 
@@ -689,7 +724,7 @@ $(document).on("change", "#editJobCompleted", function() {
         }
     }
     if ((RegUploaded == false || DeviceUploaded==false) && $('#editJobCompleted').prop('checked')==true) {
-        swal ("Cannot update", "A picture of " + errorString + " must be uploaded before the job can be marked as complete.", "error");
+        new swal ("Cannot update", "A picture of " + errorString + " must be uploaded before the job can be marked as complete.", "error");
         $('#editJobCompleted').prop('checked', false);
         return;
     }
@@ -702,7 +737,7 @@ $(document).on("change", "#editJobCompleted", function() {
 $(document).on("change", "#editHubCompleted", function() {
 
     if ($('#editJobCompleted').prop('checked')==false && $('#editHubCompleted').prop('checked')==true) {
-        swal ("Cannot update", "The job cannot be signed off until it is completed", "error");
+        new swal ("Cannot update", "The job cannot be signed off until it is completed", "error");
 
          $('#editHubCompleted').prop('checked', false);
          return;
@@ -714,53 +749,53 @@ $(document).on("change", "#editHubCompleted", function() {
 function cancelCurrentJob() {
     var dataToPost = {};
     dataToPost.jobID = document.getElementById('hiddenJobID').text;
-    console.log (dataToPost);
-
-    swal ({
+ 
+    new swal ({
         text: "Are you sure you want to cancel this job?",
         icon: "warning",
-        buttons: ['No Don\'t', 'Yes - Cancel'],
-        dangerMode: true,
-    }).then (function(isConfirm){
-        if (isConfirm) {
+        showDenyButton: true,
+        confirmButtonText: 'Yes - cancel',
+        denyButtonText: 'No Don\'t',
+    }).then ((result) =>{
+        if (result.isConfirmed) {
 
-            swal ({
+            new swal ({
+                showDenyButton: true,
+                denyButtonText: 'Just archive',
+                confirmButtonText: 'Cancellation fee',
                 title: 'Confirm cancellation',
                 icon: 'info',
-                buttons: ['Just Archive', 'Cancellation Fee'],
-                dangerMode: true,
-            }). then (function(isCancelled) {
-                if (isCancelled) {
+            }). then ((result) => {
+                if (result.isConfirmed) {
                     $.ajax({
                         url: "cancelJob.php",
                         timeout: 30000,
                         data: dataToPost,
                         type: "POST",
                         success: function(data) {
-                            console.log(data);
                             if (data.includes('complete8')) {
-                                swal ({
+                                new swal ({
                                     text: 'Cannot cancel job, it is just awaiting approval.',
                                     icon: "info",
                                     showCloseButton: true
                                 })
                             }
                            if (data.includes('complete16')) {
-                                swal ({
+                                new swal ({
                                     text: 'Cannot cancel job, it has already been completed.',
                                     icon: "info",
                                     showCloseButton: true
                                 })
                             }
                             if (data.includes('complete32')) {
-                                swal ({
+                                new swal ({
                                     text: 'Job is already cancelled.',
                                     icon: "info",                            
                                     showCloseButton: true
                                 })
                             }
                             if (data.includes('complete64')) {
-                                swal ({
+                                new swal ({
                                     text: 'Job is already archived.',
                                     icon: "info",                            
                                     showCloseButton: true
@@ -869,7 +904,6 @@ data: dataToPost,
 type: "POST",
 success: function(data) {
     data = $.parseJSON(data);
-    console.log(data);
     $.each(data, function(index, element) {
         jobs[index] = new Array( data[index]['userName'] + " job at <b>" + data[index]['businessName'] + "</b><br>" + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11,5) +" (" + data[index]['date'].substr(8,2) +"/" +  data[index]['date'].substr(5,2) +"/" +  data[index]['date'].substr(0,4)  +")</b><br><br>" + data[index]['notes'] + "<br><br>VRM: " + data[index]['regNumber'], parseFloat(data[index]['latitude']), parseFloat(data[index]['longitude']), data[index]['userName'], data[index]['status']); 
     });
@@ -895,7 +929,7 @@ var marker, i
 for (var i = 0; i < jobs.length; i++) {
        
     var job = jobs[i];
-console.log(job[4]);
+
 
 var job = jobs[i];
 switch (parseInt(job[4])) {
@@ -921,8 +955,6 @@ switch (parseInt(job[4])) {
         iconString = "images/red_warning_24.png";
         break;
 }
-    // iconString = "images/" + job[3].charAt(0) + "_Icon.png";
-console.log('icon: ' + iconString);
 
     marker = new google.maps.Marker({
         animation: google.maps.Animation.DROP,
@@ -942,3 +974,199 @@ console.log('icon: ' + iconString);
 
 });
 
+
+
+$(document).on("click", '#showJobRates', function () {
+
+    $('#modalShowJobRates').modal('show'); 
+});
+
+$(document).on("focusout", ".number2decimal", function(e) {
+    if (isNaN(e.currentTarget.value)) {
+        e.currentTarget.value = '0.00';
+        return;
+    }
+    if (e.currentTarget.value==0) {
+        e.currentTarget.value = '0.00';
+        return;
+    }
+
+    e.currentTarget.value = parseFloat(e.currentTarget.value).toFixed(2);
+
+})
+
+$(document).on('change', '#jobRateDefault', function() {
+    $checkState = document.getElementById('jobRateDefault').checked;
+
+    if ($checkState) {
+        updateJobRate();
+        $('#jobRate').prop('disabled', true);
+    } else {
+        $('#jobRate').prop('disabled', false);
+    }
+});
+
+function updateJobRates () {
+    var dataToPost = new Map();
+    var table = document.getElementsByClassName('number2decimal');
+
+    for (var i=0; i< table.length; i++) {
+        dataToPost.set(table.item(i).id, table.item(i).value);
+    }
+
+    dataToPost.tableRates = JSON.stringify([...dataToPost]);
+
+    $.ajax({
+        url: 'updateJobRates.php',
+        timeout: 30000,
+        data: dataToPost,
+        type: "POST",
+        success: function (data) {
+            if (data.includes('success')) {
+                $('#modalShowJobRates').modal('hide'); 
+            } else {
+                $('#jobRatesMessage').html(data);
+            }
+        }, 
+        error: function () {
+
+        }
+    });
+}
+
+
+
+function updateJobRate() {
+    var dataToPost = {};
+    dataToPost.camera = $('#jobCameraType').val();
+    dataToPost.jobType = $('#jobJobType').val();
+   
+    $.ajax ({
+        url: 'getDefaultJobRate.php',
+        timeout: 30000,
+        data: dataToPost,
+        type: 'POST',
+        success: function (data) {
+            if (document.getElementById('jobRateDefault').checked) {
+                ($('#jobRate').val(parseFloat(data).toFixed(2)));
+            }
+        },
+        error: function () {
+
+        }        
+    })
+}
+
+$(document).on('change', '.selectCheckBox', function() {
+    var checkState = document.getElementsByClassName('selectCheckBox');
+  
+    var count = 0;
+    for (var i=0; i < checkState.length; i++) {
+        if (checkState[i].checked) {
+            count++;
+        } else {  
+        }
+    }
+
+if (count !=1) {
+    $('#multipleJobsMessage').html(count + " jobs selected"); 
+} else {
+    $('#multipleJobsMessage').html(count + " job selected"); 
+}
+
+if (count==0 || ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='')) {
+    $('#updateMultipleJobs').prop('disabled', true);
+} else {
+    $('#updateMultipleJobs').prop('disabled', false);
+}
+});
+
+$(document).on('change', '#newBookedDate', function() {
+    if ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='') {
+        $('#updateMultipleJobs').prop('disabled', true);
+    } else {
+        $('#updateMultipleJobs').prop('disabled', false);
+    }
+});
+
+$(document).on('change', '#changeJobType', function() {
+    if ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='') {
+        $('#updateMultipleJobs').prop('disabled', true);
+    } else {
+        $('#updateMultipleJobs').prop('disabled', false);
+    }
+});
+
+$(document).on('change', '#changeDeviceType', function() {
+    if ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='') {
+        $('#updateMultipleJobs').prop('disabled', true);
+    } else {
+        $('#updateMultipleJobs').prop('disabled', false);
+    }
+});
+
+$(document).on('change', '#changeEngineerType', function() {
+    if ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='') {
+        $('#updateMultipleJobs').prop('disabled', true);
+    } else {
+        $('#updateMultipleJobs').prop('disabled', false);
+    }
+});
+
+$(document).on('change', '#multipleUpdateDeviceNote', function() {
+    if ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='') {
+        $('#updateMultipleJobs').prop('disabled', true);
+    } else {
+        $('#updateMultipleJobs').prop('disabled', false);
+    }
+});
+
+function updateMultipleJobs() {
+    var jobID = [];
+
+    $('#multipleJobs').find('tr').each(function () {
+    let checkedRow = $(this).find('input').is(':checked');
+  
+    if (checkedRow) {
+        jobID.push($(this).attr('value'));
+    }
+  });
+
+  var dataToPost = {};
+  dataToPost.jobs = jobID
+  dataToPost.jobTypeID = $('#changeJobType').val();
+  dataToPost.cameraTypeID = $('#changeDeviceType').val();
+  dataToPost.bookedDate =  $('#newBookedDate').val();
+  dataToPost.appendNote =  $('#multipleUpdateDeviceNote').val();
+  dataToPost.jobEngineerID =  $('#changeEngineerType').val();
+
+$.ajax ({
+    url: 'updateMultipleJobs.php',
+    timeout: 30000,
+    data: dataToPost,
+    type: 'POST',
+    success: function (data) {
+        $('#modalEditMultipleJobs').modal('hide');
+        $('#showJobList').trigger('click');
+    },
+    error: function () {
+
+    }        
+});
+}
+
+// Reset the Edit Multiple Jobs Modal fields when form is closed
+$(document).on('hidden.bs.modal', '#modalEditMultipleJobs', function() {
+    $(this).find('form').trigger('reset');
+    $('#multipleJobsMessage').html('');
+});
+
+
+$(document).on('click','#jobListTable tbody td', function() {
+    let dt=$('#jobListTable').DataTable();
+    let vIndex = $(this).index();
+    if (vIndex==9) {return};
+    let colIndex = dt.column.index('fromData', vIndex);
+    let clip = dt.column(colIndex).data();
+    copyArrayToClipboard (clip);        
+});

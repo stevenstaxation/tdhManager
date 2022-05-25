@@ -209,14 +209,24 @@ $returnString .= "</tbody>
 </div>
 </div>
 <script>
- document.getElementById('VRNToLookup').addEventListener('keypress', function (event) {
-       if (event.keyCode == 13) {
-            event.preventDefault();
-        } 
-    });
+ 
 
     $(document).ready(function() {
-      var table =  $('#vehicleListTable').DataTable({
+      $('#vehicleListTable').DataTable({
+        buttons: [
+          {
+              extend: 'colvis',
+              text: 'Show/Hide Columns'
+          },
+          {
+              extend: 'excel',
+              text: 'Export to Excel',
+          },
+          {
+              extend: 'csv',
+              text: 'Export as CSV',
+          },
+      ],
         columnDefs: [
           {orderable: false, targets: [5,6] },
           {searchable: false, targets: [5,6] }
@@ -224,8 +234,11 @@ $returnString .= "</tbody>
         processing: true,
         responsive: true,
         fixedHeader: true,
-        paging: false,
-        dom: '<\"top\"lfip>rt<\"bottom\"><\"clear\">',
+        pagingType: 'numbers',
+        lengthMenu: [[50, 100, 250, 500, -1], [50, 100, 250, 500, 'All']],
+        deferRender: true,
+        stateSave: true,
+        dom: '<\"top\"lBfip>rt<\"bottom\"><\"clear\">',
         rowCallback: function(row, data, dataIndex) {
           if ($('body').hasClass('dark')) {
             $(row).css('background-color', 'rgba(68,68,68,1)')

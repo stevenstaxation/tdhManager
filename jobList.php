@@ -13,63 +13,76 @@ $returnString = "
 <div id='jobFilter' style='display: none'> " . $sqlFILTER . "</div>
 
 <div id='deviceLongList' class='listHeader'>
-  <h4><strong>Job Requests</strong></h4>";
-
+  <h4><strong>Job Requests</strong></h4>
+  <div class='dt-buttons'>";
   if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
    $returnString .="
-    <btn class='btn btn-success' id='addJobRequest' onclick='addJobRequest(\"job\")' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/></svg> Add New Job </btn>";
+    <button class='dt-button' id='addJobRequest' onclick='addJobRequest(\"job\")' type='button'><span><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/></svg> Add New Job</span></button>";
   }
+  $returnString .= "
+    <button class='dt-button' style='margin: 10px 10px;' id='showJobMap' onclick='showJobMap()'><span><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-geo-alt-fill' viewBox='0 0 16 16'><path d='M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z'/></svg>Job Map</span></button>";
+
+    // $returnString .= "
+    // <btn class='btn btn-secondary' style='margin: 10px 10px;' id='editMultipleJobs'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-files' viewBox='0 0 16 16'><path d='M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z'/></svg>Edit Multiple Jobs</btn>";
+    $returnString .= "
+    <button class='dt-button' type='button' style='margin: 10px 10px;' id='editMultipleJobs'><span><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-files' viewBox='0 0 16 16'><path d='M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z'/></svg>Edit Multiple Jobs</span></button>
+
+    </div>
+    
+    <div class='dt-buttons'>";
     
   if (($sqlFILTER & 1)==1) {
     $returnString .="
-    <btn class='btn btn-primary' id='togglePendingJobs' style='margin: 10px 10px;'>Show Pending</btn>";
+    <button class='dt-button' id='togglePendingJobs' style='margin: 10px 10px;'>Show Pending</button>";
   } else {
     $returnString .="
-    <btn class='btn btn-outline-primary' id='togglePendingJobs' style='margin: 10px 10px;'>Hide Pending</btn>";    
+    <button class='dt-button' id='togglePendingJobs' style='margin: 10px 10px;'>Hide Pending</button>";    
   }
   if (($sqlFILTER & 4)==4) {
     $returnString .="
-    <btn class='btn btn-primary' id='toggleDatePassedJobs' style='margin: 10px 10px;'>Show Date Passed</btn>";
+    <button class='dt-button' id='toggleDatePassedJobs' style='margin: 10px 10px;'>Show Date Passed</button>";
   } else {
     $returnString .="
-    <btn class='btn btn-outline-primary' id='toggleDatePassedJobs' style='margin: 10px 10px;'>Hide Date Passed</btn>";      
+    <button class='dt-button' id='toggleDatePassedJobs' style='margin: 10px 10px;'>Hide Date Passed</button>";      
   }
-  if (($sqlFILTER & 8)==8) {
+  if (($sqlFILTER & 2)==2) {
     $returnString .="
-    <btn class='btn btn-primary' id='toggleBookedJobs' style='margin: 10px 10px;'>Show Booked</btn>";
+    <button class='dt-button' id='toggleBookedJobs' style='margin: 10px 10px;'>Show Booked</button>";
   } else {
     $returnString .="
-    <btn class='btn btn-outline-primary' id='toggleBookedJobs' style='margin: 10px 10px;'>Hide Booked</btn>";      
+    <button class='dt-button' id='toggleBookedJobs' style='margin: 10px 10px;'>Hide Booked</button>";      
   }
   if (($sqlFILTER & 16)==16) {
     $returnString .="
-    <btn class='btn btn-primary' id='toggleCompletedJobs' style='margin: 10px 10px;'>Show Completed</btn>";
+    <button class='dt-button' id='toggleCompletedJobs' style='margin: 10px 10px;'>Show Completed</button>";
   } else {
     $returnString .="
-    <btn class='btn btn-outline-primary' id='toggleCompletedJobs' style='margin: 10px 10px;'>Hide Completed</btn>";    
+    <button class='dt-button' id='toggleCompletedJobs' style='margin: 10px 10px;'>Hide Completed</button>";    
   }
   if (($sqlFILTER & 32)==32) {
     $returnString .="
-    <btn class='btn btn-primary' id='toggleCancelledJobs' style='margin: 10px 10px;'>Show Cancelled</btn>";
+    <button class='dt-button' id='toggleCancelledJobs' style='margin: 10px 10px;'>Show Cancelled</button>";
   } else {
     $returnString .="
-    <btn class='btn btn-outline-primary' id='toggleCancelledJobs' style='margin: 10px 10px;'>Hide Cancelled</btn>";    
+    <button class='dt-button' id='toggleCancelledJobs' style='margin: 10px 10px;'>Hide Cancelled</button>";    
   }
   if (($sqlFILTER & 64)==64) {
     $returnString .="
-    <btn class='btn btn-primary' id='toggleArchivedJobs' style='margin: 10px 10px;'>Show Archived</btn>";
+    <button class='dt-button' id='toggleArchivedJobs' style='margin: 10px 10px;'>Show Archived</button>";
   } else {
     $returnString .="
-    <btn class='btn btn-outline-primary' id='toggleArchivedJobs' style='margin: 10px 10px;'>Hide Archived</btn>";    
+    <button class='dt-button' id='toggleArchivedJobs' style='margin: 10px 10px;'>Hide Archived</button>";    
   }
 
-  if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
-    $returnString .="
-     <btn class='btn btn-danger' style='margin: 10px 10px;' id='PDFJobsList' data-toggle='modal' data-target='#modalGetJobReportParameters' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-file-pdf-fill' viewBox='0 0 16 16'><path d='M5.523 10.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.035 21.035 0 0 0 .5-1.05 11.96 11.96 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.888 3.888 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 4.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z'/><path fill-rule='evenodd' d='M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm.165 11.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.64 11.64 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.707 19.707 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z'/></svg>Export List as PDF</btn>";
-   }
+  $returnString .="</div>";
+  
+  // if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
+  //   $returnString .="
+  //    <btn class='btn btn-danger' style='margin: 10px 10px;' id='PDFJobsList' data-toggle='modal' data-target='#modalGetJobReportParameters' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-file-pdf-fill' viewBox='0 0 16 16'><path d='M5.523 10.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.035 21.035 0 0 0 .5-1.05 11.96 11.96 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.888 3.888 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 4.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z'/><path fill-rule='evenodd' d='M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm.165 11.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.64 11.64 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.707 19.707 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z'/></svg>Export List as PDF</btn>";
+  //  }
 
-  $returnString .= "
-    <btn class='btn btn-warning' style='margin: 10px 10px;' id='showJobMap' onclick='showJobMap()'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-geo-alt-fill' viewBox='0 0 16 16'><path d='M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z'/></svg>Job Map</btn>";
+  
+
 
   $returnString .="
 
@@ -87,7 +100,7 @@ $returnString = "
 
   $sql = 'SELECT tblJobs.ID, tblJobs.ownerID,  tblJobs.date, tblJobs.dateAdded, tblJobs.PriorityIsUrgent, tblJobs.jobType, tblJobType.description, tblJobs.VRN, tblVehicle.regNumber, tblJobs.notes, tblCustomer.businessName, tblJobs.status, tblDeviceDescription.description as CameraType 
   
-  FROM tblJobs INNER JOIN tblVehicle ON tblJobs.VRN = tblVehicle.ID INNER JOIN tblJobType ON tblJobs.jobType = tblJobType.ID INNER JOIN tblCustomer ON tblCustomer.ID = tblJobs.ownerID INNER JOIN tblDeviceDescription ON tblDeviceDescription.ID = tblJobs.cameratypeID';
+  FROM tblJobs LEFT JOIN tblVehicle ON tblJobs.VRN = tblVehicle.ID INNER JOIN tblJobType ON tblJobs.jobType = tblJobType.ID INNER JOIN tblCustomer ON tblCustomer.ID = tblJobs.ownerID INNER JOIN tblDeviceDescription ON tblDeviceDescription.ID = tblJobs.cameratypeID';
 
 $hidePending = ($sqlFILTER & 1);
 $hideBooked = ($sqlFILTER & 2);
@@ -217,8 +230,11 @@ if (isset($sqlFILTER) && $sqlFILTER!=-1) {
 // }
   $returnString .="
     </tr>";
-  } 
 
+
+  } 
+  mysqli_free_result($result);
+  unset($result);
 
 
 
@@ -251,7 +267,7 @@ if (isset($sqlFILTER) && $sqlFILTER!=-1) {
     });
 
     $(document).ready(function() {
-      $('#jobListTable').DataTable({
+      var table = $('#jobListTable').DataTable({
         columnDefs: [
           {orderable: false, targets: [9] },
           {searchable: false, targets: [9] }
@@ -262,7 +278,22 @@ if (isset($sqlFILTER) && $sqlFILTER!=-1) {
         paging: false,
         responsive: true,
         stateSave: true,
-        dom: '<\"top\"iflp>rt<\"bottom\"><\"clear\">',
+        dom: '<\"top\"Biflp>rt<\"bottom\"><\"clear\">',
+        buttons: [
+          {
+              extend: 'colvis',
+              text: 'Show/Hide Columns'
+          },
+          {
+              extend: 'excel',
+              text: 'Export to Excel',
+          },
+          {
+              extend: 'csv',
+              text: 'Export as CSV',
+          },
+      ],
+       
         rowCallback: function(row, data, dataIndex) {
           if ($('body').hasClass('dark')) {
             $(row).css('background-color', 'rgba(68,68,68,1)')
@@ -314,7 +345,9 @@ if (isset($sqlFILTER) && $sqlFILTER!=-1) {
         } );
     },
     });
+
   });
+
     </script>
 ";
   } else {
@@ -325,3 +358,9 @@ if (isset($sqlFILTER) && $sqlFILTER!=-1) {
 echo $returnString;
 
 ?>
+
+<!-- select: {
+          style: 'multiple',
+          items: 'column',
+          selector: 'tr>td:nth-child(1), tr>td:nth-child(2), tr>td:nth-child(3), tr>td:nth-child(4), tr>td:nth-child(5), tr>td:nth-child(6), tr>td:nth-child(7), tr>td:nth-child(8),  tr>td:nth-child(9)'     
+        }, -->

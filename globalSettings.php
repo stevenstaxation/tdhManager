@@ -339,4 +339,10 @@ $returnString .= "
 // <center><input type='checkbox' id='isFootageRequest' onclick='return false;' name='isFootageRequest' " . ($contact['isFootageRecipient'] == 1 ? 'checked' : '')." value='1'/>&nbsp;</center></td>
 
     echo $returnString;
-    ?>
+
+
+
+
+?>
+
+

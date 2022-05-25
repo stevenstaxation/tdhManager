@@ -10,7 +10,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method='POST' id='getNewUserEmail' class='getNewUserEmail' class='form-block'>
+                <form method='POST' id='getNewUserEmail' class='getNewUserEmail form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-sm-4 col-md-4'>
@@ -67,8 +67,8 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
-            <div class="modal-body" style='font-size: 75%;max-height: 50vh; overflow: auto' ;>
-                <form method='POST' id='showAlerts' class='showAlerts' class='form-block'>
+            <div class="modal-body" style='font-size: 75%;max-height: 50vh; overflow: auto'>
+                <form method='POST' id='showAlerts' class='showAlerts form-block'>
                     <div class='form-group'>
                         <div class='rowAlert'>
                         </div>
@@ -151,7 +151,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getAddNewDevice' class='getAddNewDevice' class='form-block'>
+                <form method='POST' id='getAddNewDevice' class='getAddNewDevice form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-md-2'>
@@ -250,7 +250,7 @@
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
-                                    <input type='date' class='form-control' placeholder="SIM deactivation date..." id='addSIMDate' style='margin-top:3px;'>
+                                    <input type='date' class='form-control' id='addSIMDate' style='margin-top:3px;'>
                                 </div>
                             </div>
                         </div>
@@ -334,7 +334,7 @@
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
-                                    <input type='date' class='form-control' placeholder="Installation date..." id='addDeviceInstallDate' style='margin-top:3px;'>
+                                    <input type='date' class='form-control' id='addDeviceInstallDate' style='margin-top:3px;'>
                                 </div>
                             </div>
                             <div class='col-md-2'>
@@ -429,7 +429,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditDevice' class='getEditDevice' class='form-block'>
+                <form method='POST' id='getEditDevice' class='getEditDevice form-block'>
                     <div class='form-group'>
                         <h6>Device Details</h6>
                         <div class='row'>
@@ -559,9 +559,9 @@
                                 </div>
                             </div>
                             <div class='col-md-2 form-check-inline' style='margin-left:30px;'>
-                                <label class='form-check-label' for='vcoUpdated' style='padding-top:18px;'><strong>VCO is updated</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='vcoUpdated' style='margin: 15px 54px;padding: 10px 10px;'>
-                           </div>
+                                <label class='form-check-label' id='labelVCOReference' for='vcoUpdated' style='padding-top: 12px;'><strong>VCO Reference:</strong></label>
+                                <input type='checkbox' class='form-check-input' value='checked' id='vcoUpdated' style='margin: 10px 18px;padding: 10px 10px;'><strong>updated</strong>
+                            </div>
                         </div>
                         <div class='row'>
                             <div class='col-md-1'>
@@ -583,10 +583,10 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-md-2'>
+                            <div class='col-md-1'>
                                 <label class='control-label' for='editSIMStatus' style='padding-top:13px;'><strong>SIM Status</strong></label>
                             </div>
-                            <div class='col-md-4'>
+                            <div class='col-md-3'>
                                 <div class='input-group'>
                                     <select id='editSIMStatus' name='editSIMStatus' class='custom-select editSIMStatus' style='margin-top:3px;'>
                                         <?php
@@ -601,22 +601,24 @@
 
                                 </div>
                             </div>
-                             <div class='col-md-2' style='display: none'>
+                            <div class='col-md-1'></div>
+                             <div class='col-md-1' style='display: none'>
                                 <label class='control-label' for='editSIMDate' style='padding-top:13px;'><strong>SIM Deactivate</strong></label>
                             </div>
-                            <div class='col-md-4'>
+                            <div class='col-md-3'>
                                 <div class='input-group' style='display: none'>
-                                    <input type='date' class='form-control' placeholder="SIM deactivation date..." id='editSIMDate' style='margin-top:3px;'>
+                                    <input type='date' class='form-control' id='editSIMDate' style='margin-top:3px;'>
                                 </div>
                             </div> 
                         </div>
                         <hr>
-                        <div class='row'>
+                        
                             <h6>Install History</h6>
-                             <div class='col-md-2'>
+                        <div class='row'>
+                             <div class='col-md-1'>
                                 <label class='control-label' for='editOwnerID' style='padding-top:13px;'><strong>Allocated to</strong></label>
                             </div>
-                            <div class='col-md-4'>
+                            <div class='col-md-3'>
                                 <div class='input-group'>
                                     <select id='editOwnerID' name='editOwnerID' class='custom-select editOwnerID' style='margin-top:3px;'>
                                         <?php
@@ -631,10 +633,11 @@
                                     </select>
                                 </div>
                             </div> 
-                            <div class='col-md-2'>
+                            <div class='col-md-1'></div>
+                            <div class='col-md-1'>
                                 <label class='control-label' for='editVRN' style='padding-top:13px;'><strong>Vehicle Reg</strong></label>
                             </div>
-                            <div class='col-md-4'>
+                            <div class='col-md-3'>
                                 <div class='input-group'>
                                     <input type='text' class='form-control' placeholder="VRN..." id='editVRN' style='margin-top:3px;'>
                                     <div class='input-group-append'>
@@ -648,10 +651,10 @@
                         </div>
                         <div class='row'>
                           
-                            <div class='col-md-2'>
+                            <div class='col-md-1'>
                                 <label class='control-label' for='editDeviceStatus' style='padding-top:14px;'><strong>Current Status</strong></label>
                             </div>
-                            <div class='col-md-4'>
+                            <div class='col-md-3'>
                                 <div class='input-group'>
                                     <select id='editDeviceStatus' name='editDeviceStatus' class='custom-select editDeviceStatus' style='margin-top:3px;'>
                                         <?php
@@ -669,10 +672,10 @@
                         <hr>
 
                         <div class='row'>
-                            <div class='col-md-2'>
+                            <div class='col-md-1'>
                                 <label class='control-label' for='editDeviceInstaller' style='padding-top:15px;'><strong>Installer</strong></label>
                             </div>
-                            <div class='col-md-4'>
+                            <div class='col-md-3'>
                                 <div class='input-group'>
                                     <select id='editDeviceInstaller' name='editDeviceInstaller' class='custom-select editDeviceInstaller' style='margin-top:3px;'>
                                         <?php
@@ -688,18 +691,19 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-md-2'>
+                            <div class='col-md-1'>
                                 <label class='control-label' for='editDeviceInstallDate' style='padding-top:15px;'><strong>Original install Date</strong></label>
                             </div>
-                            <div class='col-md-4'>
+                            <div class='col-md-3'>
                                 <div class='input-group'>
-                                    <input type='date' class='form-control' placeholder="Installation date..." id='editDeviceInstallDate' style='margin-top:3px;'>
+                                    <input type='date' class='form-control' id='editDeviceInstallDate' style='margin-top:3px;'>
                                 </div>
                             </div>
-                            <div class='col-md-2'>
+                            <div class='col-md-1'></div>
+                            <div class='col-md-1'>
                                 <label class='control-label' for='editDeviceInstallReference' style='padding-top:15px; display: none;'><strong>Installer Ref</strong></label>
                             </div>
-                            <div class='col-md-4'>
+                            <div class='col-md-3'>
                                 <div class='input-group'>
                                     <input type='text' class='form-control' maxlength='50' placeholder="Installer reference..." id='editDeviceInstallReference' style='margin-top:3px; display: none;'>
                                 </div>
@@ -724,20 +728,20 @@
 
                                 </div>
                             </div> -->
-                            <div class='col-md-2'>
+                            <div class='col-md-1'>
                                 <label class='control-label' for='editDeviceSupplierInvoice' style='padding-top:15px;'><strong>Order No</strong></label>
                             </div>
-                            <div class='col-md-4'>
+                            <div class='col-md-3'>
                                 <div class='input-group'>
                                     <input type='text' class='form-control' maxlength='50' placeholder="Order number..." id='editDeviceSupplierInvoice' style='margin-top:3px;'>
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-1'>
                                 <label class='control-label' for='editDevicePurchaseDate' style='padding-top:15px;'><strong>Purchase Date</strong></label>
                             </div>
-                            <div class='col-md-4'>
+                            <div class='col-md-3'>
                                 <div class='input-group'>
                                     <input type='date' class='form-control' id='editDevicePurchaseDate' style='margin-top:3px;'>
                                 </div>
@@ -746,7 +750,7 @@
                         </div>
                         <div class='row' style='margin-top:15px;'></div>
                         <div class='row'>
-                            <div class='col-md-2'>
+                            <div class='col-md-1'>
                                 <label class='control-label' for='editDeviceNoteText' style='padding-top:16px;'><strong>Notes</strong></label>
                             </div>
                             <div class='col-md-10'>
@@ -792,7 +796,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditDeviceNotes' class='getEditDeviceNotes' class='form-block'>
+                <form method='POST' id='getEditDeviceNotes' class='getEditDeviceNotes form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-md-12'>
@@ -812,7 +816,7 @@
             <div class="modal-footer">
                 <div id='hiddenDeviceNotesID' style='display: none'></div>
                 <div id='editDeviceNotesID' style='display: none'></div>
-                <div id='editDeviceCustomerID' style='display: none'></div>
+                <div id='editDeviceNotesCustomerID' style='display: none'></div>
                 <button type="button" id='editCurrentDeviceNotes' onclick='editCurrentDeviceNotes()' class="btn btn-success">Update</button>
 
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -832,7 +836,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditVehicleNotes' class='getEditVehicleNotes' class='form-block'>
+                <form method='POST' id='getEditVehicleNotes' class='getEditVehicleNotes form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-md-12'>
@@ -877,7 +881,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getAddBroker' class='getAddBroker' class='form-block'>
+                <form method='POST' id='getAddBroker' class='getAddBroker form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -966,7 +970,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditBroker' class='getEditBroker' class='form-block'>
+                <form method='POST' id='getEditBroker' class='getEditBroker form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -1054,7 +1058,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getNewBrokerContact' class='getNewBrokerContact' class='form-block'>
+                <form method='POST' id='getNewBrokerContact' class='getNewBrokerContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -1150,7 +1154,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditBrokerContact' class='getEditBrokerContact' class='form-block'>
+                <form method='POST' id='getEditBrokerContact' class='getEditBrokerContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -1252,13 +1256,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header">
+            <div class="modal-header"> 
                 <h5 class="modal-title">Add Insurer</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getAddInsurer' class='getAddInsurer' class='form-block'>
+                <form method='POST' id='getAddInsurer' class='getAddInsurer form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -1347,7 +1351,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditInsurer' class='getEditInsurer' class='form-block'>
+                <form method='POST' id='getEditInsurer' class='getEditInsurer form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -1435,7 +1439,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getNewInsurerContact' class='getNewInsurerContact' class='form-block'>
+                <form method='POST' id='getNewInsurerContact' class='getNewInsurerContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -1537,7 +1541,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditInsurerContact' class='getEditInsurerContact' class='form-block'>
+                <form method='POST' id='getEditInsurerContact' class='getEditInsurerContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -1642,7 +1646,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditInstallerContact' class='getEditInstallerContact' class='form-block'>
+                <form method='POST' id='getEditInstallerContact' class='getEditInstallerContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -1723,7 +1727,6 @@
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
-        </div>
     </div>
 </div>
 
@@ -1740,7 +1743,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getNewCustomerContact' class='getNewCustomerContact' class='form-block'>
+                <form method='POST' id='getNewCustomerContact' class='getNewCustomerContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -1837,7 +1840,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditCustomerContact' class='getEditCustomerContact' class='form-block'>
+                <form method='POST' id='getEditCustomerContact' class='getEditCustomerContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -1916,7 +1919,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <div id='customerContactEditNumber' style='display: none'></div>
-                <div id='contactEditNumber' style='display: none'></div>
+                <div id='contactCustomerEditNumber' style='display: none'></div>
                 <button type="button" id='updateEditCustomerContact' onclick='updateCustomerContact()' class="btn btn-success">Update</button>
                 <?php
                     if ($_SESSION['isAdmin']== '1') {
@@ -1940,7 +1943,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method='POST' id='addNewCustomer' class='addNewCustomer' class='form-block'>
+                <form method='POST' id='addNewCustomer' class='addNewCustomer form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -2110,7 +2113,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method='POST' id='getNewCustomerNote' class='getNewCustomerNote' class='form-block'>
+                <form method='POST' id='getNewCustomerNote' class='getNewCustomerNote form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-sm-4 col-xl-3'>
@@ -2118,7 +2121,7 @@
                             </div>
                             <div class='col-sm-8 col-xl-9'>
                                 <div class='input-group'>
-                                    <input class='form-control dateType' type='datetime-local' placeholder="Enter date..." name='noteDate' id='noteDate' min='<?php echo date("Y-m-d\TH:i");?>' value='<?php echo date("Y-m-d\TH:i");?>'>
+                                    <input class='form-control dateType' type='datetime-local' name='noteDate' id='noteDate' min='<?php echo date("Y-m-d\TH:i");?>' value='<?php echo date("Y-m-d\TH:i");?>'>
                                 </div>
                             </div>
                         </div>
@@ -2170,7 +2173,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method='POST' id='editCustomerNote' class='editCustomerNote' class='form-block'>
+                <form method='POST' id='editCustomerNote' class='editCustomerNote form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-3'>
@@ -2178,7 +2181,7 @@
                             </div>
                             <div class='col-9'>
                                 <div class='input-group'>
-                                    <input class='form-control dateType' type='datetime' placeholder="Enter date..." name='noteEditDate' id='noteEditDate' readonly='readonly' min='<?php echo date("Y-m-d\TH:i");?>' value='<?php echo date("Y-m-d\TH:i");?>'>
+                                    <input class='form-control dateType' type='datetime' name='noteEditDate' id='noteEditDate' readonly='readonly' min='<?php echo date("Y-m-d\TH:i");?>' value='<?php echo date("Y-m-d\TH:i");?>'>
                                 </div>
                             </div>
                         </div>
@@ -2245,7 +2248,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getAddNewFootage' class='getAddNewFootage' class='form-block'>
+                <form method='POST' id='getAddNewFootage' class='getAddNewFootage form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <h6><strong>Incident</strong></h6> 
@@ -2261,7 +2264,7 @@
                                 <label class='control-label' for='footageVRNList' style='padding-top:8px;'>Vehicle Reg Number</label>
                             </div>
                             <div class='col-md-3'>
-                                <div class='input-group' id='footageVRNList' name='footageVRNList'>
+                                <div class='input-group' id='footageVRNList'>
                                 </div>
                             </div>
                         </div>
@@ -2341,7 +2344,7 @@
                         <div class='row'>
                         <h6><strong>Recipients</strong></h6>
                             <div class='col-md-12'>
-                                <div id='footageRecipientsList' name='footageRecipientsList' class='input-group'>
+                                <div id='footageRecipientsList' class='input-group'>
                                    
                                 </div>
                             </div>
@@ -2399,7 +2402,7 @@
                                 <label class='control-label' for='footageCurrentStatus' style='margin-top: 7px; padding-top:10px;'>Current Status</label>
                             </div>
                             <div class='col-md-4'>
-                                <div class='input-group' id='footageCurrentStatus' style='margin-top: 9px;'>
+                                <div class='input-group' id='footageCurrentStatusList' style='margin-top: 9px;'>
                                     <select id='footageCurrentStatus' name='footageCurrentStatus' class='custom-select getCurrentStatus'>
                                         <?php
                                             $sql = "SELECT * FROM tblFootageStatus ORDER BY description ASC";
@@ -2440,7 +2443,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditFootage' class='getEditFootage' class='form-block'>
+                <form method='POST' id='getEditFootage' class='getEditFootage form-block'>
                 <div class='form-group'>
                     <div class='row'>
                         <h6><strong>Incident</strong></h6> 
@@ -2456,7 +2459,7 @@
                                 <label class='control-label' for='footageEditVRNList' style='padding-top:8px;'>Vehicle Reg Number</label>
                             </div>
                             <div class='col-md-3'>
-                                <div class='input-group' id='footageEditVRNList' name='footageEditVRNList'>
+                                <div class='input-group' id='footageEditVRNList'>
                                 </div>
                             </div>
                         </div>
@@ -2535,7 +2538,7 @@
                         <div class='row'>
                         <h6><strong>Recipients</strong></h6>
                             <div class='col-md-12'>
-                                <div id='footageEditRecipientsList' name='footageEditRecipientsList' class='input-group'>
+                                <div id='footageEditRecipientsList' class='input-group'>
                                    
                                 </div>
                             </div>
@@ -2637,7 +2640,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getAddVehicle' class='getAddVehicle' class='form-block'>
+                <form method='POST' id='getAddVehicle' class='getAddVehicle form-block'>
                     <div class='row'>
                         <div class='col-md-5 col-lg-4'>
                             <label class='control-label' for='addVehicleRegNumber' style='padding-top:9px;'>Registration Number</label>
@@ -2655,7 +2658,7 @@
                                 </div>
                             </div>
                         </div> -->
-                           <p/>   
+                              
                   </div>               
                 <hr/>
                 <div class='row'>
@@ -2664,11 +2667,11 @@
                     </div>
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <div class='form-check-inline'>
-                            <input type='radio' class='form-check-input'id='vehicleCameraYes' name='cameraRequired' checked>
+                            <input type='radio' class='form-check-input' id='vehicleCameraYes' name='cameraRequired' checked>
                             <label class='form-check-label' for='vehicleCameraYes' style='margin-right: 60px'>Yes</label>
                         </div>
                         <div class='form-check-inline'>
-                        <input type='radio' class='form-check-input'id='vehicleCameraNo' name='cameraRequired'>
+                        <input type='radio' class='form-check-input' id='vehicleCameraNo' name='cameraRequired'>
                             <label class='form-check-label' for='vehicleCameraNo'>No</label>
                         </div>
                     </div>                          
@@ -2680,15 +2683,15 @@
                     </div>
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <div class='form-check-inline'>
-                            <input type='radio' class='form-check-input'id='vehicleStatusInstalled' name='vehicleStatus' checked>
+                            <input type='radio' class='form-check-input' id='vehicleStatusInstalled' name='vehicleStatus' checked>
                             <label class='form-check-label' for='vehicleStatusInstalled' style='margin-right: 25px'>Installed</label>
                         </div>
                         <div class='form-check-inline'>
-                            <input type='radio' class='form-check-input'id='vehicleStatusPending' name='vehicleStatus'>
+                            <input type='radio' class='form-check-input' id='vehicleStatusPending' name='vehicleStatus'>
                             <label class='form-check-label' for='vehicleStatusPending'>Pending</label>
                         </div>
                         <div class='form-check-inline'>
-                            <input type='radio' class='form-check-input'id='vehicleStatusNotApplicable' name='vehicleStatus'>
+                            <input type='radio' class='form-check-input' id='vehicleStatusNotApplicable' name='vehicleStatus'>
                             <label class='form-check-label' for='vehicleStatusNotApplicable'>N/A</label>
                         </div>
                     </div>                          
@@ -2700,7 +2703,7 @@
                     </div>   
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>                    
                         <div class='input-group' style='width:75%'>
-                            <input type='date' class='form-control' placeholder="Install/upcoming install date..." id='vehicleInstalldate' style='margin-top:3px;'>
+                            <input type='date' class='form-control' id='vehicleInstalldate' style='margin-top:3px;'>
                         </div>
                     </div>
                 </div>
@@ -2720,7 +2723,7 @@
                     </div>
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <div class='input-group' style='width:75%'>
-                            <input type='date' class='form-control' placeholder="Install/upcoming install date..." id='LTAlarmInstalldate' style='margin-top:3px;'>
+                            <input type='date' class='form-control' id='LTAlarmInstalldate' style='margin-top:3px;'>
                         </div>
                     </div>
                 </div>
@@ -2730,7 +2733,7 @@
                     </div>
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <div class='input-group' style='width:75%'>
-                            <input type='date' class='form-control' placeholder="Install/upcoming install date..." id='SideScanInstalldate' style='margin-top:3px;'>
+                            <input type='date' class='form-control' id='SideScanInstalldate' style='margin-top:3px;'>
                         </div>
                     </div>
                 </div>
@@ -2754,11 +2757,11 @@
                   <div class='col-md-7 col-lg-6'>
                       <div class='input-group'>
                           <input type='text' class='form-control' readonly='readonly' id='addVehicleAllocateTo' style='margin-top:1px;'
-                            <!-- <?php $sql = "SELECT businessName FROM tblCustomer WHERE ID='" . $_SESSION['currentCustomer'] ."'";
+                            <?php $sql = "SELECT businessName FROM tblCustomer WHERE ID='" . $_SESSION['currentCustomer'] ."'";
                                 $result = mysqli_query($link, $sql);
                                 $row = mysqli_fetch_array($result); 
                                 echo " value= '" . $row['businessName'] . "'>";
-                            ?> -->
+                            ?>
                       </div>
                   </div>
                 </div>
@@ -2793,7 +2796,7 @@
                           <input type='text' class='form-control' maxlength='14' placeholder="VRN..." id='editVehicleRegNumber' style='margin-top:1px;'>
                       </div>
                   </div>
-                  <p/>
+                  
                 </div>
                 <hr/>
                 <div class='row'>
@@ -2802,11 +2805,11 @@
                     </div>
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <div class='form-check-inline'>
-                            <input type='radio' class='form-check-input'id='editVehicleCameraYes' name='cameraRequired'>
+                            <input type='radio' class='form-check-input' id='editVehicleCameraYes' name='cameraRequired'>
                             <label class='form-check-label' for='editVehicleCameraYes' style='margin-right: 60px'>Yes</label>
                         </div>
                         <div class='form-check-inline'>
-                        <input type='radio' class='form-check-input'id='editVehicleCameraNo' name='cameraRequired'>
+                        <input type='radio' class='form-check-input' id='editVehicleCameraNo' name='cameraRequired'>
                             <label class='form-check-label' for='editVehicleCameraNo'>No</label>
                         </div>
                     </div>    
@@ -2818,15 +2821,15 @@
                     </div>
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <div class='form-check-inline'>
-                            <input type='radio' class='form-check-input'id='editVehicleStatusInstalled' name='vehicleStatus'>
+                            <input type='radio' class='form-check-input' id='editVehicleStatusInstalled' name='vehicleStatus'>
                             <label class='form-check-label' for='editVehicleStatusInstalled' style='margin-right: 25px'>Installed</label>
                         </div>
                         <div class='form-check-inline'>
-                            <input type='radio' class='form-check-input'id='editVehicleStatusPending' name='vehicleStatus'>
+                            <input type='radio' class='form-check-input' id='editVehicleStatusPending' name='vehicleStatus'>
                             <label class='form-check-label' for='editVehicleStatusPending'>Pending</label>
                         </div>
                         <div class='form-check-inline'>
-                            <input type='radio' class='form-check-input'id='editVehicleStatusNotApplicable' name='vehicleStatus'>
+                            <input type='radio' class='form-check-input' id='editVehicleStatusNotApplicable' name='vehicleStatus'>
                             <label class='form-check-label' for='editVehicleStatusNotApplicable'>N/A</label>
                         </div>
                     </div>                  
@@ -2834,11 +2837,11 @@
 
                 <div class='row' style='margin-top:15px'>
                 <div class='col-md-5 col-lg-4'>
-                        <label id='vehicleInstallDateLabel' for='editVehicleInstalldate' class='control-label' style='padding-top:9px;'>Installation Date</label>
+                        <label id='vehicleEditInstallDateLabel' for='editVehicleInstalldate' class='control-label' style='padding-top:9px;'>Installation Date</label>
                     </div>   
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>                    
                         <div class='input-group' style='width:75%'>
-                            <input type='date' class='form-control' placeholder="Install/upcoming install date..." id='editVehicleInstalldate' style='margin-top:3px;'>
+                            <input type='date' class='form-control' id='editVehicleInstalldate' style='margin-top:3px;'>
                         </div>
                     </div>
                 </div>
@@ -2859,7 +2862,7 @@
                     </div>
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <div class='input-group' style='width:75%'>
-                            <input type='date' class='form-control' placeholder="Install/upcoming install date..." id='editLTAlarmDate' style='margin-top:3px;'>
+                            <input type='date' class='form-control' id='editLTAlarmDate' style='margin-top:3px;'>
                         </div>
                     </div>
                 </div>
@@ -2899,7 +2902,7 @@
             </form>
           </div>
             <div class="modal-footer">
-              <div id='hiddenVehicleID' style='display: none'></div>
+              <div id='hiddenEditVehicleID' style='display: none'></div>
               <div id='editVehicleErrorBox'></div>
                 <button type="button" class="btn btn-success"  onclick='editCurrentVehicle()'>Update</button>
                 <?php
@@ -2992,7 +2995,7 @@
                                 <label class='control-label' for='jobOtherKit' style='padding: 8px 25px;'>Other Kit</label>
                             </div>
                             <div class='col-4'>
-                                <div class='input-group' id='addJobOtherKit' name='addJobOtherKit'> 
+                                <div class='input-group' id='addJobOtherKit'> 
                                     <div class="multiselect">
                                         <div class="selectBox" onclick="showCheckboxes()">
                                             <select class='custom-select'>
@@ -3016,7 +3019,7 @@
                                 <label class='control-label' for='jobPriority' style='padding-top: 8px;'>Priority</label>
                             </div>
                             <div class='col-4'>
-                                <div class='input-group' id='jobJobPriority' name='jobPriority'>
+                                <div class='input-group' id='jobJobPriority'>
                                     <select id='jobPriority' name='jobPriority' class='custom-select'>
                                         <option value = '1'>Standard</option>
                                         <option value = '2'>Urgent</option>
@@ -3046,12 +3049,13 @@
                             </div>
                         </div>
                         <div class='row'>
-                        <div class='col-2'>
+                            <div class='col-2'>
                                 <label class='control-label' for='jobRate' style='padding-top: 8px;'>Job Rate</label>
                             </div>
                             <div class='col-4'>
                                 <div class='input-group'>
-                                    <input type='number' class='form-control' id='jobRate' name='jobRate' min ='0' step='0.01'>
+                                    <input type='number' class='form-control' id='jobRate' name='jobRate' min ='0' step='0.01' disabled=disabled>
+                                    <input type='checkbox' style='margin: 15px' id='jobRateDefault' checked=checked><p style='margin-top: 13px; margin-left:-12px;'>default</p>
                                 </div>
                             </div>
 
@@ -3060,7 +3064,7 @@
                             </div>
                             <div class='col-4'>
                                 <div class='input-group'>
-                                    <input type='number' class='form-control' id='jobQuantity' name='jobQuantity' min='1' max='50' value='1' maxlength='2'>
+                                    <input type='number' class='form-control' id='jobQuantity' name='jobQuantity' min='1' max='50' value='1'>
                                 </div>
                             </div>    
 
@@ -3076,7 +3080,7 @@
                             </div>
                             <div class='col-4'>
                                 <div class='input-group'>
-                                    <input type='text' class='form-control' id='jobContactName' name='jobContactName' placeholder='contact name...'>
+                                    <input type='text' class='form-control' id='jobContactName' name='jobContactName' placeholder='contact name...'>        
                                 </div>
                             </div>
                             <div class='col-2'>
@@ -3145,7 +3149,7 @@
                         </div>
                         <div class='row'>
                             <div class='col-2'>
-                                <label class='control-label' for='jobInstallAddress'  style='padding-top: 8px;' placeholder='Postcode'>Install Address</label>
+                                <label class='control-label' for='jobInstallAddress'  style='padding-top: 8px;'>Install Address</label>
                             </div>
                             <div class='col-10'>
                                 <div class='input-group'>
@@ -3190,6 +3194,7 @@
                         </div>
                 </form>
                 <div id='jobRequestMessage'></div>
+                <div id='jobVRNErrorCount' style='visibility: none'></div>
             </div>
                                  
 
@@ -3207,13 +3212,10 @@
         </div>
     </div>
 </div>
-<script>
-
-</script>
 
 <!-- EDIT JOB REQUEST DIALOG -->
 <div class="modal" id="modalEditNewJobRequest" data-backdrop='static' >
-<div class="modal-dialog" style='max-width:50%'>
+    <div class="modal-dialog" style='max-width:50%'>
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -3230,7 +3232,7 @@
                                 <label class='control-label' for='editJobCustomerName' style='padding-top:8px;'>Customer</label>
                             </div>
                             <div class='col-4'>
-                                <div class='input-group' id='selectCustomerName'>
+                                <div class='input-group' id='selectEdiCustomerName'>
                                     <select id='editJobCustomerName' name='editJobCustomerName' class='custom-select'>
                                         <option value = '0' disabled selected>Select customer from list</option>
                                         <?php
@@ -3269,7 +3271,7 @@
                                 <label class='control-label' for='jobCameraType' style='padding-top:8px;'>Device Model</label>
                             </div>
                             <div class='col-4'>
-                                <div class='input-group' id='jobCameraType'>
+                                <div class='input-group' id='jobEditCameraType'>
                                     <select id='editJobCameraType' name='jobCameraType' class='custom-select'>
                                         <option value='0' disabled selected>Select camera type</option>
                                         <?php
@@ -3282,43 +3284,28 @@
                                     </select>    
                                 </div>
                             </div>
-                            <!-- <div class='col-2'>
-                                <label class='control-label' for='editJobQuantity' style='padding: 8px 25px;'>Quantity</label>
-                            </div>
-                            <div class='col-4'>
-                                <div class='input-group'>
-                                    <input type='number' class='form-control' id='editJobQuantity' name='jobQuantity' min='1' max='9' value='1' maxlength='1'>
-                                </div>
-                            </div>      -->
                             <div class='col-2'>
                                 <label class='control-label' for='editJobOtherKit' style='padding:8px 25px;'>Other Kit</label>
                             </div>
                             <div class='col-4'>
-                                <div class='input-group' id='editJobOtherKit' name='addJobOtherKit'> 
+                                <div class='input-group' id='editJobOtherKit'> 
                                     <div class="multiselect">
-                                        <!-- <div class="selectBox" onclick="showEditCheckboxes()">
-                                            <select class='custom-select'>
-                                                <option>Select other kit options</option>
-                                            </select>
-                                            <div class="overSelect"></div>
-                                        </div> -->
                                         <div id="editCheckboxes" style='margin-top: 3px;'>
-                                            <label for="LT">
+                                            <label for="editLT">
                                             <input type="checkbox" id="editLT" name="LT" /> Left Turn Audible Alarm </label>
-                                            <label for="SS">
+                                            <label for="editSS">
                                             <input type="checkbox" id="editSS" name="SS" /> Side Scan Sensor System </label>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
+                            </div>    
                         </div>
                         <div class='row'>
-                        <div class='col-2'>
+                            <div class='col-2'>
                                 <label class='control-label' for='jobJobPriority' style='padding-top: 8px;'>Priority</label>
                             </div>
                             <div class='col-4'>
-                                <div class='input-group' id='jobJobPriority' name='jobPriority'>
+                                <div class='input-group' id='jobEditJobPriority'>
                                     <select id='editJobPriority' name='jobPriority' class='custom-select'>
                                         <option value = '1'>Standard</option>
                                         <option value = '2'>Urgent</option>
@@ -3333,12 +3320,10 @@
                                     <!-- <input type='date' class='form-control' id='jobAttachments'> -->
                                 </div>
                             </div>   
-                            
-                          
                         </div>
 
                         <div class='row'>
-                        <div class='col-2'>
+                            <div class='col-2'>
                                 <label class='control-label' for='editJobNotes' style='padding-top:18px;'>Notes</label>
                             </div>
                             <div class='col-10'>
@@ -3377,186 +3362,171 @@
                         <h6><strong>Booking Details</strong></h6>
                       
                            
-                                <div class='row'>
-                                    <div class='col-2'>
-                                        <label class='control-label' for='editJobContactName' style='padding-top:10px;'>Contact Name</label>
-                                    </div>
-                                    <div class='col-4'>
-                                        <div class='input-group'>
-                                            <input type='text' class='form-control' id='editJobContactName' name='jobContactName' placeholder='contact name...'>
-                                        </div>
-                                    </div>
-                                    <div class='col-2'>
-                                        <label class='control-label' for='bookingEquipmentWith' style='padding:10px 25px;'>Kit With</label>
-                                    </div>
-                                    <div class='col-4'>
-                                        <div class='input-group' id='bookingEquipmentWith'>
-                                            <select id='editBookingLocation' name='bookingLocation' class='custom-select'>
-                                               
-                                                <option value = "1">UK Mobile Installations Ltd</option>
-                                                <option value = "2">Engineer</option>
-                                                <option value = "3">Customer</option>
-                                                <option value = "4">Not required</option>
-                                            </select>    
-                                        </div>
-                                    </div>        
-                                </div>
-                                <div class='row'>
-                                    <div class='col-2'>
-                                        <label class='control-label' for='editJobContactEmail' style='padding-top:10px;'>Contact Email</label>
-                                    </div>
-                                    <div class='col-4'>
-                                        <div class='input-group'>
-                                            <input type='text' class='form-control' id='editJobContactEmail' name='jobContactEmail' placeholder='contact email...'>
-                                        </div>
-                                    </div>
-                                    <div class='col-2'>
-                                        <label class='control-label' for='editEngineerAssigned' style='padding:10px 25px;'>Engineer Assigned</label>
-                                    </div>
-                                    <div class='col-4'>
-                                        <select id='editEngineerAssigned' name='engineerAssigned' class='custom-select'>
-                                            <option value='0' disabled selected>Select engineer</option>
-                                               <?php     
-                                                    $sql = "SELECT userID, userName, activation, isInstaller, isEngineer FROM tblUsers WHERE activation='activated' AND isEngineer=1";
-                                                    $result = mysqli_query($link, $sql);
-                                                    while ($engineerRow = mysqli_fetch_array($result)) {
-                                                        echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
-                                                    }
-                                               ?>
-                                               <option value='9999' class='otherOptionSelection'>Unregistered Engineer</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <div class='col-2'>
-                                        <label class='control-label' for='editJobContactPhone' style='padding-top:10px;'>Contact Telephone</label>
-                                    </div>
-                                    <div class='col-4'>
-                                        <div class='input-group'>
-                                            <input type='text' class='form-control' id='editJobContactPhone' name='jobContactPhone' placeholder='contact telephone...'>
-                                        </div>
-                                    </div>
-                                    <div class='col-2'>
-                                        <label class='control-label' for='editJobDateBooked' style='padding:10px 25px;'>Date Booked For</label>
-                                    </div>
-                                    <div class='col-4'>
-                                        <input type='datetime-local' class='form-control' name = 'editJobDateBooked' id='editJobDateBooked'>
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <div class='col-2'>
-                                        <label class='control-label' for='editJobInstallAddress'  style='padding-top: 10px;'>Install Address</label>
-                                    </div>
-                                    <div class='col-10'>
-                                        <div class='input-group'>
-                                            <textarea rows='4' cols='100' class='form-control' placeholder='Enter Installation Address' name='jobInstallAddress' id='editJobInstallAddress' style='margin-top:3px;'></textarea>                      
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class='row' style='padding-top: 8px;'>
-                                    <div class='col-4'>
-                                        <label class='control-label' style='padding-top:8px;'><h6><strong>Vehicle Details</strong></h6></label>
-                                    </div>
-                                    <div class='col-4'>
-                                        <label class='control-label' style='padding-top:8px;'><strong>Old VRM (if applicable)</strong></label>
-                                    </div>
-                                    <div class='col-4'>
-                                        <label class='control-label' style='padding-top:8px;'><strong>New/Current VRM</strong></label>
-                                    </div>
-                                </div>
-
-                                <div class='row' id='VRNListForJob'>
-                                    <div class='col-4'>
-                                        <label class='control-label' for='editJobOldVRN' style='padding-top:8px;'>This job</label>
-                                    </div>
-                                    <div class='col-4'>
-                                   
-                                        <select name='addJobTypeOldVRN' id = 'editJobOldVRN' class='custom-select addJobTypeOldVRN'></select>
-                                    </div>
-                               
-                                    <div class='col-4'>
-                                        <select name='editJobVRN' id = 'editJobVRN' class='custom-select addJobTypeVRN'></select>
-                                    </div>
-                                </div>
-                        
-
-                          
-                            <div class='row' style='padding-top: 8px;'>
-                                    
-                                </div>
-                                <div class='row'>
-                                    
-                                </div>
-                                <div class='row'>
-                                    
-                                </div>
-                                
-                                                 
-
-                        <hr>
-                        <div id='jobCompletionSection'>
-                            <h6><strong>Job Completion</strong></h6>
-                            <div class='row'>
-                                <div class='col-3'>
-                                    <label class='control-label' for='picRegistrationText' style='padding-top:6px;'>Picture of Vehicle Registration</label>
-                                </div>
-                                <div class='col-3'>
-                                    <div class='file-upload'>
-                                       <input type='file' id='uploadRegPic' hidden/>
-                                       <label for='uploadRegPic' id='uploadFileButton'>Upload</label>
-                                    </div>
-                                </div>
-                                <div class='col-3'>
-                                    <label class='control-label' for='picCameraText' style='padding-top:6px;'>Picture of Device Details</label>
-                                </div>
-                                <div class='col-3'>
-                                    <div class='file-upload2'>
-                                        <input type='file' id='uploadDevicePic' hidden/>
-                                       <label for='uploadDevicePic' id='uploadDeviceButton'>Upload</label>
-                                    </div>
-                                </div>
-                               
+                        <div class='row'>
+                            <div class='col-2'>
+                                <label class='control-label' for='editJobContactName' style='padding-top:10px;'>Contact Name</label>
                             </div>
-
-                            <div class='row'>
-                                <div class='col-1'></div>
-                                <div class='col-5'>
-                                    <div class='mr-auto ml-auto' id='regPicContent' style='margin-top:10px'></div>
-                                </div>             
-                                <div class='col-5'>
-                                    <div class='mr-auto ml-auto' id='devicePicContent' style='margin-top:10px'></div>
-                                </div>       
+                            <div class='col-4'>
+                                <div class='input-group'>
+                                    <input type='text' class='form-control' id='editJobContactName' name='jobContactName' placeholder='contact name...'>
+                                </div>
                             </div>
+                            <div class='col-2'>
+                                <label class='control-label' for='bookingEquipmentWith' style='padding:10px 25px;'>Kit With</label>
+                            </div>
+                            <div class='col-4'>
+                                <div class='input-group' id='bookingEditEquipmentWith'>
+                                    <select id='editBookingLocation' name='bookingLocation' class='custom-select'>           
+                                        <option value = "1">UK Mobile Installations Ltd</option>
+                                        <option value = "2">Engineer</option>
+                                        <option value = "3">Customer</option>
+                                        <option value = "4">Not required</option>
+                                    </select>    
+                                </div>
+                            </div>        
+                        </div>
+                        <div class='row'>
+                            <div class='col-2'>
+                                <label class='control-label' for='editJobContactEmail' style='padding-top:10px;'>Contact Email</label>
+                            </div>
+                            <div class='col-4'>
+                                <div class='input-group'>
+                                    <input type='text' class='form-control' id='editJobContactEmail' name='jobContactEmail' placeholder='contact email...'>
+                                </div>
+                            </div>
+                            <div class='col-2'>
+                                <label class='control-label' for='editEngineerAssigned' style='padding:10px 25px;'>Engineer Assigned</label>
+                            </div>
+                            <div class='col-4'>
+                                <select id='editEngineerAssigned' name='engineerAssigned' class='custom-select'>
+                                    <option value='0' disabled selected>Select engineer</option>
+                                        <?php     
+                                            $sql = "SELECT userID, userName, activation, isInstaller, isEngineer FROM tblUsers WHERE activation='activated' AND isEngineer=1";
+                                            $result = mysqli_query($link, $sql);
+                                            while ($engineerRow = mysqli_fetch_array($result)) {
+                                                echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
+                                            }
+                                       ?>
+                                   <option value='9999' class='otherOptionSelection'>Unregistered Engineer</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-2'>
+                                <label class='control-label' for='editJobContactPhone' style='padding-top:10px;'>Contact Telephone</label>
+                            </div>
+                            <div class='col-4'>
+                                <div class='input-group'>
+                                    <input type='text' class='form-control' id='editJobContactPhone' name='jobContactPhone' placeholder='contact telephone...'>
+                                </div>
+                            </div>
+                            <div class='col-2'>
+                                <label class='control-label' for='editJobDateBooked' style='padding:10px 25px;'>Date Booked For</label>
+                            </div>
+                            <div class='col-4'>
+                                <input type='datetime-local' class='form-control' name = 'editJobDateBooked' id='editJobDateBooked'>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-2'>
+                                <label class='control-label' for='editJobInstallAddress'  style='padding-top: 10px;'>Install Address</label>
+                            </div>
+                            <div class='col-10'>
+                                <div class='input-group'>
+                                    <textarea rows='4' cols='100' class='form-control' placeholder='Enter Installation Address' name='jobInstallAddress' id='editJobInstallAddress' style='margin-top:3px;'></textarea>                      
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row' style='padding-top: 8px;'>
+                            <div class='col-4'>
+                                <label class='control-label' style='padding-top:8px;'><h6><strong>Vehicle Details</strong></h6></label>
+                            </div>
+                            <div class='col-4'>
+                                <label class='control-label' style='padding-top:8px;'><strong>Old VRM (if applicable)</strong></label>
+                            </div>
+                            <div class='col-4'>
+                                <label class='control-label' style='padding-top:8px;'><strong>New/Current VRM</strong></label>
+                            </div>
+                        </div>
+                         <div class='row' id='VRNEditListForJob'>
+                            <div class='col-4'>
+                                <label class='control-label' for='editJobOldVRN' style='padding-top:8px;'>This job</label>
+                            </div>
+                            <div class='col-4'>
+                                <select name='addJobTypeOldVRN' id = 'editJobOldVRN' class='custom-select addJobTypeOldVRN'></select>
+                            </div>
+                            <div class='col-4'>
+                                <select name='editJobVRN' id = 'editJobVRN' class='custom-select addJobTypeVRN'></select>
+                            </div>
+                        </div>
+                        <div class='row' style='padding-top: 8px;'>
+                        </div>
+                        <div class='row'>
+                        </div>
+                        <div class='row'>
+                        </div>
+                    </div>  
+                    
+                    <hr>
+                    <div id='jobCompletionSection'>
+                        <h6><strong>Job Completion</strong></h6>
+                        <div class='row'>
+                            <div class='col-3'>
+                                <label class='control-label' for='picRegistrationText' style='padding-top:6px;'>Picture of Vehicle Registration</label>
+                            </div>
+                            <div class='col-3'>
+                                <div class='file-upload'>
+                                   <input type='file' id='uploadRegPic' hidden/>
+                                    <label for='uploadRegPic' id='uploadFileButton'>Upload</label>
+                                </div>
+                            </div>
+                            <div class='col-3'>
+                                <label class='control-label' for='picCameraText' style='padding-top:6px;'>Picture of Device Details</label>
+                            </div>
+                            <div class='col-3'>
+                                <div class='file-upload2'>
+                                    <input type='file' id='uploadDevicePic' hidden/>
+                                   <label for='uploadDevicePic' id='uploadDeviceButton'>Upload</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='row'>
+                            <div class='col-1'></div>
+                            <div class='col-5'>
+                                <div class='mr-auto ml-auto' id='regPicContent' style='margin-top:10px'></div>
+                            </div>             
+                            <div class='col-5'>
+                                <div class='mr-auto ml-auto' id='devicePicContent' style='margin-top:10px'></div>
+                            </div>       
+                        </div>
                             
-
-                            <div class='row' style='margin-top:15px;'>
-                                <div class='col-3'>
-                                    <label class='form-check-label' for='editJobCompleted' style='font-size:125%'>Job Completed</label> 
+                        <div class='row' style='margin-top:15px;'>
+                            <div class='col-3'>
+                                <label class='form-check-label' for='editJobCompleted' style='font-size:125%'>Job Completed</label> 
+                            </div>
+                            <div class='col-2'>    
+                                <div class='form-check form-switch'>
+                                    <input class='form-check-input' type='checkbox' id='editJobCompleted' style='margin-left: 40px; font-size:125%'>  
                                 </div>
-                                <div class='col-2'>    
-                                    <div class='form-check form-switch'>
-                                        <input class='form-check-input' type='checkbox' id='editJobCompleted' style='margin-left: 40px; font-size:125%'>  
-                                    </div>
-                                </div>
+                            </div>
                                                 
-                                <?php
+                            <?php
                                 if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
-                                  echo "
-                                        <div class='col-3 offset-1'>
-                                            <label class='form-check-label' for='editHubCompleted' style='font-size:125%'>Data Hub Sign Off</label>  
-                                        </div>
-                                        <div class='col-2'>
-                                            <div class='form-check form-switch'>
-                                                <input class='form-check-input' type='checkbox' id='editHubCompleted' style='margin-left: 10px; font-size:125%'>  
-                                            </div>
-                                        </div>
-                                        
+                                    echo "
+                            <div class='col-3 offset-1'>
+                                <label class='form-check-label' for='editHubCompleted' style='font-size:125%'>Data Hub Sign Off</label>  
+                            </div>
+                            <div class='col-2'>
+                                <div class='form-check form-switch'>
+                                    <input class='form-check-input' type='checkbox' id='editHubCompleted' style='margin-left: 10px; font-size:125%'>  
+                                </div>
+                            </div>     
                                         ";
                                 }
                                 ?>
-                            </div>
-                            
                         </div>
+                            
                     </div>
                 </form>
                 <div id='editJobMessage'></div>
@@ -3564,8 +3534,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <div id='addJobHide' style='display: none'></div>
-                <div id='jobCustomerHide'></div>
+                <div id='addEditJobHide' style='display: none'></div>
+                <div id='jobEditCustomerHide'></div>
                 <div class='mr-auto' id='jobCurrentStatus'>
                     <h6>STATUS: <span style='color: #FFAA00;'></span></h6>
                 </div>
@@ -3581,8 +3551,6 @@
         </div>
     </div>
 </div>
-</div>
-
 
 <!-- ----------------------------------- END OF JOB REQUEST DIALOGS ---------------------------------------- -->
 
@@ -3598,7 +3566,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getAddInstaller' class='getAddInstaller' class='form-block'>
+                <form method='POST' id='getAddInstaller' class='getAddInstaller form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -3693,7 +3661,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getNewInstallerContact' class='getNewInstallerContact' class='form-block'>
+                <form method='POST' id='getNewInstallerContact' class='getNewInstallerContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -3765,7 +3733,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <div id='installerEditNumber' style='display: none'></div>
-                <div id='contactEditNumber' style='display: none'></div>
+                <div id='contactEditInstallerNumber' style='display: none'></div>
                 <div id='addInstallerContactCaller' style='display: none'></div>
                 <button type="button" id='updateInstallerContact' class="btn btn-success">Add Contact</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -3788,7 +3756,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getAddSupplier' class='getAddSupplier' class='form-block'>
+                <form method='POST' id='getAddSupplier' class='getAddSupplier form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -3883,7 +3851,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getNewSupplierContact' class='getNewSupplierContact' class='form-block'>
+                <form method='POST' id='getNewSupplierContact' class='getNewSupplierContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -3955,7 +3923,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <div id='supplierEditNumber' style='display: none'></div>
-                <div id='contactEditNumber' style='display: none'></div>
+                <div id='contactEditSupplierNumber' style='display: none'></div>
                 <div id='addSupplierContactCaller' style='display: none'></div>
                 <button type="button" id='updateSupplierContact' class="btn btn-success">Add Contact</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -3975,7 +3943,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditSupplierContact' class='getEditSupplierContact' class='form-block'>
+                <form method='POST' id='getEditSupplierContact' class='getEditSupplierContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -4056,9 +4024,9 @@
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
-        </div>
     </div>
 </div>
+
 
 <!-- OTHER PARTNER DIALOGS -->
 <!-- ADD OTHER DIALOG -->
@@ -4072,7 +4040,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getAddOther' class='getAddOther' class='form-block'>
+                <form method='POST' id='getAddOther' class='getAddOther form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -4156,7 +4124,7 @@
             <div class="modal-footer">
                 <div id='addOtherHide' style='display: none'></div>
                 <div id='otherEditNumber' style='display: none'></div>
-                <div id='contactEditNumber' style='display: none'></div>
+                <div id='contactEditOtherNumber' style='display: none'></div>
                 <div id='addOtherContactCaller' style='display: none'></div>
                 <button type="button" id='addOtherUpdate' onclick='addNewOther()' class="btn btn-success">Add</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -4176,7 +4144,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getNewOtherContact' class='getNewOtherContact' class='form-block'>
+                <form method='POST' id='getNewOtherContact' class='getNewOtherContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -4247,9 +4215,9 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <div id='otherEditNumber' style='display: none'></div>
-                <div id='contactEditNumber' style='display: none'></div>
-                <div id='addOtherContactCaller' style='display: none'></div>
+                <div id='otherNewNumber' style='display: none'></div>
+                <div id='contactEditPartnerNumber' style='display: none'></div>
+                <div id='addOtherContactPartnerCaller' style='display: none'></div>
                 <button type="button" id='updateOtherContact' class="btn btn-success">Add Contact</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
@@ -4267,7 +4235,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditOtherContact' class='getEditOtherContact' class='form-block'>
+                <form method='POST' id='getEditOtherContact' class='getEditOtherContact form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-4'>
@@ -4348,9 +4316,9 @@
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
-        </div>
     </div>
 </div>
+
 
 <!-- GET VRN TO LOOKUP -->
 <div class="modal" id="modalGetVRNLookup" data-backdrop='static'>
@@ -4362,7 +4330,7 @@
             </div>
         
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getVRNToLookup' class='getVRNToLookup' class='form-block' onSubmit='return false;'>
+                <form method='POST' id='getVRNToLookup' class='getVRNToLookup form-block' onSubmit='return false;'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-3'>
@@ -4536,29 +4504,29 @@
                         <div class='row'>
                             
                             <div class='col-4'>
-                                <label for='file'><strong>Upload Screenshot </strong></label>
+                                <label for='fileIssue'><strong>Upload Screenshot </strong></label>
                             </div>
                             <div class='col-8'>
-                                <input type='file' id='file' name='file' accept='image/*'>    
-                                <span id='uploaded_image'></span>
+                                <input type='file' id='fileIssue' name='file' accept='image/*'>    
+                                <span id='uploaded_imageIssue'></span>
                             </div>
                         </div>
                     </div>
                 </form>
-                <div id='issueRequestMessage'></div>
+                <div id='issueEditRequestMessage'></div>
             </div>
            
 
             <!-- Modal footer -->
             <div class="modal-footer">
                 <div id='editIssueHide' style='display: none'></div>
-                <button type="button" id='addIssueUpdate' onclick='editIssue()' class="btn btn-success">Update</button>
+                <button type="button" id='editIssueUpdate' onclick='editIssue()' class="btn btn-success">Update</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
-         
         </div>
     </div>
 </div>
+
 
 <!-- GET CUSTOMER AND VRN TO ALLOCATE DIALOG -->
 <div class="modal" id="modalGetCustomerAndVRN" data-backdrop='static'>
@@ -4600,14 +4568,13 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <div id='hiddenAllocateID'style='display: none'></div>
+                <div id='hiddenAllocateID' style='display: none'></div>
                 <button type="button" id='allocateDeviceToCustomer' onclick='allocateDeviceToCustomer()' class="btn btn-success">Allocate</button>
 
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
-
 </div>
 
 
@@ -4622,7 +4589,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body" style='font-size: 75%'>
-                <form method='POST' id='getEditJobNotes' class='getEditJobNotes' class='form-block'>
+                <form method='POST' id='getEditJobNotes' class='getEditJobNotes form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-md-12'>
@@ -4649,7 +4616,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="modal" id="modalGetNewVRN" data-backdrop='static'>
@@ -4662,7 +4628,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method='POST' id='getNewVRN' class='getNewVRN' class='form-block'>
+                <form method='POST' id='getNewVRN' class='getNewVRN form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-sm-4 col-md-4'>
@@ -4699,7 +4665,7 @@
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <form method='POST' id='getNewVRN' class='getNewVRN' class='form-block'>
+                <form method='POST' id='getJobReportNewVRN' class='getNewVRN form-block'>
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-lg-4'>
@@ -4784,3 +4750,276 @@
     </div>
 
 </div>
+
+
+<div class="modal" id="modalShowJobRates" data-backdrop='static'>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" style='color:green'>Default Job Rates</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form method='POST' id='getJobRates' class='getJobRates form-block'>
+                    <div class='form-group'>
+                        <div class='row'>
+                            <div class='col-lg-12' style='max-height: 70vh; overflow: auto;'>
+                                <table id='tableJobRates' class='table table-sm table-scrollable'>
+                                
+                                    <thead>
+                                        <tr><th>Device</th>
+                                            <?php
+                                                $headerList = array();
+                                                $sql='SELECT * FROM tblJobType';
+                                                $result=mysqli_query($link, $sql);
+                                                while ($rowHeader = mysqli_fetch_array($result)) {
+                                                    echo "<th class='text-center' id='" . $rowHeader['ID'] . "'>" . $rowHeader['description'] . "</th>";
+                                                    $headerList[] = $rowHeader['ID'];
+                                                }
+                                            ?>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                              
+                                            <?php
+                                                $sql = "SELECT * FROM tblDeviceDescription";
+                                                $result=mysqli_query($link, $sql);
+                                                while ($rowRow = mysqli_fetch_array($result)) {
+                                                    echo "<tr><td class='align-middle'>" . $rowRow['description'] . "</td>";
+
+                                                    foreach ($headerList as $headerItem) {
+                                                        $sql = "SELECT * FROM tblJobRates WHERE deviceID='" . $rowRow['ID'] . "' AND jobTypeID='" . $headerItem ."'";
+                                                        $rowResult=mysqli_query($link, $sql);
+                                                        $rowItem = mysqli_fetch_array($rowResult);
+                                                        echo "<td><input class='number2decimal' id='" . $rowItem['ID'] . "' type='text' style ='text-align: right' value='" . number_format($rowItem['rate'],2,'.',',') . "'></td>";
+                                                    }
+                                                    unset($headerItem);
+                                                    echo "</tr>";
+                                                }
+                                          
+                                            ?>
+                                        
+                                        
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>                    
+                    </div>
+                    
+                    <div id='jobRatesMessage'></div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id='updateJobRates' onclick='updateJobRates()' class="btn btn-success">Update</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+  
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalEditMultipleJobs" data-backdrop='static'>
+    <div class="modal-dialog modal-xl"  style='max-width: 90% !important;'>
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" style='color:green'>Edit Multiple Jobs</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form method='POST' id='editMultiJobs' class='editMultiJobs' class='form-block'>
+                    <div class='form-group'>
+                        <div class='row'>
+                            <div class='col-lg-12' style='max-height: 60vh;overflow: auto;''>
+                                <table id='multipleJobs' class='table cell-border compact table-scrollable'>
+                                
+                                    <thead>
+                                        <tr>
+                                            <th class='align-middle' style='width: 17%;'>Customer</th>
+                                            <th class='align-middle text-center' style='width: 8%;'>Job Type</th>
+                                            <th class='align-middle' style='width: 12%;'>Camera Type</th>
+                                            <th class='align-middle text-center' style='width: 5%;'>Registration</th>
+                                            <th class='align-middle text-center' style='width: 11%;'>Date/Time Booked</th>
+                                            <th class='align-middle text-center' style='width: 8%;'>Engineer</th>
+                                            <th class='align-middle' style='width: 38%;'>Notes</th>
+                                            <th class='align-middle text-center' style='width: 1%;'>Select</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                            <?php
+                                                $sql = "SELECT tblJobs.ID,
+                                                               tblCustomer.businessName, 
+                                                               tblJobType.description AS jobType, 
+                                                               tblDeviceDescription.description AS CameraType, 
+                                                               tblVehicle.regNumber, 
+                                                               tblJobs.date, 
+                                                               tblJobs.Notes, 
+                                                               tblUsers.userName AS engineerName
+                                                        FROM tblJobs 
+                                                        INNER JOIN tblCustomer ON tblCustomer.ID = tblJobs.ownerID  
+                                                        INNER JOIN tblJobType ON  tblJobType.ID = tblJobs.jobType
+                                                        INNER JOIN tblDeviceDescription ON tblDeviceDescription.ID = tblJobs.cameraTypeID  
+                                                        LEFT JOIN tblVehicle ON  tblVehicle.ID = tblJobs.VRN
+                                                        INNER JOIN tblUsers ON  tblUsers.userID = tblJobs.engineerID";
+                                                
+                                                $result=mysqli_query($link, $sql);
+                                                while ($Row = mysqli_fetch_array($result)) {
+                                                    echo "<tr value='" . $Row['ID'] . "'><td class='align-middle' style='width: 17%;'>" . $Row['businessName'] . "</td>";
+                                                    echo "<td class='align-middle text-center' style='width: 8%;'>" . $Row['jobType'] . "</td>";
+                                                    echo "<td class='align-middle' style='width: 12%;'>" . $Row['CameraType'] . "</td>";
+                                                    echo "<td class='align-middle text-center' style='width: 5%;'>" . $Row['regNumber'] . "</td>";
+
+                                                    if (date('d/m/Y', strtotime($Row['date']))=='01/01/1970') {
+                                                        echo "<td class='align-middle text-center' style='width: 11%;' data-order='0/0/0'>TBD</td>";
+                                                    } else {
+                                                        echo "<td class='align-middle text-center' style='width: 11%;' data-order=" . strtotime($Row['date']) . ">" . date('d/m/y (D) H:i', strtotime($Row['date'])) . "</td>";
+                                                    }
+                                                    echo "<td class='align-middle text-center' style='width: 8%;'>" . $Row['engineerName'] . "</td>";
+                                                    echo "<td class='align-middle' style='width: 38%;'>" . $Row['Notes'] . "</td>";    
+                                                    echo "<td class='align-middle text-center' style='width: 1%;'><input class='selectCheckBox' type='checkbox'></td>";                                                  
+                                                    echo "</tr>";
+                                                }
+                                            ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <script>
+                            $(document).ready(function() {
+                                $('#multipleJobs').DataTable({
+                                    colReorder: true,
+                                    order: [[4, 'asc']],
+                                    processing: true,
+                                    paging: false,
+                                    responsive: true,
+                                    stateSave: true,
+                                    dom: '<\"top\"iflp>rt<\"bottom\"><\"clear\">',
+                                    rowCallback: function(row, data, dataIndex) {
+                                        if ($('body').hasClass('dark')) {
+                                            $(row).css('background-color', 'rgba(68,68,68,1)')
+                                            .css('color', 'white')
+                                            .css('border-color', 'white');
+                                        } else {
+                                            $(row).css('background-color', 'rgba(255,255,255,1)')
+                                            .css('color', 'rgba(68,68,68,1)')
+                                            .css('border-color', 'rgba(68,68,68,1)');
+                                        }
+                                    }
+                                });
+                            });
+                            </script>
+
+                        </div> 
+                        <div class='form-group' style='margin-top: 15px; margin-bottom :15px; border: 1px solid #dedede; border-radius:5px;'>
+                            <div class='row' style='margin-top: 10px; margin-left: 6px;'>
+                                <div class='col-2'>
+                                    <label for = 'changeJobType' style='margin-top: 6px;'>Job Type</label>
+                                </div>
+                                <div class='col-3'>
+                                    <!-- <div class='input-group'>
+                                        <select id='changeJobType' name='changeJobType' class='custom-select'>
+                                            <option value='0' selected>Do not change...</option>
+                                            <?php
+                                                // $sql="SELECT userID, userName, isEngineer, activation FROM tblUsers WHERE activation='activated' AND isEngineer=1";
+                                                // $result = mysqli_query($link, $sql);
+                                                // while ($engineerRow = mysqli_fetch_array($result)) {
+                                                //     echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
+                                                // }       
+                                            ?>
+                                            <option value='9999'>Unregistered Engineer</option>
+                                        </select>
+                                    </div> -->
+                                    <div class='input-group'>
+                                        <select id='changeJobType' name='changeJobType' class='custom-select'>
+                                            <option value='0' selected>Do not change...</option>
+                                            <?php
+                                                 $sql="SELECT ID, description FROM tblJobType";
+                                                 $result = mysqli_query($link, $sql);
+                                                 while ($jobTypeRow = mysqli_fetch_array($result)) {
+                                                     echo "<option value = '" . $jobTypeRow['ID'] . "'>" . $jobTypeRow['description'] . "</option>";
+                                                 }       
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class='col-1'></div>
+                                <div class='col-2'>
+                                    <label for = 'changeDeviceType' style='margin-top: 6px;'>Device Type</label>
+                                </div>
+                                <div class='col-3'>
+                                    <div class='input-group'>
+                                        <select id='changeDeviceType' name='changeDeviceType' class='custom-select'>
+                                            <option value='0' selected>Do not change...</option>
+                                            <?php
+                                                $sql="SELECT ID, description FROM tblDeviceDescription";
+                                                $result = mysqli_query($link, $sql);
+                                                while ($deviceRow = mysqli_fetch_array($result)) {
+                                                    echo "<option value = '" . $deviceRow['ID'] . "'>" . $deviceRow['description'] . "</option>";
+                                                }       
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row' style='margin-top: 10px; margin-left: 6px;'>
+                                <div class='col-2'>
+                                    <label for = 'newBookedDate' style='margin-top: 6px;'>Date Booked</label>
+                                </div>
+                                <div class='col-3'>
+                                    <div class='input-group'>
+                                        <input class='form-control dateType' type='datetime-local' placeholder="Do not change..." name='newBookedDate' id='newBookedDate'>
+                                    </div>
+                                </div>
+                                <div class='col-1'></div>
+                                <div class='col-2'>
+                                    <label for = 'multipleUpdateDeviceNote' style='margin-top: 6px;'>Append Note</label>
+                                </div>
+                                <div class='col-3'>
+                                    <div class='input-group'>
+                                        <textarea rows='1' cols='512' class='form-control' placeholder='Leave blank for no change...' id='multipleUpdateDeviceNote' style='margin-top:3px;'></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row' style='margin-top: 10px; margin-left: 6px;'>
+                                <div class='col-2'>
+                                    <label for = 'changeEngineerType' style='margin-top: 6px;'>Engineer</label>
+                                </div>
+                                <div class='col-3' style='margin-bottom: 15px;'>
+                                    <div class='input-group'>
+                                        <select id='changeEngineerType' name='changeEngineerType' class='custom-select'>
+                                            <option value='0' selected>Do not change...</option>
+                                            <?php
+                                                $sql="SELECT userID, userName, isEngineer, activation FROM tblUsers WHERE activation='activated' AND isEngineer=1";
+                                                $result = mysqli_query($link, $sql);
+                                                while ($engineerRow = mysqli_fetch_array($result)) {
+                                                    echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
+                                                }       
+                                            ?>
+                                            <option value='9999'>Unregistered Engineer</option>
+                                        </select>
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>                                   
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class='mr-auto' id='multipleJobsMessage'></div>
+                <button type="button" id='updateMultipleJobs' onclick='updateMultipleJobs()' class="btn btn-success" disabled=disabled>Update</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>  
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

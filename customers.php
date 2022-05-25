@@ -7,14 +7,11 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 }
 
 $foreColor = $_SESSION['textColor'];
-// $darkmode = 'nodarkmode';
 $tableColour='table-light';
 $tableText =  $_SESSION['textColor'];
 $notRenewable = $_SESSION['renewalColor'];
 $returnString = "";
-// if (isset($_POST['selectedValue'])) {
-    $_SESSION['currentCustomer'] = $_POST['selectedValue'];  
-// } 
+$_SESSION['currentCustomer'] = $_POST['selectedValue'];  
 
 $sql= "SELECT * FROM tblCustomer LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblInsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.ID  LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID WHERE tblCustomer.ID='" . $_SESSION['currentCustomer'] . "'";
 
@@ -25,10 +22,6 @@ $result = mysqli_query($link, $sql);
 
 if($result) {
     if (mysqli_num_rows($result)==0) {
-        // $sql= "SELECT * FROM tblCustomer LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblInsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.ID  LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID LIMIT 1";
-        // $result = mysqli_query($link, $sql);
-        // $getTop = mysqli_fetch_array($result);
-        // $_SESSION['currentCustomer'] = $getTop['ID'];
         exit();
     }
 } 
@@ -37,6 +30,7 @@ if (mysqli_num_rows($result)==0) {
     echo $returnString;
     exit();
 }
+
 // if there are no elements in $row then we just select the top record
 if (mysqli_num_rows($result)==1) {
     $row = mysqli_fetch_array($result);
@@ -49,20 +43,16 @@ $thisClientName = $row['businessName'];
 
 
 if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
+    $dateNow = new DateTime();
+    $dateNow = new DateTime();
+    $renewalDate = new DateTime($row['renewalDate']);
+    $daysToRenewal = $dateNow->diff($renewalDate)->format('%r%a');
 
-
-$dateNow = new DateTime();
-$dateNow = new DateTime();
-$renewalDate = new DateTime($row['renewalDate']);
-$daysToRenewal = $dateNow->diff($renewalDate)->format('%r%a');
-
-if ($daysToRenewal <= 30) { $renewalColour='#B60000' ; } elseif ($daysToRenewal <=60) { 
-    $renewalColour='orange' ; 
-}
-else { 
-    $renewalColour=$notRenewable; 
-}
-
+    if ($daysToRenewal <= 30) { $renewalColour='#B60000' ; } elseif ($daysToRenewal <=60) { 
+        $renewalColour='orange' ; 
+    } else { 
+        $renewalColour=$notRenewable; 
+    }
 
 $returnString = "
 <div id='hiddenCustomerID' style='display: none'>" . $row[0] . "</div>
@@ -73,19 +63,32 @@ $returnString = "
         <form id='nameForm'>
             <div id='showAccountInfo' class='settings-dialog'>
                 <div class='form-group' style='display: flex; align-items: center; font-size: 24px'>
-                    <label class='control-label inline' for='customerName' style='width:40%; padding-top:6px'><strong>Name</strong></label>
+                    <label class='control-label inline' for='customerName' style='width:40%; padding-top:7px'><strong>Name</strong></label>
                     <div class='input-group'>
                         <input style='maxlength=100; font-weight: bold; font-size: 24px;' oninput='makeDirty(" . '"customerName"'. ")'
                         class='form-control enabler' type='text' id='customerName' name='customerName'
                         placeholder='enter customer name...' value='" . $row['businessName'] . "'>
                     </div>
                 </div>
+                <div class='form-group' style='display: flex; align-items: center; font-size: 12px'>
+                    <label class='control-label inline' for='VCOReference' style='width:40%; padding-top:7px'><strong>VCO Reference</strong></label>
+                    <div class='input-group'>
+                        <input style='font-weight: bold; font-size: 12px;' maxlength=10
+                        class='form-control enabler' type='text' id='VCOReference' name='VCOReference'
+                        placeholder='Vodafone reference...' value='" . $row['VCOReference'] . "'>
+                    </div>
+                </div>
+                <div class='btn-group' style ='display: flex; margin: 2px 2px;'>
+                    <btn class='btn btn-success btn-sm updateCustomer' style='margin: 0 10px' onclick='updateCustomer()' id='updateCustomer' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-left-circle-fill' viewBox='0 0 16 16'>
+                    <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z'/>
+                    </svg> Update Name/VCO Reference </btn>
+                </div>
             </div>
             
         </form>
         <form id='customerForm'>
-            <div id='toggleAddress' style='float: right;' class='btn btn-sm collapsible' type='button'>address</div>
-            <div class='scrollBox canCollapse' style='max-height: 75vh;'>
+        <div id='toggleAddress' style='float: right;' class='btn btn-sm collapsible' type='button'>address</div>
+                <div class='scrollBox canCollapse' style='max-height: 75vh;'>
                 <div id='showAccountInfo' class='settings-dialog'>
                     <div class='form-group' style='display: flex; align-items: center'>
                         <h6><strong style='margin-top:10px;'>ADDRESS</strong></h6>
@@ -168,40 +171,14 @@ $returnString = "
 
                    $theRenewalType = $row['renewalType'];
                    $theRenewalDate = $row['renewalDate'];
-                    // <div class='form-group' style='display: flex; align-items: right'>
-                    //     <label class='control-label inline' for='custRegNumber' style='width:40%; padding-top:10px'>Reg'd No.</label>
-                    //     <div class='input-group'>
-                    //         <input style='font-size: 80%' maxlength='14' onkeypress='return onlyNumberKey(event)' oninput='makeDirty("
-                    //             . '"custRegNumber"'
-                    //             . ")' class='form-control enabler' type='text' id='custRegNumber' name='custRegNumber' placeholder='Company Registered Number...' value ='"
-                    //             . $row['companyRegNo']
-                    //             . "'>
-                    //     </div>
-                    // </div>
-                    // <div class='form-group' style='display: flex; align-items: right'>
-                    //     <label class='control-label inline' for='custVATNumber' style='width:40%; margin-top:10px'>VAT No.</label>
-                    //     <div class='input-group'>
-                    //         <input style='font-size: 80%' maxlength='14' onkeypress='return onlyNumberKey(event)' oninput='makeDirty("
-                    //             . '"custVATNumber"'
-                    //             . ")' class='form-control enabler' type='text' id='custVATNumber' name='custVATNumber' placeholder='VAT Registered Number...' value ='"
-                    //             . $row['VATRegNo'] . "'>
-                    //     </div>
-                    // </div>
+                    
 
                     $returnString .="<div class='btn-group' style ='display: flex; margin: 10px 20px;'>
                         <btn class='btn btn-success btn-sm updateCustomer' style='margin: 0 10px' onclick='updateCustomer()' id='updateCustomer' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-left-circle-fill' viewBox='0 0 16 16'>
                         <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z'/>
                         </svg> Update </btn>";
-
-                        if ($_SESSION['isAdmin']== '1') {
-                            $returnString .= "<btn class='btn btn-danger btn-sm deleteCustomer' style='margin: 0 10px' onclick='deleteCustomer()' id='deleteCustomer' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
-                            <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/>
-                          </svg> Archive </btn>";
-                        }
-                 
-                        $returnString .="<btn class='btn btn-primary btn-sm' style='margin: 0 10px'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'>
-                        <path d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/>
-                        </svg> Search </btn>
+           
+                    $returnString .="
                     </div>
                     <div id='customerUpdateMessage'></div>
                 </div>

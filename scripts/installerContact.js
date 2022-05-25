@@ -117,15 +117,16 @@ function deleteInstallerContact() {
     dataToPost.contactLastName = document.getElementById('editInstallerContactLastName').value;
     dataToPost.contactNumber = document.getElementById('editInstallerContactHide').value;
 
-    swal ({
+    new swal ({
         title: "Confirm delete",
         text: "Are you sure you want to delete?",
         icon: "warning",
-        buttons: ['Cancel', 'Yes - Delete'],
-        dangerMode: true,
-    }).then (function(isConfirm){
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) =>{
   
-    if (isConfirm) {
+    if (result.isConfirmed) {
         $.ajax({
             url: 'deleteInstallerContact.php',
             timeout: 30000,

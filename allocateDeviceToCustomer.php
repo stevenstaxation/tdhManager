@@ -13,6 +13,11 @@ if ($allocateToVRN == 0) {
     $allocateToVRN = null;
 } 
 
+$sql = "SELECT VCOReference FROM tblCustomer WHERE tblCustomer.ID = '$allocateToCustomer'";
+$result = mysqli_query($link, $sql);
+$row = mysqli_fetch_array($result);
+$VCOReference = $row['VCOReference'];
+
 $sql = "UPDATE tblDevice SET ownerID='$allocateToCustomer', vehicleID=NULLIF('$allocateToVRN','') WHERE tblDevice.ID = '$allocateDevice'";
 
 $result = mysqli_query($link, $sql); 

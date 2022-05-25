@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('connect.php');
+require_once ('checkPostcode.php');
 
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");

@@ -132,9 +132,10 @@ $(document).on('change', '#brokerNameSelection', function (event) {
     }
 });
 
-// ***********************************************
-// UPDATE CHANGES FROM EDIT SUPPLIER MODAL DIALOG
-// ***********************************************
+/**
+ * Update broker in database after editing
+ * @returns error alert if update not possible
+ */
 function updateEditBroker() {
     var dataToPost = {};
     dataToPost.brokerName = document.getElementById('editBrokerName').value;
@@ -173,12 +174,11 @@ function updateEditBroker() {
 }
 
 
-// ********************************
-// SHOW OPTIONS ON DELETE REQUESTED
-// ********************************
-// When delete is requested, check if broker is assigned to any
-// device(s).  If so do not allow deletion.
-
+/**
+ * 
+ * @returns Delete broker from database when delete is requested.
+ * If broker is assigned to any devices, do not allow deletion
+ */
 function deleteBroker() {
     var dataToPost = {};
     var e = document.getElementById('brokerNameSelection');
@@ -186,15 +186,15 @@ function deleteBroker() {
         return;
     }
 
-    swal ({
+    new swal ({
         title: "Confirm delete",
         text: "Are you sure you want to delete?",
         icon: "warning",
-        buttons: ['Cancel', 'Yes - Delete'],
-        dangerMode: true,
-    }).then (function(isConfirm){
-  
-    if (isConfirm) {
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) => {
+      if (result.isConfirmed) {
 
         dataToPost.brokerNumber = e.options[e.selectedIndex].value;
         $.ajax({
@@ -283,14 +283,17 @@ $('body').on('change', '#getBrokerSelect', function () {
 });
 
 
-
+/**
+ * Populate edit broker modal dialog from database
+ * @returns An array with selected broker details
+ */
 
 function editBroker() {
     var dataToPost = {};
     var e = document.getElementById('getBrokerSelect');
     dataToPost.brokerNumber = e.options[e.selectedIndex].value;
     if (dataToPost.brokerNumber == 0) {
-        return;0
+        return;
     }
     
     $.ajax({

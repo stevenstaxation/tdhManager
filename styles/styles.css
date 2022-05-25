@@ -193,6 +193,7 @@ table.table-bordered > tbody > tr:hover {
 
 body.dark input[type=text],
 body.dark input[type=date],
+body.dark input[type=datetime-local],
 body.dark input[type=email],
 body.dark input[type=password],
 body.dark input[type=number],
@@ -499,6 +500,33 @@ body.dark #dropZone {
     cursor: pointer;
     margin-top: 0.1rem;   
 }
+
+.dt-buttons {
+    margin: 8px 50px;
+}
+
+.dt-buttons .dt-button {
+    border-radius: 4px;
+    margin: 0 10px;
+    background-image: linear-gradient(rgb(255,255,255), rgb(192,192,192))!important;
+    color: black;
+}
+body.dark .dt-buttons .dt-button {
+    background-image: linear-gradient(rgb(192,192,192), rgb(128,128,128))!important;
+    color: white!important;
+}
+    
+.dt-buttons .dt-button:hover {
+    background-image: linear-gradient(rgb(192,192,192),rgb(255,255,255))!important;
+}
+body.dark .dt-buttons .dt-button:hover {
+    background-image: linear-gradient(rgb(128,128,128),rgb(192,192,192))!important;
+}
+
+/* td.sorting_1 {
+    background-color: pink!important;
+} */
+
 
 
 

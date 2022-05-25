@@ -101,7 +101,6 @@ body.dark .modal-title {
 
 
 
-
 /* END OF MODAL DIALOGS */
 
 
@@ -115,23 +114,23 @@ body.dark .modal-title {
 .customerTable .dataTables_filter label,
 .customerTable .dataTables_info
 {
-   background-color: #e0e0e0 ;
-   color: #454545 ;
+   background-color: #e0e0e0;
+   color: #454545;
 }
 
  
  body.dark .dataTables_filter label,
  body.dark .dataTables_info
  {
-    background-color: #222222 ;
-    color: #efefef ;
+    background-color: #222222;
+    color: #efefef;
 }
 
 body.dark .customerTable .dataTables_filter label,
 body.dark .customerTable .dataTables_info
 {
-   background-color: #454545 ;
-   color: #efefef ;
+   background-color: #454545;
+   color: #efefef;
 }
 
 

@@ -25,7 +25,9 @@ function showFullDevice(rowNumber) {
         success: function (data) {
             data = $.parseJSON(data);
 
-            document.getElementById('editTDHNumber').value = data['TDHNumber'];
+            if ($('#editTDHNumber').length >0) {
+                document.getElementById('editTDHNumber').value = data['TDHNumber'];
+            }
             document.getElementById('editSerial').value = data['serialNumber'];
             document.getElementById('editIMEI').value = data['IMEI'];
             document.getElementById('editDRIDNumber').value = data['DRIDNumber'];
@@ -37,8 +39,12 @@ function showFullDevice(rowNumber) {
             document.getElementById('editDeviceInstallReference').value = data['assocOrderNumber'];
             document.getElementById('editDeviceSupplierInvoice').value = data['supplierInvoice'];
             document.getElementById('editSIMScheduleDate').value = data['scheduledDate'];
-            
-            document.getElementById('editSIMSuspensionDate').value = data['SIMDeactivationDate'];
+            if (data['VCOReference']!=null) {
+                document.getElementById('labelVCOReference').innerHTML='<strong>VCO Reference: ' + data['VCOReference'] + "</strong>";         
+            } else {
+                document.getElementById('labelVCOReference').innerHTML='<strong>VCO Reference: none</strong>';              
+            }
+                document.getElementById('editSIMSuspensionDate').value = data['SIMDeactivationDate'];
             document.getElementById('editDeviceInstallDate').value = data['installDate'];
             document.getElementById('editDeviceNoteText').value = data['deviceNote'];
             document.getElementById('editDeviceInstaller').value = data['installerID'];
@@ -297,14 +303,15 @@ function deletePhysicalDevice() {
         
         
 
-        swal ({
+        new swal ({
             title: "Confirm delete",
             text: "Are you sure you want to delete?",
             icon: "warning",
-            buttons: ['Cancel', 'Yes - Delete'],
-            dangerMode: true,
-        }).then (function(isConfirm){
-            if (isConfirm) {
+            showDenyButton: true,
+            confirmButtonText: 'Yes - Delete',
+            denyButtonText: 'Cancel',
+        }).then ((result) => {
+            if (result.isConfirmed) {
                 $.ajax({
                     url: "deletePhysicalDevice.php",
                     timeout: 30000,
@@ -341,6 +348,19 @@ function deletePhysicalDevice() {
         
 
 }
+
+$(document).on('change', '#editOwnerID', function() {
+    var dataToPost = {};
+    dataToPost.ownerID = $('#editOwnerID').val();
+    $.ajax ({
+        url: 'getVCOReference.php',
+        type: 'POST',
+        data: dataToPost,
+        success: function(data) {
+            $('#labelVCOReference').html ('<strong>VCO Reference: ' + data +'</strong>');
+        }
+    });
+})
 
 $(document).on('click', '#deviceFilterClicked', function (event) {
     "use strict";
@@ -405,3 +425,11 @@ function allocateDevice(deviceToAllocate) {
     document.getElementById('hiddenAllocateID').innerHTML = deviceToAllocate;
 
     }
+
+    $(document).on('click','#deviceListTable tbody td', function() {
+        let dt=$('#deviceListTable').DataTable();
+        let vIndex = $(this).index();
+        let colIndex = dt.column.index('fromData', vIndex);
+        let clip = dt.column(colIndex).data();
+        copyArrayToClipboard (clip);        
+    });
