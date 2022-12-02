@@ -38,12 +38,10 @@ if ($regNumber!='TBC') {
 //         $errors .="<p>You should enter the install date</p>";
 //     }
 // }
-
 if ($errors) {
     echo "<div class='alert alert-danger'>" .$errors . "</div>";
     exit();
 }
-
 
 $sql = "INSERT INTO tblVehicle (regNumber, ownerID) VALUES ( '$regNumber', '$customerID')";
 
@@ -63,6 +61,6 @@ $result = mysqli_query($link, $sql);
 
 $vrString = $vehicleID;
 
-return "success";
+echo $vrString . "success";
 ?>
 

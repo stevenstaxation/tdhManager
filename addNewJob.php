@@ -13,8 +13,9 @@ $jobCameraType = $_POST['jobCameraType'];
 $jobQuantity = $_POST['jobQuantity'];
 $jobOtherKitLT = $_POST['jobLT'];
 $jobOtherKitSS = $_POST['jobSS'];
-$jobPriority = $_POST['jobPriority'];
+// $jobPriority = $_POST['jobPriority'];
 $jobRate =  mysqli_real_escape_string($link, $_POST['jobRate']);
+$jobCustomerRate =  mysqli_real_escape_string($link, $_POST['jobCustomerRate']);
 $jobNotes =  mysqli_real_escape_string($link, $_POST['jobNotes']);
 $jobContactName =  mysqli_real_escape_string($link, $_POST['jobContactName']);
 $jobContactEmail =  mysqli_real_escape_string($link, $_POST['jobContactEmail']);
@@ -50,7 +51,10 @@ if ($jobQuantity<1 || $jobQuantity>50) {
     $errors .="Job quantity must be between 1 and 50<br>";
 }
 if ($jobRate =='' || $jobRate==null) {
-    $errors .="The job rate should be entered, if unknown enter 0.00<br>";
+    $errors .="The engineer job rate should be entered, if unknown enter 0.00<br>";
+}
+if ($jobCustomerRate =='' || $jobRate==null) {
+    $errors .="The customer job rate should be entered, if unknown enter 0.00<br>";
 }
 
 if ($jobContactName=='' || $jobContactName==null) {
@@ -138,7 +142,7 @@ foreach ($jobVRN as $VRNforJob) {
     }
 
 
-    $sql = "INSERT INTO tblJobs (ownerID, date, jobType, VRN, notes, cameratypeid, Quantity, OtherKitFlag, PriorityIsUrgent, JobRate, BookingContact, BookingEmail, BookingTelephone, BookingAddress, EquipmentLocationID, EngineerID, dateAdded, oldVRN, status) VALUES ('$jobCustomerID',NULLIF('$jobDate',''), '$jobType', '$VRNforJob', '$jobNotes', '$jobCameraType', '$jobQuantity', '$otherKitFlag', '$jobPriority', '$jobRate', '$jobContactName', '$jobContactEmail', '$jobContactPhone', nullif('$jobContactAddress',''), '$jobEquipmentLocation', nullif('$jobEngineer',''), '$time', NULLIF('$oldVRN',''), '$jobStatus')";
+    $sql = "INSERT INTO tblJobs (ownerID, date, jobType, VRN, notes, cameratypeid, Quantity, OtherKitFlag, PriorityIsUrgent, JobRate, customerRate, BookingContact, BookingEmail, BookingTelephone, BookingAddress, EquipmentLocationID, EngineerID, dateAdded, oldVRN, status) VALUES ('$jobCustomerID',NULLIF('$jobDate',''), '$jobType', '$VRNforJob', '$jobNotes', '$jobCameraType', '$jobQuantity', '$otherKitFlag', '1', '$jobRate', '$jobCustomerRate', '$jobContactName', '$jobContactEmail', '$jobContactPhone', nullif('$jobContactAddress',''), '$jobEquipmentLocation', nullif('$jobEngineer',''), '$time', NULLIF('$oldVRN',''), '$jobStatus')";
     $result = mysqli_query($link, $sql);
     $ix++;
 

@@ -1,12 +1,12 @@
 <?php
+
 session_start();
 include('connect.php');
-require_once ('checkPostcode.php');
+require_once('checkPostcode.php');
 
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
 }
-
 
 /**
  * Check contents of Add New Broker modal are valid when Add button is clickecd and add to tblBroker in database
@@ -29,8 +29,8 @@ if (!$newBrokerName) {
 }
 
 if (!(checkPostcode($newBrokerAddress5)) && $newBrokerAddress5 != "") {
-    $errors .= "Postcode is not valid<br>";
-}
+     $errors .= "Postcode is not valid<br>";
+ }
 
 if ($errors) {
     $resultMessage = "<div class='alert alert-danger'>" . $errors . "</div>";
@@ -47,16 +47,17 @@ $newBrokerAddress5 = mysqli_real_escape_string($link,filter_var(strtoupper($newB
 
 $sql = "INSERT INTO tblBroker (brokerName, addressLine1, addressLine2, addressLine3, addressLine4, addressLine5) VALUES ('$newBrokerName','$newBrokerAddress1', '$newBrokerAddress2', '$newBrokerAddress3', '$newBrokerAddress4', '$newBrokerAddress5')";
 
+
 $result = mysqli_query($link, $sql);
 
 $lastBrokerID = $link->insert_id;
+
 
 if (!$result) {
     echo '<div class="alert alert-danger">Error accessing the database</div>';
     echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
     exit();
 }
-
 
 // record in event log
 $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('Broker $newBrokerName was created', '" . $_SESSION['userID']. "')";

@@ -10,6 +10,7 @@ $jobTypeID = $_POST['jobTypeID'];
 $jobCameraID = $_POST['cameraTypeID'];
 $jobBookedDate = $_POST['bookedDate'];
 $jobAppendNote = $_POST['appendNote'];
+$jobAppendNote = addslashes($jobAppendNote);
 $jobEngineerID = $_POST['jobEngineerID'];
 
 $updateJobType = ($jobTypeID !='0');

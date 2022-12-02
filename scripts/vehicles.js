@@ -1,10 +1,10 @@
-$(document).on('click', '#vehicleFilterClicked', function(event) {
+$(document).on('click', '#vehicleFilterClicked', function (event) {
     "use strict";
     event.preventDefault();
     var dataToPost = {};
     dataToPost.FilterVRN = document.getElementById('VRNToLookup').value;
-  //   dataToPost.FilterVRN = dataToPost.FilterVRN.replace(/ /g,'').toUpperCase();
-  //   dataToPost.FilterTDHNumber = document.getElementById('TDHToLookup').value;
+    //   dataToPost.FilterVRN = dataToPost.FilterVRN.replace(/ /g,'').toUpperCase();
+    //   dataToPost.FilterTDHNumber = document.getElementById('TDHToLookup').value;
     dataToPost.FilterCustomer = document.getElementById('getCustomerSelect').value;
     dataToPost.FilterInsurer = document.getElementById('getInsurerSelect').value;
 
@@ -12,48 +12,48 @@ $(document).on('click', '#vehicleFilterClicked', function(event) {
         url: 'filterVehicles.php',
         data: dataToPost,
         type: "POST",
-        success: function(data) {
-          dataToPost.SQLFilter = data;
+        success: function (data) {
+            dataToPost.SQLFilter = data;
 
 
-          $.ajax({
-              url: "vehicleList.php",
-              type: "POST",
-              data: dataToPost,
-              success: function(data) { 
-                  $('#vehicleList').html(data);
-              },
-              error: function() {
-                  $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-              }
-          });
+            $.ajax({
+                url: "vehicleList.php",
+                type: "POST",
+                data: dataToPost,
+                success: function (data) {
+                    $('#vehicleList').html(data);
+                },
+                error: function () {
+                    $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
+                }
+            });
         },
-        error: function() {
+        error: function () {
 
         }
     });
-  });
+});
 
 
-  $('#modalAddVehicle').on('hidden.bs.modal', function(event) {
-     $(this).find('form').trigger('reset');
+$('#modalAddVehicle').on('hidden.bs.modal', function (event) {
+    $(this).find('form').trigger('reset');
     $('#addVehicleErrorBox').html('');
 });
 
-$(document).on("input","#vehicleStatusPending", function() {
-    if($("#vehicleStatusPending").is(':checked')) {
+$(document).on("input", "#vehicleStatusPending", function () {
+    if ($("#vehicleStatusPending").is(':checked')) {
         $('#vehicleInstallDateLabel').html("Upcoming install date");
     }
 });
-$(document).on("input","#vehicleStatusInstalled", function() {
-    if($("#vehicleStatusInstalled").is(':checked')) {
+$(document).on("input", "#vehicleStatusInstalled", function () {
+    if ($("#vehicleStatusInstalled").is(':checked')) {
         $('#vehicleInstallDateLabel').html("Installation date");
     }
 });
 
 
 
-  $(document).on('blur', '#editVRN', function(event) {
+$(document).on('blur', '#editVRN', function (event) {
     // prevent default PHP processing
     // document.getElementById('editVehicleDescription').value = 'searching...';
     // var dataToPost = {};
@@ -75,7 +75,7 @@ $(document).on("input","#vehicleStatusInstalled", function() {
     // });
 });
 
-$(document).on('click', '#findVehicleRegNumber', function(event) {
+$(document).on('click', '#findVehicleRegNumber', function (event) {
     event.preventDefault();
     var dataToPost = {};
     dataToPost.VRN = document.getElementById('addVehicleRegNumber').value;
@@ -87,7 +87,7 @@ $(document).on('click', '#findVehicleRegNumber', function(event) {
         type: "POST",
         data: dataToPost,
         datatype: "json",
-        success: function(data) {
+        success: function (data) {
             // var vehicleInfo = $.parseJSON(data);
 
             // document.getElementById('addVehicleRegNumber').value = dataToPost.VRN;
@@ -109,19 +109,19 @@ $(document).on('click', '#findVehicleRegNumber', function(event) {
 
             //  })
 
-             var arr = data.split('^^^');
-           
-             document.getElementById('addVehicleRegNumber').value = arr[0];
+            var arr = data.split('^^^');
+
+            document.getElementById('addVehicleRegNumber').value = arr[0];
             //  document.getElementById('addVehicleMake').value = arr[1];
             //  document.getElementById('addVehicleModel').value = arr[2];
             //  document.getElementById('addVehicleAddDescription').value = arr[3];
-             document.getElementById('addVehicleAllocateTo').value = arr[4];
-             document.getElementById('hiddenVehicleID').value = arr[5];
+            document.getElementById('addVehicleAllocateTo').value = arr[4];
+            document.getElementById('hiddenVehicleID').value = arr[5];
             //  document.getElementById('lookUpProgress').style.visibility = "hidden";
 
         },
-        error: function() {
-         
+        error: function () {
+
         }
     });
 });
@@ -133,14 +133,14 @@ function addNewVehicle() {
 
     if ($('#vehicleStatusInstalled').is(':checked')) {
         dataToPost.installation = 'installed';
-    } else if($('#vehicleStatusPending').is(':checked')) {
+    } else if ($('#vehicleStatusPending').is(':checked')) {
         dataToPost.installation = 'pending';
     } else {
         dataToPost.installation = 'not applicable'
     }
     dataToPost.installationDate = $('#vehicleInstalldate').val();
-    dataToPost.vehicleNotes = document.getElementById('addVehicleNotes').value;  
-    dataToPost.LTAlarmDate = $('#LTAlarmInstalldate').val();  
+    dataToPost.vehicleNotes = document.getElementById('addVehicleNotes').value;
+    dataToPost.LTAlarmDate = $('#LTAlarmInstalldate').val();
     dataToPost.SSSensorDate = $('#SideScanInstalldate').val();
     // dataToPost.allocateTo = document.getElementById('hiddenVehicleID').value;
 
@@ -148,16 +148,20 @@ function addNewVehicle() {
     // dataToPost.model = document.getElementById('addVehicleModel').value;
     // dataToPost.addDescription = document.getElementById('addVehicleAddDescription').value;
 
-    $.ajax ({
+    $.ajax({
         url: 'addNewVehicle.php',
         type: "POST",
         data: dataToPost,
-        success: function(data) {
-        
+        success: function (data) {
+            if (data.includes('success')) {
                 $('#modalAddVehicle').modal('hide');
                 $('#getClient').trigger('change');
+            } else {
+                $('#addVehicleErrorBox').html(data);
+
+            }
         },
-        error: function() {
+        error: function () {
 
         }
     });
@@ -172,70 +176,70 @@ function showVehicleForEdit(rowNumber) {
         document.getElementById('hiddenVehicleSelector').value = 'vehicle';
         rowNumber = rowNumber.replace("vehicle", '');
     }
-   
+
     var dataToPost = {};
     dataToPost.vehicleID = rowNumber;
-     $.ajax({
-      url: 'getCurrentVehicle.php',
-      timeout: 30000,
-      data: dataToPost,
-       datatype: "json",
-      type: "POST",
-      success: function(data) {
-        data = $.parseJSON(data);
-   
+    $.ajax({
+        url: 'getCurrentVehicle.php',
+        timeout: 30000,
+        data: dataToPost,
+        datatype: "json",
+        type: "POST",
+        success: function (data) {
+            data = $.parseJSON(data);
+
             document.getElementById('editVehicleRegNumber').value = data['regNumber'];
-        //    document.getElementById('editVehicleMake').value = data['make'];
-        //    document.getElementById('editVehicleModel').value = data['model'];
-        //    document.getElementById('editVehicleAddDescription').value = data['addDescription'];
+            //    document.getElementById('editVehicleMake').value = data['make'];
+            //    document.getElementById('editVehicleModel').value = data['model'];
+            //    document.getElementById('editVehicleAddDescription').value = data['addDescription'];
             document.getElementById('vehicleAllocateTo').value = data['businessName'];
-  
+
             document.getElementById('hiddenVehicleID').value = rowNumber;
-            
-            $('#editVehicleCameraNo').prop('checked',true);
-            if (data['cameraRequired']=='1') {
-                $('#editVehicleCameraYes').prop('checked',true);
+
+            $('#editVehicleCameraNo').prop('checked', true);
+            if (data['cameraRequired'] == '1') {
+                $('#editVehicleCameraYes').prop('checked', true);
             }
 
-            if (data['vehicleStatus']=='2') {
-                $('#editVehicleStatusInstalled').prop('checked',true);
-            } else if (data['vehicleStatus']=='1'){
-                $('#editVehicleStatusPending').prop('checked',true);     
+            if (data['vehicleStatus'] == '2') {
+                $('#editVehicleStatusInstalled').prop('checked', true);
+            } else if (data['vehicleStatus'] == '1') {
+                $('#editVehicleStatusPending').prop('checked', true);
             } else {
-                $('#editVehicleStatusNotApplicable').prop('checked',true);          
+                $('#editVehicleStatusNotApplicable').prop('checked', true);
             }
-            
+
             $('#editVehicleInstalldate').val(data['installDate']);
             $('#editLTAlarmDate').val(data['LTAlarmDate']);
             $('#editSideScanDate').val(data['SideScanDate']);
-            
+
             $('#editVehicleNotes').html(data['vehicleNotes']);
 
-           $('#modalVehicleShow').modal('show');
+            $('#modalVehicleShow').modal('show');
 
-        if (data['LTAlarmDate']) {
-            $('#labelEditLeftTurn').css('color', 'limegreen');
-            $('#editLTAlarmDate').css('color', 'limegreen');
-        } else {
-            $('#labelEditLeftTurn').css('color', '#888888');
-            $('#editLTAlarmDate').css('color', '#888888');
-        }
-        if (data['SideScanDate']) {
-            $('#labelEditSideScan').css('color', 'limegreen');
-            $('#editSideScanDate').css('color', 'limegreen');
-        } else {
-            $('#labelEditSideScan').css('color', '#888888');
-            $('#editSideScanDate').css('color', '#888888');
-        }
-        
-      },
-      error: function() {
+            if (data['LTAlarmDate']) {
+                $('#labelEditLeftTurn').css('color', 'limegreen');
+                $('#editLTAlarmDate').css('color', 'limegreen');
+            } else {
+                $('#labelEditLeftTurn').css('color', '#888888');
+                $('#editLTAlarmDate').css('color', '#888888');
+            }
+            if (data['SideScanDate']) {
+                $('#labelEditSideScan').css('color', 'limegreen');
+                $('#editSideScanDate').css('color', 'limegreen');
+            } else {
+                $('#labelEditSideScan').css('color', '#888888');
+                $('#editSideScanDate').css('color', '#888888');
+            }
 
-      }
-  });
+        },
+        error: function () {
+
+        }
+    });
 }
 
-$(document).on("change", '#editLTAlarmDate', function() {
+$(document).on("change", '#editLTAlarmDate', function () {
     var thisDate = new Date($('#editLTAlarmDate').val());
 
     if (thisDate != 'Invalid Date') {
@@ -243,10 +247,10 @@ $(document).on("change", '#editLTAlarmDate', function() {
         $('#editLTAlarmDate').css('color', 'limegreen');
     } else {
         $('#labelEditLeftTurn').css('color', '#888888');
-        $('#editLTAlarmDate').css('color', '#888888'); 
+        $('#editLTAlarmDate').css('color', '#888888');
     }
 });
-$(document).on("change", '#editSideScanDate', function() {
+$(document).on("change", '#editSideScanDate', function () {
     var thisDate = new Date($('#editSideScanDate').val());
 
     if (thisDate != 'Invalid Date') {
@@ -254,58 +258,58 @@ $(document).on("change", '#editSideScanDate', function() {
         $('#editSideScanDate').css('color', 'limegreen');
     } else {
         $('#labelEditSideScan').css('color', '#888888');
-        $('#editSideScanDate').css('color', '#888888'); 
+        $('#editSideScanDate').css('color', '#888888');
     }
 });
-  
+
 function editCurrentVehicle() {
-  var dataToPost = {};
-  dataToPost.regNumber = document.getElementById('editVehicleRegNumber').value;
-//   dataToPost.make = document.getElementById('editVehicleMake').value;
-//   dataToPost.model = document.getElementById('editVehicleModel').value;
-//   dataToPost.addDescription = document.getElementById('editVehicleAddDescription').value;
-  dataToPost.vehicleID = document.getElementById('hiddenVehicleID').value;
-  dataToPost.required = $('#editVehicleCameraYes').is(':checked');
+    var dataToPost = {};
+    dataToPost.regNumber = document.getElementById('editVehicleRegNumber').value;
+    //   dataToPost.make = document.getElementById('editVehicleMake').value;
+    //   dataToPost.model = document.getElementById('editVehicleModel').value;
+    //   dataToPost.addDescription = document.getElementById('editVehicleAddDescription').value;
+    dataToPost.vehicleID = document.getElementById('hiddenVehicleID').value;
+    dataToPost.required = $('#editVehicleCameraYes').is(':checked');
 
- if ($('#editVehicleStatusInstalled').is(':checked')) {
-    dataToPost.vehicleStatus = 2;
-} else if ($('#editVehicleStatusPending').is(':checked')){
-    dataToPost.vehicleStatus = 1;     
-} else {
-    dataToPost.vehicleStatus = 0;          
-}
-
-  dataToPost.installDate = document.getElementById('editVehicleInstalldate').value;
-  dataToPost.LTAlarmDate = document.getElementById('editLTAlarmDate').value;
-  dataToPost.SideScanDate = document.getElementById('editSideScanDate').value;
-  
-  dataToPost.vehicleNotes = document.getElementById('editVehicleNotes').value; 
-
-  $.ajax({
-    url: 'updateCurrentVehicle.php',
-    timeout: 30000,
-    data: dataToPost,
-    type: "POST",
-    success: function(data) {
-        if (data.includes('success')) {
-            $('#modalVehicleShow').modal('hide');
-            $('#vehicleFilterClicked').trigger('click');
-            if (document.getElementById('hiddenVehicleSelector').value == 'vehicle') {
-                $('#showVehicleList').trigger('click');
-            } else {
-                $('#getClient').trigger('change');
-                var newID = parseInt(data.replace('success', ''), 10);
-                console.log ("cust: " + newID);
-                showCustomers(newID);
-            }
-        } else {
-            $('#editVehicleErrorBox').html(data);
-        }
-    },
-    error: function() {
-
+    if ($('#editVehicleStatusInstalled').is(':checked')) {
+        dataToPost.vehicleStatus = 2;
+    } else if ($('#editVehicleStatusPending').is(':checked')) {
+        dataToPost.vehicleStatus = 1;
+    } else {
+        dataToPost.vehicleStatus = 0;
     }
-  });
+
+    dataToPost.installDate = document.getElementById('editVehicleInstalldate').value;
+    dataToPost.LTAlarmDate = document.getElementById('editLTAlarmDate').value;
+    dataToPost.SideScanDate = document.getElementById('editSideScanDate').value;
+
+    dataToPost.vehicleNotes = document.getElementById('editVehicleNotes').value;
+
+    $.ajax({
+        url: 'updateCurrentVehicle.php',
+        timeout: 30000,
+        data: dataToPost,
+        type: "POST",
+        success: function (data) {
+            if (data.includes('success')) {
+                $('#modalVehicleShow').modal('hide');
+                $('#vehicleFilterClicked').trigger('click');
+                if (document.getElementById('hiddenVehicleSelector').value == 'vehicle') {
+                    $('#showVehicleList').trigger('click');
+                } else {
+                    $('#getClient').trigger('change');
+                    var newID = parseInt(data.replace('success', ''), 10);
+                    console.log("cust: " + newID);
+                    showCustomers(newID);
+                }
+            } else {
+                $('#editVehicleErrorBox').html(data);
+            }
+        },
+        error: function () {
+
+        }
+    });
 }
 
 function showVehicleNotes(rowNumber) {
@@ -351,15 +355,15 @@ function editCurrentVehicleNotes() {
             if (data.includes("success")) {
                 $('#editVehicleNotesMessage').html('');
                 $('#modalEditVehicleNotes').modal('hide');
-                
-                if (document.getElementById('hiddenVehicleNotesSelector').value=='vehicle') {
-                    $('#showVehicleList').trigger('click'); 
+
+                if (document.getElementById('hiddenVehicleNotesSelector').value == 'vehicle') {
+                    $('#showVehicleList').trigger('click');
                 } else {
                     $('#getClient').trigger('change');
                     var newID = parseInt(data.replace('success', ''), 10);
-                    showCustomers(newID); 
+                    showCustomers(newID);
                 }
-                
+
 
             } else {
                 $('#editVehicleMessage').html(data);
@@ -379,13 +383,13 @@ function deleteVehicle() {
     //     return;
     // }
     dataToPost.vehicleNumber = document.getElementById('hiddenVehicleID').value;
-   
+
     $.ajax({
         url: "deleteVehicle.php",
         timeout: 30000,
         data: dataToPost,
         type: "POST",
-        success: function(data) {
+        success: function (data) {
             if (data.includes('success')) {
                 $('#editVehicleMessage').html('');
                 $('#modalVehicleShow').modal('hide');
@@ -409,16 +413,15 @@ $(document).on('show.bs.modal', '#modalAddVehicle', function (event) {
 });
 
 $(document).on('hide.bs.modal', '#modalVehicleShow', function (event) {
-    $(this).find('form').trigger('reset');  
+    $(this).find('form').trigger('reset');
     $('#editVehicleErrorBox').html('');
 });
 
 
-$(document).on('click','#vehicleListTable tbody td', function() {
-    let dt=$('#vehicleListTable').DataTable();
+$(document).on('click', '#vehicleListTable tbody td', function () {
+    let dt = $('#vehicleListTable').DataTable();
     let vIndex = $(this).index();
     let colIndex = dt.column.index('fromVisible', vIndex);
     let clip = dt.column(colIndex).data();
-    copyArrayToClipboard (clip);      
+    copyArrayToClipboard(clip);
 });
-

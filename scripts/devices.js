@@ -2,7 +2,7 @@ function showFullDevice(rowNumber) {
     // get device data using AJAX call
     // fill in modal dialog
     // update SQL
-  
+
     if (rowNumber.includes("customer")) {
         document.getElementById('hiddenDeviceSelector').value = 'customer';
         rowNumber = rowNumber.replace("customer", '');
@@ -13,7 +13,7 @@ function showFullDevice(rowNumber) {
         document.getElementById('hiddenDeviceSelector').value = 'DHI';
         rowNumber = rowNumber.replace("DHI", '');
     }
-  
+
     var dataToPost = {};
     dataToPost.deviceID = rowNumber;
     $.ajax({
@@ -25,7 +25,7 @@ function showFullDevice(rowNumber) {
         success: function (data) {
             data = $.parseJSON(data);
 
-            if ($('#editTDHNumber').length >0) {
+            if ($('#editTDHNumber').length > 0) {
                 document.getElementById('editTDHNumber').value = data['TDHNumber'];
             }
             document.getElementById('editSerial').value = data['serialNumber'];
@@ -37,14 +37,14 @@ function showFullDevice(rowNumber) {
 
             document.getElementById('editConfigFile').value = data['config'];
             document.getElementById('editDeviceInstallReference').value = data['assocOrderNumber'];
-            document.getElementById('editDeviceSupplierInvoice').value = data['supplierInvoice'];
+            // document.getElementById('editDeviceSupplierInvoice').value = data['supplierInvoice'];
             document.getElementById('editSIMScheduleDate').value = data['scheduledDate'];
-            if (data['VCOReference']!=null) {
-                document.getElementById('labelVCOReference').innerHTML='<strong>VCO Reference: ' + data['VCOReference'] + "</strong>";         
+            if (data['VCOReference'] != null) {
+                document.getElementById('labelVCOReference').innerHTML = '<strong>VCO Reference: ' + data['VCOReference'] + "</strong>";
             } else {
-                document.getElementById('labelVCOReference').innerHTML='<strong>VCO Reference: none</strong>';              
+                document.getElementById('labelVCOReference').innerHTML = '<strong>VCO Reference: none</strong>';
             }
-                document.getElementById('editSIMSuspensionDate').value = data['SIMDeactivationDate'];
+            document.getElementById('editSIMSuspensionDate').value = data['SIMDeactivationDate'];
             document.getElementById('editDeviceInstallDate').value = data['installDate'];
             document.getElementById('editDeviceNoteText').value = data['deviceNote'];
             document.getElementById('editDeviceInstaller').value = data['installerID'];
@@ -54,8 +54,28 @@ function showFullDevice(rowNumber) {
             document.getElementById('editVRN').value = data['regNumber'];
             // document.getElementById('editVehicleDescription').value = data['make'] + data['model'] + data['addDescription'];
             document.getElementById('editOwnerID').value = data['ID'];
-            document.getElementById('editDevicePurchaseDate').value = data['purchaseDate'];
+            // document.getElementById('editDevicePurchaseDate').value = data['purchaseDate'];
             document.getElementById('hiddenDeviceID').value = rowNumber;
+
+            vco = document.getElementById('vcoUpdated');
+            platform = document.getElementById('platformUpdated');
+            config = document.getElementById('configUpdated');
+
+            if (data['vcoUpdated'] == 1) {
+                vco.checked = true;
+            } else {
+                vco.checked = false;
+            }
+            if (data['configUpdated'] == 1) {
+                config.checked = true;
+            } else {
+                config.checked = false;
+            }
+            if (data['platformUpdated'] == 1) {
+                platform.checked = true;
+            } else {
+                platform.checked = false;
+            }
 
             $('#modalEditDevice').modal('show');
         },
@@ -86,8 +106,8 @@ function addNewDevice() {
     dataToPost.installDate = document.getElementById('addDeviceInstallDate').value;
     dataToPost.installerRef = document.getElementById('addDeviceInstallReference').value;
     dataToPost.supplierID = document.getElementById('addDeviceSupplierList').value;
-    dataToPost.supplierRef = document.getElementById('addDeviceSupplierInvoice').value;
-    dataToPost.purchaseDate = document.getElementById('addDevicePurchaseDate').value;
+    // dataToPost.supplierRef = document.getElementById('addDeviceSupplierInvoice').value;
+    // dataToPost.purchaseDate = document.getElementById('addDevicePurchaseDate').value;
     dataToPost.notesText = document.getElementById('addDeviceNoteText').value;
 
     $.ajax({
@@ -170,11 +190,15 @@ function editCurrentDevice() {
     dataToPost.status = document.getElementById('editDeviceStatus').value;
     dataToPost.installerID = document.getElementById('editDeviceInstaller').value;
     dataToPost.installDate = document.getElementById('editDeviceInstallDate').value;
-    dataToPost.assocOrderNumber = document.getElementById('editDeviceInstallReference').value;
+    // dataToPost.assocOrderNumber = document.getElementById('editDeviceInstallReference').value;
     dataToPost.supplierID = document.getElementById('editDeviceSupplier').value;
-    dataToPost.supplierInvoice = document.getElementById('editDeviceSupplierInvoice').value;
-    dataToPost.purchaseDate = document.getElementById('editDevicePurchaseDate').value;
+    // dataToPost.supplierInvoice = document.getElementById('editDeviceSupplierInvoice').value;
+    // dataToPost.purchaseDate = document.getElementById('editDevicePurchaseDate').value;
     dataToPost.deviceNote = document.getElementById('editDeviceNoteText').value;
+    dataToPost.vcoUpdated = $('#vcoUpdated').is(':checked');
+    dataToPost.configUpdated = $('#configUpdated').is(':checked');
+    dataToPost.platformUpdated = $('#platformUpdated').is(':checked');
+
 
     $.ajax({
         url: 'updateEditDevice.php',
@@ -276,8 +300,8 @@ function editCurrentDeviceNotes() {
             if (data.includes("success")) {
                 $('#editDeviceNotesMessage').html('');
                 $('#modalEditDeviceNotes').modal('hide');
-         
-                if (document.getElementById('hiddenDeviceNotesSelector').value=='device') {
+
+                if (document.getElementById('hiddenDeviceNotesSelector').value == 'device') {
                     $('#showDeviceList').trigger('click');
                 } else {
                     $('#getClient').trigger('click');
@@ -294,70 +318,70 @@ function editCurrentDeviceNotes() {
 }
 
 function deletePhysicalDevice() {
-        var dataToPost = {};
-        // var e = document.getElementById('editDeviceDescription');
-        // if (e.selectedIndex==-1) {
-        //     return;
-        // }
-        dataToPost.deviceNumber = document.getElementById('hiddenDeviceID').value;
-        
-        
+    var dataToPost = {};
+    // var e = document.getElementById('editDeviceDescription');
+    // if (e.selectedIndex==-1) {
+    //     return;
+    // }
+    dataToPost.deviceNumber = document.getElementById('hiddenDeviceID').value;
 
-        new swal ({
-            title: "Confirm delete",
-            text: "Are you sure you want to delete?",
-            icon: "warning",
-            showDenyButton: true,
-            confirmButtonText: 'Yes - Delete',
-            denyButtonText: 'Cancel',
-        }).then ((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "deletePhysicalDevice.php",
-                    timeout: 30000,
-                    data: dataToPost,
-                    type: "POST",
-                    success: function(data) {
-                        if (data.includes("success")) {
-                            $('#editDeviceMessage').html('');
-                            $('#modalEditDevice').modal('hide');
-                            if (document.getElementById('hiddenDeviceSelector').value == 'device') {
-                                $('#showDeviceList').trigger('click');
-                            } else {
-                                $('#getClient').trigger('change');
-                                var newID = parseInt(data.replace('success', ''), 10);
-                                showCustomers(newID);
-                            }
-            
+
+
+    new swal({
+        title: "Confirm delete",
+        text: "Are you sure you want to delete?",
+        icon: "warning",
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "deletePhysicalDevice.php",
+                timeout: 30000,
+                data: dataToPost,
+                type: "POST",
+                success: function (data) {
+                    if (data.includes("success")) {
+                        $('#editDeviceMessage').html('');
+                        $('#modalEditDevice').modal('hide');
+                        if (document.getElementById('hiddenDeviceSelector').value == 'device') {
+                            $('#showDeviceList').trigger('click');
                         } else {
-                            $('#editDeviceMessage').html(data);
+                            $('#getClient').trigger('change');
+                            var newID = parseInt(data.replace('success', ''), 10);
+                            showCustomers(newID);
                         }
-        
+
+                    } else {
+                        $('#editDeviceMessage').html(data);
                     }
-        
-                })
-        
-            }
-        });
-    
-        return;
+
+                }
+
+            })
+
+        }
+    });
+
+    return;
 
 
 
 
-        
+
 
 }
 
-$(document).on('change', '#editOwnerID', function() {
+$(document).on('change', '#editOwnerID', function () {
     var dataToPost = {};
     dataToPost.ownerID = $('#editOwnerID').val();
-    $.ajax ({
+    $.ajax({
         url: 'getVCOReference.php',
         type: 'POST',
         data: dataToPost,
-        success: function(data) {
-            $('#labelVCOReference').html ('<strong>VCO Reference: ' + data +'</strong>');
+        success: function (data) {
+            $('#labelVCOReference').html('<strong>VCO Reference: ' + data + '</strong>');
         }
     });
 })
@@ -375,7 +399,6 @@ $(document).on('click', '#deviceFilterClicked', function (event) {
         url: 'filterDevices.php',
         data: dataToPost,
         type: 'POST',
-        timeout: 60000,
         success: function (data) {
             dataToPost.SQLFilter = data;
             $.ajax({
@@ -410,26 +433,24 @@ $(document).on('click', '#deviceList', function (event) {
 });
 
 
-     $(document).on('show.bs.modal', '#modalAddNewDevice', function (event) {
-         $(this).find('form').trigger('reset');
-         $('#addDeviceMessage').html('');
-     });
+$(document).on('show.bs.modal', '#modalAddNewDevice', function (event) {
+    $(this).find('form').trigger('reset');
+    $('#addDeviceMessage').html('');
+});
 
-     $(document).on('show.bs.modal', '#modalEditDevice', function (event) {
+$(document).on('show.bs.modal', '#modalEditDevice', function (event) {
     //     // $(this).find('form').trigger('reset');
-         $('#editDeviceMessage').html('');
-     });
+    $('#editDeviceMessage').html('');
+});
 
 function allocateDevice(deviceToAllocate) {
     $('#modalGetCustomerAndVRN').modal('show');
     document.getElementById('hiddenAllocateID').innerHTML = deviceToAllocate;
 
-    }
+}
 
-    $(document).on('click','#deviceListTable tbody td', function() {
-        let dt=$('#deviceListTable').DataTable();
-        let vIndex = $(this).index();
-        let colIndex = dt.column.index('fromData', vIndex);
-        let clip = dt.column(colIndex).data();
-        copyArrayToClipboard (clip);        
-    });
+$(document).on('click', '#editSIMScheduleDate', function () {
+    var schDate = new Date();
+    schDate.setDate(schDate.getDate() + 31);
+    document.getElementById('editSIMScheduleDate').valueAsDate = schDate;
+});

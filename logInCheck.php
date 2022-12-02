@@ -30,16 +30,30 @@ if(empty($_POST['password'])) {
 // print any errors
 if ($errors) {
     $resultMessage = "<div class='alert alert-danger'>" . $errors . "</div>";
+
     echo $resultMessage;
     exit();
 } else {
     $userName = mysqli_real_escape_string($link, $userName);
     $password = mysqli_real_escape_string($link, $password);
     $password = hash('sha256', $password);
+
+    $sql = "SELECT * FROM tblUsers WHERE (email='$userName' AND password='$password' AND (activation='locked' OR activation='disabled')";
+    $result = mysqli_query($link, $sql);
+    if ($result) {
+        $count = mysqli_num_rows($result);
+        if ($count>0) {
+            $sql = "INSERT INTO tblEventLog (Description) VALUES ('Disabled or locked account log in attempt')";
+            $result = mysqli_query($link, $sql);
+            echo '<div class="alert alert-danger">The account with this email address assigned to it has been locked or disabled</div></div>';
+            exit();
+        }
+    }
+
     $sql = "SELECT * FROM tblUsers WHERE (email='$userName' AND password='$password' AND activation='activated')";
 
     $result = mysqli_query($link, $sql);
-
+  
     if (!$result) {
         echo '<div class="alert alert-danger">Error accessing the database</div>';
         echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
@@ -52,8 +66,21 @@ if ($errors) {
     // If they don't match print an error
         $sql = "INSERT INTO tblEventLog (Description) VALUES ('Incorrect email or password')";
         $result = mysqli_query($link, $sql);
-        echo '<div class="alert alert-danger">Incorrect email or password</div>';
-    } else {
+        echo '<div class="alert alert-danger">Incorrect email or password.</div>';
+
+        if(!ISSET($_SESSION['attempt'])){
+            $_SESSION['attempt'] = 0;
+        }
+    
+        $_SESSION['attempt'] += 1;
+
+        if($_SESSION['attempt'] >= 3){
+            echo "<div class='alert alert-info'>Your login has been disabled due to 3 or more incorrect attempts to log in</div>";
+
+            $sql = "UPDATE tblUsers SET activation='locked' WHERE (email = '$userName') LIMIT 1";
+            $result = mysqli_query($link,$sql);
+        }         
+    }  else {
         // log the user in and set session variables
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $_SESSION['userEmail'] = $row['email'];
@@ -74,7 +101,6 @@ if ($errors) {
     }
 
 }
-
 
 
 function getAlerts($link) {

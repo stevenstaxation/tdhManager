@@ -149,6 +149,31 @@ $returnString .= "
 
     $(document).ready(function() {
       $('#footageListTable').DataTable({
+        retrieve: true,
+        buttons: [
+          'colvis',
+          'spacer',
+          { extend: 'csv',
+            header: false,
+            exportOptions: {
+              columns: ':visible',
+            },
+          },
+          { extend: 'excel',
+            header: false,
+            exportOptions: {
+              columns: ':visible',
+            },
+          },
+          'spacer',
+          { extend: 'pdf',
+            header: false,
+            orientation: 'landscape',
+            exportOptions: {
+              columns: ':visible',
+            },
+          },          
+        ],
         columnDefs: [
           {orderable: false, targets: [12,13,14] },
           {searchable: false, targets: [12,13,14] }
@@ -157,7 +182,11 @@ $returnString .= "
         order: [[0, 'asc']],
         processing: true,
         paging: false,
-        dom: '<\"top\"iflp>rt<\"bottom\"><\"clear\">',
+        select: {
+          style: 'os',
+          items: 'cell'
+        },
+        dom: '<\"top\"lf>rt<\"bottom\"ipB><\"clear\">',
         rowCallback: function(row, data, dataIndex) {
           if ($('body').hasClass('dark')) {
             $(row).css('background-color', 'rgba(68,68,68,1)')
@@ -166,27 +195,8 @@ $returnString .= "
             $(row).css('background-color', 'rgba(255,255,255,1)')
                   .css('color', 'rgba(68,68,68,1)');
         }
-      },
-        initComplete: function() {
-          this.api().columns([1,2,3,4,5,6,7,8,9,10,11]).every (function() {
-            var column = this;
-            var select = $('<br><select><option value=\"\"></option></select>')
-            .appendTo($(column.header()))
-            .on('change', function() {
-              var val = $.fn.dataTable.util.escapeRegex(
-                $(this).val()
-              );
-
-              column
-                .search(val ? '^'+val+'$' : '', true, false)
-                .draw();
-            });
-  
-            column.data().unique().sort().each(function (d,j) {
-              select.append('<option value=\"'+d+'\">'+d+'</option>')
-            });
-          });
-        }
+      }
+         
       });
   });
     </script>

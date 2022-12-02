@@ -193,14 +193,16 @@ table.table-bordered > tbody > tr:hover {
 
 body.dark input[type=text],
 body.dark input[type=date],
+body.dark input[type=datetime],
 body.dark input[type=datetime-local],
 body.dark input[type=email],
 body.dark input[type=password],
 body.dark input[type=number],
 body.dark select,
-body.dark textarea {
-    background-color: #545454;
-    color: #eeeeee; 
+body.dark textarea,
+body.dark textarea:active {
+    background-color: #545454!important;
+    color: #eeeeee!important; 
 }
 
 body.dark label {
@@ -509,23 +511,114 @@ body.dark #dropZone {
     border-radius: 4px;
     margin: 0 10px;
     background-image: linear-gradient(rgb(255,255,255), rgb(192,192,192))!important;
-    color: black;
+
 }
 body.dark .dt-buttons .dt-button {
     background-image: linear-gradient(rgb(192,192,192), rgb(128,128,128))!important;
-    color: white!important;
+   
 }
     
-.dt-buttons .dt-button:hover {
-    background-image: linear-gradient(rgb(192,192,192),rgb(255,255,255))!important;
+
+
+.buttons-columnVisibility {
+    color: red!important;
+    background-color: #f9fff3!important;
 }
-body.dark .dt-buttons .dt-button:hover {
-    background-image: linear-gradient(rgb(128,128,128),rgb(192,192,192))!important;
+.buttons-columnVisibility:hover {
+    color: greenyellow!important;
+    background-color: #f9fff3!important;
+}
+.buttons-columnVisibility.active {
+    color: greenyellow!important;
+    background-color: #FAA61A!important;
+}
+.buttons-columnVisibility.active:hover {
+    color: red!important;
+    background-color: #151721!important;
 }
 
-/* td.sorting_1 {
-    background-color: pink!important;
-} */
+body.dark .buttons-columnVisibility {
+    color: red!important;    
+
+}
+body.dark .buttons-columnVisibility:hover {
+    color: greenyellow!important;
+
+}
+body.dark .buttons-columnVisibility.active {
+    color: greenyellow!important;
+
+}
+body.dark .buttons-columnVisibility.active:hover {
+    color: red!important;
+
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    top: 15px;
+    width: 30px;
+    height: 17px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FF7777;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #77FF77;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #77FF77;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 17px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+
 
 
 

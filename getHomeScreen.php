@@ -59,41 +59,41 @@ $returnString .="</tbody>
 $sql = "SELECT tblJobs.date, tblJobs.notes, tblCustomer.businessName, tblVehicle.regNumber, tblJobType.description FROM tblJobs INNER JOIN tblCustomer ON tblJobs.ownerID = tblCustomer.ID INNER JOIN tblJobType ON tblJobType.ID = tblJobs.jobType INNER JOIN tblVehicle ON tblVehicle.ID = tblJobs.VRN  WHERE tblJobs.status='1' AND tblJobs.date >= DATE_ADD(CURDATE(), INTERVAL 1 DAY) AND tblJobs.date <= DATE_ADD(NOW(), INTERVAL 30 DAY) ORDER BY date ASC";
 $result = mysqli_query($link,$sql);
 
-if (mysqli_num_rows($result)>0) {
+// if (mysqli_num_rows($result)>0) {
 
-$returnString .="
-<h4 class='reminderScreen' style='margin-top:50px;'>JOBS COMING UP (NEXT 30 DAYS)</h4>
+// $returnString .="
+// <h4 class='reminderScreen' style='margin-top:50px;'>JOBS COMING UP (NEXT 30 DAYS)</h4>
 
-<table class='table table-bordered homeTable'>
-    <thead>
-        <tr>
-            <th class='text-center align-middle' style='padding:0 3px;'>Due Date</th>
-            <th class='align-middle' style='padding:0 3px;'>Customer</th>
-            <th class='text-center align-middle' style='padding:0 3px;'>VRN</th>
-            <th class='text-center align-middle' style='padding:0 3px;'>Type</th>
-            <th class='align-middle' style='padding:0 3px;'>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-   ";
+// <table class='table table-bordered homeTable'>
+//     <thead>
+//         <tr>
+//             <th class='text-center align-middle' style='padding:0 3px;'>Due Date</th>
+//             <th class='align-middle' style='padding:0 3px;'>Customer</th>
+//             <th class='text-center align-middle' style='padding:0 3px;'>VRN</th>
+//             <th class='text-center align-middle' style='padding:0 3px;'>Type</th>
+//             <th class='align-middle' style='padding:0 3px;'>Description</th>
+//         </tr>
+//     </thead>
+//     <tbody>
+//    ";
    
-   while ($overdue = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-       $returnString .= "<tr>
-       <td class='text-center align-middle'>" . date('d/m/Y', strtotime($overdue['date'])) . "</td>
-       <td class='align-middle' style='padding:0 3px;'>" . $overdue['businessName'] . "</td>
-       <td class='text-center align-middle'>" . $overdue['regNumber'] . "</td>
-       <td class='text-center align-middle'>" . $overdue['description'] . "</td>
-       <td class='align-middle' style='padding:0 3px;'>" . $overdue['notes']. "</td>
-       </tr>";
-   }
+//    while ($overdue = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+//        $returnString .= "<tr>
+//        <td class='text-center align-middle'>" . date('d/m/Y', strtotime($overdue['date'])) . "</td>
+//        <td class='align-middle' style='padding:0 3px;'>" . $overdue['businessName'] . "</td>
+//        <td class='text-center align-middle'>" . $overdue['regNumber'] . "</td>
+//        <td class='text-center align-middle'>" . $overdue['description'] . "</td>
+//        <td class='align-middle' style='padding:0 3px;'>" . $overdue['notes']. "</td>
+//        </tr>";
+//    }
     
-$returnString .="</tbody>
+// $returnString .="</tbody>
 
-</table>";
-} else {
-    $returnString .="<h4 class='reminderScreen' style='margin-top:50px;'>JOBS COMING UP (NEXT 30 DAYS)</h4>";
-    $returnString .="<p>There are no open jobs coming up within the next 30 days</p>";
-}
+// </table>";
+// } else {
+//     $returnString .="<h4 class='reminderScreen' style='margin-top:50px;'>JOBS COMING UP (NEXT 30 DAYS)</h4>";
+//     $returnString .="<p>There are no open jobs coming up within the next 30 days</p>";
+// }
 
 $interval = new DateInterval('P30D');
 $dateNow = new dateTime();

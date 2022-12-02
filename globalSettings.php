@@ -217,8 +217,40 @@ $returnString .="</select>
         </div>
         <div id='healthcheckTypeErrorBox'></div>
     </div>
-</div>
+</div>";
 
+// <div class='col-md-6 col-lg-4 col-xl-3'>
+
+//     <div id='platformList' class='settings-dialog'>
+//                 <h6>
+//                     <strong style='margin-top:10px;'>Platform Descriptions</strong>
+//                 </h6>";
+         
+//                     $sql = 'SELECT * FROM tblPlatform ORDER BY Name ASC';
+//                     $result = mysqli_query($link,$sql);
+
+//                     $returnString .= "<select name='platformNameList' id='platformNameList' size='8' style='width:100%;'>";
+//                     while ($row = mysqli_fetch_array($result)) {
+//                         $returnString .= "<option value='" . $row['ID'] . "'>" . $row['Name'] . "</option>";
+//                     }
+//                     $returnString .="</select>
+
+//         <hr color=#3276B1>
+//         <div class='input-group flex'>
+//             <input type='text' id='textAddOrUpdatePlatform' style='width:100%' placeholder='Platform name...'>
+//         </div>
+   
+//         <div class='btn-group' style='display : flex; margin: 5px;'>
+//             <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdatePlatformType' data-toggle='modal' data-target='#modalAddNewPlatform' disabled>Add</button>
+//             <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdatePlatform'>Cancel</button>
+//             <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deletePlatform' disabled>Delete</button>
+//         </div>
+//         <div id='platformErrorBox'></div>
+//     </div>
+// </div>
+
+
+$returnString .="
 <div class='col-md-6 col-lg-4 col-xl-3'>
 
     <div id='defaultItemsList' class='settings-dialog'>
@@ -287,12 +319,12 @@ $returnString .=" </select>
                   <h6>
                       <strong style='margin-top:10px;'>Users</strong>
                   </h6>";
-          $sql = 'SELECT tblUsers.userID, tblUsers.userName, tblUsers.isAdmin, tblUsers.isInstaller, tblUsers.isEngineer, tblUsers.activation, tblUserRecord.firstName, tblUserRecord.lastName FROM tblUsers JOIN tblUserRecord ON tblUserRecord.userID = tblUsers.userID ORDER BY userName ASC';
+          $sql = 'SELECT tblUsers.userID, tblUsers.userName, tblUsers.isAdmin, tblUsers.isInstaller, tblUsers.isEngineer, tblUsers.colour, tblUsers.activation, tblUserRecord.firstName, tblUserRecord.lastName FROM tblUsers JOIN tblUserRecord ON tblUserRecord.userID = tblUsers.userID ORDER BY userName ASC';
           $result = mysqli_query($link,$sql);
 
           $returnString .= "<table class='table table-sm' style='width:100%; font-size: 75%;'><thead>
           <tr>
-          <th style='display: none'>ID</th><th>Username</th><th>Name</th><th class='text-center align-middle'>Active</th><th class='text-center align-middle'>DH Admin</th><th class='text-center align-middle'>Installer</th><th class='text-center align-middle'>Engineer</th>
+          <th style='display: none'>ID</th><th>Username</th><th>Name</th><th class='text-center align-middle'>Active</th><th class='text-center align-middle'>DH Admin</th><th class='text-center align-middle'>Installer</th><th class='text-center align-middle'>Engineer</th><th class='text-center align-middle'>Highlight</th>
           </tr>
           </thead><tbody>";
           while ($row = mysqli_fetch_array($result)) {
@@ -309,8 +341,15 @@ $returnString .=" </select>
                 <td class='text-center align-middle'><input type='checkbox' class='isActivated' name='isActivated' " .($row['activation'] == 'activated' ? 'checked' : '') . " value = '" . $activeFlag . "'>&nbsp;</center></td>
                 <td class='text-center align-middle'><input type='checkbox' class='isAdministrator' name='isAdministrator' " .($row['isAdmin'] == 1 ? 'checked' : '')." value = '". $row['isAdmin'] ."'>&nbsp;</center></td>
                 <td class='text-center align-middle'><input type='checkbox' class='isInstaller' name='isInstaller' " .($row['isInstaller'] == 1 ? 'checked' : '')." value = '". $row['isInstaller'] ."'>&nbsp;</center></td>
-                <td class='text-center align-middle'><input type='checkbox' class='isEngineer' name='isEngineer' " .($row['isEngineer'] == 1 ? 'checked' : '')." value = '". $row['isEngineer'] ."'>&nbsp;</center></td>
-                
+                <td class='text-center align-middle'><input type='checkbox' class='isEngineer' name='isEngineer' " .($row['isEngineer'] == 1 ? 'checked' : '')." value = '". $row['isEngineer'] ."'>&nbsp;</center></td>";
+
+                if ($activeFlag==1) {
+                    $returnString .="<td class='text-center align-middle'><input type='color' class='engineerColour' id='engineerColour' value='" . $row['colour'] ."'></td>";
+                } else {
+                    $returnString .="<td class='text-center align-middle'>N/A</td>";
+                }
+              
+                $returnString .="
               </tr>";
             }
           $returnString .="</tbody></table>

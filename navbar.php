@@ -22,36 +22,36 @@
 
                         <li id='customerMenu' class='nav-item pl-4 pl-xl-0 ml-0 ml-xl-4'>
                             <a class='nav-link willCollapse' href='#'><svg width='20px' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='address-card' class='svg-inline--fa fa-address-card fa-w-18' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'><path d='M528 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-352 96c35.3 0 64 28.7 64 64s-28.7 64-64 64-64-28.7-64-64 28.7-64 64-64zm112 236.8c0 10.6-10 19.2-22.4 19.2H86.4C74 384 64 375.4 64 364.8v-19.2c0-31.8 30.1-57.6 67.2-57.6h5c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h5c37.1 0 67.2 25.8 67.2 57.6v19.2zM512 312c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-64c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16zm0-64c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16z'></path></svg> Customer</a>
-                        </li>
+                        </li>";
 
-                        <li id='reportMenuButton' class='nav-item dropdown pl-4 pl-xl-0 ml-0 ml-xl-4'>
-                            <a class='nav-link dropdown-toggle' data-toggle='dropdown' aria-expanded='false' href='#'>
-                                <svg width='20px' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='chart-bar' class='svg-inline--fa fa-chart-bar fa-w-16' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M332.8 320h38.4c6.4 0 12.8-6.4 12.8-12.8V172.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v134.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V76.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v230.4c0 6.4 6.4 12.8 12.8 12.8zm-288 0h38.4c6.4 0 12.8-6.4 12.8-12.8v-70.4c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v70.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V108.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v198.4c0 6.4 6.4 12.8 12.8 12.8zM496 384H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z'></path></svg> 
-                                Reports</a>
+                        // <li id='reportMenuButton' class='nav-item dropdown pl-4 pl-xl-0 ml-0 ml-xl-4'>
+                        //     <a class='nav-link dropdown-toggle' data-toggle='dropdown' aria-expanded='false' href='#'>
+                        //         <svg width='20px' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='chart-bar' class='svg-inline--fa fa-chart-bar fa-w-16' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M332.8 320h38.4c6.4 0 12.8-6.4 12.8-12.8V172.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v134.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V76.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v230.4c0 6.4 6.4 12.8 12.8 12.8zm-288 0h38.4c6.4 0 12.8-6.4 12.8-12.8v-70.4c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v70.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V108.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v198.4c0 6.4 6.4 12.8 12.8 12.8zM496 384H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z'></path></svg> 
+                        //         Reports</a>
 
 
-                            <ul class='dropdown-menu'>
-                                <a class='dropdown-item willCollapse' href='#'>
-                                <svg xmlns='http://www.w3.org/2000/svg' width='20px' height='16' fill='currentColor' class='bi bi-diagram-2-fill' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H11a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 5 7h2.5V6A1.5 1.5 0 0 1 6 4.5v-1zm-3 8A1.5 1.5 0 0 1 4.5 10h1A1.5 1.5 0 0 1 7 11.5v1A1.5 1.5 0 0 1 5.5 14h-1A1.5 1.5 0 0 1 3 12.5v-1zm6 0a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1A1.5 1.5 0 0 1 9 12.5v-1z'/></svg> 
-                                Report Writer</a>
-                            <div class='dropdown-divider'></div>
-                                <li class='dropdown-submenu'>
-                                    <a class='dropdown-item dropdown-toggle' href='#'><svg width='20px' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='truck' class='svg-inline--fa fa-truck fa-w-20' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path d='M624 352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494 110.1c-9-9-21.2-14.1-33.9-14.1H416V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48v320c0 26.5 21.5 48 48 48h16c0 53 43 96 96 96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h48c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM160 464c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm320 0c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm80-208H416V144h44.1l99.9 99.9V256z'></path></svg> Vehicles</a>
-                                    <ul class='dropdown-menu'>
-                                        <li><a class='dropdown-item' href='#'>By Fleet</a></li>
-                                        <li><a class='dropdown-item' href='#'>By Insurer</a></li>                                    
-                                    </ul>
-                                </li>
-                                <li class='dropdown-submenu'>
-                                    <a class='dropdown-item dropdown-toggle' href='#'><svg width='20px' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='camera' class='svg-inline--fa fa-camera fa-w-16' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z'></path></svg> Devices</a>
-                                    <ul class='dropdown-menu'>
-                                        <li><a class='dropdown-item' href='#'>By Fleet</a></li>
-                                        <li><a class='dropdown-item' href='#'>By Insurer</a></li>                                    
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        
+                        //     <ul class='dropdown-menu'>
+                        //         <a class='dropdown-item willCollapse' href='#'>
+                        //         <svg xmlns='http://www.w3.org/2000/svg' width='20px' height='16' fill='currentColor' class='bi bi-diagram-2-fill' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H11a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 5 7h2.5V6A1.5 1.5 0 0 1 6 4.5v-1zm-3 8A1.5 1.5 0 0 1 4.5 10h1A1.5 1.5 0 0 1 7 11.5v1A1.5 1.5 0 0 1 5.5 14h-1A1.5 1.5 0 0 1 3 12.5v-1zm6 0a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1A1.5 1.5 0 0 1 9 12.5v-1z'/></svg> 
+                        //         Report Writer</a>
+                        //     <div class='dropdown-divider'></div>
+                        //         <li class='dropdown-submenu'>
+                        //             <a class='dropdown-item dropdown-toggle' href='#'><svg width='20px' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='truck' class='svg-inline--fa fa-truck fa-w-20' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'><path d='M624 352h-16V243.9c0-12.7-5.1-24.9-14.1-33.9L494 110.1c-9-9-21.2-14.1-33.9-14.1H416V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48v320c0 26.5 21.5 48 48 48h16c0 53 43 96 96 96s96-43 96-96h128c0 53 43 96 96 96s96-43 96-96h48c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zM160 464c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm320 0c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm80-208H416V144h44.1l99.9 99.9V256z'></path></svg> Vehicles</a>
+                        //             <ul class='dropdown-menu'>
+                        //                 <li><a class='dropdown-item' href='#'>By Fleet</a></li>
+                        //                 <li><a class='dropdown-item' href='#'>By Insurer</a></li>                                    
+                        //             </ul>
+                        //         </li>
+                        //         <li class='dropdown-submenu'>
+                        //             <a class='dropdown-item dropdown-toggle' href='#'><svg width='20px' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='camera' class='svg-inline--fa fa-camera fa-w-16' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z'></path></svg> Devices</a>
+                        //             <ul class='dropdown-menu'>
+                        //                 <li><a class='dropdown-item' href='#'>By Fleet</a></li>
+                        //                 <li><a class='dropdown-item' href='#'>By Insurer</a></li>                                    
+                        //             </ul>
+                        //         </li>
+                        //     </ul>
+                        // </li>
+                        echo "
                         <li id='showDeviceList' class='nav-item pl-4 pl-xl-0 ml-0 ml-xl-4'>
                             <a class='nav-link willCollapse' href='#'><svg width='20px' aria-hidden='true' focusable='false' data-prefix='fas' data-icon='camera' class='svg-inline--fa fa-camera fa-w-16' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z'></path></svg> Devices</a>
                         </li>
@@ -148,12 +148,6 @@
                                 </li>
                                 <li>
                                     <a class='dropdown-item willCollapse' href='#' id='bulkUpload' style='padding-bottom:10px;'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-upload' viewBox='0 0 16 16'><path d='M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z'/><path d='M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z'/></svg> Bulk Upload</a>
-                                </li>
-                                <li>
-                                    <div class='dropdown-divider'></div>
-                                </li>
-                                <li>
-                                    <a class='dropdown-item willCollapse' href='#' id='showIssueLog' style='padding-bottom:10px;'><svg xmlns='http://www.w3.org/2000/svg' width='20px' fill='currentColor' class='bi bi-bug-fill' viewBox='0 0 16 16'><path d='M4.978.855a.5.5 0 1 0-.956.29l.41 1.352A4.985 4.985 0 0 0 3 6h10a4.985 4.985 0 0 0-1.432-3.503l.41-1.352a.5.5 0 1 0-.956-.29l-.291.956A4.978 4.978 0 0 0 8 1a4.979 4.979 0 0 0-2.731.811l-.29-.956z'/><path d='M13 6v1H8.5v8.975A5 5 0 0 0 13 11h.5a.5.5 0 0 1 .5.5v.5a.5.5 0 1 0 1 0v-.5a1.5 1.5 0 0 0-1.5-1.5H13V9h1.5a.5.5 0 0 0 0-1H13V7h.5A1.5 1.5 0 0 0 15 5.5V5a.5.5 0 0 0-1 0v.5a.5.5 0 0 1-.5.5H13zm-5.5 9.975V7H3V6h-.5a.5.5 0 0 1-.5-.5V5a.5.5 0 0 0-1 0v.5A1.5 1.5 0 0 0 2.5 7H3v1H1.5a.5.5 0 0 0 0 1H3v1h-.5A1.5 1.5 0 0 0 1 11.5v.5a.5.5 0 1 0 1 0v-.5a.5.5 0 0 1 .5-.5H3a5 5 0 0 0 4.5 4.975z'/></svg> Issues Log</a>
                                 </li>
                                 <li>
                                     <div class='dropdown-divider'></div>

@@ -9,6 +9,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 $vehicleID = $_POST['vehicleID'];
 $vehicleNote = $_POST['vehicleNote'];
+$vehicleNote = addslashes($vehicleNote);
 
 $errors = "";
 

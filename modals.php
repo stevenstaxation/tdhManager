@@ -27,16 +27,16 @@
                                 <label class='control-label inline' for='newUserLogInType' style='padding-top:16px;'><strong>User Type</strong></label>
                             </div>
                             <div class='col-2' style='margin-top:16px'>
-                                <input type='radio' class='form-check-input' id='userLogInStandard' name='userType'>Standard                          
+                                <input type='radio' class='form-check-input' id='userLogInStandard' name='userType'>Standard
                             </div>
                             <div class='col-2' style='margin-top:16px'>
-                                <input type='radio' class='form-check-input' id='userLogInAdmin' name='userType'>Admin                       
+                                <input type='radio' class='form-check-input' id='userLogInAdmin' name='userType'>Admin
                             </div>
                             <div class='col-2' style='margin-top:16px'>
-                                <input type='radio' class='form-check-input' id='userLogInInstaller' name='userType'>Installer                          
+                                <input type='radio' class='form-check-input' id='userLogInInstaller' name='userType'>Installer
                             </div>
                             <div class='col-2' style='margin-top:16px'>
-                                <input type='radio' class='form-check-input' id='userLogInEngineer' name='userType'>Engineer                        
+                                <input type='radio' class='form-check-input' id='userLogInEngineer' name='userType'>Engineer
                             </div>
                         </div>
                     </div>
@@ -161,13 +161,13 @@
                                 <div class='input-group'>
                                     <select id='addDeviceDescription' name='addDeviceDescription' class='custom-select addDeviceDescription'>
                                         <?php
-                                            $sql = "SELECT * FROM tblDeviceDescription ORDER BY description ASC";
-                                            $result = mysqli_query($link,$sql);
+$sql = "SELECT * FROM tblDeviceDescription ORDER BY description ASC";
+$result = mysqli_query($link, $sql);
 
-                                            while ($deviceRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $deviceRow['ID'] . ">" . $deviceRow['description'] . "</option>";
-                                            }
-                                        ?>       
+while ($deviceRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $deviceRow['ID'] . ">" . $deviceRow['description'] . "</option>";
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -235,13 +235,13 @@
                                 <div class='input-group'>
                                     <select id='addSIMStatus' name='addSIMStatus' class='custom-select addSIMStatus' style='margin-top:3px;'>
                                         <?php
-                                            $sql = "SELECT * FROM tblSIMStatus ORDER BY SIMStatus ASC";
-                                            $result = mysqli_query($link,$sql);
+$sql = "SELECT * FROM tblSIMStatus ORDER BY SIMStatus ASC";
+$result = mysqli_query($link, $sql);
 
-                                            while ($SIMRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['SIMStatus'] . "</option>";
-                                            }
-                                        ?>
+while ($SIMRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['SIMStatus'] . "</option>";
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -290,12 +290,12 @@
                                 <div class='input-group'>
                                     <select id='addDeviceStatus' name='addDeviceStatus' class='custom-select addDeviceStatus' style='margin-top:3px;'>
                                         <?php
-                                            $sql = "SELECT * FROM tblDeviceStatus ORDER BY ID ASC";
-                                             $result = mysqli_query($link,$sql);
-                                             while ($SIMRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['status'] . "</option>";
-                                             }
-                                        ?>
+$sql = "SELECT * FROM tblDeviceStatus ORDER BY ID ASC";
+$result = mysqli_query($link, $sql);
+while ($SIMRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['status'] . "</option>";
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -309,21 +309,21 @@
                                 <div class='input-group'>
                                     <select id='addDeviceInstaller' name='addDeviceInstaller' class='custom-select addDeviceInstaller' style='margin-top:3px;'>
                                         <?php
-                                            $sql = "SELECT defaultInstaller FROM tblGlobals LIMIT 1";
-                                            $result = mysqli_query($link, $sql);
-                                            $row = mysqli_fetch_array($result);
-                                            $DEFAULT_INSTALLER = $row['defaultInstaller'];
+$sql = "SELECT defaultInstaller FROM tblGlobals LIMIT 1";
+$result = mysqli_query($link, $sql);
+$row = mysqli_fetch_array($result);
+$DEFAULT_INSTALLER = $row['defaultInstaller'];
 
-                                            $sql = "SELECT * FROM tblInstaller ORDER BY installerName ASC";
-                                            $result = mysqli_query($link,$sql);
-                                            while ($SIMRow = mysqli_fetch_array($result)) {
-                                                if ($SIMRow['ID']==$DEFAULT_INSTALLER) {
-                                                    echo "<option selected='selected' value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";  
-                                                } else {
-                                                    echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";
-                                                }
-                                            }
-                                        ?>
+$sql = "SELECT * FROM tblInstaller ORDER BY installerName ASC";
+$result = mysqli_query($link, $sql);
+while ($SIMRow = mysqli_fetch_array($result)) {
+    if ($SIMRow['ID'] == $DEFAULT_INSTALLER) {
+        echo "<option selected='selected' value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";
+    } else {
+        echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";
+    }
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -355,42 +355,42 @@
                                 <div class='input-group'>
                                     <select id='addDeviceSupplierList' name='addDeviceSupplierList' class='custom-select addDeviceSupplierList' style='margin-top:3px;'>
                                         <?php
-                                            $sql = "SELECT defaultSupplier FROM tblGlobals LIMIT 1";
-                                            $result = mysqli_query($link, $sql);
-                                            $row = mysqli_fetch_array($result);
-                                            $DEFAULT_SUPPLIER = $row['defaultSupplier'];
+$sql = "SELECT defaultSupplier FROM tblGlobals LIMIT 1";
+$result = mysqli_query($link, $sql);
+$row = mysqli_fetch_array($result);
+$DEFAULT_SUPPLIER = $row['defaultSupplier'];
 
-                                            $sql = "SELECT * FROM tblSupplier ORDER BY supplierName ASC";
-                                            $result = mysqli_query($link,$sql);
-                                            while ($SIMRow = mysqli_fetch_array($result)) {
-                                                if ($SIMRow['ID']==$DEFAULT_SUPPLIER) {
-                                                 echo "<option value = " . $SIMRow['ID'] . " selected>" . $SIMRow['supplierName'] . "</option>";
-                                                } else {
-                                                 echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['supplierName'] . "</option>";
-                                                }
-                                            }
-                                        ?>
+$sql = "SELECT * FROM tblSupplier ORDER BY supplierName ASC";
+$result = mysqli_query($link, $sql);
+while ($SIMRow = mysqli_fetch_array($result)) {
+    if ($SIMRow['ID'] == $DEFAULT_SUPPLIER) {
+        echo "<option value = " . $SIMRow['ID'] . " selected>" . $SIMRow['supplierName'] . "</option>";
+    } else {
+        echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['supplierName'] . "</option>";
+    }
+}
+?>
                                     </select>
                                 </div>
                             </div>
-                            <div class='col-md-2'>
+                            <!-- <div class='col-md-2'>
                                 <label class='control-label' for='addDeviceSupplierInvoice' style='padding-top:15px;'><strong>Order No</strong></label>
-                            </div>
-                            <div class='col-md-4'>
+                            </div> -->
+                            <!-- <div class='col-md-4'>
                                 <div class='input-group'>
                                     <input type='text' class='form-control' maxlength='50' placeholder="Order number..." id='addDeviceSupplierInvoice' style='margin-top:3px;'>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class='row'>
-                        <div class='col-md-2'>
+                        <!-- <div class='col-md-2'>
                                 <label class='control-label' for='addDevicePurchaseDate' style='padding-top:15px;'><strong>Purchase Date</strong></label>
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
                                     <input type='date' class='form-control' id='addDevicePurchaseDate' style='margin-top:3px;'>
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
                         <div class='row' style='margin-top: 15px;'></div>
@@ -440,13 +440,13 @@
                                 <div class='input-group'>
                                     <select id='editDeviceDescription' name='editDeviceDescription' class='custom-select editDeviceDescription'>
                                         <?php
-                                    $sql = "SELECT * FROM tblDeviceDescription ORDER BY description ASC";
-                                    $result = mysqli_query($link,$sql);
+$sql = "SELECT * FROM tblDeviceDescription ORDER BY description ASC";
+$result = mysqli_query($link, $sql);
 
-                                    while ($deviceRow = mysqli_fetch_array($result)) {
-                                        echo "<option value = " . $deviceRow['ID'] . ">" . $deviceRow['description'] . "</option>";
-                                    }
-                               ?>
+while ($deviceRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $deviceRow['ID'] . ">" . $deviceRow['description'] . "</option>";
+}
+?>
                                     </select>
 
                                 </div>
@@ -459,17 +459,17 @@
                                 <div class='input-group'>
                                     <select id='editDeviceSupplier' name='editDeviceSupplier' class='custom-select editDeviceSupplier' style='margin-top:3px;'>
                                         <?php
-                                    $sql = "SELECT * FROM tblSupplier ORDER BY supplierName ASC";
-                                    $result = mysqli_query($link,$sql);
-                                    while ($SIMRow = mysqli_fetch_array($result)) {
-                                        echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['supplierName'] . "</option>";
-                                    }
-                               ?>
+$sql = "SELECT * FROM tblSupplier ORDER BY supplierName ASC";
+$result = mysqli_query($link, $sql);
+while ($SIMRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['supplierName'] . "</option>";
+}
+?>
                                     </select>
 
                                 </div>
                             </div>
-                          
+
                             <div class='col-md-2 form-check-inline' style='margin-left:30px;'>
                                 <label class='form-check-label' for='platformUpdated' style='padding-top:18px;'><strong>Platform is updated</strong></label>
                                 <input type='checkbox' class='form-check-input' value='checked' id='platformUpdated' style='margin: 15px 30px;padding: 10px 10px;'>
@@ -506,7 +506,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class='row'>   
+                        <div class='row'>
                            <div class='col-md-1'>
                                <label class='control-label' for='editDRIDNumber' style='padding-top:11px;'><strong>DRID</strong></label>
                            </div>
@@ -538,7 +538,7 @@
 
                         <hr>
                         <h6>SIM Details</h6>
-                      
+
 
                         <div class='row'>
                             <div class='col-md-1'>
@@ -590,13 +590,13 @@
                                 <div class='input-group'>
                                     <select id='editSIMStatus' name='editSIMStatus' class='custom-select editSIMStatus' style='margin-top:3px;'>
                                         <?php
-                                    $sql = "SELECT * FROM tblSIMStatus ORDER BY SIMStatus ASC";
-                                    $result = mysqli_query($link,$sql);
+$sql = "SELECT * FROM tblSIMStatus ORDER BY SIMStatus ASC";
+$result = mysqli_query($link, $sql);
 
-                                    while ($SIMRow = mysqli_fetch_array($result)) {
-                                        echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['SIMStatus'] . "</option>";
-                                    }
-                               ?>
+while ($SIMRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['SIMStatus'] . "</option>";
+}
+?>
                                     </select>
 
                                 </div>
@@ -609,10 +609,10 @@
                                 <div class='input-group' style='display: none'>
                                     <input type='date' class='form-control' id='editSIMDate' style='margin-top:3px;'>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <hr>
-                        
+
                             <h6>Install History</h6>
                         <div class='row'>
                              <div class='col-md-1'>
@@ -622,17 +622,17 @@
                                 <div class='input-group'>
                                     <select id='editOwnerID' name='editOwnerID' class='custom-select editOwnerID' style='margin-top:3px;'>
                                         <?php
-                                    $sql = "SELECT * FROM tblCustomer ORDER BY businessName ASC";
-                                    $result = mysqli_query($link,$sql);
+$sql = "SELECT * FROM tblCustomer ORDER BY businessName ASC";
+$result = mysqli_query($link, $sql);
 
-                                    // echo "<option value= '0' selected='selected'>DHINSTALL</option>";
-                                    while ($SIMRow = mysqli_fetch_array($result)) {
-                                        echo "<option value = '" . $SIMRow['ID'] . "'>" . $SIMRow['businessName'] . "</option>";
-                                    }
-                               ?>
+// echo "<option value= '0' selected='selected'>DHINSTALL</option>";
+while ($SIMRow = mysqli_fetch_array($result)) {
+    echo "<option value = '" . $SIMRow['ID'] . "'>" . $SIMRow['businessName'] . "</option>";
+}
+?>
                                     </select>
                                 </div>
-                            </div> 
+                            </div>
                             <div class='col-md-1'></div>
                             <div class='col-md-1'>
                                 <label class='control-label' for='editVRN' style='padding-top:13px;'><strong>Vehicle Reg</strong></label>
@@ -647,10 +647,10 @@
                             </div>
                         </div>
                         <div class='row'>
-                          
+
                         </div>
                         <div class='row'>
-                          
+
                             <div class='col-md-1'>
                                 <label class='control-label' for='editDeviceStatus' style='padding-top:14px;'><strong>Current Status</strong></label>
                             </div>
@@ -658,12 +658,12 @@
                                 <div class='input-group'>
                                     <select id='editDeviceStatus' name='editDeviceStatus' class='custom-select editDeviceStatus' style='margin-top:3px;'>
                                         <?php
-                                    $sql = "SELECT * FROM tblDeviceStatus ORDER BY ID ASC";
-                                    $result = mysqli_query($link,$sql);
-                                    while ($SIMRow = mysqli_fetch_array($result)) {
-                                        echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['status'] . "</option>";
-                                    }
-                               ?>
+$sql = "SELECT * FROM tblDeviceStatus ORDER BY ID ASC";
+$result = mysqli_query($link, $sql);
+while ($SIMRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['status'] . "</option>";
+}
+?>
                                     </select>
 
                                 </div>
@@ -679,12 +679,12 @@
                                 <div class='input-group'>
                                     <select id='editDeviceInstaller' name='editDeviceInstaller' class='custom-select editDeviceInstaller' style='margin-top:3px;'>
                                         <?php
-                                    $sql = "SELECT * FROM tblInstaller ORDER BY installerName ASC";
-                                    $result = mysqli_query($link,$sql);
-                                    while ($SIMRow = mysqli_fetch_array($result)) {
-                                        echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";
-                                    }
-                               ?>
+$sql = "SELECT * FROM tblInstaller ORDER BY installerName ASC";
+$result = mysqli_query($link, $sql);
+while ($SIMRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['installerName'] . "</option>";
+}
+?>
                                     </select>
 
                                 </div>
@@ -718,34 +718,34 @@
                                 <div class='input-group'>
                                     <select id='editDeviceSupplier' name='editDeviceSupplier' class='custom-select editDeviceSupplier' style='margin-top:3px;'>
                                         <?php
-                                    $sql = "SELECT * FROM tblSupplier ORDER BY supplierName ASC";
-                                    $result = mysqli_query($link,$sql);
-                                    while ($SIMRow = mysqli_fetch_array($result)) {
-                                        echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['supplierName'] . "</option>";
-                                    }
-                               ?>
+$sql = "SELECT * FROM tblSupplier ORDER BY supplierName ASC";
+$result = mysqli_query($link, $sql);
+while ($SIMRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $SIMRow['ID'] . ">" . $SIMRow['supplierName'] . "</option>";
+}
+?>
                                     </select>
 
                                 </div>
                             </div> -->
-                            <div class='col-md-1'>
+                            <!-- <div class='col-md-1'>
                                 <label class='control-label' for='editDeviceSupplierInvoice' style='padding-top:15px;'><strong>Order No</strong></label>
                             </div>
                             <div class='col-md-3'>
                                 <div class='input-group'>
                                     <input type='text' class='form-control' maxlength='50' placeholder="Order number..." id='editDeviceSupplierInvoice' style='margin-top:3px;'>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class='row'>
-                        <div class='col-md-1'>
+                        <!-- <div class='col-md-1'>
                                 <label class='control-label' for='editDevicePurchaseDate' style='padding-top:15px;'><strong>Purchase Date</strong></label>
                             </div>
                             <div class='col-md-3'>
                                 <div class='input-group'>
                                     <input type='date' class='form-control' id='editDevicePurchaseDate' style='margin-top:3px;'>
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
                         <div class='row' style='margin-top:15px;'></div>
@@ -774,10 +774,10 @@
                 <div id='editDeviceCustomerID' style='display: none'></div>
                 <button type="button" id='editCurrentDevice' onclick='editCurrentDevice()' class="btn btn-success">Update</button>
                 <?php
-                    if ($_SESSION['isAdmin']== '1') {
-                        echo "<button type='button' onclick='deletePhysicalDevice()' id='deletePhysicalDevice' class='btn btn-danger'>Delete</button>";
-                    }
-                ?>
+if ($_SESSION['isAdmin'] == '1') {
+    echo "<button type='button' onclick='deletePhysicalDevice()' id='deletePhysicalDevice' class='btn btn-danger'>Delete</button>";
+}
+?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -1127,7 +1127,7 @@
                                 <label class='form-check-label' for='brokerContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
                                 <input type='checkbox' class='form-check-input' value='checked' id='brokerContactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
                                 <label class='form-check-label' for='brokerContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='brokerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>   
+                                <input type='checkbox' class='form-check-input' value='checked' id='brokerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
                             </div>
                         </div>
                     </div>
@@ -1223,7 +1223,7 @@
                                 <label class='form-check-label' for='editBrokerContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
                                 <input type='checkbox' class='form-check-input' value='checked' id='editBrokerContactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
                                 <label class='form-check-label' for='editBrokerContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='editBrokerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>                           
+                                <input type='checkbox' class='form-check-input' value='checked' id='editBrokerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
                             </div>
                         </div>
                     </div>
@@ -1235,10 +1235,10 @@
                 <div id='editBrokerContactHide' style='display: none'></div>
                 <button type="button" id='updateEditBrokerContact' class="btn btn-success">Update</button>
                 <?php
-                    if ($_SESSION['isAdmin']== '1') {
-                        echo "<button type='button' onclick='deleteBrokerContact()' id='deleteBrokerContact' class='btn btn-danger'>Delete</button>";
-                    }
-                ?>
+if ($_SESSION['isAdmin'] == '1') {
+    echo "<button type='button' onclick='deleteBrokerContact()' id='deleteBrokerContact' class='btn btn-danger'>Delete</button>";
+}
+?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -1256,7 +1256,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header"> 
+            <div class="modal-header">
                 <h5 class="modal-title">Add Insurer</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
@@ -1508,10 +1508,10 @@
                                 <label class='form-check-label' for='insurerContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
                                 <input type='checkbox' class='form-check-input' value='checked' id='insurerContactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
                                 <label class='form-check-label' for='insurerContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='insurerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>   
-                        
-                         
-                         
+                                <input type='checkbox' class='form-check-input' value='checked' id='insurerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
+
+
+
                             </div>
                         </div>
                     </div>
@@ -1610,7 +1610,7 @@
                                 <label class='form-check-label' for='editInsurerContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
                                 <input type='checkbox' class='form-check-input' value='checked' id='editInsurerContactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
                                 <label class='form-check-label' for='editInsurerContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='editInsurerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>   
+                                <input type='checkbox' class='form-check-input' value='checked' id='editInsurerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
                             </div>
                         </div>
                     </div>
@@ -1622,10 +1622,10 @@
                 <div id='editInsurerContactHide' style='display: none'></div>
                 <button type="button" id='updateEditInsurerContact' class="btn btn-success">Update</button>
                 <?php
-                    if ($_SESSION['isAdmin']== '1') {
-                        echo "<button type='button' onclick='deleteInsurerContact()' id='deleteInsurerContact' class='btn btn-danger'>Delete</button>";
-                    }
-                ?>
+if ($_SESSION['isAdmin'] == '1') {
+    echo "<button type='button' onclick='deleteInsurerContact()' id='deleteInsurerContact' class='btn btn-danger'>Delete</button>";
+}
+?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -1710,7 +1710,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div id='editInstallerContactMessage'></div>
                 </form>
@@ -1720,10 +1720,10 @@
                 <div id='editInstallerContactHide' style='display: none'></div>
                 <button type="button" id='updateEditInstallerContact' class="btn btn-success">Update</button>
                 <?php
-                    if ($_SESSION['isAdmin']== '1') {
-                        echo "<button type='button' onclick='deleteInstallerContact()' id='deleteInstallerContact' class='btn btn-danger'>Delete</button>";
-                    }
-                ?>
+if ($_SESSION['isAdmin'] == '1') {
+    echo "<button type='button' onclick='deleteInstallerContact()' id='deleteInstallerContact' class='btn btn-danger'>Delete</button>";
+}
+?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -1813,7 +1813,7 @@
                                 <input type='checkbox' class='form-check-input' value='checked' id='contactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
                                 <label class='form-check-label' for='contactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
                                 <input type='checkbox' class='form-check-input' value='checked' id='contactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
-                
+
                             </div>
                         </div>
                     </div>
@@ -1909,7 +1909,7 @@
                                 <label class='form-check-label' for='editContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
                                 <input type='checkbox' class='form-check-input' value='checked' id='editContactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
                                 <label class='form-check-label' for='editContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='editContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>   
+                                <input type='checkbox' class='form-check-input' value='checked' id='editContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
                             </div>
                         </div>
                     </div>
@@ -1922,10 +1922,10 @@
                 <div id='contactCustomerEditNumber' style='display: none'></div>
                 <button type="button" id='updateEditCustomerContact' onclick='updateCustomerContact()' class="btn btn-success">Update</button>
                 <?php
-                    if ($_SESSION['isAdmin']== '1') {
-                        echo "<button type='button' onclick='deleteCustomerContact()' id='deleteCustomerContact' class='btn btn-danger'>Delete</button>";
-                    }
-                ?>
+if ($_SESSION['isAdmin'] == '1') {
+    echo "<button type='button' onclick='deleteCustomerContact()' id='deleteCustomerContact' class='btn btn-danger'>Delete</button>";
+}
+?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -2057,13 +2057,13 @@
                                 <div class='input-group'>
                                     <select style='font-size: 80%' id='getInsurer' name='getInsurer' class='custom-select getInsurer'>
                                         <?php
-                                            $sql = "SELECT * FROM tblInsurer ORDER BY insurerName ASC";
-                                            $result = mysqli_query($link,$sql);
+$sql = "SELECT * FROM tblInsurer ORDER BY insurerName ASC";
+$result = mysqli_query($link, $sql);
 
-                                            while ($insurerRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $insurerRow['ID'] . ">" . $insurerRow['insurerName'] . "</option>";
-                                             }
-                                        ?>
+while ($insurerRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $insurerRow['ID'] . ">" . $insurerRow['insurerName'] . "</option>";
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -2076,13 +2076,13 @@
                                 <div class='input-group'>
                                     <select style='font-size: 80%' id='getBroker' name='getBroker' class='custom-select getBroker'>
                                         <?php
-                                            $sql = "SELECT * FROM tblBroker ORDER BY brokerName ASC";
-                                            $result = mysqli_query($link,$sql);
+$sql = "SELECT * FROM tblBroker ORDER BY brokerName ASC";
+$result = mysqli_query($link, $sql);
 
-                                            while ($brokerRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $brokerRow['ID'] . ">" . $brokerRow['brokerName'] . "</option>";
-                                            }
-                                        ?>
+while ($brokerRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $brokerRow['ID'] . ">" . $brokerRow['brokerName'] . "</option>";
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -2121,7 +2121,7 @@
                             </div>
                             <div class='col-sm-8 col-xl-9'>
                                 <div class='input-group'>
-                                    <input class='form-control dateType' type='datetime-local' name='noteDate' id='noteDate' min='<?php echo date("Y-m-d\TH:i");?>' value='<?php echo date("Y-m-d\TH:i");?>'>
+                                    <input class='form-control dateType' type='datetime-local' name='noteDate' id='noteDate' min='<?php echo date("Y-m-d\TH:i"); ?>' value='<?php echo date("Y-m-d\TH:i"); ?>'>
                                 </div>
                             </div>
                         </div>
@@ -2181,7 +2181,7 @@
                             </div>
                             <div class='col-9'>
                                 <div class='input-group'>
-                                    <input class='form-control dateType' type='datetime' name='noteEditDate' id='noteEditDate' readonly='readonly' min='<?php echo date("Y-m-d\TH:i");?>' value='<?php echo date("Y-m-d\TH:i");?>'>
+                                    <input class='form-control dateType' type='datetime' name='noteEditDate' id='noteEditDate' readonly='readonly' min='<?php echo date("Y-m-d\TH:i"); ?>' value='<?php echo date("Y-m-d\TH:i"); ?>'>
                                 </div>
                             </div>
                         </div>
@@ -2191,7 +2191,7 @@
                             </div>
                             <div class='col-9'>
                                 <div class='input-group'>
-                                    <textarea rows='24' cols='64' class='form-control' placeholder='Enter note text (max 2,048 characters)...' id='noteEditText' style='margin-top:3px;'></textarea>
+                                    <textarea rows='24' cols='60' class='form-control' placeholder='Enter note text (max 2,048 characters)...' id='noteEditText' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>
@@ -2201,7 +2201,7 @@
                             </div>
                             <div class='col-9'>
                                 <p id='noteUserName'></p>
-                            </div>                
+                            </div>
                         </div>
                         <div class='row' style='margin-top: 20px;'>
                             <div class='col-4'>
@@ -2251,7 +2251,7 @@
                 <form method='POST' id='getAddNewFootage' class='getAddNewFootage form-block'>
                     <div class='form-group'>
                         <div class='row'>
-                            <h6><strong>Incident</strong></h6> 
+                            <h6><strong>Incident</strong></h6>
                             <div class='col-md-3'>
                                 <label class='control-label' for='footageIncidentDate' style='padding-top:9px;'>Incident Date</label>
                             </div>
@@ -2282,7 +2282,7 @@
                             </div>
                             <div class='col-md-3'>
                                 <div class='input-group'>
-                                    <input type='text' class='form-control' id='footageClaimReference' name='footageClaimReference' style='margin-top:5px;'> 
+                                    <input type='text' class='form-control' id='footageClaimReference' name='footageClaimReference' style='margin-top:5px;'>
                                 </div>
                             </div>
                         </div>
@@ -2294,9 +2294,9 @@
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
-                                    <input type='datetime-local' class='form-control' name='footageRequestDate' id='footageRequestDate'> 
+                                    <input type='datetime-local' class='form-control' name='footageRequestDate' id='footageRequestDate'>
                                 </div>
-                            </div>                           
+                            </div>
                         </div>
                         <div class='row'>
                             <div class='col-md-3'>
@@ -2313,14 +2313,14 @@
                             <div class='col-md-2'>
                                 <span class="btn btn-primary btn-sm btn-file-input" style='margin-top: 6px'>
                                     Select File(s) <input type="file" id='footageFileName' onclick='fileExplorer("Add")' accept='.mdt, .MDT, .mp4, .MP4, .avi, .AVI, .pdf, .PDF'>
-                                </span>                        
-                                    
+                                </span>
+
                                     <!-- <div class="input-group-append">
                                     <button class="btn btn-primary btn-sm" style='margin-top: 6px;' id="footageMoreInfo" type="">More Info</button>
-                                    </div> -->    
+                                    </div> -->
                                 </div>
-                               
-                                            
+
+
                             <div class='col-md-7'>
                                 <div class="input-group mb-3">
                                     <div id='footageFileTable' style='margin-top: 6px; width: 100%'>
@@ -2332,20 +2332,20 @@
                                                     <th style='width:5%'>Remove</th></tr>
                                             </thead>
                                             <tbody id = 'footageFileTableBodyBlock'>
-                                            
+
                                             </tbody>
                                        </table>
                                     </div>
-                                    
+
                                 </div>
-                            </div>                                        
+                            </div>
                         </div>
                         <hr>
                         <div class='row'>
                         <h6><strong>Recipients</strong></h6>
                             <div class='col-md-12'>
                                 <div id='footageRecipientsList' class='input-group'>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -2367,26 +2367,26 @@
                                 <div class='input-group'>
                                    <select id='footageTDHEmployee' name='footageTDHEmployee' class='custom-select footageTDHEmployee' style='margin-top:3px;'>
                                         <?php
-                                            $sql = "SELECT tblUserRecord.firstName, tblUserRecord.lastName, tblUsers.userID, tblUsers.email, tblUsers.userName FROM tblUserRecord INNER JOIN tblUsers ON tblUserRecord.userID = tblUsers.userID ORDER BY tblUserRecord.lastName ASC";
-                                            $result = mysqli_query($link,$sql);
+$sql = "SELECT tblUserRecord.firstName, tblUserRecord.lastName, tblUsers.userID, tblUsers.email, tblUsers.userName FROM tblUserRecord INNER JOIN tblUsers ON tblUserRecord.userID = tblUsers.userID ORDER BY tblUserRecord.lastName ASC";
+$result = mysqli_query($link, $sql);
 
-                                            while ($userRow = mysqli_fetch_array($result)) {
-                                                $fullName = $userRow['firstName'] . ' ' . $userRow['lastName'];
-                                                if (trim($fullName)=='') {
-                                                    $fullName = $userRow['userName'];
-                                                    if ($fullName=='') {
-                                                        $fullName = $userRow['email'];
-                                                    }
-                                                }
-                                                if ($userRow['userName']==$_SESSION['userName']) {
-                                                    echo "<option value = " . $userRow['userID'] . " selected>" . $fullName . "</option>";
-                                                } else {
-                                                    echo "<option value = " . $userRow['userID'] . ">" . $fullName . "</option>";
-                                                }
-                                            }
-                                         ?>
+while ($userRow = mysqli_fetch_array($result)) {
+    $fullName = $userRow['firstName'] . ' ' . $userRow['lastName'];
+    if (trim($fullName) == '') {
+        $fullName = $userRow['userName'];
+        if ($fullName == '') {
+            $fullName = $userRow['email'];
+        }
+    }
+    if ($userRow['userName'] == $_SESSION['userName']) {
+        echo "<option value = " . $userRow['userID'] . " selected>" . $fullName . "</option>";
+    } else {
+        echo "<option value = " . $userRow['userID'] . ">" . $fullName . "</option>";
+    }
+}
+?>
                                     </select>
-                                </div>                             
+                                </div>
                             </div>
                         </div>
                         <div class='row'>
@@ -2396,8 +2396,8 @@
                             <div class='col-md-9'>
                                 <textarea rows='3' cols='60' class='form-control' placeholder='Enter note text (max 512 characters)...' name='footageResponseNotes' id='footageResponseNotes' style='margin-top:8px;'></textarea>
                             </div>
-                        </div>             
-                        <div class='row'>     
+                        </div>
+                        <div class='row'>
                             <div class='col-md-3'>
                                 <label class='control-label' for='footageCurrentStatus' style='margin-top: 7px; padding-top:10px;'>Current Status</label>
                             </div>
@@ -2405,13 +2405,13 @@
                                 <div class='input-group' id='footageCurrentStatusList' style='margin-top: 9px;'>
                                     <select id='footageCurrentStatus' name='footageCurrentStatus' class='custom-select getCurrentStatus'>
                                         <?php
-                                            $sql = "SELECT * FROM tblFootageStatus ORDER BY description ASC";
-                                            $result = mysqli_query($link,$sql);
+$sql = "SELECT * FROM tblFootageStatus ORDER BY description ASC";
+$result = mysqli_query($link, $sql);
 
-                                            while ($statusRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $statusRow['ID'] . ">" . $statusRow['description'] . "</option>";
-                                             }
-                                        ?>
+while ($statusRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $statusRow['ID'] . ">" . $statusRow['description'] . "</option>";
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -2422,7 +2422,7 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-             
+
                 <div id='addFootageID' style='display: none'></div>
                 <div id='addFootageCustomerID' style='display: none'></div>
                 <button type="button" id='addNewFootage' onclick='addNewFootage()' class="btn btn-success">Add Request</button>
@@ -2446,7 +2446,7 @@
                 <form method='POST' id='getEditFootage' class='getEditFootage form-block'>
                 <div class='form-group'>
                     <div class='row'>
-                        <h6><strong>Incident</strong></h6> 
+                        <h6><strong>Incident</strong></h6>
                             <div class='col-md-3'>
                                 <label class='control-label' for='footageEditIncidentDate' style='padding-top:9px;'>Incident Date</label>
                             </div>
@@ -2477,7 +2477,7 @@
                             </div>
                             <div class='col-md-3'>
                                 <div class='input-group'>
-                                    <input type='text' class='form-control' id='footageEditClaimReference' name='footageEditClaimReference' style='margin-top:5px;'> 
+                                    <input type='text' class='form-control' id='footageEditClaimReference' name='footageEditClaimReference' style='margin-top:5px;'>
                                 </div>
                             </div>
                         </div>
@@ -2489,9 +2489,9 @@
                             </div>
                             <div class='col-md-4'>
                                 <div class='input-group'>
-                                    <input type='datetime-local' class='form-control' name='footageEditRequestDate' id='footageEditRequestDate'> 
+                                    <input type='datetime-local' class='form-control' name='footageEditRequestDate' id='footageEditRequestDate'>
                                 </div>
-                            </div>                           
+                            </div>
                         </div>
                         <div class='row'>
                             <div class='col-md-3'>
@@ -2509,12 +2509,12 @@
                                 <div class="input-group mb-3">
                                 <span class="btn btn-primary btn-sm btn-file-input" style='margin-top: 6px'>
                                     Add File(s) <input type="file" id='footageEditFileName' onclick='fileExplorer("Edit")' accept='.mdt, .MDT, .mp4, .MP4, .avi, .AVI, .pdf, .PDF'>
-                                </span> 
+                                </span>
                                     <!-- <div class="input-group-append">
                                     <button class="btn btn-primary btn-sm" style='margin-top: 6px;' id="footageMoreInfo" type="">More Info</button>
                                     </div>     -->
                                 </div>
-                            </div>      
+                            </div>
                             <div class='col-md-7'>
                                 <div class="input-group mb-3">
                                     <div id='footageEditFileTable' style='margin-top: 6px; width: 100%'>
@@ -2526,20 +2526,20 @@
                                                     <th style='width:5%'>Remove</th></tr>
                                             </thead>
                                             <tbody id = 'footageEditFileTableBodyBlock'>
-                                            
+
                                             </tbody>
                                        </table>
                                     </div>
-                                    
+
                                 </div>
-                            </div>                                        
+                            </div>
                         </div>
                         <hr>
                         <div class='row'>
                         <h6><strong>Recipients</strong></h6>
                             <div class='col-md-12'>
                                 <div id='footageEditRecipientsList' class='input-group'>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -2561,24 +2561,24 @@
                                 <div class='input-group'>
                                    <select id='footageEditTDHEmployee' name='footageEditTDHEmployee' class='custom-select footageEditTDHEmployee' style='margin-top:3px;'>
                                         <?php
-                                            $sql = "SELECT tblUserRecord.firstName, tblUserRecord.lastName, tblUsers.userID, tblUsers.email, tblUsers.userName, tblUsers.activation FROM tblUserRecord INNER JOIN tblUsers ON tblUserRecord.userID = tblUsers.userID ORDER BY tblUserRecord.lastName ASC";
-                                            $result = mysqli_query($link,$sql);
+$sql = "SELECT tblUserRecord.firstName, tblUserRecord.lastName, tblUsers.userID, tblUsers.email, tblUsers.userName, tblUsers.activation FROM tblUserRecord INNER JOIN tblUsers ON tblUserRecord.userID = tblUsers.userID ORDER BY tblUserRecord.lastName ASC";
+$result = mysqli_query($link, $sql);
 
-                                            while ($userRow = mysqli_fetch_array($result)) {
-                                                if ($userRow['activation']=='activated') {
-                                                $fullName = $userRow['firstName'] . ' ' . $userRow['lastName'];
-                                                if (trim($fullName)=='') {
-                                                    $fullName = $userRow['userName'];
-                                                    if ($fullName=='') {
-                                                        $fullName = $userRow['email'];
-                                                    }
-                                                }
-                                                echo "<option value = " . $userRow['userID'] . ">" . $fullName . "</option>";
-                                                }
-                                            }
-                                        ?>
+while ($userRow = mysqli_fetch_array($result)) {
+    if ($userRow['activation'] == 'activated') {
+        $fullName = $userRow['firstName'] . ' ' . $userRow['lastName'];
+        if (trim($fullName) == '') {
+            $fullName = $userRow['userName'];
+            if ($fullName == '') {
+                $fullName = $userRow['email'];
+            }
+        }
+        echo "<option value = " . $userRow['userID'] . ">" . $fullName . "</option>";
+    }
+}
+?>
                                     </select>
-                                </div>                             
+                                </div>
                             </div>
                         </div>
                         <div class='row'>
@@ -2588,8 +2588,8 @@
                             <div class='col-md-9'>
                                 <textarea rows='3' cols='60' class='form-control' placeholder='Enter note text (max 512 characters)...' name='footageEditResponseNotes' id='footageEditResponseNotes' style='margin-top:8px;'></textarea>
                             </div>
-                        </div>             
-                        <div class='row'>     
+                        </div>
+                        <div class='row'>
                             <div class='col-md-3'>
                                 <label class='control-label' for='footageEditCurrentStatus' style='margin-top: 7px; padding-top:10px;'>Current Status</label>
                             </div>
@@ -2597,24 +2597,24 @@
                                 <div class='input-group' id='footageEditCurrentStatus' style='margin-top: 9px;'>
                                     <select id='footageEditCurrentStatusList' name='footageEditCurrentStatusList' class='custom-select getEditCurrentStatus'>
                                         <?php
-                                            $sql = "SELECT * FROM tblFootageStatus ORDER BY description ASC";
-                                            $result = mysqli_query($link,$sql);
+$sql = "SELECT * FROM tblFootageStatus ORDER BY description ASC";
+$result = mysqli_query($link, $sql);
 
-                                            while ($statusRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $statusRow['ID'] . ">" . $statusRow['description'] . "</option>";
-                                             }
-                                        ?>
+while ($statusRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $statusRow['ID'] . ">" . $statusRow['description'] . "</option>";
+}
+?>
                                      </select>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </form>
                 <div id='editFootageMessage' style='margin: 5px;'></div>
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-             
+
                 <div id='hiddenFootageID' style='display: none'></div>
                 <div id='editFootageOwnerID' style='display: none'></div>
                 <button type="button" id='addEditFootage' onclick='editCurrentFootage()' class="btn btn-success">Update</button>
@@ -2658,8 +2658,8 @@
                                 </div>
                             </div>
                         </div> -->
-                              
-                  </div>               
+
+                  </div>
                 <hr/>
                 <div class='row'>
                     <div class='col-md-5 col-lg-4'>
@@ -2674,7 +2674,7 @@
                         <input type='radio' class='form-check-input' id='vehicleCameraNo' name='cameraRequired'>
                             <label class='form-check-label' for='vehicleCameraNo'>No</label>
                         </div>
-                    </div>                          
+                    </div>
                 </div>
 
                 <div class='row' style='margin-top:15px'>
@@ -2694,14 +2694,14 @@
                             <input type='radio' class='form-check-input' id='vehicleStatusNotApplicable' name='vehicleStatus'>
                             <label class='form-check-label' for='vehicleStatusNotApplicable'>N/A</label>
                         </div>
-                    </div>                          
+                    </div>
                 </div>
 
                 <div class='row' style='margin-top:15px'>
                     <div class='col-md-5 col-lg-4'>
                         <label id='vehicleInstallDateLabel' for='vehicleInstalldate' class='control-label' style='padding-top:9px;'>Installation Date</label>
-                    </div>   
-                    <div class='col-md-7 col-lg-6' style='font-size:125%'>                    
+                    </div>
+                    <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <div class='input-group' style='width:75%'>
                             <input type='date' class='form-control' id='vehicleInstalldate' style='margin-top:3px;'>
                         </div>
@@ -2712,10 +2712,10 @@
                 <div class='row'>
                     <div class='col-md-5 col-lg-4' style='font-size:125%'>
                         <label class='control-label' style='padding-top:9px;'><strong>Description</strong></label>
-                    </div>   
+                    </div>
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <label class='control-label' style='padding-top:9px;'><strong>Install Date (if applicable)</strong></label>
-                    </div>                         
+                    </div>
                 </div>
                 <div class='row'>
                     <div class='col-md-5 col-lg-4'>
@@ -2737,7 +2737,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <hr>
                 <div class='row'>
                             <div class='col-4'>
@@ -2745,7 +2745,7 @@
                             </div>
                             <div class='col-8'>
                                 <div class='input-group'>
-                                       <textarea rows='8' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='addVehicleNotes' id='addVehicleNotes' style='margin-top:3px;'></textarea>                      
+                                       <textarea rows='8' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='addVehicleNotes' id='addVehicleNotes' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>
@@ -2757,11 +2757,11 @@
                   <div class='col-md-7 col-lg-6'>
                       <div class='input-group'>
                           <input type='text' class='form-control' readonly='readonly' id='addVehicleAllocateTo' style='margin-top:1px;'
-                            <?php $sql = "SELECT businessName FROM tblCustomer WHERE ID='" . $_SESSION['currentCustomer'] ."'";
-                                $result = mysqli_query($link, $sql);
-                                $row = mysqli_fetch_array($result); 
-                                echo " value= '" . $row['businessName'] . "'>";
-                            ?>
+                            <?php $sql = "SELECT businessName FROM tblCustomer WHERE ID='" . $_SESSION['currentCustomer'] . "'";
+$result = mysqli_query($link, $sql);
+$row = mysqli_fetch_array($result);
+echo " value= '" . $row['businessName'] . "'>";
+?>
                       </div>
                   </div>
                 </div>
@@ -2796,7 +2796,7 @@
                           <input type='text' class='form-control' maxlength='14' placeholder="VRN..." id='editVehicleRegNumber' style='margin-top:1px;'>
                       </div>
                   </div>
-                  
+
                 </div>
                 <hr/>
                 <div class='row'>
@@ -2812,7 +2812,7 @@
                         <input type='radio' class='form-check-input' id='editVehicleCameraNo' name='cameraRequired'>
                             <label class='form-check-label' for='editVehicleCameraNo'>No</label>
                         </div>
-                    </div>    
+                    </div>
                 </div>
 
                 <div class='row' style='margin-top:15px'>
@@ -2832,14 +2832,14 @@
                             <input type='radio' class='form-check-input' id='editVehicleStatusNotApplicable' name='vehicleStatus'>
                             <label class='form-check-label' for='editVehicleStatusNotApplicable'>N/A</label>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
 
                 <div class='row' style='margin-top:15px'>
                 <div class='col-md-5 col-lg-4'>
                         <label id='vehicleEditInstallDateLabel' for='editVehicleInstalldate' class='control-label' style='padding-top:9px;'>Installation Date</label>
-                    </div>   
-                    <div class='col-md-7 col-lg-6' style='font-size:125%'>                    
+                    </div>
+                    <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <div class='input-group' style='width:75%'>
                             <input type='date' class='form-control' id='editVehicleInstalldate' style='margin-top:3px;'>
                         </div>
@@ -2851,10 +2851,10 @@
                 <div class='row'>
                     <div class='col-md-5 col-lg-4' style='font-size:125%'>
                         <label class='control-label' style='padding-top:9px;'><strong>Description</strong></label>
-                    </div>   
+                    </div>
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <label class='control-label' style='padding-top:9px;'><strong>Install Date (if applicable)</strong></label>
-                    </div>                         
+                    </div>
                 </div>
                 <div class='row'>
                     <div class='col-md-5 col-lg-4'>
@@ -2884,7 +2884,7 @@
                     </div>
                     <div class='col-8'>
                         <div class='input-group'>
-                            <textarea rows='8' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='editVehicleNotes' id='editVehicleNotes' style='margin-top:3px;'></textarea>                      
+                            <textarea rows='8' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='editVehicleNotes' id='editVehicleNotes' style='margin-top:3px;'></textarea>
                         </div>
                     </div>
                 </div>
@@ -2906,10 +2906,10 @@
               <div id='editVehicleErrorBox'></div>
                 <button type="button" class="btn btn-success"  onclick='editCurrentVehicle()'>Update</button>
                 <?php
-                    if ($_SESSION['isAdmin']== '1') {
-                        echo "<button type='button' onclick='deleteVehicle()' id='deleteVehicle' class='btn btn-danger'>Delete</button>";
-                    }
-                ?>
+if ($_SESSION['isAdmin'] == '1') {
+    echo "<button type='button' onclick='deleteVehicle()' id='deleteVehicle' class='btn btn-danger'>Delete</button>";
+}
+?>
 
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
@@ -2917,8 +2917,8 @@
     </div>
 </div>
 <!--
----------------------------------------- END OF VEHICLE DIALOGS ---------------------------------------------- 
----------------------------------------- JOB REQUEST DIALOGS ------------------------------------------------- 
+---------------------------------------- END OF VEHICLE DIALOGS ----------------------------------------------
+---------------------------------------- JOB REQUEST DIALOGS -------------------------------------------------
 -->
 <!-- ADD JOB REQUEST DIALOG -->
 <div class="modal" id="modalAddNewJobRequest" data-backdrop='static'>
@@ -2929,7 +2929,7 @@
                 <h5 class="modal-title">Add New Job</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-           
+
             <div class="modal-body" style='font-size: 75%'>
                 <h6><strong>Job Details</strong></h6>
                 <form method='POST' id='getAddJob' class='getAddJob form-block'>
@@ -2943,15 +2943,15 @@
                                     <select id='jobCustomerName' name='jobCustomerName' class='custom-select'>
                                         <option value = '0' disabled selected>Select customer from list</option>
                                         <?php
-                                            $sql = 'SELECT ID, businessName FROM tblCustomer';
-                                            $result = mysqli_query($link,$sql);
-                                            
-                                            while ($customerRow = mysqli_fetch_array($result)) {
-                                                if ($customerRow['businessName']!="DHD" && $customerRow['businessName']!="DHINSTALL") {
-                                                    echo "<option value = " . $customerRow['ID'] . ">" . $customerRow['businessName'] . "</option>";
-                                                }
-                                            }
-                                        ?>
+$sql = 'SELECT ID, businessName FROM tblCustomer';
+$result = mysqli_query($link, $sql);
+
+while ($customerRow = mysqli_fetch_array($result)) {
+    if ($customerRow['businessName'] != "DHD" && $customerRow['businessName'] != "DHINSTALL") {
+        echo "<option value = " . $customerRow['ID'] . ">" . $customerRow['businessName'] . "</option>";
+    }
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -2963,15 +2963,15 @@
                                     <select id='jobJobType' name='jobJobType' class='custom-select'>
                                         <option value='0' disabled selected>Select job type</option>
                                         <?php
-                                            $sql = "SELECT * FROM tblJobType";
-                                            $result = mysqli_query($link, $sql);
-                                            while ($jobRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $jobRow['ID'] .">" . $jobRow['description'] . "</option>";
-                                            }
-                                        ?>
-                                    </select>    
+$sql = "SELECT * FROM tblJobType";
+$result = mysqli_query($link, $sql);
+while ($jobRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $jobRow['ID'] . ">" . $jobRow['description'] . "</option>";
+}
+?>
+                                    </select>
                                 </div>
-                            </div>     
+                            </div>
                         </div>
                         <div class='row'>
                             <div class='col-2'>
@@ -2982,20 +2982,20 @@
                                     <select id='jobCameraType' name='jobCameraType' class='custom-select'>
                                         <option value='0' disabled selected>Select camera type</option>
                                         <?php
-                                            $sql = "SELECT * FROM tblDeviceDescription";
-                                            $result = mysqli_query($link, $sql);
-                                            while ($deviceRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $deviceRow['ID'] .">" . $deviceRow['description'] . "</option>";
-                                            }
-                                        ?>
-                                    </select>    
+$sql = "SELECT * FROM tblDeviceDescription";
+$result = mysqli_query($link, $sql);
+while ($deviceRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $deviceRow['ID'] . ">" . $deviceRow['description'] . "</option>";
+}
+?>
+                                    </select>
                                 </div>
                             </div>
                             <div class='col-2'>
                                 <label class='control-label' for='jobOtherKit' style='padding: 8px 25px;'>Other Kit</label>
                             </div>
                             <div class='col-4'>
-                                <div class='input-group' id='addJobOtherKit'> 
+                                <div class='input-group' id='addJobOtherKit'>
                                     <div class="multiselect">
                                         <div class="selectBox" onclick="showCheckboxes()">
                                             <select class='custom-select'>
@@ -3015,7 +3015,7 @@
 
                         </div>
                         <div class='row'>
-                        <div class='col-2'>
+                            <!-- <div class='col-2'>
                                 <label class='control-label' for='jobPriority' style='padding-top: 8px;'>Priority</label>
                             </div>
                             <div class='col-4'>
@@ -3023,64 +3023,73 @@
                                     <select id='jobPriority' name='jobPriority' class='custom-select'>
                                         <option value = '1'>Standard</option>
                                         <option value = '2'>Urgent</option>
-                                    </select>    
+                                    </select>
                                 </div>
-                            </div>     
+                            </div>
 
                             <div class='col-2'>
                                 <label class='control-label' for='jobAttachments' style='padding: 8px 25px;'>Attachments</label>
                             </div>
                             <div class='col-4'>
                                 <div class='input-group'>
-                                    <!-- <input type='date' class='form-control' id='jobAttachments'> -->
+                                     <input type='date' class='form-control' id='jobAttachments'>
+                                </div>
+                            </div> -->
+
+                            <div class='col-2'>
+                                <label class='control-label' for='customerJobRate' style='padding-top: 8px;'>Customer Job Rate</label>
+                            </div>
+                            <div class='col-4'>
+                                <div class='input-group'>
+                                    <input type='number' class='form-control' id='customerJobRate' name='customerJobRate' min ='0' step='0.01'>
+                                    <!-- <input type='checkbox' style='margin: 15px' id='jobRateDefault' checked=checked><p style='margin-top: 13px; margin-left:-12px;'>default</p> -->
                                 </div>
                             </div>
- 
+
+                            <div class='col-2'>
+                                <label class='control-label' for='jobRate' style='padding: 0 25px;'>Engineer Job Rate</label>
+                            </div>
+                            <div class='col-4'>
+                                <div class='input-group'>
+                                    <input type='number' class='form-control' id='jobRate' name='jobRate' min ='0' step='0.01'>
+                                    <input type='checkbox' style='margin: 15px' id='jobRateDefault' checked=checked><p style='margin-top: 13px; margin-left:-12px;'>default</p>
+                                </div>
+                            </div>
                         </div>
-                        
+
                         <div class='row'>
                             <div class='col-2'>
                                 <label class='control-label' for='jobNotes' style='padding-top:8px;'>Notes</label>
                             </div>
                             <div class='col-10'>
                                 <div class='input-group'>
-                                       <textarea rows='4' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='jobNotes' id='jobNotes' style='margin-top:3px; margin-bottom: 8px;'></textarea>                      
+                                       <textarea rows='4' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='jobNotes' id='jobNotes' style='margin-top:3px; margin-bottom: 8px;'></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-2'>
-                                <label class='control-label' for='jobRate' style='padding-top: 8px;'>Job Rate</label>
-                            </div>
-                            <div class='col-4'>
-                                <div class='input-group'>
-                                    <input type='number' class='form-control' id='jobRate' name='jobRate' min ='0' step='0.01' disabled=disabled>
-                                    <input type='checkbox' style='margin: 15px' id='jobRateDefault' checked=checked><p style='margin-top: 13px; margin-left:-12px;'>default</p>
-                                </div>
-                            </div>
-
                         <div class='col-2'>
-                                <label class='control-label' for='jobQuantity' style='padding: 8px 25px;'>Quantity</label>
+                                <label class='control-label' for='jobQuantity' style='padding-top: 8px;'>Quantity</label>
                             </div>
                             <div class='col-4'>
                                 <div class='input-group'>
                                     <input type='number' class='form-control' id='jobQuantity' name='jobQuantity' min='1' max='50' value='1'>
                                 </div>
-                            </div>    
+                            </div>
 
                         </div>
-                        
+
                         <hr>
 
                         <h6><strong>Booking Details</strong></h6>
-                      
+
                         <div class='row'>
                             <div class='col-2'>
                                 <label class='control-label' for='jobContactName' style='padding-top:10px;'>Contact Name</label>
                             </div>
                             <div class='col-4'>
                                 <div class='input-group'>
-                                    <input type='text' class='form-control' id='jobContactName' name='jobContactName' placeholder='contact name...'>        
+                                    <input type='text' class='form-control' id='jobContactName' name='jobContactName' placeholder='contact name...'>
                                 </div>
                             </div>
                             <div class='col-2'>
@@ -3094,9 +3103,9 @@
                                         <option value = "2">Engineer</option>
                                         <option value = "3">Customer</option>
                                         <option value = "4">Not required</option>
-                                    </select>    
+                                    </select>
                                 </div>
-                            </div>        
+                            </div>
                         </div>
 
                         <div class='row'>
@@ -3115,17 +3124,17 @@
                                 <div class='input-group' id='bookingEngineerAssigned'>
                                     <select id='engineerAssigned' name='engineerAssigned' class='custom-select'>
                                         <option value='0' disabled selected>Select engineer</option>
-                                        <?php     
-                                        $sql = "SELECT userID, userName, activation, isInstaller, isEngineer FROM tblUsers WHERE activation='activated' AND isEngineer=1";
-                                        $result = mysqli_query($link, $sql);
-                                        while ($engineerRow = mysqli_fetch_array($result)) {
-                                            echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
-                                        }
-                                        ?>
-                                        <option value='9999' class='otherOptionSelection'>Unregistered Engineer</option>
+                                        <?php
+$sql = "SELECT userID, userName, activation, isInstaller, isEngineer FROM tblUsers WHERE activation='activated' AND isEngineer=1";
+$result = mysqli_query($link, $sql);
+while ($engineerRow = mysqli_fetch_array($result)) {
+    echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
+}
+?>
+                                        <!-- <option value='9999' class='otherOptionSelection'>Unregistered Engineer</option> -->
                                     </select>
                                 </div>
-                            </div>                
+                            </div>
                         </div>
 
                         <div class='row'>
@@ -3139,13 +3148,13 @@
                             <div class='col-2' style='display:inline-flex'>
                                 <label class='control-label' for='jobDateBooked' style='padding:10px 25px;'>Date/Time Booked For</label>
                             </div>
-                            
+
                             <div class='col-4'>
                                 <div class='input-group'>
                                     <input type='datetime-local' class='form-control' name = 'jobDateBooked' id='jobDateBooked'>
                                 </div>
-                            </div>                    
-                            </div> 
+                            </div>
+                            </div>
                         </div>
                         <div class='row'>
                             <div class='col-2'>
@@ -3153,11 +3162,11 @@
                             </div>
                             <div class='col-10'>
                                 <div class='input-group'>
-                                    <textarea rows='3' cols='100' class='form-control' placeholder='Enter Installation Address' name='jobInstallAddress' id='jobInstallAddress' style='margin-top:3px;'></textarea>                      
+                                    <textarea rows='3' cols='100' class='form-control' placeholder='Enter Installation Address' name='jobInstallAddress' id='jobInstallAddress' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>
-            
+
                         <div class='row' style='padding-top: 8px;'>
                             <div class='col-4'>
                                 <label class='control-label' style='padding-top:8px;'><h6><strong>Vehicle Details</strong></h6></label>
@@ -3168,7 +3177,7 @@
                             <div class='col-4'>
                                <label class='control-label' style='padding-top:8px;'><strong>New/Current VRM</strong></label>
                             </div>
-                            
+
                         </div>
                         <div class='row' id='VRNListForJob'>
                             <div class='col-4'>
@@ -3183,7 +3192,7 @@
                             </div>
                             <div class='col-4'>
                                 <div class='input-group'>
-                                    <select name='addJobTypeVRN' class='custom-select addJobTypeVRN'>
+                                    <select id='addJobTypeVRN' name='addJobTypeVRN' class='custom-select addJobTypeVRN'>
                                         <option value="0" disabled selected>select VRN</option>
                                     </select>
                                     <div class='input-group-append'>
@@ -3196,7 +3205,7 @@
                 <div id='jobRequestMessage'></div>
                 <div id='jobVRNErrorCount' style='visibility: none'></div>
             </div>
-                                 
+
 
             <!-- Modal footer -->
             <div class="modal-footer">
@@ -3208,7 +3217,7 @@
                 <button type="button" id='addJobUpdate' onclick='addNewJob()' class="btn btn-success">Add</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -3222,7 +3231,7 @@
                 <h5 class="modal-title">Edit Outstanding Job</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-           
+
             <div class="modal-body" style='font-size: 75%'>
                 <h6><strong>Job Details</strong></h6>
                 <form method='POST' id='getEditJob' class='getEditJob form-block'>
@@ -3236,15 +3245,15 @@
                                     <select id='editJobCustomerName' name='editJobCustomerName' class='custom-select'>
                                         <option value = '0' disabled selected>Select customer from list</option>
                                         <?php
-                                            $sql = 'SELECT ID, businessName FROM tblCustomer';
-                                            $result = mysqli_query($link,$sql);
-                                            
-                                            while ($customerRow = mysqli_fetch_array($result)) {
-                                                if ($customerRow['businessName']!="DHD" && $customerRow['businessName']!="DHINSTALL") {
-                                                    echo "<option value = " . $customerRow['ID'] . ">" . $customerRow['businessName'] . "</option>";
-                                                }
-                                            }
-                                        ?>
+$sql = 'SELECT ID, businessName FROM tblCustomer';
+$result = mysqli_query($link, $sql);
+
+while ($customerRow = mysqli_fetch_array($result)) {
+    if ($customerRow['businessName'] != "DHD" && $customerRow['businessName'] != "DHINSTALL") {
+        echo "<option value = " . $customerRow['ID'] . ">" . $customerRow['businessName'] . "</option>";
+    }
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -3254,17 +3263,17 @@
                             <div class='col-4'>
                                 <div class='input-group' id='editJobJobType'> <!--  was editJobType -->
                                     <select id='editJobType' name='jobJobType' class='custom-select'>
-                                       
+
                                         <?php
-                                            $sql = "SELECT * FROM tblJobType";
-                                            $result = mysqli_query($link, $sql);
-                                            while ($jobRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $jobRow['ID'] .">" . $jobRow['description'] . "</option>";
-                                            }
-                                        ?>
-                                    </select>    
+$sql = "SELECT * FROM tblJobType";
+$result = mysqli_query($link, $sql);
+while ($jobRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $jobRow['ID'] . ">" . $jobRow['description'] . "</option>";
+}
+?>
+                                    </select>
                                 </div>
-                            </div>     
+                            </div>
                         </div>
                         <div class='row'>
                             <div class='col-2'>
@@ -3275,20 +3284,20 @@
                                     <select id='editJobCameraType' name='jobCameraType' class='custom-select'>
                                         <option value='0' disabled selected>Select camera type</option>
                                         <?php
-                                            $sql = "SELECT * FROM tblDeviceDescription";
-                                            $result = mysqli_query($link, $sql);
-                                            while ($deviceRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $deviceRow['ID'] .">" . $deviceRow['description'] . "</option>";
-                                            }
-                                        ?>
-                                    </select>    
+$sql = "SELECT * FROM tblDeviceDescription";
+$result = mysqli_query($link, $sql);
+while ($deviceRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $deviceRow['ID'] . ">" . $deviceRow['description'] . "</option>";
+}
+?>
+                                    </select>
                                 </div>
                             </div>
                             <div class='col-2'>
                                 <label class='control-label' for='editJobOtherKit' style='padding:8px 25px;'>Other Kit</label>
                             </div>
                             <div class='col-4'>
-                                <div class='input-group' id='editJobOtherKit'> 
+                                <div class='input-group' id='editJobOtherKit'>
                                     <div class="multiselect">
                                         <div id="editCheckboxes" style='margin-top: 3px;'>
                                             <label for="editLT">
@@ -3298,10 +3307,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                         <div class='row'>
-                            <div class='col-2'>
+                            <!-- <div class='col-2'>
                                 <label class='control-label' for='jobJobPriority' style='padding-top: 8px;'>Priority</label>
                             </div>
                             <div class='col-4'>
@@ -3309,17 +3318,84 @@
                                     <select id='editJobPriority' name='jobPriority' class='custom-select'>
                                         <option value = '1'>Standard</option>
                                         <option value = '2'>Urgent</option>
-                                    </select>    
+                                    </select>
                                 </div>
-                            </div>  
+                            </div>
                             <div class='col-2'>
                                 <label class='control-label' for='jobAttachments' style='padding:8px 25px;'>Attachments</label>
                             </div>
                             <div class='col-4'>
                                 <div class='input-group'>
-                                    <!-- <input type='date' class='form-control' id='jobAttachments'> -->
+                                     <input type='date' class='form-control' id='jobAttachments'>
                                 </div>
-                            </div>   
+                            </div>    -->
+                            <?php
+if ($_SESSION['isInstaller'] == '0' && $_SESSION['isEngineer'] == '0') {
+    echo "
+                                <div class='col-2'>
+                                    <label class='control-label' for='editCustomerJobRate' style='margin-top: 18px;'>Customer Job Rate</label>
+                                </div>
+                                <div class='col-4'>
+                                    <div class='input-group'>
+                                        <input type='number' class='form-control' id='editCustomerJobRate' name='jobCustomerRate' min ='0' step='0.01' style='margin-top: 8px;'>
+                                    </div>
+                                </div>
+
+                                <div class='col-2'>
+                                    <label class='control-label' for='editJobRate'  style='padding:8px 25px;'>Engineer Job Rate</label>
+                                </div>
+                                <div class='col-4'>
+                                    <div class='input-group'>
+                                        <input type='number' class='form-control' id='editJobRate' name='jobRate' min ='0' step='0.01' style='margin-top: 8px;'>
+                                        <input type='checkbox' style='margin: 15px' id='jobRateDefault' checked=checked><p style='margin-top: 13px; margin-left:-12px;'>default</p>
+                                    </div>
+                                </div>
+";
+}
+?>
+
+
+                        </div>
+
+
+                        <div class='row'>
+                            <div class='col-2'>
+                                <label class='control-label' for='jobInvoicedSwitchLabel' style='padding-top:18px;'>Job invoiced</label>
+                            </div>
+                            <div class='col-1'>
+                                <label id='jobInvoicedSwitchLabel'class="switch">
+                                    <input id='jobInvoicedSwitch' type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class='col-1'>
+                                <div id='jobIsInvoiced'></div>
+                            </div>
+                            <div class='col-2'>
+                                <label class='control-label' for='jobMonthlySwitchLabel' style='padding-top:18px;'>Monthly invoice updated</label>
+                            </div>
+                            <div class='col-1'>
+                                <label id='jobMonthlySwitchLabel'class="switch">
+                                    <input id='monthlyInvoiceSwitch' type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class='col-1'>
+                                <div id='monthlyUpdated'></div>
+                            </div>
+                            <div class='col-2'>
+                                <label class='control-label' for='jobApprovedSwitchLabel' style='padding-top:18px;'>Approved for payment</label>
+                            </div>
+                            <div class='col-1'>
+                                <label id='jobApprovedSwitchLabel'class="switch">
+                                    <input id='approvedSwitch' type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class='col-1'>
+                                <div id='approvedPayment'></div>
+                            </div>
+
                         </div>
 
                         <div class='row'>
@@ -3328,40 +3404,17 @@
                             </div>
                             <div class='col-10'>
                                 <div class='input-group'>
-                                       <textarea rows='4' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='jobNotes' id='editJobNotes' style='margin-top:3px;'></textarea>                      
+                                       <textarea rows='4' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='jobNotes' id='editJobNotes' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class='row'>
-                            <?php
-                               if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
-                                echo"
-                                <div class='col-2'>
-                                    <label class='control-label' for='editJobRate' style='margin-top: 18px;'>Job Rate</label>
-                                </div>
-                                <div class='col-4'>
-                                    <div class='input-group'>
-                                        <input type='number' class='form-control' id='editJobRate' name='jobRate' min ='0' step='0.01' style='margin-top: 8px;'>
-                                    </div>
-                                </div>
-                                <div class='col-2'>
-                                    <label class='control-label' for='engineerInvoice' style='padding:18px 25px;'>Engineer Invoice</label>
-                                </div>
-                                <div class='col-3'>
-                                    <div class='input-group'>
-                                        <input type='text' class='form-control' id='engineerInvoice' name='engineerInvoice' style='margin-top: 8px;'>
-                                    </div>
-                                </div>
-                            ";
-                               }
-                                ?>
-                        </div>
-                        
+
+
                         <hr>
 
                         <h6><strong>Booking Details</strong></h6>
-                      
-                           
+
+
                         <div class='row'>
                             <div class='col-2'>
                                 <label class='control-label' for='editJobContactName' style='padding-top:10px;'>Contact Name</label>
@@ -3376,14 +3429,14 @@
                             </div>
                             <div class='col-4'>
                                 <div class='input-group' id='bookingEditEquipmentWith'>
-                                    <select id='editBookingLocation' name='bookingLocation' class='custom-select'>           
+                                    <select id='editBookingLocation' name='bookingLocation' class='custom-select'>
                                         <option value = "1">UK Mobile Installations Ltd</option>
                                         <option value = "2">Engineer</option>
                                         <option value = "3">Customer</option>
                                         <option value = "4">Not required</option>
-                                    </select>    
+                                    </select>
                                 </div>
-                            </div>        
+                            </div>
                         </div>
                         <div class='row'>
                             <div class='col-2'>
@@ -3398,16 +3451,17 @@
                                 <label class='control-label' for='editEngineerAssigned' style='padding:10px 25px;'>Engineer Assigned</label>
                             </div>
                             <div class='col-4'>
-                                <select id='editEngineerAssigned' name='engineerAssigned' class='custom-select'>
+                                <select id='editEngineerAssigned' name='engineerAssigned' class='custom-select' style='background: 0'>
                                     <option value='0' disabled selected>Select engineer</option>
-                                        <?php     
-                                            $sql = "SELECT userID, userName, activation, isInstaller, isEngineer FROM tblUsers WHERE activation='activated' AND isEngineer=1";
-                                            $result = mysqli_query($link, $sql);
-                                            while ($engineerRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
-                                            }
-                                       ?>
-                                   <option value='9999' class='otherOptionSelection'>Unregistered Engineer</option>
+                                        <?php
+$sql = "SELECT userID, userName, activation, isInstaller, isEngineer, colour FROM tblUsers WHERE activation='activated' AND isEngineer=1";
+$result = mysqli_query($link, $sql);
+while ($engineerRow = mysqli_fetch_array($result)) {
+
+    echo "<option value = '" . $engineerRow['userID'] . "' style='background: " . $engineerRow['colour'] . "'>" . $engineerRow['userName'] . "</option>";
+}
+?>
+
                                 </select>
                             </div>
                         </div>
@@ -3433,7 +3487,7 @@
                             </div>
                             <div class='col-10'>
                                 <div class='input-group'>
-                                    <textarea rows='4' cols='100' class='form-control' placeholder='Enter Installation Address' name='jobInstallAddress' id='editJobInstallAddress' style='margin-top:3px;'></textarea>                      
+                                    <textarea rows='4' cols='100' class='form-control' placeholder='Enter Installation Address' name='jobInstallAddress' id='editJobInstallAddress' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>
@@ -3453,7 +3507,7 @@
                                 <label class='control-label' for='editJobOldVRN' style='padding-top:8px;'>This job</label>
                             </div>
                             <div class='col-4'>
-                                <select name='addJobTypeOldVRN' id = 'editJobOldVRN' class='custom-select addJobTypeOldVRN'></select>
+                                <select name='editJobOldVRN' id = 'editJobOldVRN' class='custom-select addJobTypeOldVRN'></select>
                             </div>
                             <div class='col-4'>
                                 <select name='editJobVRN' id = 'editJobVRN' class='custom-select addJobTypeVRN'></select>
@@ -3465,8 +3519,8 @@
                         </div>
                         <div class='row'>
                         </div>
-                    </div>  
-                    
+                    </div>
+
                     <hr>
                     <div id='jobCompletionSection'>
                         <h6><strong>Job Completion</strong></h6>
@@ -3495,38 +3549,38 @@
                             <div class='col-1'></div>
                             <div class='col-5'>
                                 <div class='mr-auto ml-auto' id='regPicContent' style='margin-top:10px'></div>
-                            </div>             
+                            </div>
                             <div class='col-5'>
                                 <div class='mr-auto ml-auto' id='devicePicContent' style='margin-top:10px'></div>
-                            </div>       
+                            </div>
                         </div>
-                            
+
                         <div class='row' style='margin-top:15px;'>
                             <div class='col-3'>
-                                <label class='form-check-label' for='editJobCompleted' style='font-size:125%'>Job Completed</label> 
-                            </div>
-                            <div class='col-2'>    
-                                <div class='form-check form-switch'>
-                                    <input class='form-check-input' type='checkbox' id='editJobCompleted' style='margin-left: 40px; font-size:125%'>  
-                                </div>
-                            </div>
-                                                
-                            <?php
-                                if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
-                                    echo "
-                            <div class='col-3 offset-1'>
-                                <label class='form-check-label' for='editHubCompleted' style='font-size:125%'>Data Hub Sign Off</label>  
+                                <label class='form-check-label' for='editJobCompleted' style='font-size:125%'>Job Completed</label>
                             </div>
                             <div class='col-2'>
                                 <div class='form-check form-switch'>
-                                    <input class='form-check-input' type='checkbox' id='editHubCompleted' style='margin-left: 10px; font-size:125%'>  
+                                    <input class='form-check-input' type='checkbox' id='editJobCompleted' style='margin-left: 40px; font-size:125%'>
                                 </div>
-                            </div>     
+                            </div>
+
+                            <?php
+if ($_SESSION['isInstaller'] == '0' && $_SESSION['isEngineer'] == '0') {
+    echo "
+                            <div class='col-3 offset-1'>
+                                <label class='form-check-label' for='editHubCompleted' style='font-size:125%'>Data Hub Sign Off</label>
+                            </div>
+                            <div class='col-2'>
+                                <div class='form-check form-switch'>
+                                    <input class='form-check-input' type='checkbox' id='editHubCompleted' style='margin-left: 10px; font-size:125%'>
+                                </div>
+                            </div>
                                         ";
-                                }
-                                ?>
+}
+?>
                         </div>
-                            
+
                     </div>
                 </form>
                 <div id='editJobMessage'></div>
@@ -3539,13 +3593,14 @@
                 <div class='mr-auto' id='jobCurrentStatus'>
                     <h6>STATUS: <span style='color: #FFAA00;'></span></h6>
                 </div>
+                <button type="button" id='downloadImages' class="btn btn-info" style='display: none'>Download Images</button>
                 <button type="button" id='editJobUpdate' onclick='editCurrentJob()' class="btn btn-success">Update Job</button>
                 <?php
-                if ($_SESSION['isInstaller']== '0' && $_SESSION['isEngineer']== '0') {
-                    echo "<button type='button' id='cancelJobUpdate' onclick='cancelCurrentJob()' class='btn btn-secondary'>Cancel Job</button>";
-                    echo "<button type='button' id='deleteJobUpdate' onclick='deleteCurrentJob()' class='btn btn-danger'>Delete Job</button>";
-                }
-                ?>
+if ($_SESSION['isInstaller'] == '0' && $_SESSION['isEngineer'] == '0') {
+    echo "<button type='button' id='cancelJobUpdate' onclick='cancelCurrentJob()' class='btn btn-secondary'>Cancel Job</button>";
+    echo "<button type='button' id='deleteJobUpdate' onclick='deleteCurrentJob()' class='btn btn-danger'>Delete Job</button>";
+}
+?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Discard</button>
             </div>
         </div>
@@ -3630,7 +3685,7 @@
                             </div>
                         </div>
                         <hr>
-                        
+
                     </div>
                     <div id='installerMessage'></div>
                 </form>
@@ -3640,10 +3695,10 @@
                 <div id='addInstallerHide' style='display: none'></div>
                 <button type="button" id='addInstallerUpdate' onclick='addNewInstaller()' class="btn btn-success">Add</button>
                 <?php
-                //  if ($_SESSION['isAdmin']== '1') {
-                //     echo "<button type='button' onclick='deleteInstaller()' id='deleteInstaller' class='btn btn-danger'>Delete</button>";
-                // }
-                ?>
+//  if ($_SESSION['isAdmin']== '1') {
+//     echo "<button type='button' onclick='deleteInstaller()' id='deleteInstaller' class='btn btn-danger'>Delete</button>";
+// }
+?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -3725,7 +3780,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div id='installerContactMessage'></div>
                 </form>
@@ -3820,7 +3875,7 @@
                             </div>
                         </div>
                         <hr>
-                        
+
                     </div>
                     <div id='supplierMessage'></div>
                 </form>
@@ -3830,10 +3885,10 @@
                 <div id='addSupplierHide' style='display: none'></div>
                 <button type="button" id='addSupplierUpdate' onclick='addNewSupplier()' class="btn btn-success">Add</button>
                 <?php
-                //  if ($_SESSION['isAdmin']== '1') {
-                //     echo "<button type='button' onclick='deleteSupplier()' id='deleteSupplier' class='btn btn-danger'>Delete</button>";
-                // }
-                ?>
+//  if ($_SESSION['isAdmin']== '1') {
+//     echo "<button type='button' onclick='deleteSupplier()' id='deleteSupplier' class='btn btn-danger'>Delete</button>";
+// }
+?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -3915,7 +3970,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div id='supplierContactMessage'></div>
                 </form>
@@ -4007,7 +4062,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div id='editSupplierContactMessage'></div>
                 </form>
@@ -4017,10 +4072,10 @@
                 <div id='editSupplierContactHide' style='display: none'></div>
                 <button type="button" id='updateEditSupplierContact' class="btn btn-success">Update</button>
                 <?php
-                    if ($_SESSION['isAdmin']== '1') {
-                        echo "<button type='button' onclick='deleteSupplierContact()' id='deleteSupplierContact' class='btn btn-danger'>Delete</button>";
-                    }
-                ?>
+if ($_SESSION['isAdmin'] == '1') {
+    echo "<button type='button' onclick='deleteSupplierContact()' id='deleteSupplierContact' class='btn btn-danger'>Delete</button>";
+}
+?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -4115,7 +4170,7 @@
                             </div>
                         </div>
                         <hr>
-                        
+
                     </div>
                     <div id='otherMessage'></div>
                 </form>
@@ -4208,7 +4263,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div id='otherContactMessage'></div>
                 </form>
@@ -4299,7 +4354,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div id='editOtherContactMessage'></div>
                 </form>
@@ -4309,10 +4364,10 @@
                 <div id='editOtherContactHide' style='display: none'></div>
                 <button type="button" id='updateEditOtherContact' class="btn btn-success">Update</button>
                 <?php
-                    if ($_SESSION['isAdmin']== '1') {
-                        echo "<button type='button' onclick='deleteOtherContact()' id='deleteOtherContact' class='btn btn-danger'>Delete</button>";
-                    }
-                ?>
+if ($_SESSION['isAdmin'] == '1') {
+    echo "<button type='button' onclick='deleteOtherContact()' id='deleteOtherContact' class='btn btn-danger'>Delete</button>";
+}
+?>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -4328,7 +4383,7 @@
                 <h5 class="modal-title">Vehicle Details Search</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-        
+
             <div class="modal-body" style='font-size: 75%'>
                 <form method='POST' id='getVRNToLookup' class='getVRNToLookup form-block' onSubmit='return false;'>
                     <div class='form-group'>
@@ -4347,7 +4402,7 @@
                         </div>
                     </div>
                     <div id='VRNToFindMessage'></div>
-                </form> 
+                </form>
                 <div id='VehicleLookupInfo' style='font-size: 14px;'></div>
             </div>
         </div>
@@ -4400,18 +4455,18 @@
                             </div>
                             <div class='col-8'>
                                 <div class='input-group'>
-                                    <textarea rows='8' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='addIssueDescription' id='addIssueDescription' style='margin-top:3px;'></textarea>                      
+                                    <textarea rows='8' cols='100' class='form-control' placeholder='Enter note text (max 1,024 characters)...' name='addIssueDescription' id='addIssueDescription' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>
                         <hr>
                         <div class='row'>
-                            
+
                             <div class='col-4'>
                                 <label for='file'><strong>Upload Screenshot </strong></label>
                             </div>
                             <div class='col-8'>
-                                <input type='file' id='file' name='file' accept='image/*'>    
+                                <input type='file' id='file' name='file' accept='image/*'>
                                 <span id='uploaded_image'></span>
                             </div>
                         </div>
@@ -4419,7 +4474,7 @@
                 </form>
                 <div id='issueRequestMessage'></div>
             </div>
-           
+
 
             <!-- Modal footer -->
             <div class="modal-footer">
@@ -4427,7 +4482,7 @@
                 <button type="button" id='addIssueUpdate' onclick='addNewIssue()' class="btn btn-success">Add</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
-         
+
         </div>
     </div>
 </div>
@@ -4484,7 +4539,7 @@
                                         <option value = '4'>For Review</option>
                                         <option value = '5'>Completed</option>
                                         <option value = '6'>For Correction</option>
-                                        <option value = '7'>More Info/Cannot Replicate</option>                                        
+                                        <option value = '7'>More Info/Cannot Replicate</option>
                                      </select>
                                 </div>
                             </div>
@@ -4495,19 +4550,19 @@
                             </div>
                             <div class='col-8'>
                                 <div class='input-group'>
-                                    <textarea rows='8' cols='100' class='form-control' name='editIssueDescription' id='editIssueDescription' style='margin-top:3px;'></textarea>                      
+                                    <textarea rows='8' cols='100' class='form-control' name='editIssueDescription' id='editIssueDescription' style='margin-top:3px;'></textarea>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <hr>
                         <div class='row'>
-                            
+
                             <div class='col-4'>
                                 <label for='fileIssue'><strong>Upload Screenshot </strong></label>
                             </div>
                             <div class='col-8'>
-                                <input type='file' id='fileIssue' name='file' accept='image/*'>    
+                                <input type='file' id='fileIssue' name='file' accept='image/*'>
                                 <span id='uploaded_imageIssue'></span>
                             </div>
                         </div>
@@ -4515,7 +4570,7 @@
                 </form>
                 <div id='issueEditRequestMessage'></div>
             </div>
-           
+
 
             <!-- Modal footer -->
             <div class="modal-footer">
@@ -4548,13 +4603,13 @@
                                 <div class='input-group'>
                                     <select id='selectCustomer' name='selectCustomer' class='custom-select selectCustomer'>
                                         <?php
-                                            $sql = "SELECT ID, businessName FROM tblCustomer ORDER BY businessName ASC";
-                                            $result = mysqli_query($link,$sql);
+$sql = "SELECT ID, businessName FROM tblCustomer ORDER BY businessName ASC";
+$result = mysqli_query($link, $sql);
 
-                                            while ($deviceRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = " . $deviceRow['ID'] . ">" . $deviceRow['businessName'] . "</option>";
-                                            }
-                                        ?>       
+while ($deviceRow = mysqli_fetch_array($result)) {
+    echo "<option value = " . $deviceRow['ID'] . ">" . $deviceRow['businessName'] . "</option>";
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -4674,13 +4729,13 @@
                             <div class='col-lg-8'>
                                 <select id='getEngineer' name='getEngineer' class='custom-select'>
                                     <option value='0' selected>All engineers</option>
-                                        <?php     
-                                            $sql = "SELECT userID, userName, activation, isInstaller, isEngineer FROM tblUsers WHERE activation='activated' AND isEngineer=1";
-                                            $result = mysqli_query($link, $sql);
-                                            while ($engineerRow = mysqli_fetch_array($result)) {
-                                                echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
-                                            }
-                                       ?>
+                                        <?php
+$sql = "SELECT userID, userName, activation, isInstaller, isEngineer FROM tblUsers WHERE activation='activated' AND isEngineer=1";
+$result = mysqli_query($link, $sql);
+while ($engineerRow = mysqli_fetch_array($result)) {
+    echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
+}
+?>
                                     <option value='9999' class='otherOptionSelection'>Unregistered Engineer</option>
                                 </select>
                             </div>
@@ -4696,7 +4751,7 @@
                                 <input type='date' class='form-control' name = 'dateAddedFrom' id='dateAddedFrom'>
                             </div>
                             <div class = 'col-lg-4'>
-                                <input type='date' class='form-control' name = 'dateAddedTo' id='dateAddedTo'  value="<?php echo date('Y-m-d');?>">
+                                <input type='date' class='form-control' name = 'dateAddedTo' id='dateAddedTo'  value="<?php echo date('Y-m-d'); ?>">
                             </div>
                         </div>
                         <div class='row'>
@@ -4707,7 +4762,7 @@
                                 <input type='date' class='form-control' name = 'dateBookedFrom' id='dateBookedFrom'>
                             </div>
                             <div class = 'col-lg-4'>
-                                <input type='date' class='form-control' name = 'dateBookedTo' id='dateBookedTo' value="<?php echo date('Y-m-d');?>">
+                                <input type='date' class='form-control' name = 'dateBookedTo' id='dateBookedTo' value="<?php echo date('Y-m-d'); ?>">
                             </div>
                         </div><hr>
                         <div class='row'>
@@ -4767,50 +4822,50 @@
                         <div class='row'>
                             <div class='col-lg-12' style='max-height: 70vh; overflow: auto;'>
                                 <table id='tableJobRates' class='table table-sm table-scrollable'>
-                                
+
                                     <thead>
                                         <tr><th>Device</th>
                                             <?php
-                                                $headerList = array();
-                                                $sql='SELECT * FROM tblJobType';
-                                                $result=mysqli_query($link, $sql);
-                                                while ($rowHeader = mysqli_fetch_array($result)) {
-                                                    echo "<th class='text-center' id='" . $rowHeader['ID'] . "'>" . $rowHeader['description'] . "</th>";
-                                                    $headerList[] = $rowHeader['ID'];
-                                                }
-                                            ?>
+$headerList = array();
+$sql = 'SELECT * FROM tblJobType';
+$result = mysqli_query($link, $sql);
+while ($rowHeader = mysqli_fetch_array($result)) {
+    echo "<th class='text-center' id='" . $rowHeader['ID'] . "'>" . $rowHeader['description'] . "</th>";
+    $headerList[] = $rowHeader['ID'];
+}
+?>
 
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                              
-                                            <?php
-                                                $sql = "SELECT * FROM tblDeviceDescription";
-                                                $result=mysqli_query($link, $sql);
-                                                while ($rowRow = mysqli_fetch_array($result)) {
-                                                    echo "<tr><td class='align-middle'>" . $rowRow['description'] . "</td>";
 
-                                                    foreach ($headerList as $headerItem) {
-                                                        $sql = "SELECT * FROM tblJobRates WHERE deviceID='" . $rowRow['ID'] . "' AND jobTypeID='" . $headerItem ."'";
-                                                        $rowResult=mysqli_query($link, $sql);
-                                                        $rowItem = mysqli_fetch_array($rowResult);
-                                                        echo "<td><input class='number2decimal' id='" . $rowItem['ID'] . "' type='text' style ='text-align: right' value='" . number_format($rowItem['rate'],2,'.',',') . "'></td>";
-                                                    }
-                                                    unset($headerItem);
-                                                    echo "</tr>";
-                                                }
-                                          
-                                            ?>
-                                        
-                                        
+                                            <?php
+$sql = "SELECT * FROM tblDeviceDescription";
+$result = mysqli_query($link, $sql);
+while ($rowRow = mysqli_fetch_array($result)) {
+    echo "<tr><td class='align-middle'>" . $rowRow['description'] . "</td>";
+
+    foreach ($headerList as $headerItem) {
+        $sql = "SELECT * FROM tblJobRates WHERE deviceID='" . $rowRow['ID'] . "' AND jobTypeID='" . $headerItem . "'";
+        $rowResult = mysqli_query($link, $sql);
+        $rowItem = mysqli_fetch_array($rowResult);
+        echo "<td><input class='number2decimal' id='" . $rowItem['ID'] . "' type='text' style ='text-align: right' value='" . number_format($rowItem['rate'], 2, '.', ',') . "'></td>";
+    }
+    unset($headerItem);
+    echo "</tr>";
+}
+
+?>
+
+
                                     </tbody>
 
                                 </table>
                             </div>
-                        </div>                    
+                        </div>
                     </div>
-                    
+
                     <div id='jobRatesMessage'></div>
                 </form>
             </div>
@@ -4818,7 +4873,7 @@
             <div class="modal-footer">
                 <button type="button" id='updateJobRates' onclick='updateJobRates()' class="btn btn-success">Update</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-  
+
             </div>
         </div>
     </div>
@@ -4839,7 +4894,7 @@
                         <div class='row'>
                             <div class='col-lg-12' style='max-height: 60vh;overflow: auto;''>
                                 <table id='multipleJobs' class='table cell-border compact table-scrollable'>
-                                
+
                                     <thead>
                                         <tr>
                                             <th class='align-middle' style='width: 17%;'>Customer</th>
@@ -4855,39 +4910,39 @@
 
                                     <tbody>
                                             <?php
-                                                $sql = "SELECT tblJobs.ID,
-                                                               tblCustomer.businessName, 
-                                                               tblJobType.description AS jobType, 
-                                                               tblDeviceDescription.description AS CameraType, 
-                                                               tblVehicle.regNumber, 
-                                                               tblJobs.date, 
-                                                               tblJobs.Notes, 
+$sql = "SELECT tblJobs.ID,
+                                                               tblCustomer.businessName,
+                                                               tblJobType.description AS jobType,
+                                                               tblDeviceDescription.description AS CameraType,
+                                                               tblVehicle.regNumber,
+                                                               tblJobs.date,
+                                                               tblJobs.Notes,
                                                                tblUsers.userName AS engineerName
-                                                        FROM tblJobs 
-                                                        INNER JOIN tblCustomer ON tblCustomer.ID = tblJobs.ownerID  
+                                                        FROM tblJobs
+                                                        INNER JOIN tblCustomer ON tblCustomer.ID = tblJobs.ownerID
                                                         INNER JOIN tblJobType ON  tblJobType.ID = tblJobs.jobType
-                                                        INNER JOIN tblDeviceDescription ON tblDeviceDescription.ID = tblJobs.cameraTypeID  
+                                                        INNER JOIN tblDeviceDescription ON tblDeviceDescription.ID = tblJobs.cameraTypeID
                                                         LEFT JOIN tblVehicle ON  tblVehicle.ID = tblJobs.VRN
                                                         INNER JOIN tblUsers ON  tblUsers.userID = tblJobs.engineerID";
-                                                
-                                                $result=mysqli_query($link, $sql);
-                                                while ($Row = mysqli_fetch_array($result)) {
-                                                    echo "<tr value='" . $Row['ID'] . "'><td class='align-middle' style='width: 17%;'>" . $Row['businessName'] . "</td>";
-                                                    echo "<td class='align-middle text-center' style='width: 8%;'>" . $Row['jobType'] . "</td>";
-                                                    echo "<td class='align-middle' style='width: 12%;'>" . $Row['CameraType'] . "</td>";
-                                                    echo "<td class='align-middle text-center' style='width: 5%;'>" . $Row['regNumber'] . "</td>";
 
-                                                    if (date('d/m/Y', strtotime($Row['date']))=='01/01/1970') {
-                                                        echo "<td class='align-middle text-center' style='width: 11%;' data-order='0/0/0'>TBD</td>";
-                                                    } else {
-                                                        echo "<td class='align-middle text-center' style='width: 11%;' data-order=" . strtotime($Row['date']) . ">" . date('d/m/y (D) H:i', strtotime($Row['date'])) . "</td>";
-                                                    }
-                                                    echo "<td class='align-middle text-center' style='width: 8%;'>" . $Row['engineerName'] . "</td>";
-                                                    echo "<td class='align-middle' style='width: 38%;'>" . $Row['Notes'] . "</td>";    
-                                                    echo "<td class='align-middle text-center' style='width: 1%;'><input class='selectCheckBox' type='checkbox'></td>";                                                  
-                                                    echo "</tr>";
-                                                }
-                                            ?>
+$result = mysqli_query($link, $sql);
+while ($Row = mysqli_fetch_array($result)) {
+    echo "<tr value='" . $Row['ID'] . "'><td class='align-middle' style='width: 17%;'>" . $Row['businessName'] . "</td>";
+    echo "<td class='align-middle text-center' style='width: 8%;'>" . $Row['jobType'] . "</td>";
+    echo "<td class='align-middle' style='width: 12%;'>" . $Row['CameraType'] . "</td>";
+    echo "<td class='align-middle text-center' style='width: 5%;'>" . $Row['regNumber'] . "</td>";
+
+    if (date('d/m/Y', strtotime($Row['date'])) == '01/01/1970') {
+        echo "<td class='align-middle text-center' style='width: 11%;' data-order='0/0/0'>TBD</td>";
+    } else {
+        echo "<td class='align-middle text-center' style='width: 11%;' data-order=" . strtotime($Row['date']) . ">" . date('d/m/y (D) H:i', strtotime($Row['date'])) . "</td>";
+    }
+    echo "<td class='align-middle text-center' style='width: 8%;'>" . $Row['engineerName'] . "</td>";
+    echo "<td class='align-middle' style='width: 38%;'>" . $Row['Notes'] . "</td>";
+    echo "<td class='align-middle text-center' style='width: 1%;'><input class='selectCheckBox' type='checkbox'></td>";
+    echo "</tr>";
+}
+?>
                                     </tbody>
                                 </table>
                             </div>
@@ -4916,7 +4971,7 @@
                             });
                             </script>
 
-                        </div> 
+                        </div>
                         <div class='form-group' style='margin-top: 15px; margin-bottom :15px; border: 1px solid #dedede; border-radius:5px;'>
                             <div class='row' style='margin-top: 10px; margin-left: 6px;'>
                                 <div class='col-2'>
@@ -4927,12 +4982,12 @@
                                         <select id='changeJobType' name='changeJobType' class='custom-select'>
                                             <option value='0' selected>Do not change...</option>
                                             <?php
-                                                // $sql="SELECT userID, userName, isEngineer, activation FROM tblUsers WHERE activation='activated' AND isEngineer=1";
-                                                // $result = mysqli_query($link, $sql);
-                                                // while ($engineerRow = mysqli_fetch_array($result)) {
-                                                //     echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
-                                                // }       
-                                            ?>
+// $sql="SELECT userID, userName, isEngineer, activation FROM tblUsers WHERE activation='activated' AND isEngineer=1";
+// $result = mysqli_query($link, $sql);
+// while ($engineerRow = mysqli_fetch_array($result)) {
+//     echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
+// }
+?>
                                             <option value='9999'>Unregistered Engineer</option>
                                         </select>
                                     </div> -->
@@ -4940,12 +4995,12 @@
                                         <select id='changeJobType' name='changeJobType' class='custom-select'>
                                             <option value='0' selected>Do not change...</option>
                                             <?php
-                                                 $sql="SELECT ID, description FROM tblJobType";
-                                                 $result = mysqli_query($link, $sql);
-                                                 while ($jobTypeRow = mysqli_fetch_array($result)) {
-                                                     echo "<option value = '" . $jobTypeRow['ID'] . "'>" . $jobTypeRow['description'] . "</option>";
-                                                 }       
-                                            ?>
+$sql = "SELECT ID, description FROM tblJobType";
+$result = mysqli_query($link, $sql);
+while ($jobTypeRow = mysqli_fetch_array($result)) {
+    echo "<option value = '" . $jobTypeRow['ID'] . "'>" . $jobTypeRow['description'] . "</option>";
+}
+?>
                                         </select>
                                     </div>
                                 </div>
@@ -4958,12 +5013,12 @@
                                         <select id='changeDeviceType' name='changeDeviceType' class='custom-select'>
                                             <option value='0' selected>Do not change...</option>
                                             <?php
-                                                $sql="SELECT ID, description FROM tblDeviceDescription";
-                                                $result = mysqli_query($link, $sql);
-                                                while ($deviceRow = mysqli_fetch_array($result)) {
-                                                    echo "<option value = '" . $deviceRow['ID'] . "'>" . $deviceRow['description'] . "</option>";
-                                                }       
-                                            ?>
+$sql = "SELECT ID, description FROM tblDeviceDescription";
+$result = mysqli_query($link, $sql);
+while ($deviceRow = mysqli_fetch_array($result)) {
+    echo "<option value = '" . $deviceRow['ID'] . "'>" . $deviceRow['description'] . "</option>";
+}
+?>
                                         </select>
                                     </div>
                                 </div>
@@ -4996,18 +5051,18 @@
                                         <select id='changeEngineerType' name='changeEngineerType' class='custom-select'>
                                             <option value='0' selected>Do not change...</option>
                                             <?php
-                                                $sql="SELECT userID, userName, isEngineer, activation FROM tblUsers WHERE activation='activated' AND isEngineer=1";
-                                                $result = mysqli_query($link, $sql);
-                                                while ($engineerRow = mysqli_fetch_array($result)) {
-                                                    echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
-                                                }       
-                                            ?>
+$sql = "SELECT userID, userName, isEngineer, activation FROM tblUsers WHERE activation='activated' AND isEngineer=1";
+$result = mysqli_query($link, $sql);
+while ($engineerRow = mysqli_fetch_array($result)) {
+    echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
+}
+?>
                                             <option value='9999'>Unregistered Engineer</option>
                                         </select>
                                     </div>
-                                </div>                               
+                                </div>
                             </div>
-                        </div>                                   
+                        </div>
                     </div>
                 </form>
             </div>
@@ -5015,7 +5070,7 @@
             <div class="modal-footer">
                 <div class='mr-auto' id='multipleJobsMessage'></div>
                 <button type="button" id='updateMultipleJobs' onclick='updateMultipleJobs()' class="btn btn-success" disabled=disabled>Update</button>
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>  
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>

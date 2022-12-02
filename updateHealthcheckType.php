@@ -12,7 +12,7 @@ $errors='';
 
 
 if (!$updateHealthcheckTypeName || $updateHealthcheckTypeName=='') {
-    $errors .="Job type description cannot be empty";
+    $errors .="Healthcheck description cannot be empty";
 }
 
 

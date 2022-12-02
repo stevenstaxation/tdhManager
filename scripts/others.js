@@ -423,9 +423,6 @@ function printPDFJobsList() {
           window.open ('PDFJobsAll.php');
     }
     );
-
-    console.log($('#includeComplete').is(':checked'));
-    console.log($('#includePending').is(':checked'));
    
 }
 

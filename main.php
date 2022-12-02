@@ -5,6 +5,7 @@ include 'connect.php';
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
 }
+$_SESSION['attempt'] = 0;
 ?>
 
 <!DOCTYPE HTML>
@@ -28,7 +29,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+   
     <!-- FONT AWESOME -->
     <script src="https://use.fontawesome.com/887b334360.js"></script>
     <link href="https://fonts.cdnfonts.com/css/uk-number-plate" rel="stylesheet">
@@ -58,6 +59,10 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/fh-3.2.2/r-2.2.9/sb-1.3.2/sp-2.0.0/sl-1.3.4/sr-1.1.0/datatables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/sl-1.3.4/datatables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/sl-1.3.4/datatables.min.js"></script> 
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/colreorder/1.5.2/js/dataTables.colReorder.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/scroller/2.0.7/js/dataTables.scroller.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/2.0.7/css/scroller.bootstrap5.css"/>
 
     <!-- SELECT2 PLUGIN -->
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">

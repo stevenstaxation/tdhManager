@@ -27,10 +27,15 @@ $deviceInstallerID = $_POST['installerID'];
 $deviceInstallDate = $_POST['installDate'];
 $deviceInstallerReference = $_POST['assocOrderNumber'];
 $deviceSupplierID = $_POST['supplierID'];
-$deviceSupplierInvoice = $_POST['supplierInvoice'];
+// $deviceSupplierInvoice = $_POST['supplierInvoice'];
 $deviceNote = $_POST['deviceNote'];
-$devicePurchaseDate = $_POST['purchaseDate'];
+// $devicePurchaseDate = $_POST['purchaseDate'];
+$updated_config = $_POST['configUpdated'];
+$updated_platform = $_POST['platformUpdated'];
+$updated_vco = $_POST['vcoUpdated'];
+
 $deviceVehicleID = '';
+$deviceNote = addslashes($deviceNote);
 
 $errors = "";
 
@@ -97,11 +102,28 @@ if ($count==1) { // vehicle exists
     $deviceVehicleID = $link->insert_id;
 }
 
+if ($updated_config === 'true') {
+    $updated_config = 1;
+} else {
+    $updated_config = 0;
+}
+if ($updated_vco === 'true') {
+    $updated_vco = 1;
+} else {
+    $updated_vco = 0;
+}
+if ($updated_platform === 'true') {
+    $updated_platform = 1;
+} else {
+    $updated_platform = 0;
+}
 
 $sql = "UPDATE tblDevice SET ownerID='$deviceOwnerID', isCamera='1', deviceDescriptionID='$deviceDescriptionID', TDHNumber='$deviceTDHNumber',
 serialNumber='$deviceSerialNumber', IMEI='$deviceIMEI', DRIDNumber='$deviceDRIDNumber', SIMNumber='$deviceSIMNumber', SIMPhone='$deviceSIMPhone', SIMStatus='$deviceSIMStatus',
 SIMDeactivationDate=NULLIF('$deviceSIMDeactDate',''), config='$deviceConfig', cameraUsedFor='$deviceOwnerID', vehicleID='$deviceVehicleID', status='$deviceStatus', installerID=NULLIF('$deviceInstallerID',''),
-installDate=NULLIF('$deviceInstallDate',''), assocOrderNumber='$deviceInstallerReference', supplierID=NULLIF('$deviceSupplierID',''), supplierInvoice='$deviceSupplierInvoice', purchaseDate=NULLIF('$devicePurchaseDate',''), deviceNote='$deviceNote', scheduledDate=NULLIF('$deviceSIMScheduleDate','') WHERE ID = '$deviceID'";
+installDate=NULLIF('$deviceInstallDate',''), assocOrderNumber='$deviceInstallerReference', supplierID=NULLIF('$deviceSupplierID',''), supplierInvoice='$deviceSupplierInvoice', purchaseDate=NULLIF('$devicePurchaseDate',''), deviceNote='$deviceNote', scheduledDate=NULLIF('$deviceSIMScheduleDate',''),
+platformUpdated = '$updated_platform', configUpdated = '$updated_config', vcoUpdated = '$updated_vco' WHERE ID = '$deviceID'";
+
 
 
 $result = mysqli_query($link, $sql);
@@ -110,3 +132,4 @@ echo $sql . "success";
 
 
 ?>
+

@@ -111,6 +111,11 @@ body.dark .modal-title {
      color: #222222;
  }
 
+ body.dark  .dataTables_length label, .dataTables_filter label, .dataTables_info label {
+    background-color: #222222;
+    color: #efefef;
+}
+
 .customerTable .dataTables_filter label,
 .customerTable .dataTables_info
 {

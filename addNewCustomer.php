@@ -1,6 +1,8 @@
 <?php
 session_start();
 include('connect.php');
+require_once('checkPostcode.php');
+
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
 }
@@ -50,15 +52,15 @@ if (strlen($newCustomerAddress4)>50) {
 }
 
 if (!(checkPostcode($newCustomerAddress5)) && $newCustomerAddress5 != "") {
-    $errors .= "Postcode is not valid<br>";
+     $errors .= "Postcode is not valid<br>";
 }
 
 if (strlen($newCustomerPhone)>20) {
     $newCustomerPhone = substr($newCustomerPhone,0,20);
 }
-if (strlen($newCustomerRegNo)>14) {
-    $newCustomerRegNo = substr($newCustomerRegNo,0,20);
-}
+// if (strlen($newCustomerRegNo)>14) {
+//     $newCustomerRegNo = substr($newCustomerRegNo,0,20);
+// }
 
 
 if (strlen($newCustomerEmail)>100) {

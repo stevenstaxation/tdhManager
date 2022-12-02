@@ -9,6 +9,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 $jobID = $_POST['jobID'];
 $jobNote = $_POST['jobNote'];
+$jobNote = addslashes($jobNote);
 
 $errors = "";
 

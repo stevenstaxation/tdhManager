@@ -9,6 +9,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 
 $deviceID = $_POST['deviceID'];
 $deviceNote = $_POST['deviceNote'];
+$deviceNote = addslashes($deviceNote);
 
 $errors = "";
 

@@ -3,6 +3,8 @@ $(document).on('change', '#getClient', function() {
     var dataToPost = {}
     //  $('#getClient').find(":selected").val();
     dataToPost.selectedValue = this.value;
+    $('#hiddenCustomerID').html(this.value);
+    
     $.ajax({
         url: 'customers.php',
         type: 'POST',
@@ -27,6 +29,14 @@ $(document).on('change', '#getClient', function() {
         }
     });
 });
+
+$(document).on('keypress', '#VCOReference', function(e) {
+    if (e.charCode==32) {
+        e.preventDefault();
+    };
+
+});
+
 
 $(document).on('blur', '#VCOReference', function() {
     $('#VCOReference').val($('#VCOReference').val().replace(/\s/g,''));
@@ -82,6 +92,7 @@ function addCustomer() {
         success: function(data) {
             if (data.includes('success')) {
                 var newID = parseInt(data.replace('success', ''), 10);
+          
                 showCustomers(newID);
                 $('#customerMessage').show();
                 $('#getClient').trigger('change');
@@ -107,6 +118,16 @@ function addCustomer() {
         error: function() {
         }
     })
+// update add new job customer list modal
+$.ajax({
+    url: 'updateCustomerModalList.php',
+    timeout: 30000,
+    type: 'POST',
+    success: function(data) {
+        $('#jobCustomerName').html(data);
+    }
+})
+
 }
 
 function updateCustomerRenewal() {

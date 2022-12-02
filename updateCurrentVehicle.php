@@ -13,6 +13,7 @@ $required = $_POST['required'];
 $vehicleStatus = $_POST['vehicleStatus'];
 $installDate = $_POST['installDate'];
 $vehicleNotes = $_POST['vehicleNotes'];
+$vehicleNotes = addslashes($vehicleNotes);
 $LTAlarmDate = $_POST['LTAlarmDate']; 
 $SideScanDate = $_POST['SideScanDate']; 
 $errors = "";

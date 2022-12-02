@@ -19,9 +19,39 @@ $jobEngineer = $_POST['jobEngineer'];
 $jobInstallAddress = mysqli_real_escape_string($link, $_POST['jobInstallAddress']);
 $jobLocation = $_POST['jobLocation'];
 $jobNotes = mysqli_real_escape_string($link, $_POST['jobNotes']);
+$jobNotes = addslashes($jobNotes);
 $jobPhone =  mysqli_real_escape_string($link, $_POST['jobPhone']);
 $jobPriority = $_POST['jobPriority'];
 $jobRate =  mysqli_real_escape_string($link, $_POST['jobRate']);
+$customerJobRate =  mysqli_real_escape_string($link, $_POST['jobCustomerRate']);
+$jobInvoiced = $_POST['jobInvoiced'];
+$monthlyInvoice = $_POST['monthlyInvoice'];
+$invoiceApproved = $_POST['invoiceApproved'];
+
+if ($jobInvoiced == "N/A") {
+    $jobIsInvoiced = 2;
+} else if ($jobInvoiced == "YES") {
+    $jobIsInvoiced = 1;
+} else {
+    $jobIsInvoiced = 0;
+}
+if ($monthlyInvoice == "N/A") {
+    $monthlyIsInvoiced = 2;
+} else if ($monthlyInvoice == "YES") {
+    $monthlyIsInvoiced = 1;
+} else {
+    $monthlyIsInvoiced = 0;
+}
+if ($invoiceApproved == "N/A") {
+    $invoiceIsApproved = 2;
+} else if ($invoiceApproved == "YES") {
+    $invoiceIsApproved = 1;
+} else {
+    $invoiceIsApproved = 0;
+}
+
+
+
 $jobStatus = $_POST['jobStatus'];
 $jobType = $_POST['jobType'];
 $jobVRN = $_POST['jobVRN'];
@@ -60,8 +90,11 @@ if ($TDHSignOff=='true') {
 
 $errors="";
 
-if ($jobRate==null) {
-    $errors .= "Job rate is missing<br>";
+if ($jobRate==null || $jobRate=='') {
+    $errors .= "Engineer job rate is missing<br>";
+}
+if ($customerJobRate==null || $customerJobRate=='') {
+    $errors .= "Customer job rate is missing<br>";
 }
 if ($jobContact==null || $jobContact=='') {
     $errors .= "Please enter a contact name<br>";
@@ -90,9 +123,9 @@ if ($pics['regPicDeviceDetails'] != $picDevice) {
 
 
 $sql = "UPDATE tblJobs SET ownerID='$customerID', date=NULLIF('$jobDateBooked',''), jobType='$jobType', VRN='$jobVRN', notes='$jobNotes', 
-status='$jobStatus', cameratypeid='$cameraType', OtherKitFlag='$otherKitFlag', PriorityIsUrgent='$jobPriority', JobRate='$jobRate', 
+status='$jobStatus', cameratypeid='$cameraType', OtherKitFlag='$otherKitFlag', PriorityIsUrgent='$jobPriority', JobRate='$jobRate', customerRate = '$customerJobRate',
 BookingContact='$jobContact', BookingEmail='$jobEmail', BookingTelephone='$jobPhone', BookingAddress='$jobInstallAddress', 
-EquipmentLocationID='$jobLocation', EngineerID=NULLIF('$jobEngineer',''), JobCompleteFlag='$jobComplete', TDHSignOff='$jobTDHComplete', regPicFilename=NULLIF('$picRegistration',''), regPicDeviceDetails=NULLIF('$picDevice',''), oldVRN=NULLIF('$oldVRN','') WHERE tblJobs.ID='$jobID'";
+EquipmentLocationID='$jobLocation', EngineerID=NULLIF('$jobEngineer',''), JobCompleteFlag='$jobComplete', TDHSignOff='$jobTDHComplete', regPicFilename=NULLIF('$picRegistration',''), regPicDeviceDetails=NULLIF('$picDevice',''), oldVRN=NULLIF('$oldVRN',''), jobInvoiced = '$jobIsInvoiced', monthlyInvoice='$monthlyIsInvoiced', approvedPayment='$invoiceIsApproved'  WHERE tblJobs.ID='$jobID'";
 
 $result = mysqli_query($link, $sql);
 

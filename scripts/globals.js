@@ -36,7 +36,11 @@ $(document).on('focusin', '#textAddOrUpdateHealthcheckType', function(event) {
     document.getElementById('addOrUpdateHealthcheckType').disabled = false;
     $('#healthcheckTypeErrorBox').html('')
 });
-
+$(document).on('focusin', '#textAddOrUpdatePlatform', function(event) {
+    event.preventDefault();
+    document.getElementById('addOrUpdatePlatformType').disabled = false;
+    $('#platformErrorBox').html('')
+});
 
 $(document).on('click', '#cancelUpdateDevice', function (event) {
     event.preventDefault();
@@ -346,6 +350,47 @@ $(document).on('click', '#deleteHealthcheckType', function(event) {
   });
 });
 
+$(document).on('click', '#deletePlatform', function(event) {
+    event.preventDefault();
+
+    new swal ({
+        title: "Confirm delete",
+        text: "Are you sure you want to delete?",
+        icon: "warning",
+        showDenyButton: true,
+        confirmButtonText: 'Yes - Delete',
+        denyButtonText: 'Cancel',
+    }).then ((result) =>{
+  
+    if (result.isConfirmed) {
+        var dataToPost = {};
+        dataToPost.PlatformIDToDelete = $("#platformNameList option:selected").val();
+
+        $.ajax({
+            url: "deletePlatform.php",
+            timeout: 30000,
+            data: dataToPost,
+            type: "POST",
+            success: function(data) {
+                if (data.includes('success')) {
+                    $('#showGlobalSettings').trigger('click');
+                    $('#addOrUpdatePlatformType').text('Add');
+                } else {
+                    $('#platformErrorBox').html(data);
+                    setTimeout(function() {
+                        $('#platformErrorBox').html('');
+                    },3000);
+                }
+            },
+            error: function() {
+            }
+        });
+    }
+  });
+});
+
+
+
 $(document).on('click', '#addOrUpdateDevice', function (event) {
     event.preventDefault();
     if ($('#addOrUpdateDevice').text() == 'Add') {
@@ -652,6 +697,51 @@ $(document).on('click', '#addOrUpdateDevice', function (event) {
                      $('#addOrUpdateHealthcheckType').text('Add');
                  } else {
                      $('#healthcheckTypeErrorBox').html(data);
+                 }
+             },
+             error: function() {
+             }
+         });
+     }
+ });
+
+ $(document).on('click', '#addOrUpdatePlatformType', function(event) {
+    event.preventDefault();
+     if ($('#addOrUpdatePlatformType').text() == 'Add') {
+         var dataToPost = {};
+         dataToPost.PlatformNameToAdd = document.getElementById('textAddOrUpdatePlatform').value;
+         $.ajax({
+             url: "addPlatform.php",
+             timeout: 30000,
+             data: dataToPost,
+             type: "POST",
+             success: function(data) {
+                 if (data.includes('success')) {
+                     $('#showGlobalSettings').trigger('click');
+                 } else {
+                     $('#platformErrorBox').html(data);
+                 }
+             },
+             error: function() {
+             }
+         });
+     }
+     if ($('#addOrUpdatePlatformType').text() == 'Update') {
+         var dataToPost = {};
+         dataToPost.PlatformIDToUpdate = $("#platformNameList option:selected").val();
+         dataToPost.PlatformNameToUpdate = document.getElementById('textAddOrUpdatePlatform').value;
+
+         $.ajax({
+             url: "updatePlatform.php",
+             timeout: 30000,
+             data: dataToPost,
+             type: "POST",
+             success: function(data) {
+                 if (data.includes('success')) {
+                     $('#showGlobalSettings').trigger('click');
+                     $('#addOrUpdatePlatformType').text('Add');
+                 } else {
+                     $('#platformTypeErrorBox').html(data);
                  }
              },
              error: function() {

@@ -1,5 +1,5 @@
 // Home menu click - go back to home screen
-$('#homeMenu').on('click', function() {
+$('#homeMenu').on('click', function () {
     $('#accountInfo').html('');
     $('#eventLog').html('');
     $('#vehicleList').html('');
@@ -14,7 +14,7 @@ $('#homeMenu').on('click', function() {
         url: 'getHomeScreen.php',
         type: 'POST',
         data: dataToPost,
-        success: function(data) {
+        success: function (data) {
             $('#homeScreen').html(data);
         }
     });
@@ -24,7 +24,7 @@ $('#homeMenu').on('click', function() {
 });
 
 // Customer menu click - show customer screen
-$('#customerMenu').on('click', function() {
+$('#customerMenu').on('click', function () {
     showCustomers();
     var dataToPost = {};
     dataToPost.selectedValue = "<?php echo $_SESSION['firstCustomer']; ?>";
@@ -32,7 +32,7 @@ $('#customerMenu').on('click', function() {
         url: 'customers.php',
         type: 'POST',
         data: dataToPost,
-        success: function(data) {
+        success: function (data) {
             $('#accountInfo').html('');
             $('#eventLog').html('');
             $('#homeScreen').hide();
@@ -43,7 +43,7 @@ $('#customerMenu').on('click', function() {
             $('#customerInfo').html(data);
             $('#getRenewalTypeSelect').trigger('change');
         },
-        error: function() {}
+        error: function () {}
     });
 
 });
@@ -77,33 +77,33 @@ $(document).on("click", '#showDeviceList', function () {
 
 // Vehicle menu - show vehicle list
 
-$(document).on("click", '#showVehicleList', function() {
+$(document).on("click", '#showVehicleList', function () {
     var dataToPost = {};
-    dataToPost.SQLFilter='';
+    dataToPost.SQLFilter = '';
     $.ajax({
         url: "vehicleList.php",
         type: "POST",
         data: dataToPost,
-        success: function(data) {
-          $('#accountInfo').html('');
-          $('#customerSelect').html('');
-          $('#customerInfo').html('');
-          $('#overlay').html('');
-          $('#homeScreen').hide();
-          $('#eventLog').html('');
-          $('#devicesList').html('');
-          $('#bulkUploadsPage').html('');
-          $('#vehicleList').html(data);
+        success: function (data) {
+            $('#accountInfo').html('');
+            $('#customerSelect').html('');
+            $('#customerInfo').html('');
+            $('#overlay').html('');
+            $('#homeScreen').hide();
+            $('#eventLog').html('');
+            $('#devicesList').html('');
+            $('#bulkUploadsPage').html('');
+            $('#vehicleList').html(data);
         },
-        error: function() {
+        error: function () {
             $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
         }
     });
-  });
+});
 
-  //Footage menu - show footage request list
+//Footage menu - show footage request list
 
-  $(document).on("click", '#showFootageList', function () {
+$(document).on("click", '#showFootageList', function () {
     var dataToPost = {};
     dataToPost.SQLFilter = '';
     $.ajax({
@@ -129,14 +129,14 @@ $(document).on("click", '#showVehicleList', function() {
 
 // Renewals menu - show renewals list
 
-$(document).on("click", '#showRenewalList', function() {
+$(document).on("click", '#showRenewalList', function () {
     var dataToPost = {};
-    dataToPost.SQLFilter='';
+    dataToPost.SQLFilter = '';
     $.ajax({
         url: "renewalsList.php",
         type: "POST",
         data: dataToPost,
-        success: function(data) {
+        success: function (data) {
             $('#accountInfo').html('');
             $('#customerSelect').html('');
             $('#customerInfo').html('');
@@ -147,7 +147,7 @@ $(document).on("click", '#showRenewalList', function() {
             $('#bulkUploadsPage').html('');
             $('#vehicleList').html(data);
         },
-        error: function() {
+        error: function () {
             $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
         }
     });
@@ -157,8 +157,9 @@ $(document).on("click", '#showRenewalList', function() {
 $(document).on("click", '#showJobList', function () {
     var dataToPost = {};
     dataToPost.SQLFilter = $('#jobFilter').html();
+
     if (!dataToPost.SQLFilter) {
-        dataToPost.SQLFilter = 0;
+        dataToPost.SQLFilter = 254;
     }
     $.ajax({
         url: "jobList.php",
@@ -208,11 +209,11 @@ $(document).on('click', '#showInsurers', function () {
 });
 
 // Admin menu -> Partners menu ->Insurer Menu
-$(document).on('click', '#showInstallers', function() {
+$(document).on('click', '#showInstallers', function () {
     $.ajax({
         url: "installerList.php",
         type: "POST",
-        success: function(data) {
+        success: function (data) {
             $('#accountInfo').html('');
             $('#customerSelect').html('');
             $('#customerInfo').html('');
@@ -225,7 +226,7 @@ $(document).on('click', '#showInstallers', function() {
             $('#installerNameSelection').trigger('change');
             $('#vehicleList').html('');
         },
-        error: function() {
+        error: function () {
 
         }
     })
@@ -304,14 +305,14 @@ $(document).on('click', '#showOthers', function () {
 });
 
 // Admin menu -> Settings
-$(document).on('click', '#showGlobalSettings', function(event) {
+$(document).on('click', '#showGlobalSettings', function (event) {
     // prevent default PHP processing
     "use strict";
     event.preventDefault();
     $.ajax({
         url: "globalSettings.php",
         type: "POST",
-        success: function(data) {
+        success: function (data) {
             $('#accountInfo').html('');
             $('#customerSelect').html('');
             $('#customerInfo').html('');
@@ -320,23 +321,23 @@ $(document).on('click', '#showGlobalSettings', function(event) {
             $('#vehicleList').html('');
             $('#homeScreen').hide();
             $('#bulkUploadsPage').html('');
-            $('#overlay').html(data);  
+            $('#overlay').html(data);
         },
-        error: function() {
+        error: function () {
             $('#brokerContactMessage').html("<div class='alert alert-danger'>TDH Manager is not available at the moment. Contact your administrator.</div>");
         }
     });
 });
 
 // Admin menu - Import Healthchecks
-$(document).on("click", '#importHealthChecks', function() {
+$(document).on("click", '#importHealthChecks', function () {
     var dataToPost = {};
-    dataToPost.SQLFilter='';
+    dataToPost.SQLFilter = '';
     $.ajax({
         url: "healthcheckList.php",
         type: "POST",
         data: dataToPost,
-        success: function(data) {
+        success: function (data) {
             $('#accountInfo').html('');
             $('#customerSelect').html('');
             $('#customerInfo').html('');
@@ -347,21 +348,21 @@ $(document).on("click", '#importHealthChecks', function() {
             $('#bulkUploadsPage').html('');
             $('#vehicleList').html(data);
         },
-        error: function() {
+        error: function () {
             $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
         }
     });
 });
 
 // Admin menu - Event Log
-$(document).on('click', '#showEventLog', function(event) {
+$(document).on('click', '#showEventLog', function (event) {
     // prevent default PHP processing
     "use strict";
     event.preventDefault();
     $.ajax({
         url: "eventLogOptions.php",
         type: "POST",
-        success: function(data) {
+        success: function (data) {
             // $('#getClient').trigger('change');
             $('#accountInfo').html('');
             $('#customerSelect').html('');
@@ -373,7 +374,7 @@ $(document).on('click', '#showEventLog', function(event) {
             $('#bulkUploadsPage').html('');
             $('#eventLog').html(data);
         },
-        error: function() {
+        error: function () {
             $('#brokerContactMessage').html("<div class='alert alert-danger'>TDH Manager is not available at the moment. Contact your administrator.</div>");
         }
     });
@@ -403,28 +404,28 @@ $(document).on("click", '#showIssueLog', function () {
     var dataToPost = {};
     dataToPost.filteredStatus = $('#issueFilter').html();
     if (!dataToPost.filteredStatus) {
-        dataToPost.filteredStatus='5';
+        dataToPost.filteredStatus = '5';
     }
-      
+
     $.ajax({
-    url: "issueList.php",
-    data: dataToPost,
-    type: "POST",
-    success: function (data) {
-        $('#accountInfo').html('');
-        $('#customerSelect').html('');
-        $('#customerInfo').html('');
-        $('#overlay').html('');
-        $('#homeScreen').hide();
-        $('#eventLog').html('');
-        $('#bulkUploadsPage').html('');
-        $('#devicesList').html(data);
-        $('#vehicleList').html('');
-    },
-    error: function () {
-        $('#issueRequestMessage').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-    }
-});
+        url: "issueList.php",
+        data: dataToPost,
+        type: "POST",
+        success: function (data) {
+            $('#accountInfo').html('');
+            $('#customerSelect').html('');
+            $('#customerInfo').html('');
+            $('#overlay').html('');
+            $('#homeScreen').hide();
+            $('#eventLog').html('');
+            $('#bulkUploadsPage').html('');
+            $('#devicesList').html(data);
+            $('#vehicleList').html('');
+        },
+        error: function () {
+            $('#issueRequestMessage').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
+        }
+    });
 });
 
 // My Account 
@@ -463,5 +464,3 @@ $('.dropdown-menu a.dropdown-toggle').on('mouseover', function (e) {
 
     return false;
 });
-
-

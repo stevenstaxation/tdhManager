@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('connect.php');
+include 'connect.php';
 
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
@@ -10,23 +10,22 @@ $startDate = $_POST['startDate'];
 $endDate = $_POST['endDate'];
 $engineerID = $_POST['engineerID'];
 
-$sql = "SELECT tblJobs.bookingAddress, tblJobs.date, tblJobs.engineerID, tblUsers.userName, tblJobs.jobCompleteFlag, tblJobs.notes, 
+$sql = "SELECT tblJobs.bookingAddress, tblJobs.date, tblJobs.engineerID, tblUsers.userName, tblJobs.jobCompleteFlag, tblJobs.notes,
 tblJobs.status, tblJobs.ownerID, tbljobType.description, tblCustomer.businessName, tblVehicle.regNumber FROM tblJobs INNER JOIN tbljobType ON tblJobs.jobType = tbljobType.ID
 INNER JOIN tblCustomer ON tblJobs.ownerID = tblCustomer.ID INNER JOIN tblVehicle ON tblJobs.VRN = tblVehicle.ID LEFT JOIN tblUsers ON tblJobs.engineerID = tblUsers.userID WHERE ";
- 
- if ($engineerID>0) {
-    $sql .=" tblJobs.engineerID = '$engineerID' AND ";
- }
 
- $sql .="tblJobs.Date BETWEEN '" . $startDate . " 00:00:00' AND '" . $endDate ." 23:59:59'"; 
+if ($engineerID > 0) {
+    $sql .= " tblJobs.engineerID = '$engineerID' AND ";
+}
 
- $sql .= " AND status <>'16'";
+$sql .= "tblJobs.Date BETWEEN '" . $startDate . " 00:00:00' AND '" . $endDate . " 23:59:59'";
+
+$sql .= " AND status <>'16'";
 $result = mysqli_query($link, $sql);
 
 $jobs = [];
 
-
-while($row = mysqli_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
     $job = [];
     $job['date'] = $row['date'];
     $job['businessName'] = $row['businessName'];
@@ -38,44 +37,47 @@ while($row = mysqli_fetch_array($result)) {
     $job['bookingAddress'] = $row['bookingAddress'];
     $job['notes'] = $row['notes'];
     $job['regNumber'] = $row['regNumber'];
-    
-    
+
     $pattern = "/((GIR 0AA)|((([A-PR-UWYZ][0-9][0-9]?)|(([A-PR-UWYZ][A-HK-Y][0-9][0-9]?)|(([A-PR-UWYZ][0-9][A-HJKSTUW])|([A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRVWXY])))) [0-9][ABD-HJLNP-UW-Z]{2}))/i";
     preg_match($pattern, $job['bookingAddress'], $matches);
     if ($matches) {
-        $postcode = $matches[0]; 
+        $postcode = $matches[0];
     } else {
         $pattern = "/((GIR 0AA)|((([A-PR-UWYZ][0-9][0-9]?)|(([A-PR-UWYZ][A-HK-Y][0-9][0-9]?)|(([A-PR-UWYZ][0-9][A-HJKSTUW])|([A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRVWXY]))))[0-9][ABD-HJLNP-UW-Z]{2}))/i";
         preg_match($pattern, $job['bookingAddress'], $matches);
         if ($matches) {
             $postcode = $matches[0];
         } else {
-            $postcode='B928AT';
-        }   
+            $postcode = 'B928AT';
+        }
     }
-
-
 
     $sql = "SELECT * FROM postcodelatlng WHERE postcode = '$postcode' OR postcodeTrunc='$postcode' LIMIT 1";
     $result2 = mysqli_query($link, $sql);
-    
+
     $row2 = mysqli_fetch_array($result2);
+
     if ($row2) {
         $job['latitude'] = $row2['latitude'];
         $job['longitude'] = $row2['longitude'];
+        $job['coords'] = $row2['latitude'] . $row2['longitude'];
     } else {
-        $job['latitude'] = 52.4322625;
-        $job['longitude'] = -1.7960350;
+        $job['latitude'] = 0;
+        $job['longitude'] = 0;
+        // $job['latitude'] = 52.4322625;
+        // $job['longitude'] = -1.7960350;
+        
+        $job['coords'] = '52.4322625-1.7960350';
     }
-    $jobs[]= $job;
+    $jobs[] = $job;
+
+    $joblist = array();
+
+    foreach ($jobs as $key => $item) {
+        $joblist[$item['coords']][$key] = $item;
+    }
+    ksort($joblist, SORT_NUMERIC);
 
 }
 
 echo (json_encode($jobs));
-
-
-?>
-
-
-
-

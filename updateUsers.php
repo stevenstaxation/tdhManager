@@ -33,6 +33,11 @@ foreach ($usersToUpdate as $userToUpdate) {
     $engineerFlag = '1';
   }
 
+  if (!isset($userToUpdate['colour'])) {
+    $userToUpdate['colour'] = NULL;
+  }
+
+
   // if this is the best way to do it then SQL is crap!
   $sql = "SELECT isAdmin, isInstaller, isEngineer, activation, email FROM tblUsers WHERE userID = '" . $userToUpdate['userID'] . "'";
   $result = mysqli_query($link, $sql);
@@ -44,13 +49,13 @@ foreach ($usersToUpdate as $userToUpdate) {
   $oldEngineer = $row['isEngineer'];
   $userUpdating = $row['email'];
 
-$sql = "UPDATE tblUsers SET isAdmin='" . $adminFlag ."',isInstaller='" . $installerFlag ."',isEngineer='" . $engineerFlag ."', activation='" . $activationFlag ."' WHERE userID='" . $userToUpdate['userID'] . "'";
+$sql = "UPDATE tblUsers SET isAdmin='" . $adminFlag ."',isInstaller='" . $installerFlag ."',isEngineer='" . $engineerFlag ."', activation='" . $activationFlag ."', colour='" . $userToUpdate['colour'] ."' WHERE userID='" . $userToUpdate['userID'] . "'";
 $result = mysqli_query($link, $sql);
-if (!result) {echo "Update users error";}
+if (!$result) {echo "Update users error";}
 
 $sql = "SELECT isAdmin, isInstaller, isEngineer, activation, email FROM tblUsers WHERE userID = '" . $userToUpdate['userID'] . "'";
 $result = mysqli_query($link, $sql);
-if (!result) {echo "Select users error";}
+if (!$result) {echo "Select users error";}
 
 $row = mysqli_fetch_array($result);
 

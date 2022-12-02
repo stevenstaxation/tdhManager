@@ -58,6 +58,7 @@ if ($errors) {
 
 $noteText = filter_var($noteText, FILTER_SANITIZE_STRING);
 $noteText = mysqli_real_escape_string($link,$noteText);
+$noteText = addslashes($noteText);
 
 if ($doNotUpdateDate=='true') {
     $sql = "UPDATE tblCustomerNote SET customerID = '$noteCustomerNumber', noteText = '$noteText', userID = '$noteNoteUser', isImportant = '$noteImportant', isAnAlert = '$noteAlert' WHERE tblCustomerNote.cnID = '$noteNoteNumber'";

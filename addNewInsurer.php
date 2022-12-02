@@ -21,9 +21,9 @@ if (!$newInsurerName) {
     $errors .="You must include the Insurer name<br>";
 }
 
-if (!(checkPostcode($newInsurerAddress5)) && $newInsurerAddress5 != "") {
-    $errors .= "Postcode is not valid<br>";
-}
+ if (!(checkPostcode($newInsurerAddress5)) && $newInsurerAddress5 != "") {
+     $errors .= "Postcode is not valid<br>";
+ }
 
 if ($errors) {
     $resultMessage = "<div class='alert alert-danger'>" . $errors . "</div>";

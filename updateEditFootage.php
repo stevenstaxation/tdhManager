@@ -14,9 +14,11 @@ $vehicleID = $_POST['vehicleID'];
 $claimReference = $_POST['claimReference'];
 $requestDate = $_POST['requestDate'];
 $requestNotes = $_POST['requestNotes'];
+$requestNotes = addslashes($requestNotes);
 $responseDate = $_POST['responseDate'];
 $allocatedTo = $_POST['allocatedTo'];
 $responseNotes = $_POST['responseNotes'];
+$responseNotes = addslashes($responseNotes);
 $requestStatus = $_POST['requestStatus'];
 $fileNames =$_POST['fileNames'];
 

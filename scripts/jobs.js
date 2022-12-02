@@ -1,5 +1,5 @@
 // Reset the Add New Job Modal fields when form is closed
-$('#modalAddNewJobRequest').on('hidden.bs.modal', function() {
+$('#modalAddNewJobRequest').on('hidden.bs.modal', function () {
     $(this).find('form').trigger('reset');
     $('#jobRequestMessage').html('');
 });
@@ -13,19 +13,19 @@ $(document).on("change", '#jobCustomerName', function () {
     $.ajax({
         url: 'getVehiclesByCustomer.php',
         timeout: 30000,
+        async: false,
         data: dataToPost,
         type: 'POST',
-        success: function(data) {
-            var old = "<option value='0' disabled selected>select VRN</option>" + data;
-            $('.addJobTypeOldVRN').html(old);           
-            data = "<option value='0' disabled selected>select VRN</option>" + data;
+        success: function (data) {
+            var old = "<option value='0' disabled>select VRN</option>" + data;
+            $('.addJobTypeOldVRN').html(old);
+            data = "<option value='0' disabled>select VRN</option>" + data;
             $('.addJobTypeVRN').html(data);
-            if ($('.addVRNButton').hasClass('disabled') && $('#jobCustomerName').val()!=null) {
+            if ($('.addVRNButton').hasClass('disabled') && $('#jobCustomerName').val() != null) {
                 $('.addVRNButton').removeClass('disabled');
             }
         },
-        error: function() {
-        }
+        error: function () {}
     });
 
     $.ajax({
@@ -33,43 +33,42 @@ $(document).on("change", '#jobCustomerName', function () {
         timeout: 30000,
         data: dataToPost,
         type: 'POST',
-        success: function(data) {
+        success: function (data) {
             data = $.parseJSON(data);
             if (!data) {
-                $('#jobContactName').val ('');
-                $('#jobContactEmail').val ('');
-                $('#jobContactPhone').val ('');
+                $('#jobContactName').val('');
+                $('#jobContactEmail').val('');
+                $('#jobContactPhone').val('');
                 return
             };
 
             if (data.firstName && data.lastName) {
-                $('#jobContactName').val (data.firstName + " " + data.lastName);
+                $('#jobContactName').val(data.firstName + " " + data.lastName);
             } else if (data.firstName && !data.lastName) {
-                $('#jobContactName').val (data.firstName);
-            } else if(!data.firstName && data.lastName) {
-                $('#jobContactName').val (data.lastName);
+                $('#jobContactName').val(data.firstName);
+            } else if (!data.firstName && data.lastName) {
+                $('#jobContactName').val(data.lastName);
             } else {
-                $('#jobContactName').val ('');
+                $('#jobContactName').val('');
             }
 
             if (data.email) {
-                $('#jobContactEmail').val (data.email);
+                $('#jobContactEmail').val(data.email);
             } else {
-                $('#jobContactEmail').val ('');
+                $('#jobContactEmail').val('');
             }
 
             if (data.telephone && data.mobileNo) {
-                $('#jobContactPhone').val (data.telephone + "/" + data.mobileNo);
+                $('#jobContactPhone').val(data.telephone + "/" + data.mobileNo);
             } else if (data.telephone && !data.mobileNo) {
-                $('#jobContactPhone').val (data.telephone);
+                $('#jobContactPhone').val(data.telephone);
             } else if (!data.telephone && data.mobileNo) {
-                $('#jobContactPhone').val (data.mobileNo);
+                $('#jobContactPhone').val(data.mobileNo);
             } else {
-                $('#jobContactPhone').val ('');
-            }           
+                $('#jobContactPhone').val('');
+            }
         },
-        error: function() {
-        }
+        error: function () {}
     });
 
 });
@@ -82,50 +81,50 @@ $(document).on("change", '#editJobCustomerName', function () {
     $.ajax({
         url: 'getVehiclesByCustomer.php',
         timeout: 30000,
+        async: false,
         data: dataToPost,
         type: 'POST',
-        success: function(data) {
+        success: function (data) {
             var old = "<option value='0' disabled selected>Not Applicable</option>" + data;
-            $('.addJobTypeOldVRN').html(old);                   
+            $('.addJobTypeOldVRN').html(old);
             $('#editJobVRN').html(data);
         },
-        error: function() {
-        }
+        error: function () {}
     });
 })
 
 // If selected job type does not include either 'deinstall' or 'de-install' 
 // then disable the Old VRM dropdown
-$(document).on("change", '#jobJobType', function() {
+$(document).on("change", '#jobJobType', function () {
     var selectedType = $('#jobJobType option:selected').text().toUpperCase();
-    
+
     if (selectedType.includes('DEINSTALL') || selectedType.includes('DE-INSTALL')) {
         $('.addJobTypeOldVRN').prop('disabled', false);
-        $('.addJobTypeVRN').prop('disabled', true);       
+        $('.addJobTypeVRN').prop('disabled', true);
     } else {
         $('.addJobTypeOldVRN').prop('disabled', true);
         $('.addJobTypeVRN').prop('disabled', false);
     }
 
-    if ($('#jobCameraType').val()!=null) {
+    if ($('#jobCameraType').val() != null) {
         updateJobRate();
     };
 });
 
-$(document).on("change", '#jobCameraType', function() {
+$(document).on("change", '#jobCameraType', function () {
 
-    if ($('#jobJobType').val()!=null) {
+    if ($('#jobJobType').val() != null) {
         updateJobRate();
     };
 });
 
 
-$(document).on("change", '#editJobType', function() {
+$(document).on("change", '#editJobType', function () {
     var selectedType = $('#editJobType option:selected').text().toUpperCase();
 
     if (selectedType.includes('DEINSTALL') || selectedType.includes('DE-INSTALL')) {
         $('#editJobOldVRN').prop('disabled', false);
-        $('#editJobVRN').prop('disabled', true);       
+        $('#editJobVRN').prop('disabled', true);
     } else {
         $('#editJobOldVRN').prop('disabled', true);
         $('#editJobVRN').prop('disabled', false);
@@ -133,10 +132,10 @@ $(document).on("change", '#editJobType', function() {
 });
 
 // When adding a job, if the job quantity is changed then
-$(document).on("change", '#jobQuantity', function() {
+$(document).on("change", '#jobQuantity', function () {
     // Maximum quantity is 50
     if ($('#jobQuantity').val() > 50) {
-        $('#jobQuantity').val('50'); 
+        $('#jobQuantity').val('50');
     }
     // Get empty template for old VRN dropdown list, VRN dropdown list and new button for the quantity selected
     var dataToPost = {};
@@ -146,23 +145,31 @@ $(document).on("change", '#jobQuantity', function() {
         timeout: 30000,
         data: dataToPost,
         type: 'POST',
-        success: function(data) {
+        success: function (data) {
             $('#VRNListForJob').html(data);
             $('#jobCustomerName').trigger('change');
         },
-        error: function() {
-        }
+        error: function () {}
     })
 });
 
 // When job rate field loses focus, then format it as currency
-$(document).on("blur", '#jobRate', function() {
+$(document).on("blur", '#jobRate', function () {
     $('#jobRate').val(formatAsCurrency($('#jobRate').val()));
+});
+$(document).on("blur", '#customerJobRate', function () {
+    $('#customerJobRate').val(formatAsCurrency($('#customerJobRate').val()));
+});
+$(document).on("blur", '#editJobRate', function () {
+    $('#editJobRate').val(formatAsCurrency($('#editJobRate').val()));
+});
+$(document).on("blur", '#editCustomerJobRate', function () {
+    $('#editCustomerJobRate').val(formatAsCurrency($('#editCustomerJobRate').val()));
 });
 
 // When editing a job, if the booking date changes/when focus is lost
 // set the job status, e.g. Pending, Booked date passed.
-$(document).on("blur", '#editJobDateBooked', function() {
+$(document).on("blur", '#editJobDateBooked', function () {
     var today = new Date().getTime();
     var jobWhen = new Date(document.getElementById('editJobDateBooked').value).getTime();
 
@@ -170,8 +177,7 @@ $(document).on("blur", '#editJobDateBooked', function() {
         $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #198754;'>COMPLETE</span></h6>")
     } else if ($('#editJobCompleted').prop('checked') == true) {
         $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #FFAA00;'>AWAITING APPROVAL</span></h6>")
-    }
-    else if (isNaN(jobWhen)) {
+    } else if (isNaN(jobWhen)) {
         $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #FFAA00;'>PENDING</span></h6>")
     } else if (today > jobWhen) {
         $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #b60000;'>BOOKED - DATE PASSED</span></h6>")
@@ -182,16 +188,37 @@ $(document).on("blur", '#editJobDateBooked', function() {
     }
 });
 
-$(document).on("click", '#editMultipleJobs', function() {
+$(document).on("click", '#editMultipleJobs', function () {
     $('#modalEditMultipleJobs').modal('show');
 });
 
+$(document).on("click", '#jobInvoicedSwitch', function () {
+    if (($('#jobInvoicedSwitch').is(':checked')) == true) {
+        $('#jobIsInvoiced').html("<div style='color: #77FF77; margin-top:13px;'><b>YES</b></div>");
+    } else {
+        $('#jobIsInvoiced').html("<div style='color: #FF7777; margin-top:13px;'><b>NO</b></div>");
+    }
+});
+$(document).on("click", '#monthlyInvoiceSwitch', function () {
+    if (($('#monthlyInvoiceSwitch').is(':checked')) == true) {
+        $('#monthlyUpdated').html("<div style='color: #77FF77; margin-top:13px;'><b>YES</b></div>");
+    } else {
+        $('#monthlyUpdated').html("<div style='color: #FF7777; margin-top:13px;'><b>NO</b></div>");
+    }
+});
+$(document).on("click", '#approvedSwitch', function () {
+    if (($('#approvedSwitch').is(':checked')) == true) {
+        $('#approvedPayment').html("<div style='color: #77FF77; margin-top:13px;'><b>YES</b></div>");
+    } else {
+        $('#approvedPayment').html("<div style='color: #FF7777; margin-top:13px;'><b>NO</b></div>");
+    }
+});
 
 
 function addNewJob() {
-  
+
     var dataToPost = {};
-   
+
     // dataToPost = $('#getAddJob').serializeArray();
 
     dataToPost.jobCustomerName = $('#jobCustomerName').val();
@@ -200,13 +227,22 @@ function addNewJob() {
     dataToPost.jobCameraType = $('#jobCameraType').val();
     dataToPost.jobQuantity = $('#jobQuantity').val();
 
- 
-    if ($('#LT').is(":checked")) {dataToPost.jobLT = 'on' } else { dataToPost.jobLT = 'off' }
-    if ($('#SS').is(":checked")) {dataToPost.jobSS = 'on' } else { dataToPost.jobSS = 'off' }
+
+    if ($('#LT').is(":checked")) {
+        dataToPost.jobLT = 'on'
+    } else {
+        dataToPost.jobLT = 'off'
+    }
+    if ($('#SS').is(":checked")) {
+        dataToPost.jobSS = 'on'
+    } else {
+        dataToPost.jobSS = 'off'
+    }
 
 
     dataToPost.jobPriority = $('#jobPriority').val();
     dataToPost.jobRate = $('#jobRate').val();
+    dataToPost.jobCustomerRate = $('#customerJobRate').val();
     dataToPost.jobNotes = $('#jobNotes').val();
     dataToPost.jobContactName = $('#jobContactName').val();
     dataToPost.jobContactEmail = $('#jobContactEmail').val();
@@ -217,17 +253,17 @@ function addNewJob() {
     // VRN's
     var vehicles = document.getElementsByClassName('addJobTypeVRN')
     dataToPost.VRN = {};
-    for(var ix=0;ix < vehicles.length-1;ix++){
+    for (var ix = 0; ix < vehicles.length - 1; ix++) {
         dataToPost.VRN[ix] = vehicles[ix].value;
     }
 
-    var vehicles = document.getElementsByClassName('addJobTypeOldVRN') 
+    var vehicles = document.getElementsByClassName('addJobTypeOldVRN')
     dataToPost.OldVRN = {};
-    for(var ix=0;ix < vehicles.length-1;ix++){
+    for (var ix = 0; ix < vehicles.length - 1; ix++) {
         dataToPost.OldVRN[ix] = vehicles[ix].value;
     }
-       
-        
+
+
     dataToPost.bookingLocation = $('#bookingLocation').val();
     dataToPost.engineerAssigned = $('#engineerAssigned').val();
     dataToPost.jobDateBooked = $('#jobDateBooked').val();
@@ -238,11 +274,11 @@ function addNewJob() {
         timeout: 30000,
         type: "POST",
         data: dataToPost,
-        success: function(data) {
+        success: function (data) {
             if (data.includes('success')) {
-                var newID = parseInt(data.replace("success",''),10);
+                var newID = parseInt(data.replace("success", ''), 10);
 
-                if (document.getElementById('hiddenJobSelector').value=='job') {
+                if (document.getElementById('hiddenJobSelector').value == 'job') {
                     $('#showJobList').trigger('click');
                 } else {
                     $('#getClient').trigger('change');
@@ -255,20 +291,20 @@ function addNewJob() {
                         url: 'customers.php',
                         type: 'POST',
                         data: dataToPost,
-                        success: function(data) {
+                        success: function (data) {
                             $('#customerInfo').html(data);
                         },
-                        error: function() {}
+                        error: function () {}
                     });
-                    } 
+                }
                 $('#modalAddNewJobRequest').modal('hide');
-                $('#modalAddNewJobRequest').trigger('reset');      
+                $('#modalAddNewJobRequest').trigger('reset');
             } else {
                 document.getElementById('jobRequestMessage').innerHTML = data;
             }
-   
+
         }
-        
+
     });
 
 }
@@ -276,33 +312,33 @@ function addNewJob() {
 
 function showFullJob(rowNumber) {
     var dataToPost = {};
-     dataToPost.jobCustomer = '';
+    dataToPost.jobCustomer = '';
     var editMode = '';
     if (rowNumber.includes('edit')) {
-        rowNumber = rowNumber.replace('edit','');
+        rowNumber = rowNumber.replace('edit', '');
         editMode = 'edit';
     } else {
-        rowNumber = rowNumber.replace('view','');
+        rowNumber = rowNumber.replace('view', '');
         editMode = 'view';
     }
- 
+
     if (rowNumber.includes('j')) {
-        rowNumber = rowNumber.replace('j','');
+        rowNumber = rowNumber.replace('j', '');
         $('#hiddenJobSelector').val('job');
         var dtp = {};
         dtp.jobID = rowNumber;
-        $.ajax ({
+        $.ajax({
             url: 'getJobCustomer.php',
             data: dtp,
             type: "POST",
-            success: function(data) {
+            success: function (data) {
                 $('#hiddenCustomerID').text(data);
-             
-                }
-            })
-    } 
 
-    dataToPost.jobCustomer = $('#hiddenCustomerID').text();  
+            }
+        })
+    }
+
+    dataToPost.jobCustomer = $('#hiddenCustomerID').text();
     dataToPost.jobID = rowNumber;
     document.getElementById('hiddenJobID').text = rowNumber;
     var currentVRN;
@@ -314,15 +350,16 @@ function showFullJob(rowNumber) {
             timeout: 30000,
             data: dataToPost,
             type: 'POST',
-            success: function(data) {
-                data = $.parseJSON(data);  
-                $('#modalEditNewJobRequest').modal('show'); 
+            success: function (data) {
+                data = $.parseJSON(data);
+                $('#modalEditNewJobRequest').modal('show');
                 $("#editJobCustomerName").val(data['ownerID']);
                 $('#editJobCustomerName').trigger('change');
                 $('#editJobType').val(data['jobType']);
                 $('#editJobCameraType').val(data['cameraTypeID']);
                 $('#editJobPriority').val(data['priorityIsUrgent']);
                 $('#editJobRate').val(formatAsCurrency(data['JobRate']));
+                $('#editCustomerJobRate').val(formatAsCurrency(data['customerRate']));
                 $('#editJobNotes').val(data['notes']);
                 $('#editJobContactName').val(data['bookingContact']);
                 $('#editJobContactEmail').val(data['bookingEmail']);
@@ -330,133 +367,176 @@ function showFullJob(rowNumber) {
                 $('#editJobInstallAddress').val(data['bookingAddress']);
                 $('#editBookingLocation').val(data['equipmentLocationID']);
                 $('#editEngineerAssigned').val(data['engineerID']);
-                if ((data['date'])!=null) {
-                    $bookedDate = data['date'].substring(0,10)  + "T" + data['date'].substring(11);
+                if ((data['date']) != null) {
+                    $bookedDate = data['date'].substring(0, 10) + "T" + data['date'].substring(11);
                 } else {
-                    $bookedDate='';
+                    $bookedDate = '';
                 }
+
+                if (data['jobInvoiced'] == 2) {
+                    $('#jobInvoicedSwitch').attr('disabled', true);
+                    $('#jobIsInvoiced').html("<div style='color: #7F7F7F; margin-top:13px;'><b>N/A</b></div>");
+                } else if (data['jobInvoiced'] == 0) {
+                    $('#jobInvoicedSwitch').attr('disabled', false);
+                    $('#jobInvoicedSwitch').attr('checked', true);
+                    $('#jobInvoicedSwitch').trigger('click');
+                } else if (data['jobInvoiced'] == 1) {
+                    $('#jobInvoicedSwitch').attr('disabled', false);
+                    $('#jobInvoicedSwitch').attr('checked', false);
+                    $('#jobInvoicedSwitch').trigger('click');
+                }
+
+                if (data['monthlyInvoice'] == 2) {
+                    $('#monthlyInvoiceSwitch').attr('disabled', true);
+                    $('#monthlyUpdated').html("<div style='color: #7F7F7F; margin-top:13px;'><b>N/A</b></div>");
+                } else if (data['monthlyInvoice'] == 0) {
+                    $('#monthlyInvoiceSwitch').attr('disabled', false);
+                    $('#monthlyInvoiceSwitch').attr('checked', true);
+                    $('#monthlyInvoiceSwitch').trigger('click');
+                } else if (data['monthlyInvoice'] == 1) {
+                    $('#monthlyInvoiceSwitch').attr('disabled', false);
+                    $('#monthlyInvoiceSwitch').attr('checked', false);
+                    $('#monthlyInvoiceSwitch').trigger('click');
+                }
+
+                if (data['approvedPayment'] == 2) {
+                    $('#approvedSwitch').attr('disabled', true);
+                    $('#approvedPayment').html("<div style='color: #7F7F7F; margin-top:13px;'><b>N/A</b></div>");
+                } else if (data['approvedPayment'] == 0) {
+                    $('#approvedSwitch').attr('disabled', false);
+                    $('#approvedSwitch').attr('checked', true);
+                    $('#approvedSwitch').trigger('click');
+                } else if (data['approvedPayment'] == 1) {
+                    $('#approvedSwitch').attr('disabled', false);
+                    $('#approvedSwitch').attr('checked', false);
+                    $('#approvedSwitch').trigger('click');
+                }
+
+
                 $('#editJobDateBooked').val($bookedDate);
                 $('#editJobCompleted').val(data['jobCompleteFlag']);
                 $('#editHubCompleted').val(data['TDHSignOff']);
-                currentVRN =  data['VRN'];
+                currentVRN = data['VRN'];
                 oldVRN = data['oldVRN'];
-                
-                if ($('regPicContent').length >0) {
+
+                if ($('#regPicContent').length > 0) {
                     document.getElementById('regPicContent').innerHTML = '';
                 }
-              
-                if ($('devicePicContent').length >0) {
-                    document.getElementById('devicePicContent').innerHTML = ''; 
+
+                if ($('#devicePicContent').length > 0) {
+                    document.getElementById('devicePicContent').innerHTML = '';
                 }
+
                 $("#regPicContent").removeClass('imageLoaded');
                 $("#devicePicContent").removeClass('imageLoaded');
 
-                 
-                    if (data['regPicFilename'] && $('#regPicContent').length>0) {
-                        document.getElementById('regPicContent').innerHTML = "<img src = '" + data['regPicFilename'] +"' width='160'>";
-                        $("#regPicContent").addClass('imageLoaded');
-                    }
-                
-           
-                if (data['regPicDeviceDetails'] && $('#devicePicContent').length>0) {
-                    document.getElementById('devicePicContent').innerHTML = "<img src = '" + data ['regPicDeviceDetails'] +"' width='160'>";
+
+                if (data['regPicFilename'] && $('#regPicContent').length > 0) {
+                    document.getElementById('regPicContent').innerHTML = "<img src = '" + data['regPicFilename'] + "' width='160'>";
+                    $("#regPicContent").addClass('imageLoaded');
+                    $('#downloadImages').css('display', 'inline');
+                }
+
+
+                if (data['regPicDeviceDetails'] && $('#devicePicContent').length > 0) {
+                    document.getElementById('devicePicContent').innerHTML = "<img src = '" + data['regPicDeviceDetails'] + "' width='160'>";
                     $("#devicePicContent").addClass('imageLoaded');
+                    $('#downloadImages').css('display', 'inline');
                 }
-          
-         
-                if ((data['otherKitFlag'] & 1) ==1) {
-                    $('#editLT').prop('checked',true);
+
+
+                if ((data['otherKitFlag'] & 1) == 1) {
+                    $('#editLT').prop('checked', true);
                 } else {
-                    $('#editLT').prop('checked',false);    
+                    $('#editLT').prop('checked', false);
                 }
-                if ((data['otherKitFlag'] & 2) ==2) {
-                    $('#editSS').prop('checked',true);
+                if ((data['otherKitFlag'] & 2) == 2) {
+                    $('#editSS').prop('checked', true);
                 } else {
-                    $('#editSS').prop('checked',false);    
+                    $('#editSS').prop('checked', false);
                 }
                 if (data['jobCompleteFlag'] == 1) {
                     $('#editJobCompleted').prop('checked', true);
                 } else {
-                    $('#editJobCompleted').prop('checked', false); 
+                    $('#editJobCompleted').prop('checked', false);
                 }
                 if (data['TDHSignOff'] == 1) {
                     $('#editHubCompleted').prop('checked', true);
                 } else {
-                    $('#editHubCompleted').prop('checked', false); 
+                    $('#editHubCompleted').prop('checked', false);
                 }
-           
+
                 var today = new Date().getTime();
                 var jobWhen = new Date(data['date']).getTime();
 
-                if (data['status']=='32') {
-                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ff00ff;'>CANCELLED</span></h6>"); 
-                    $('#engineerInvoice').val(data['engineerInvoiceNo']); 
-                } else  if (data['status']=='64') {
-                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #2255FF;'>NO LONGER REQUIRED</span></h6>"); 
-                    $('#engineerInvoice').val(data['engineerInvoiceNo']); 
+                if (data['status'] == '32') {
+                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ff00ff;'>CANCELLED</span></h6>");
+                    $('#engineerInvoice').val(data['engineerInvoiceNo']);
+                } else if (data['status'] == '64') {
+                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #2255FF;'>NO LONGER REQUIRED</span></h6>");
+                    $('#engineerInvoice').val(data['engineerInvoiceNo']);
                 } else if (data['TDHSignOff'] == 1) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #198754;'>COMPLETE</span></h6>");
                     $('#engineerInvoice').val(data['engineerInvoiceNo']);
-                } else if (data['jobCompleteFlag'] ==1) {
-                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>AWAITING APPROVAL</span></h6>"); 
+                } else if (data['jobCompleteFlag'] == 1) {
+                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>AWAITING APPROVAL</span></h6>");
                     $('#engineerInvoice').val(data['engineerInvoiceNo']);
-                }
-                else if (jobWhen == 0) {
+                } else if (jobWhen == 0) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>PENDING</span></h6>");
                 } else if (today > jobWhen) {
-                    $('#editJobDateBooked').prop('color','red');
+                    $('#editJobDateBooked').prop('color', 'red');
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #b60000;'>BOOKED - DATE PASSED</span></h6>");
                 } else if (jobWhen > today) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ffaa00;'>BOOKED</span></h6>");
                 }
-        },
-        error: function() {
-            console.log("Job error");
+            },
+            error: function () {
+                console.log("Job error");
+            }
+        })
+    ).done(function () {
+
+        if (currentVRN == null) {
+            currentVRN = 0;
         }
-    })
-).done (function () {
+        if (oldVRN == null) {
+            oldVRN = 0;
+        }
 
-    if (currentVRN == null) {
-        currentVRN=0;
-    }
-    if (oldVRN == null) {
-        oldVRN=0;
-    }
- 
-    if (currentVRN!=0) { 
-        $('#editJobVRN').val(parseInt(currentVRN)).change();
-    }
-    if (oldVRN!=0) {
-        $('#editJobOldVRN').val(parseInt(oldVRN)).change(); 
-    }
+        if (currentVRN != 0) {
+            var $cs = $('#editJobVRN');
+            $cs.val(currentVRN.toString());
+            $cs.trigger('change');
+        }
+        if (oldVRN != 0) {
+            var $os = $('#editJobOldVRN');
+            $os.val(oldVRN.toString());
+            $os.trigger('change');
+        }
 
-    console.log(parseInt(currentVRN));
-    console.log(parseInt(oldVRN));
-    console.log($('#editJobVRN').val());
-    console.log($('#editJobOldVRN').val());
-    
+
     });
 }
 
 function editJobComplete(buttonClicked) {
     var updateType = $('#editJobComplete').text();
     if (buttonClicked == 2) {
-        updateType='Update';
+        updateType = 'Update';
     }
 
     var dataToPost = {};
     dataToPost.jobID = document.getElementById('hiddenJobID').text;
 
 
-    if (updateType=='Mark as Outstanding') {
+    if (updateType == 'Mark as Outstanding') {
         dataToPost.jobStatus = 'allowUpdate';
-    } else if (updateType=='Mark as Complete') {
+    } else if (updateType == 'Mark as Complete') {
         dataToPost.jobStatus = 'allowEdit';
         dataToPost.jobDate = document.getElementById('editJobDate').value;
         dataToPost.jobType = document.getElementById('editJobTypeType').value;
         dataToPost.jobVRN = document.getElementById('editJobTypeVRN').value;
         dataToPost.jobNotes = document.getElementById('editJobNotes').value;
-    } else if (updateType=='Update') {
+    } else if (updateType == 'Update') {
         dataToPost.jobStatus = 'updateOnly';
         dataToPost.jobDate = document.getElementById('editJobDate').value;
         dataToPost.jobType = document.getElementById('editJobTypeType').value;
@@ -464,19 +544,19 @@ function editJobComplete(buttonClicked) {
         dataToPost.jobNotes = document.getElementById('editJobNotes').value;
     }
 
-    $.ajax ({
+    $.ajax({
         url: 'updateJobRequest.php',
         timeout: 30000,
         data: dataToPost,
         type: 'POST',
-        success: function(data) {
+        success: function (data) {
             alert(data);
             $('#getClient').trigger('change');
             $('#showJobList').trigger('change')
             $('#modalEditNewJobRequest').modal('hide');
-    
+
         },
-        error: function() {
+        error: function () {
 
         }
     });
@@ -486,7 +566,7 @@ function ShowJobRequests() {
     $.ajax({
         url: 'getOSJobRequests',
         type: 'POST',
-        success: function(data) {
+        success: function (data) {
             document.getElementById('alertScreen').innerHTML = data;
         }
     });
@@ -541,7 +621,7 @@ function editCurrentJobNotes() {
                 $('#editJobNotesMessage').html('');
                 $('#modalEditJobNotes').modal('hide');
 
-                if (document.getElementById('hiddenJobNotesSelector').value=='job') {
+                if (document.getElementById('hiddenJobNotesSelector').value == 'job') {
                     $('#showJobList').trigger('change');
                 } else {
                     $('#getClient').trigger('change');
@@ -563,29 +643,40 @@ function editCurrentJob() {
     dataToPost.customerID = document.getElementById('editJobCustomerName').value;
     dataToPost.jobType = document.getElementById('editJobType').value;
     dataToPost.cameraType = document.getElementById('editJobCameraType').value;
-    dataToPost.jobPriority = document.getElementById('editJobPriority').value;
+    dataToPost.jobPriority = 1;
     dataToPost.LTAlarm = $('#editLT').prop('checked');
     dataToPost.SideSensor = $('#editSS').prop('checked');
     var jR = document.getElementById('editJobRate');
-    if (jR != null) {
+    if (jR != null && jR.value != '') {
         dataToPost.jobRate = jR.value;
     } else {
         dataToPost.jobRate = 0;
     }
+    var cjR = document.getElementById('editCustomerJobRate');
+    if (cjR != null && cjR.value != '') {
+        dataToPost.jobCustomerRate = cjR.value;
+    } else {
+        dataToPost.jobCustomerRate = 0;
+    }
+
     dataToPost.jobNotes = document.getElementById('editJobNotes').value;
     dataToPost.jobContact = document.getElementById('editJobContactName').value;
     dataToPost.jobEmail = document.getElementById('editJobContactEmail').value;
     dataToPost.jobPhone = document.getElementById('editJobContactPhone').value;
-    dataToPost.jobVRN = document.getElementById('editJobVRN').value; 
-    dataToPost.oldVRN = document.getElementById('editJobOldVRN').value; 
-    dataToPost.jobInstallAddress = document.getElementById('editJobInstallAddress').value; 
-    dataToPost.jobLocation = document.getElementById('editBookingLocation').value; 
-    dataToPost.jobEngineer = document.getElementById('editEngineerAssigned').value; 
+    dataToPost.jobVRN = document.getElementById('editJobVRN').value;
+    dataToPost.oldVRN = document.getElementById('editJobOldVRN').value;
+    dataToPost.jobInstallAddress = document.getElementById('editJobInstallAddress').value;
+    dataToPost.jobLocation = document.getElementById('editBookingLocation').value;
+    dataToPost.jobEngineer = document.getElementById('editEngineerAssigned').value;
     dataToPost.jobDateBooked = document.getElementById('editJobDateBooked').value;
     dataToPost.jobCompleted = $('#editJobCompleted').prop('checked');
     dataToPost.TDHSignOff = $('#editHubCompleted').prop('checked');
     dataToPost.picReg = $('#regPicContent img').attr('src');
     dataToPost.picDevice = $('#devicePicContent img').attr('src');
+    dataToPost.jobInvoiced = $('#jobIsInvoiced').text();
+    dataToPost.monthlyInvoice = $('#monthlyUpdated').text();
+    dataToPost.invoiceApproved = $('#approvedPayment').text();
+
 
     var today = new Date().getTime();
     var jobWhen = new Date(document.getElementById('editJobDateBooked').value).getTime();
@@ -594,8 +685,7 @@ function editCurrentJob() {
         dataToPost.jobStatus = 16; //complete
     } else if (dataToPost.jobCompleted == true) {
         dataToPost.jobStatus = 8; // Awaiting Approval
-    }
-    else if (isNaN(jobWhen)) {
+    } else if (isNaN(jobWhen)) {
         dataToPost.jobStatus = 1; // Pending
     } else if (today > jobWhen) {
         dataToPost.jobStatus = 4; // Booked - date passed
@@ -605,46 +695,46 @@ function editCurrentJob() {
         dataToPost.jobStatus = 1; // new job??
     }
 
-    
-   // check data entered and save (or not)
-   $.ajax({
-    url: 'updateJobRequest.php',
-    timeout: 30000,
-    data: dataToPost,
-    type: "POST",
-    success: function (data) {
-        if (data.includes("success")) {
-            $('#editJobMessage').html('');
-            $('#modalEditNewJobRequest').modal('hide');
 
-            if (document.getElementById('hiddenJobSelector').value=='job') {
-                $('#showJobList').trigger('click');
+    // check data entered and save (or not)
+    $.ajax({
+        url: 'updateJobRequest.php',
+        timeout: 30000,
+        data: dataToPost,
+        type: "POST",
+        success: function (data) {
+            if (data.includes("success")) {
+                $('#editJobMessage').html('');
+                $('#modalEditNewJobRequest').modal('hide');
+
+                if (document.getElementById('hiddenJobSelector').value == 'job') {
+                    $('#showJobList').trigger('click');
+                } else {
+                    $('#getClient').trigger('change');
+                    // showCustomers(newID);
+
+                    // var dataToPost = {};
+                    // dataToPost.selectedValue = newID;
+
+                    // $.ajax({
+                    //     url: 'customers.php',
+                    //     type: 'POST',
+                    //     data: dataToPost,
+                    //     success: function(data) {
+                    //         $('#customerInfo').html(data);
+                    //     },
+                    //     error: function() {}
+                    // });
+                }
+
             } else {
-                $('#getClient').trigger('change');
-                // showCustomers(newID);
+                $('#editJobMessage').html(data);
+            }
+        },
+        error: function () {
 
-                // var dataToPost = {};
-                // dataToPost.selectedValue = newID;
-
-                // $.ajax({
-                //     url: 'customers.php',
-                //     type: 'POST',
-                //     data: dataToPost,
-                //     success: function(data) {
-                //         $('#customerInfo').html(data);
-                //     },
-                //     error: function() {}
-                // });
-                } 
-
-        } else {
-            $('#editJobMessage').html(data);
         }
-    },
-    error: function () {
-
-    }
-});
+    });
 
 }
 
@@ -652,59 +742,59 @@ function deleteCurrentJob() {
     var dataToPost = {};
     dataToPost.jobID = document.getElementById('hiddenJobID').text;
 
-    new swal ({
+    new swal({
         text: "Are you sure you want to delete this job?",
         icon: "warning",
         showDenyButton: true,
         confirmButtonText: 'Yes - cancel',
         denyButtonText: 'No Don\'t',
-    }).then ((result) =>{
+    }).then((result) => {
         if (result.isConfirmed) {
-   
-    $.ajax ({
-        url: "deleteJob.php",
-        timeout: 30000,
-        data: dataToPost,
-        type: "POST",
-        success: function(data) {
-            if (data.includes('success')) {
-                $('#modalEditNewJobRequest').modal('hide');
-                if (document.getElementById('hiddenJobSelector').value=='job') {
-                    $('#showJobList').trigger('click');
-                } else {
-                    $('#getClient').trigger('change');
-                    showCustomers(newID);
 
-                    var dataToPost = {};
-                    dataToPost.selectedValue = newID;
+            $.ajax({
+                url: "deleteJob.php",
+                timeout: 30000,
+                data: dataToPost,
+                type: "POST",
+                success: function (data) {
+                    if (data.includes('success')) {
+                        $('#modalEditNewJobRequest').modal('hide');
+                        if (document.getElementById('hiddenJobSelector').value == 'job') {
+                            $('#showJobList').trigger('click');
+                        } else {
+                            $('#getClient').trigger('change');
+                            showCustomers(newID);
 
-                    $.ajax({
-                        url: 'customers.php',
-                        type: 'POST',
-                        data: dataToPost,
-                        success: function(data) {
-                            $('#customerInfo').html(data);
-                        },
-                        error: function() {}
-                    });
-                    } 
-            } else {
-   
-            }
-        },
-        error: function () {
+                            var dataToPost = {};
+                            dataToPost.selectedValue = newID;
 
-        }
-    })
-   
+                            $.ajax({
+                                url: 'customers.php',
+                                type: 'POST',
+                                data: dataToPost,
+                                success: function (data) {
+                                    $('#customerInfo').html(data);
+                                },
+                                error: function () {}
+                            });
+                        }
+                    } else {
+
+                    }
+                },
+                error: function () {
+
+                }
+            })
+
         }
     });
 }
 
 
-$(document).on("change", "#editJobCompleted", function() {
+$(document).on("change", "#editJobCompleted", function () {
     // switch off TDH sign off if Job Completed is switched off
-    if ($('#editJobCompleted').prop('checked')==false) {
+    if ($('#editJobCompleted').prop('checked') == false) {
         $('#editHubCompleted').prop('checked', false);
     }
 
@@ -716,15 +806,15 @@ $(document).on("change", "#editJobCompleted", function() {
     if (RegUploaded == false) {
         errorString = "the vehicle registration plate";
     }
-    if (DeviceUploaded==false) {
-        if (errorString=='') {
+    if (DeviceUploaded == false) {
+        if (errorString == '') {
             errorString += "the device details";
         } else {
             errorString += " and a picture of the device details";
         }
     }
-    if ((RegUploaded == false || DeviceUploaded==false) && $('#editJobCompleted').prop('checked')==true) {
-        new swal ("Cannot update", "A picture of " + errorString + " must be uploaded before the job can be marked as complete.", "error");
+    if ((RegUploaded == false || DeviceUploaded == false) && $('#editJobCompleted').prop('checked') == true) {
+        new swal("Cannot update", "A picture of " + errorString + " must be uploaded before the job can be marked as complete.", "error");
         $('#editJobCompleted').prop('checked', false);
         return;
     }
@@ -734,14 +824,14 @@ $(document).on("change", "#editJobCompleted", function() {
 
 
 
-$(document).on("change", "#editHubCompleted", function() {
+$(document).on("change", "#editHubCompleted", function () {
 
-    if ($('#editJobCompleted').prop('checked')==false && $('#editHubCompleted').prop('checked')==true) {
-        new swal ("Cannot update", "The job cannot be signed off until it is completed", "error");
+    if ($('#editJobCompleted').prop('checked') == false && $('#editHubCompleted').prop('checked') == true) {
+        new swal("Cannot update", "The job cannot be signed off until it is completed", "error");
 
-         $('#editHubCompleted').prop('checked', false);
-         return;
-     }
+        $('#editHubCompleted').prop('checked', false);
+        return;
+    }
 
     $('#editJobDateBooked').trigger('blur');
 });
@@ -749,87 +839,87 @@ $(document).on("change", "#editHubCompleted", function() {
 function cancelCurrentJob() {
     var dataToPost = {};
     dataToPost.jobID = document.getElementById('hiddenJobID').text;
- 
-    new swal ({
+
+    new swal({
         text: "Are you sure you want to cancel this job?",
         icon: "warning",
         showDenyButton: true,
         confirmButtonText: 'Yes - cancel',
         denyButtonText: 'No Don\'t',
-    }).then ((result) =>{
+    }).then((result) => {
         if (result.isConfirmed) {
 
-            new swal ({
+            new swal({
                 showDenyButton: true,
                 denyButtonText: 'Just archive',
                 confirmButtonText: 'Cancellation fee',
                 title: 'Confirm cancellation',
                 icon: 'info',
-            }). then ((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
                         url: "cancelJob.php",
                         timeout: 30000,
                         data: dataToPost,
                         type: "POST",
-                        success: function(data) {
+                        success: function (data) {
                             if (data.includes('complete8')) {
-                                new swal ({
+                                new swal({
                                     text: 'Cannot cancel job, it is just awaiting approval.',
                                     icon: "info",
                                     showCloseButton: true
                                 })
                             }
-                           if (data.includes('complete16')) {
-                                new swal ({
+                            if (data.includes('complete16')) {
+                                new swal({
                                     text: 'Cannot cancel job, it has already been completed.',
                                     icon: "info",
                                     showCloseButton: true
                                 })
                             }
                             if (data.includes('complete32')) {
-                                new swal ({
+                                new swal({
                                     text: 'Job is already cancelled.',
-                                    icon: "info",                            
+                                    icon: "info",
                                     showCloseButton: true
                                 })
                             }
                             if (data.includes('complete64')) {
-                                new swal ({
+                                new swal({
                                     text: 'Job is already archived.',
-                                    icon: "info",                            
+                                    icon: "info",
                                     showCloseButton: true
                                 })
                             }
-                        
+
                             $('#modalEditNewJobRequest').modal('hide');
                             $('#showJobList').trigger('click');
-        
+
                         }
                     })
                 } else {
-                    $.ajax ({
+                    $.ajax({
                         //archive job
                         url: 'archiveJob.php',
                         timeout: 30000,
                         data: dataToPost,
                         type: 'POST',
-                        success: function() {
+                        success: function () {
                             $('#modalEditNewJobRequest').modal('hide');
                             $('#showJobList').trigger('click');
                         }
                     })
                 }
             });
-            
+
         }
     });
-   
+
 }
 
 
 $(document).on('click', '.addVRNButton', function (event) {
-   
+
     $('#modalGetNewVRN').modal('show');
     $('#newVRN').val('');
     $('#newVRNMessage').html('');
@@ -842,45 +932,54 @@ $(document).on("click", '#addNewVRNToCustomer', function () {
     dataToPost.NewVRN = ($('#newVRN').val()).toUpperCase().split(' ').join('');
     dataToPost.customerID = $('#jobCustomerName').val();
 
-           $.ajax({
-            url: 'addNewRegistration.php',
-            timeout: 30000,
-            data: dataToPost,
-            type: "POST",
-            success: function (data) {
-                if (data.includes('success')) {
-                    $('#jobCustomerName').trigger('change');
-                    $('#modalGetNewVRN').modal('hide');
-                    
-                } else {
-                    $('#newVRNMessage').html(data);
-                }
-            }, 
-            error: function () {
+    $.ajax({
+        url: 'addNewRegistration.php',
+        timeout: 30000,
+        data: dataToPost,
+        type: "POST",
+        success: function (data) {
+            if (data.includes('success')) {
+                var newVehicleID = parseInt(data.replace('success', ''));
+                $('#jobCustomerName').trigger('change');
+                $('#modalGetNewVRN').modal('hide');
+                $('#addJobTypeVRN').val(newVehicleID).change();
 
+            } else {
+                $('#newVRNMessage').html(data);
             }
+        },
+        error: function () {
 
-        });
-
-        if (document.getElementById('hiddenJobSelector').value=='job') {
-            $('#showJobList').trigger('click');
-        } else {
-            $('#getClient').trigger('change');
         }
+
+    });
+
+    if (document.getElementById('hiddenJobSelector').value == 'job') {
+        $('#showJobList').trigger('click');
+    } else {
+        $('#getClient').trigger('change');
+    }
 
 });
 
 function addJobRequest(selector, customerID) {
 
     $('#hiddenJobSelector').val(selector);
-        
-    if (selector=='customer') {
-        $(function() { 
-            $('#jobCustomerName').val($('#hiddenCustomerID').text()).change();
-            $('#jobCustomerName').prop('disabled', 'disabled');    
+
+    if (selector == 'customer') {
+        $(function () {
+
+            $('#modalAddNewJobRequest').modal('show');
+            $('#jobCustomerName').val($('#hiddenCustomerID').text());
+            $('#jobCustomerName').prop('disabled', 'disabled');
         });
-    }   
-     $('#modalAddNewJobRequest').modal('show');
+    } else {
+        $(function () {
+        $('#modalAddNewJobRequest').modal('show');
+        $('#jobCustomerName').prop('disabled', false);
+        });
+    }
+
 }
 
 
@@ -890,87 +989,213 @@ function showJobMap() {
 
 $(document).on("click", '#updateMapView', function () {
 
-var dataToPost = {};
-var map;
-dataToPost.startDate = document.getElementById('startReportDate').value;
-dataToPost.endDate = document.getElementById('endReportDate').value;
-dataToPost.engineerID = document.getElementById('engineerSelector').value;
+    var dataToPost = {};
+    var map;
+    dataToPost.startDate = document.getElementById('startReportDate').value;
+    dataToPost.endDate = document.getElementById('endReportDate').value;
+    dataToPost.engineerID = document.getElementById('engineerSelector').value;
 
-var jobs = [];
+    var jobs = [];
 
-$.ajax({
-url: 'getJobCoordinates.php',
-data: dataToPost,
-type: "POST",
-success: function(data) {
-    data = $.parseJSON(data);
-    $.each(data, function(index, element) {
-        jobs[index] = new Array( data[index]['userName'] + " job at <b>" + data[index]['businessName'] + "</b><br>" + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11,5) +" (" + data[index]['date'].substr(8,2) +"/" +  data[index]['date'].substr(5,2) +"/" +  data[index]['date'].substr(0,4)  +")</b><br><br>" + data[index]['notes'] + "<br><br>VRM: " + data[index]['regNumber'], parseFloat(data[index]['latitude']), parseFloat(data[index]['longitude']), data[index]['userName'], data[index]['status']); 
+    $.ajax({
+        url: 'getJobCoordinates.php',
+        data: dataToPost,
+        type: "POST",
+        success: function (data) {
+
+            data = $.parseJSON(data);
+
+            $.each(data, function (index, element) {
+
+                if (jobs.length > 0) {
+                    var matched = false;
+                    for (ix = 0; ix < jobs.length; ix++) {
+
+                        if (jobs[ix]['latitude'] == data[index]['latitude'] && jobs[ix]['longitude'] == data[index]['longitude']) {
+                            if (data[index]['latitude'] == 0 && data[index]['longitude'] == 0) {
+                                data[index]['bookingAddress'] = "No Postcode entered, so set to Westbourne Road";
+                            }
+                            jobs[ix]['notes'] += "<b style=background-color: #DDFF00>" + data[index]['userName'] + " has a job at " + data[index]['businessName'] + "</b><br>Address: " + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11, 5) + " (" + data[index]['date'].substr(8, 2) + "/" + data[index]['date'].substr(5, 2) + "/" + data[index]['date'].substr(0, 4) + ")</b><br>" + data[index]['notes'] + "<br>VRM: " + data[index]['regNumber'];
+                            jobs[ix]['notes'] += "<br>Status: ";
+
+                            switch (parseInt(data[index]['status'])) {
+                                case 1:
+                                    jobs[ix]['notes'] += "Pending";
+                                    break;
+                                case 2:
+                                    jobs[ix]['notes'] += "Booked";
+                                    break;
+                                case 4:
+                                    jobs[ix]['notes'] += "Booked - date passed";
+                                    break;
+                                case 8:
+                                    jobs[ix]['notes'] += "Awaiting approval";
+                                    break;
+                                case 16:
+                                    jobs[ix]['notes'] += "Completed";
+                                    break;
+                                case 32:
+                                    jobs[ix]['notes'] += "Cancelled";
+                                    break;
+                            }
+                            jobs[ix]['notes'] += "<hr>";
+                            jobs[ix]['status'] = data[index]['status']
+                            matched = true;
+                        }
+
+                    }
+                    if (!matched) {
+
+                        if (data[index]['latitude'] == 0 && data[index]['longitude'] == 0) {
+                            data[index]['bookingAddress'] = "No Postcode entered, so set to Westbourne Road";
+                        }
+                        newnote = "<b style=background-color: #DDFF00>" + data[index]['userName'] + " has a job at " + data[index]['businessName'] + "</b><br>Address: " + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11, 5) + " (" + data[index]['date'].substr(8, 2) + "/" + data[index]['date'].substr(5, 2) + "/" + data[index]['date'].substr(0, 4) + ")</b><br>" + data[index]['notes'] + "<br>VRM: " + data[index]['regNumber'];
+                        newnote += "<br>Status: ";
+                        switch (parseInt(data[index]['status'])) {
+                            case 1:
+                                newnote += "Pending";
+                                break;
+                            case 2:
+                                newnote += "Booked";
+                                break;
+                            case 4:
+                                newnote += "Booked - date passed";
+                                break;
+                            case 8:
+                                newnote += "Awaiting approval";
+                                break;
+                            case 16:
+                                newnote += "Completed";
+                                break;
+                            case 32:
+                                newnote += "Cancelled";
+                                break;
+                        }
+                        newnote += "<hr>";
+
+                        newjob = {
+                            'latitude': data[index]['latitude'],
+                            'longitude': data[index]['longitude'],
+                            'notes': newnote,
+                            'status': data[index]['status']
+                        };
+                        jobs.push(newjob);
+                    }
+                } else {
+
+                    if (data[index]['latitude'] == 0 && data[index]['longitude'] == 0) {
+                        data[index]['bookingAddress'] = "No Postcode entered, so set to Westbourne Road";
+                    }
+                    newnote = "<b style=background-color: #DDFF00>" + data[index]['userName'] + " has a job at " + data[index]['businessName'] + "</b><br>Address:" + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11, 5) + " (" + data[index]['date'].substr(8, 2) + "/" + data[index]['date'].substr(5, 2) + "/" + data[index]['date'].substr(0, 4) + ")</b><br>" + data[index]['notes'] + "<br>VRM: " + data[index]['regNumber'];
+                    newnote += "<br>Status: ";
+                    switch (parseInt(data[index]['status'])) {
+                        case 1:
+                            newnote += "Pending";
+                            break;
+                        case 2:
+                            newnote += "Booked";
+                            break;
+                        case 4:
+                            newnote += "Booked - date passed";
+                            break;
+                        case 8:
+                            newnote += "Awaiting approval";
+                            break;
+                        case 16:
+                            newnote += "Completed";
+                            break;
+                        case 32:
+                            newnote += "Cancelled";
+                            break;
+                    }
+                    newnote += "<hr>";
+
+                    newjob = {
+                        'latitude': data[index]['latitude'],
+                        'longitude': data[index]['longitude'],
+                        'notes': newnote,
+                        'status': data[index]['status']
+                    };
+                    jobs.push(newjob);
+                }
+
+
+                // jobs[index] = new Array( data[index]['userName'] + " job at <b>" + data[index]['businessName'] + "</b><br>" + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11,5) +" (" + data[index]['date'].substr(8,2) +"/" +  data[index]['date'].substr(5,2) +"/" +  data[index]['date'].substr(0,4)  +")</b><br><br>" + data[index]['notes'] + "<br><br>VRM: " + data[index]['regNumber'], parseFloat(data[index]['latitude']), parseFloat(data[index]['longitude']), data[index]['userName'], data[index]['status']);
+
+            });
+
+            redrawJobs(jobs);
+        },
+        error: function () {
+
+        }
     });
-    redrawJobs(jobs);
-},
-error: function() {
-
-}
-});
 
 
-function redrawJobs(jobs) {
-
-map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 8,
-    center: {lat: 52.4322625, lng: -1.7960350},
-});
-
-var infowindow = new google.maps.InfoWindow();
-var marker, i
+    function redrawJobs(jobs) {
 
 
-for (var i = 0; i < jobs.length; i++) {
-       
-    var job = jobs[i];
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            center: {
+                lat: 54.00366,
+                lng: -2.547855
+            },
+        });
+
+        var infowindow = new google.maps.InfoWindow();
+        var marker, i;
+
+        for (var i = 0; i < jobs.length; i++) {
+
+            var job = jobs[i];
+
+            switch (parseInt(job['status'])) {
+                case 1:
+                    iconString = "images/pendingPin.png";
+                    break;
+                case 2:
+                    iconString = "images/bookedPin.png";
+                    break;
+                case 4:
+                    iconString = "images/bookedPassedPin.png";
+                    break;
+                case 8:
+                    iconString = "images/approvalPin.png";
+                    break;
+                case 16:
+                    iconString = "images/completePin.png";
+                    break;
+                case 32:
+                    iconString = "images/cancelPin.png";
+                    break;
+                default:
+                    iconString = "images/red_warning_24.png";
+                    break;
+            }
 
 
-var job = jobs[i];
-switch (parseInt(job[4])) {
-    case 1:
-        iconString = "images/pendingPin.png";
-        break;
-    case 2:
-        iconString = "images/bookedPin.png";
-        break;
-    case 4:
-        iconString = "images/bookedPassedPin.png";
-        break;
-    case 8:
-        iconString = "images/approvalPin.png";
-        break;
-    case 16:
-        iconString = "images/completePin.png";
-        break;
-    case 32:
-        iconString = "images/cancelPin.png";
-        break;
-    default:
-        iconString = "images/red_warning_24.png";
-        break;
-}
+            marker = new google.maps.Marker({
+                animation: google.maps.Animation.DROP,
+                position: {
+                    lat: parseFloat(job['latitude']),
+                    lng: parseFloat(job['longitude'])
+                },
+                map: map,
+                icon: iconString
+            });
 
-    marker = new google.maps.Marker({
-        animation: google.maps.Animation.DROP,
-        position: {lat: job[1], lng: job[2]},
-        map: map,
-        icon: iconString
-    });
+            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function () {
+                    infowindow.setContent(jobs[i]['notes']);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
 
-    google.maps.event.addListener(marker, 'click', (function(marker, i) {
-    return function() {
-      infowindow.setContent(jobs[i][0]);
-      infowindow.open(map, marker);
+        }
+
+
     }
-  })(marker, i));
-}
-}
 
 });
 
@@ -978,15 +1203,15 @@ switch (parseInt(job[4])) {
 
 $(document).on("click", '#showJobRates', function () {
 
-    $('#modalShowJobRates').modal('show'); 
+    $('#modalShowJobRates').modal('show');
 });
 
-$(document).on("focusout", ".number2decimal", function(e) {
+$(document).on("focusout", ".number2decimal", function (e) {
     if (isNaN(e.currentTarget.value)) {
         e.currentTarget.value = '0.00';
         return;
     }
-    if (e.currentTarget.value==0) {
+    if (e.currentTarget.value == 0) {
         e.currentTarget.value = '0.00';
         return;
     }
@@ -995,7 +1220,7 @@ $(document).on("focusout", ".number2decimal", function(e) {
 
 })
 
-$(document).on('change', '#jobRateDefault', function() {
+$(document).on('change', '#jobRateDefault', function () {
     $checkState = document.getElementById('jobRateDefault').checked;
 
     if ($checkState) {
@@ -1006,11 +1231,11 @@ $(document).on('change', '#jobRateDefault', function() {
     }
 });
 
-function updateJobRates () {
+function updateJobRates() {
     var dataToPost = new Map();
     var table = document.getElementsByClassName('number2decimal');
 
-    for (var i=0; i< table.length; i++) {
+    for (var i = 0; i < table.length; i++) {
         dataToPost.set(table.item(i).id, table.item(i).value);
     }
 
@@ -1023,11 +1248,11 @@ function updateJobRates () {
         type: "POST",
         success: function (data) {
             if (data.includes('success')) {
-                $('#modalShowJobRates').modal('hide'); 
+                $('#modalShowJobRates').modal('hide');
             } else {
                 $('#jobRatesMessage').html(data);
             }
-        }, 
+        },
         error: function () {
 
         }
@@ -1040,8 +1265,8 @@ function updateJobRate() {
     var dataToPost = {};
     dataToPost.camera = $('#jobCameraType').val();
     dataToPost.jobType = $('#jobJobType').val();
-   
-    $.ajax ({
+
+    $.ajax({
         url: 'getDefaultJobRate.php',
         timeout: 30000,
         data: dataToPost,
@@ -1053,68 +1278,67 @@ function updateJobRate() {
         },
         error: function () {
 
-        }        
+        }
     })
 }
 
-$(document).on('change', '.selectCheckBox', function() {
+$(document).on('change', '.selectCheckBox', function () {
     var checkState = document.getElementsByClassName('selectCheckBox');
-  
+
     var count = 0;
-    for (var i=0; i < checkState.length; i++) {
+    for (var i = 0; i < checkState.length; i++) {
         if (checkState[i].checked) {
             count++;
-        } else {  
-        }
+        } else {}
     }
 
-if (count !=1) {
-    $('#multipleJobsMessage').html(count + " jobs selected"); 
-} else {
-    $('#multipleJobsMessage').html(count + " job selected"); 
-}
+    if (count != 1) {
+        $('#multipleJobsMessage').html(count + " jobs selected");
+    } else {
+        $('#multipleJobsMessage').html(count + " job selected");
+    }
 
-if (count==0 || ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='')) {
-    $('#updateMultipleJobs').prop('disabled', true);
-} else {
-    $('#updateMultipleJobs').prop('disabled', false);
-}
-});
-
-$(document).on('change', '#newBookedDate', function() {
-    if ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='') {
+    if (count == 0 || ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '')) {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
     }
 });
 
-$(document).on('change', '#changeJobType', function() {
-    if ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='') {
+$(document).on('change', '#newBookedDate', function () {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
     }
 });
 
-$(document).on('change', '#changeDeviceType', function() {
-    if ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='') {
+$(document).on('change', '#changeJobType', function () {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
     }
 });
 
-$(document).on('change', '#changeEngineerType', function() {
-    if ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='') {
+$(document).on('change', '#changeDeviceType', function () {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
     }
 });
 
-$(document).on('change', '#multipleUpdateDeviceNote', function() {
-    if ($('#changeJobType').val()=='0' && $('#changeDeviceType').val()=='0' && $('#newBookedDate').val()=='' && $('#multipleUpdateDeviceNote').val()=='' && $('#changeEngineerType').val()=='') {
+$(document).on('change', '#changeEngineerType', function () {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
+        $('#updateMultipleJobs').prop('disabled', true);
+    } else {
+        $('#updateMultipleJobs').prop('disabled', false);
+    }
+});
+
+$(document).on('change', '#multipleUpdateDeviceNote', function () {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
@@ -1125,48 +1349,73 @@ function updateMultipleJobs() {
     var jobID = [];
 
     $('#multipleJobs').find('tr').each(function () {
-    let checkedRow = $(this).find('input').is(':checked');
-  
-    if (checkedRow) {
-        jobID.push($(this).attr('value'));
-    }
-  });
+        let checkedRow = $(this).find('input').is(':checked');
 
-  var dataToPost = {};
-  dataToPost.jobs = jobID
-  dataToPost.jobTypeID = $('#changeJobType').val();
-  dataToPost.cameraTypeID = $('#changeDeviceType').val();
-  dataToPost.bookedDate =  $('#newBookedDate').val();
-  dataToPost.appendNote =  $('#multipleUpdateDeviceNote').val();
-  dataToPost.jobEngineerID =  $('#changeEngineerType').val();
+        if (checkedRow) {
+            jobID.push($(this).attr('value'));
+        }
+    });
 
-$.ajax ({
-    url: 'updateMultipleJobs.php',
-    timeout: 30000,
-    data: dataToPost,
-    type: 'POST',
-    success: function (data) {
-        $('#modalEditMultipleJobs').modal('hide');
-        $('#showJobList').trigger('click');
-    },
-    error: function () {
+    var dataToPost = {};
+    dataToPost.jobs = jobID
+    dataToPost.jobTypeID = $('#changeJobType').val();
+    dataToPost.cameraTypeID = $('#changeDeviceType').val();
+    dataToPost.bookedDate = $('#newBookedDate').val();
+    dataToPost.appendNote = $('#multipleUpdateDeviceNote').val();
+    dataToPost.jobEngineerID = $('#changeEngineerType').val();
 
-    }        
-});
+    $.ajax({
+        url: 'updateMultipleJobs.php',
+        timeout: 30000,
+        data: dataToPost,
+        type: 'POST',
+        success: function (data) {
+            $('#modalEditMultipleJobs').modal('hide');
+            $('#showJobList').trigger('click');
+        },
+        error: function () {
+
+        }
+    });
 }
 
 // Reset the Edit Multiple Jobs Modal fields when form is closed
-$(document).on('hidden.bs.modal', '#modalEditMultipleJobs', function() {
+$(document).on('hidden.bs.modal', '#modalEditMultipleJobs', function () {
     $(this).find('form').trigger('reset');
     $('#multipleJobsMessage').html('');
 });
 
 
-$(document).on('click','#jobListTable tbody td', function() {
-    let dt=$('#jobListTable').DataTable();
+$(document).on('click', '#jobListTable tbody td', function () {
+    let dt = $('#jobListTable').DataTable();
     let vIndex = $(this).index();
-    if (vIndex==9) {return};
+    if (vIndex == 9) {
+        return
+    };
     let colIndex = dt.column.index('fromData', vIndex);
     let clip = dt.column(colIndex).data();
-    copyArrayToClipboard (clip);        
+    copyArrayToClipboard(clip);
 });
+
+$(document).on('click', '#downloadImages', function () {
+    var regPic = $('#regPicContent').find("img");
+    var imgName = regPic.first().attr("src");
+    var regPic2 = $('#devicePicContent').find("img");
+    var imgName2 = regPic2.first().attr("src");
+
+    var imageName = imgName.split('/').pop();
+    var el = document.createElement(`a`);
+    el.setAttribute('href', imgName);
+    el.setAttribute('download', imageName);
+    document.body.appendChild(el);
+    el.click();
+    el.remove();
+
+    imageName = imgName2.split('/').pop();
+    el = document.createElement(`a`);
+    el.setAttribute('href', imgName2);
+    el.setAttribute('download', imageName);
+    document.body.appendChild(el);
+    el.click();
+    el.remove();
+})

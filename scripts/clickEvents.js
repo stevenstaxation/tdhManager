@@ -121,20 +121,17 @@ function showCheckboxes() {
 // }
 
 function togglePassword() {
-    var x = document.getElementById('password');
-
-    if (x.type === 'password') {
-        x.type = 'text';
+    var pwIn = document.getElementById('password');
+    var btn = document.getElementById('pwButton')
+    if (pwIn.type === 'password') {
+        pwIn.type = 'text';
+        btn.innerHTML = '<i class="bi bi-eye-slash"></i>';
     } else {
-        x.type= 'password';
+        pwIn.type= 'password';
+        btn.innerHTML = '<i class="bi bi-eye"></i>';
     }
     
 }
-
-
-
-
-
 
 
 
@@ -180,17 +177,29 @@ function togglePassword() {
   });
 
 
-  $(document).on('click','#toggleCompletedIssues', function() {
-      var currentFilter = $('#issueFilter').html();
-      if (currentFilter==5) {
-          currentFilter = 0;
-      } else {
-          currentFilter = 5;    
-      }
-      $('#issueFilter').html(currentFilter);
-      $('#showIssueLog').trigger('click');
-  });
+//   $(document).on('click','#toggleCompletedIssues', function() {
+//       var currentFilter = $('#issueFilter').html();
+//       if (currentFilter==5) {
+//           currentFilter = 0;
+//       } else {
+//           currentFilter = 5;    
+//       }
+//       $('#issueFilter').html(currentFilter);
+//       $('#showIssueLog').trigger('click');
+//   });
 
+
+  $(document).on('click','#toggleAllJobs', function() {
+    var currentFilter = $('#jobFilter').html();
+    if ((currentFilter & 254)==0) {
+        currentFilter = (currentFilter & 65281);
+    } else {
+        currentFilter = (currentFilter | 254);    
+    }
+
+    $('#jobFilter').html(currentFilter);
+    $('#showJobList').trigger('click');
+  });
 
   $(document).on('click','#toggleCompletedJobs', function() {
     var currentFilter = $('#jobFilter').html();
@@ -258,33 +267,33 @@ function togglePassword() {
     $('#showJobList').trigger('click');
   });
 
-  $(document).on("click", '#showIssueLog', function () {
-      var dataToPost = {};
-      dataToPost.filteredStatus = $('#issueFilter').html();
-      if (!dataToPost.filteredStatus) {
-          dataToPost.filteredStatus='5';
-      }
+//   $(document).on("click", '#showIssueLog', function () {
+//       var dataToPost = {};
+//       dataToPost.filteredStatus = $('#issueFilter').html();
+//       if (!dataToPost.filteredStatus) {
+//           dataToPost.filteredStatus='5';
+//       }
         
-      $.ajax({
-      url: "issueList.php",
-      data: dataToPost,
-      type: "POST",
-      success: function (data) {
-          $('#accountInfo').html('');
-          $('#customerSelect').html('');
-          $('#customerInfo').html('');
-          $('#overlay').html('');
-          $('#homeScreen').hide();
-          $('#eventLog').html('');
-          $('#bulkUploadsPage').html('');
-          $('#devicesList').html(data);
-          $('#vehicleList').html('');
-      },
-      error: function () {
-          $('#issueRequestMessage').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
-      }
-  });
-});
+//       $.ajax({
+//       url: "issueList.php",
+//       data: dataToPost,
+//       type: "POST",
+//       success: function (data) {
+//           $('#accountInfo').html('');
+//           $('#customerSelect').html('');
+//           $('#customerInfo').html('');
+//           $('#overlay').html('');
+//           $('#homeScreen').hide();
+//           $('#eventLog').html('');
+//           $('#bulkUploadsPage').html('');
+//           $('#devicesList').html(data);
+//           $('#vehicleList').html('');
+//       },
+//       error: function () {
+//           $('#issueRequestMessage').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
+//       }
+//   });
+// });
 
 
   $(document).on('click', '#updateDefaults', function(event) {
@@ -376,6 +385,18 @@ $(document).on('click', '#healthStatusList', function(event) {
     }
 });
 
+$(document).on('click', '#platformNameList', function(event) {
+    event.preventDefault();
+    if (!event.target.options) {
+        document.getElementById('textAddOrUpdatePlatform').value = event.target.innerText;
+        $('#addOrUpdatePlatformType').text('Update');
+        document.getElementById('addOrUpdatePlatformType').disabled = false;
+        document.getElementById('deletePlatform').disabled = false;
+        document.getElementById('cancelUpdatePlatform').style.display = "block";
+        document.getElementById('cancelUpdatePlatform').disabled = false;
+    }
+});
+
 $(document).on('show.bs.modal', '#modalAddNewJobRequest', function (event) {
     $(this).find('form').trigger('reset');
     $('#jobRequestMessage').html('');
@@ -412,8 +433,7 @@ $(document).on("click", '#showSystemInfo', function () {
         type: "POST",
         success: function(data) {
             data = $.parseJSON(data);
-            console.log(data);
-
+   
             var OpSystem = navigator.userAgentData.platform;
             OpSystem = OpSystem.replace('"','');
 

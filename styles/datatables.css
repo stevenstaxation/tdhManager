@@ -56,3 +56,7 @@ body.dark .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
         color: white !important;
     }
 
+body.dark .select2-selection__choice {
+    color: black !important;
+}
+  
