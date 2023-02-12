@@ -5,7 +5,9 @@
                 <nav class="navbar navbar-expand-xl navbar-light sticky-top" id='mainNavBar'>
  
                     <a class="navbar-brand" href="#"><img src="images/logo_swirl.png" alt="DataHub Logo" title='Click to toggle Dark Mode' id='companyLogo' style='margin-right: 10px;'><strong>TDH Manager</strong></a> 
- 
+                    
+                    <img src='images/fastX.png'><p id="countdown" style='margin-top:14px; margin-left: 10px; color: lightgreen'></p>
+
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -184,3 +186,35 @@
     </div>
 </div>
 </div>
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("May 19, 2023 00:00:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="countdown"
+  document.getElementById("countdown").innerHTML = "Time until Fast X release: " + days + " days " + hours + " hrs "
+  + minutes + " mins " + seconds + " secs";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "It's out now - Fast X is here...";
+  }
+}, 1000);
+</script>
+
+

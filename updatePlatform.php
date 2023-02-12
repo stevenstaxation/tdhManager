@@ -42,3 +42,6 @@ $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '"
 $result = mysqli_query($link, $sql);
 
 echo "success";
+
+
+?>

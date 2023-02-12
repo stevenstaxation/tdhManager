@@ -450,7 +450,25 @@ function allocateDevice(deviceToAllocate) {
 }
 
 $(document).on('click', '#editSIMScheduleDate', function () {
-    var schDate = new Date();
-    schDate.setDate(schDate.getDate() + 31);
-    document.getElementById('editSIMScheduleDate').valueAsDate = schDate;
+    if (document.getElementById('editSIMScheduleDate').valueAsDate == null) {
+        var schDate = new Date();
+        schDate.setDate(schDate.getDate() + 31);
+        document.getElementById('editSIMScheduleDate').valueAsDate = schDate;
+    }
+});
+
+$(document).on('click', '#editSIMSuspensionDate', function () {
+    if (document.getElementById('editSIMSuspensionDate').valueAsDate == null) {
+        var schDate = new Date();
+        schDate.setDate(schDate.getDate());
+        document.getElementById('editSIMSuspensionDate').valueAsDate = schDate;
+    }
+});
+
+$(document).on('click', '#editDeviceInstallDate', function () {
+    if (document.getElementById('editDeviceInstallDate').valueAsDate == null) {
+        var schDate = new Date();
+        schDate.setDate(schDate.getDate());
+        document.getElementById('editDeviceInstallDate').valueAsDate = schDate;
+    }
 });

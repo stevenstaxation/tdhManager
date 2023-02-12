@@ -101,12 +101,13 @@ $returnString .= "
         ],
         order: [[3, 'asc']],
         processing: true,
-        paging: false,
+        pagingType: 'numbers',
+        lengthMenu: [[5,10,25,50, 100, 250, 500, -1], [5,10,25,50, 100, 250, 500, 'All']],
         select: {
           style: 'os',
           items: 'cell'
         },
-        dom: '<\"top\"lfipB>rt<\"bottom\"lfipB><\"clear\">',
+        dom: '<\"top\"lf>rt<\"bottom\"ipB><\"clear\">',
         rowCallback: function(row, data, dataIndex) {
           if ($('body').hasClass('dark')) {
             $(row).css('background-color', 'rgba(68,68,68,1)')

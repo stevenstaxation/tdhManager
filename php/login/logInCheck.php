@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('connect.php');
+include('../../connect.php');
 
 // Define error messages
 $missingEmail = "<p>You need to enter your email address.</p>";
@@ -16,14 +16,14 @@ $errors = "";
 if (empty($userName)) {
     $errors .= $missingEmail;
 } else {
-    $userName = filter_var($userName, FILTER_SANITIZE_EMAIL);
+    $userName = filter_var($userName, FILTER_UNSAFE_RAW);
 }
 
 // check password
 if(empty($_POST['password'])) {
         $errors .= $missingPassword;
     } else {
-        $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+        $password = filter_var($_POST['password'], FILTER_UNSAFE_RAW);
     }
 
 
@@ -38,7 +38,7 @@ if ($errors) {
     $password = mysqli_real_escape_string($link, $password);
     $password = hash('sha256', $password);
 
-    $sql = "SELECT * FROM tblUsers WHERE (email='$userName' AND password='$password' AND (activation='locked' OR activation='disabled')";
+    $sql = "SELECT * FROM tblUsers WHERE (email='$userName' AND password='$password' AND (activation='locked' OR activation='disabled'))";
     $result = mysqli_query($link, $sql);
     if ($result) {
         $count = mysqli_num_rows($result);
@@ -175,7 +175,7 @@ $result = mysqli_query($link, $sql);
 
     $dateNow = new dateTime();
 
-    $sql = "SELECT * FROM tblDevice INNER JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID INNER JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID WHERE (installDate >= '" . $dateNow->format('Y-m-d') ."')";
+    $sql = "SELECT * FROM tblDevice INNER JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID INNER JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID WHERE (tblDevice.installDate >= '" . $dateNow->format('Y-m-d') ."')";
 
     $result = mysqli_query($link, $sql);
 

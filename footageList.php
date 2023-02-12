@@ -181,7 +181,8 @@ $returnString .= "
         colReorder: true,
         order: [[0, 'asc']],
         processing: true,
-        paging: false,
+				pagingType: 'numbers',
+        lengthMenu: [[5,10,25,50, 100, 250, 500, -1], [5,10,25,50, 100, 250, 500, 'All']],
         select: {
           style: 'os',
           items: 'cell'

@@ -473,7 +473,7 @@ function showFullJob(rowNumber) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #ff00ff;'>CANCELLED</span></h6>");
                     $('#engineerInvoice').val(data['engineerInvoiceNo']);
                 } else if (data['status'] == '64') {
-                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #2255FF;'>NO LONGER REQUIRED</span></h6>");
+                    $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #888888;'>ARCHIVED</span></h6>");
                     $('#engineerInvoice').val(data['engineerInvoiceNo']);
                 } else if (data['TDHSignOff'] == 1) {
                     $('#jobCurrentStatus').html("<h6>STATUS: <span style='color: #198754;'>COMPLETE</span></h6>");
@@ -680,6 +680,20 @@ function editCurrentJob() {
 
     var today = new Date().getTime();
     var jobWhen = new Date(document.getElementById('editJobDateBooked').value).getTime();
+
+    // if (dataToPost.TDHSignOff == true) {
+    //     dataToPost.jobStatus = 4; //complete
+    // } else if (dataToPost.jobCompleted == true) {
+    //     dataToPost.jobStatus = 8; // Awaiting Approval
+    // } else if (isNaN(jobWhen)) {
+    //     dataToPost.jobStatus = 32; // Pending
+    // } else if (today > jobWhen) {
+    //     dataToPost.jobStatus = 16; // Booked - date passed
+    // } else if (jobWhen > today) {
+    //     dataToPost.jobStatus = 8; // booked
+    // } else {
+    //     dataToPost.jobStatus = 32; // pending
+    // }
 
     if (dataToPost.TDHSignOff == true) {
         dataToPost.jobStatus = 16; //complete
@@ -971,12 +985,14 @@ function addJobRequest(selector, customerID) {
 
             $('#modalAddNewJobRequest').modal('show');
             $('#jobCustomerName').val($('#hiddenCustomerID').text());
+            $('#jobCustomerName').trigger('change');
             $('#jobCustomerName').prop('disabled', 'disabled');
         });
+
     } else {
         $(function () {
-        $('#modalAddNewJobRequest').modal('show');
-        $('#jobCustomerName').prop('disabled', false);
+            $('#modalAddNewJobRequest').modal('show');
+            $('#jobCustomerName').prop('disabled', false);
         });
     }
 
@@ -1004,7 +1020,6 @@ $(document).on("click", '#updateMapView', function () {
         success: function (data) {
 
             data = $.parseJSON(data);
-
             $.each(data, function (index, element) {
 
                 if (jobs.length > 0) {
@@ -1077,7 +1092,8 @@ $(document).on("click", '#updateMapView', function () {
                             'latitude': data[index]['latitude'],
                             'longitude': data[index]['longitude'],
                             'notes': newnote,
-                            'status': data[index]['status']
+                            'status': data[index]['status'],
+                            'count': 0
                         };
                         jobs.push(newjob);
                     }
@@ -1114,7 +1130,8 @@ $(document).on("click", '#updateMapView', function () {
                         'latitude': data[index]['latitude'],
                         'longitude': data[index]['longitude'],
                         'notes': newnote,
-                        'status': data[index]['status']
+                        'status': data[index]['status'],
+                        'count': 0
                     };
                     jobs.push(newjob);
                 }
@@ -1123,6 +1140,9 @@ $(document).on("click", '#updateMapView', function () {
                 // jobs[index] = new Array( data[index]['userName'] + " job at <b>" + data[index]['businessName'] + "</b><br>" + data[index]['bookingAddress'] + "<br><br>" + data[index]['description'] + " at <b>" + data[index]['date'].substr(11,5) +" (" + data[index]['date'].substr(8,2) +"/" +  data[index]['date'].substr(5,2) +"/" +  data[index]['date'].substr(0,4)  +")</b><br><br>" + data[index]['notes'] + "<br><br>VRM: " + data[index]['regNumber'], parseFloat(data[index]['latitude']), parseFloat(data[index]['longitude']), data[index]['userName'], data[index]['status']);
 
             });
+
+            // remove any duplicates (i.e. 3 jobs in one location)
+
 
             redrawJobs(jobs);
         },
@@ -1298,7 +1318,7 @@ $(document).on('change', '.selectCheckBox', function () {
         $('#multipleJobsMessage').html(count + " job selected");
     }
 
-    if (count == 0 || ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '')) {
+    if (count == 0 || ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceAddress').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '')) {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
@@ -1306,7 +1326,7 @@ $(document).on('change', '.selectCheckBox', function () {
 });
 
 $(document).on('change', '#newBookedDate', function () {
-    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceAddress').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
@@ -1314,7 +1334,7 @@ $(document).on('change', '#newBookedDate', function () {
 });
 
 $(document).on('change', '#changeJobType', function () {
-    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceAddress').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
@@ -1322,7 +1342,7 @@ $(document).on('change', '#changeJobType', function () {
 });
 
 $(document).on('change', '#changeDeviceType', function () {
-    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceAddress').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
@@ -1330,7 +1350,15 @@ $(document).on('change', '#changeDeviceType', function () {
 });
 
 $(document).on('change', '#changeEngineerType', function () {
-    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceAddress').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
+        $('#updateMultipleJobs').prop('disabled', true);
+    } else {
+        $('#updateMultipleJobs').prop('disabled', false);
+    }
+});
+
+$(document).on('change', '#multipleUpdateDeviceAddress', function () {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceAddress').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
@@ -1338,7 +1366,7 @@ $(document).on('change', '#changeEngineerType', function () {
 });
 
 $(document).on('change', '#multipleUpdateDeviceNote', function () {
-    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
+    if ($('#changeJobType').val() == '0' && $('#changeDeviceType').val() == '0' && $('#newBookedDate').val() == '' && $('#multipleUpdateDeviceAddress').val() == '' && $('#multipleUpdateDeviceNote').val() == '' && $('#changeEngineerType').val() == '') {
         $('#updateMultipleJobs').prop('disabled', true);
     } else {
         $('#updateMultipleJobs').prop('disabled', false);
@@ -1361,6 +1389,7 @@ function updateMultipleJobs() {
     dataToPost.jobTypeID = $('#changeJobType').val();
     dataToPost.cameraTypeID = $('#changeDeviceType').val();
     dataToPost.bookedDate = $('#newBookedDate').val();
+    dataToPost.changeAddress = $('#multipleUpdateDeviceAddress').val();
     dataToPost.appendNote = $('#multipleUpdateDeviceNote').val();
     dataToPost.jobEngineerID = $('#changeEngineerType').val();
 

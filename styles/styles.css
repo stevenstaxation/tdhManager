@@ -1,26 +1,42 @@
-/* Global font */
+:root {
+    --black: #000;
+    --black22: #222222;
+    --black44: #444444;
+    --black55: #555555;
+    --grey66: #666666;
+    --grey88: #888888;
+    --greyAA: #aaaaaa;
+    --greyCD: #cdcdcd;
+    --greyE0: #e0e0e0;
+    --greyEF: #efefef;
+    --greyF8: #f8f8f8;
+    --white: #FFFFFF;
+    --navbarText: #047abe;
+    --red: #b60000;
+}
+
 
 body {
     font-family: 'Quicksand', sans-serif;;
-    background: #efefef;
-    color: #000;
+    background: var(--greyEF);;
+    color: var(--black);
     margin-top: 80px;
 }
 
 .navbar strong {
     font-weight: 700;
-    color: #047abe;
+    color: var(--navbarText);
 }
 
 #customerSelection {
-    background: #efefef;
-    color: #000; 
+    background: var(--greyEF);
+    color: var(--black);
 }
 
 /* Log in and signup forms */
 
 .signUpContent, .logInContent {
-    background-color:#ffffff;
+    background-color:var(--white);
     border-radius: 25px;
     border-width: 2px;
     padding:20px 30px 15px 30px;
@@ -34,10 +50,10 @@ input[type=password],
 input[type=date]
 input[type=number]
   {
-    background-color: #f8f8ff;
+    background-color: var(--greyF8);
     border: 1px solid;
     border-radius: 7px;
-    color: #222222;
+    color: var(--black22);
     margin: auto;
     padding: 5px 15px; 
     display: fill;
@@ -47,7 +63,7 @@ input[type=number]
 input[type=text]:hover,
 input[type=email]:hover,
 input[type=password]:hover  {
-    background-color: #cdcdcd;
+    background-color: var(--greyCD);
     
 }
 
@@ -59,8 +75,8 @@ input[type=password]:focus  {
 }
 
 label {
-    background-color: #efefef;
-    color: #222222;
+    background-color: var(--greyEF);
+    color: var(--black22);
 }
 
 .form-submit {
@@ -69,12 +85,12 @@ label {
 }
 
 .form-input:hover {
-    background-color: #dedede;
+    background-color: var(--greyE0);
 }
 
 .noActive {
-    color: #3276B1;
-    background-color: white;
+    color: (--navbarText);
+    background-color: var(--white);
 }
 
 .modal-dialog {
@@ -82,7 +98,7 @@ label {
 }
 
 .settings-dialog {
-    background-color: #e0e0e0;
+    background-color: var(--greyE0);
     margin-top: 5px;
     margin-bottom: 10px;
     border-width: 1px;
@@ -92,64 +108,58 @@ label {
 }
 
 .settings-dialog label {
-    background-color: #e0e0e0;
+    background-color: var(--greyE0);
     line-height: 1;
 }
 
 .listHeader {
     margin-top: 50px;
     margin-bottom: 20px;
-    color:#0078bd;
+    color: var(--navbarText);
 }
 
-
-
-/* #showAccountInfo label, #showAccountInfo input {
-    line-height: 1;
-} */
-
 .homeTable thead {
-    background-color: #efefef;
-    color: #444444;
+    background-color: var(--greyEF);
+    color: var(--black44);
 }
 
 table {
-    background-color: #f8f8f8;
+    background-color: var(--greyF8);
 }
 body.dark table {
-    background-color: #666666;
+    background-color: var(--grey66);
 }
 
 thead, tfoot {
     background-color: #d0e0f0;
-    color: #444444;
+    color: var(--black44);
 }
 
 tbody {
-    background-color: #ffffff;
-    color: #444444;
+    background-color: var(--white);
+    color: var(--black44);
 }
 
 table.table-bordered > thead > tr > th 
 {
-    border: 1px solid #aaaaaa;
+    border: 1px solid var(--greyAA);
     padding: 8px 3px;
 }
 
 table.table-bordered > tfoot > tr > th 
 {
-    border: 1px solid #aaaaaa;
+    border: 1px solid var(--greyAA);
     padding: 3px 3px;
 }
 
 table.table-bordered > tbody > tr > td {
-    border: 1px solid #aaaaaa;
+    border: 1px solid var(--greyAA);
     padding: 1px 0;
     overflow-wrap:break-word;
 }
 table.table-bordered > tbody > tr:hover {
-    background-color: #cdcdcd;;
-    color:#444444;
+    background-color: var(--greyCD);
+    color: var(--black44);
 } 
 
 
@@ -161,12 +171,12 @@ table.table-bordered > tbody > tr:hover {
 
 .reminderScreen {
     font-weight: bold;
-    color: #b60000;
+    color: var(--red);
 }
 
 .collapsible {
     background-color: #ffaaaa;
-    color: #444444;
+    color: var(--black44);
     cursor: pointer;
     padding: 6px 6px;
     border: none;
@@ -177,10 +187,6 @@ table.table-bordered > tbody > tr:hover {
     font-size: 12px; 
     width: 15%;
 }
-
-/* .active, .collapsible:hover {
-    background-color: #cc8888;
-} */
 
 .canCollapse {
     display: none; 
@@ -201,45 +207,39 @@ body.dark input[type=number],
 body.dark select,
 body.dark textarea,
 body.dark textarea:active {
-    background-color: #545454!important;
-    color: #eeeeee!important; 
+    background-color: var(--black55)!important;
+    color: var(--greyEF) important; 
 }
 
 body.dark label {
-    background-color: #454545;
-    color: #efefef;
+    background-color: var(--black44);
+    color: var(--greyEF);
 }
 
 body.dark .scrollBox {
-    background-color: #454545;
-    color: #efefef;
+    background-color: var(--black44);
+    color: var(--greyEF);
 }
 
 body.dark .settings-dialog {
-    background-color: #454545;
-    color: #efefef;
+    background-color: var(--black44);
+    color: var(--greyEF);
 }
-
-/* body.dark .informationBox {
-    background-color: #454545;
-    color: #efefef;
-} */
 
 body.dark .homeTable thead {
-    background-color: #444444;
+    background-color: var(--black44);
 }
 body.dark table {
-    background-color: #666666;
+    background-color: var(--grey66);
 }
 
 body.dark thead, body.dark tfoot, body.dark tbody  {
-    background-color: #666666;
-    color: #efefef;
+    background-color: var(--grey66);
+    color: var(--greyEF);
 }
 
 body.dark .listHeader {
-    /* color:#83cbf1; */
-    color:#1E90FF;
+    color:var(--navbarText);
     
 }
 
@@ -259,15 +259,15 @@ body.dark input[type=password]:focus  {
 
 body.dark table.table-bordered > thead > tr > th,
 body.dark table.table-bordered > tfoot > tr > th {
-    border: 1px solid #888888;
+    border: 1px solid var(--grey88);
 }
 
 body.dark table.table-bordered > tbody > tr > td {
-    border: 1px solid #888888;
+    border: 1px solid var(--grey88);
 }
 
 .filterBox {
-    background-color: #efefef;
+    background-color: var(--greyEF);
     border-radius: 6px;
 }
 
@@ -278,12 +278,12 @@ body.dark .filterBox {
 
 body.dark #customerSelection{
     color: #eeeeee;
-    background-color: #222222;
+    background-color: var(--black22);
    }
 
 body.dark table.table-bordered > tbody > tr:hover {
     background-color: #aaddaa;
-    color: #444444;
+    color: var(--black44);
 } 
 
 body.dark .reminderScreen {
@@ -322,16 +322,19 @@ body.dark .pendingIcon {
 }
 
 .dateColour {
-    background-color: #ffffff;
+    background-color: var(--white);
 }
 
 body.dark .dateColour {
-    background-color: #222222;
+    background-color: var(--black22);
 }
 
 
 div.container { max-width: 1200px }
 
+.profileButton {
+    margin: 0 10px;
+}
 #pBlueSky {
     padding-left: 5px;
     background-color: #1E90FF;
@@ -351,7 +354,7 @@ div.container { max-width: 1200px }
 }
 #pCritical {
     padding-left: 5px;
-    background-color: #b60000;
+    background-color: var(--red);
 }
 body.dark #pBlueSky {
     padding-left: 5px;
@@ -380,11 +383,11 @@ body.dark #pCritical {
     border: 1px solid;
     border-radius: 7px;
     padding: 5px;
-    background-color: #FFF;
+    background-color: var(--white);
 }
 
 body.dark .dhinstall, body.dark .dhd {
-    background-color: #888888;
+    background-color: var(--grey88);
 }
 
 .dhinstallbutton, .dhdbutton {
@@ -409,14 +412,14 @@ body.dark .dhinstall, body.dark .dhd {
   
   #checkboxes {
     display: none;
-    background-color: white;
+    background-color: var(--white);
     font-size: 115%;
     padding-left: 8px;
   }
   
   #checkboxes label {
     display: block;
-    background-color: white;
+    background-color: var(--white);
     padding-top:2px;
   
   }
@@ -426,15 +429,15 @@ body.dark .dhinstall, body.dark .dhd {
   }
 
   body.dark #checkboxes {
-    background-color: #555555;
+    background-color: var(--black55);
   }
 
   body.dark #checkboxes label {
-    background-color: #555555;
+    background-color: var(--black55);
   }
 
   body.dark #checkboxes label:hover {
-    background-color: #222222;
+    background-color: var(--black22);
   }
 
 .navbar-wrap {
@@ -449,31 +452,31 @@ body.dark .dhinstall, body.dark .dhd {
 }
 
 .uploadFormatDetails {
-    background-color: #fffff4;
-    border: 1px solid #b60000;
+    background-color: var(--white);
+    border: 1px solid  var(--red);
     border-radius: 8px;
-    color: #222222;
+    color: var(--black22);
     margin-top: 30px;
     padding: 10px;
 }
 
 body.dark .uploadFormatDetails {
-    background-color: #000000;
+    background-color: var(--black);
     border-color: #77ff77;
-    color: #fffff4;
+    color: var(--white);
 }
 
 /* FILE DROP ZONE */
 #dropZone {
-    background-color: white;
-    border: #222222 5px dashed;
+    background-color: var(--white);
+    border: var(--black22)5px dashed;
     font-size: 18px;
     margin-top: 2rem;
     padding: 8px;
     width: 50%;
 }
 body.dark #dropZone {
-    background-color: #000000;
+    background-color: var(--black);
     border: #77ff77 5px dashed;
 }
 
@@ -510,11 +513,11 @@ body.dark #dropZone {
 .dt-buttons .dt-button {
     border-radius: 4px;
     margin: 0 10px;
-    background-image: linear-gradient(rgb(255,255,255), rgb(192,192,192))!important;
+    background-image: linear-gradient(var(--white), var(--greyCD))!important;
 
 }
 body.dark .dt-buttons .dt-button {
-    background-image: linear-gradient(rgb(192,192,192), rgb(128,128,128))!important;
+    background-image: linear-gradient(var(--greyCD), var(--grey88))!important;
    
 }
     
@@ -590,7 +593,7 @@ body.dark .buttons-columnVisibility.active:hover {
     width: 13px;
     left: 2px;
     bottom: 2px;
-    background-color: white;
+    background-color: var(--white);
     -webkit-transition: .4s;
     transition: .4s;
   }

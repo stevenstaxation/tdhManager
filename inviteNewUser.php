@@ -80,10 +80,10 @@ try {
     //settings
     $mail->SMTPDebug=0; // Enable verbose debug output
     $mail->isSMTP(); // Set mailer to use SMTP
-    $mail->Host='mail.overssl.net';
+    $mail->Host='send.one.com';
     $mail->SMTPAuth=true; // Enable SMTP authentication
     $mail->Username='mailbox@stevenstaxation.com'; // SMTP username
-    $mail->Password='will220307'; // SMTP password
+    $mail->Password='W1!!M41!80xobo!7!'; // SMTP password
     $mail->SMTPSecure='ssl';
     $mail->Port=465;
 

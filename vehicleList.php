@@ -172,7 +172,7 @@ if (mysqli_num_rows($result) != 0) {
             $returnString .= "<td class='text-center align-middle' style='padding-left: 5px;width: 6%'><img src='images/red_cross_16.png'/><span style='display:none;'>red_cross</span></td>";
         }
 
-        $stringyDate = strtotime($row['installDate']);
+        $stringyDate = strtotime($row['installDate'] ?? '');
         if (date('d/m/Y', $stringyDate) == '01/01/1970' || date('d/m/Y', $stringyDate) == '01/01/0001' || date('d/m/Y', $stringyDate) == null) {
             $returnString .= "<td class='text-center align-middle'>TBC</td>";
         } else {

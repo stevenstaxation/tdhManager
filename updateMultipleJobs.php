@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('connect.php');
+include 'connect.php';
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
 }
@@ -12,42 +12,40 @@ $jobBookedDate = $_POST['bookedDate'];
 $jobAppendNote = $_POST['appendNote'];
 $jobAppendNote = addslashes($jobAppendNote);
 $jobEngineerID = $_POST['jobEngineerID'];
+$changeAddress = $_POST['changeAddress'];
 
-$updateJobType = ($jobTypeID !='0');
-$updateCameraType = ($jobCameraID !='0');
-$updateBookedDate = ($jobBookedDate !='');
-$updateAppendNote = ($jobAppendNote !='');
-$updateEngineer = ($jobEngineerID !='0');
+$updateJobType = ($jobTypeID != '0');
+$updateCameraType = ($jobCameraID != '0');
+$updateBookedDate = ($jobBookedDate != '');
+$updateAppendNote = ($jobAppendNote != '');
+$updateAddress = ($changeAddress != '');
+$updateEngineer = ($jobEngineerID != '0');
 
-
-foreach($jobID as $job) {
+foreach ($jobID as $job) {
     $sql = "UPDATE tblJobs SET ";
 
     if ($updateJobType) {
-        $sql .="jobType = '" . $jobTypeID ."',";
+        $sql .= "jobType = '" . $jobTypeID . "',";
     }
     if ($updateCameraType) {
-        $sql .="cameraTypeID = '" . $jobCameraID ."',";
+        $sql .= "cameraTypeID = '" . $jobCameraID . "',";
     }
     if ($updateBookedDate) {
-        $sql .="date = '" . $jobBookedDate ."',";
+        $sql .= "date = '" . $jobBookedDate . "',";
     }
     if ($updateAppendNote) {
-        $sql .="notes = CONCAT(notes,' ', '" . $jobAppendNote ."'),";
+        $sql .= "notes = CONCAT(notes,' ', '" . $jobAppendNote . "'),";
+    }
+    if ($updateAddress) {
+        $sql .= "bookingAddress = '" . $changeAddress . "',";
     }
     if ($updateEngineer) {
-        $sql .="engineerID = '" . $jobEngineerID ."',";
+        $sql .= "engineerID = '" . $jobEngineerID . "',";
     }
 
-    $sql = substr($sql,0,strlen($sql)-1);
+    $sql = substr($sql, 0, strlen($sql) - 1);
 
-    $sql .= " WHERE ID = '" . $job ."'";
+    $sql .= " WHERE ID = '" . $job . "'";
 
-   $result = mysqli_query($link, $sql);
+    $result = mysqli_query($link, $sql);
 }
-
-
-
-
-
-?>

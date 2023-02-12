@@ -262,7 +262,7 @@ if (mysqli_num_rows($result) != 0) {
       <td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMNumber'] . "</td>
       <td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMPhone'] . "</td>";
 
-        $simDate = date('d/m/Y', strtotime($row['scheduledDate']));
+        $simDate = date('d/m/Y', strtotime($row['scheduledDate'] ?? ''));
         if ($simDate == '' || $simDate == null || $simDate == '01/01/1970') {
             $simDate = '';
             $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>" . $simDate . "</td>";
@@ -274,7 +274,7 @@ if (mysqli_num_rows($result) != 0) {
 
       <td class='text-center align-middle' style='padding:0 3px;'>" . $row['installerName'] . "</td>";
 
-        $stringyDate = strtotime($row['installDate']);
+        $stringyDate = strtotime($row['installDate'] ?? '');
         if (date('d/m/Y', $stringyDate) == '01/01/1970' || date('d/m/Y', $stringyDate) == '01/01/0001' || date('d/m/Y', $stringyDate) == null) {
             $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>unknown</td>";
         } else {

@@ -16,6 +16,7 @@ $_SESSION['currentCustomer'] = $_POST['selectedValue'];
 $sql = "SELECT * FROM tblCustomer LEFT JOIN tblInsurer ON tblCustomer.insurerID = tblInsurer.ID LEFT JOIN tblBroker ON tblCustomer.brokerID = tblBroker.ID  LEFT JOIN tblRenewalType ON tblCustomer.renewalType = tblRenewalType.ID WHERE tblCustomer.ID='" . $_SESSION['currentCustomer'] . "'";
 
 $result = mysqli_query($link, $sql);
+
 if (!$result) {
     exit();
 }
@@ -44,7 +45,7 @@ $thisClientName = $row['businessName'];
 if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     $dateNow = new DateTime();
     $dateNow = new DateTime();
-    $renewalDate = new DateTime($row['renewalDate']);
+    $renewalDate = new DateTime($row['renewalDate'] ?? '');
     $daysToRenewal = $dateNow->diff($renewalDate)->format('%r%a');
 
     if ($daysToRenewal <= 30) {$renewalColour = '#B60000';} elseif ($daysToRenewal <= 60) {
@@ -184,7 +185,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         </form>";
 
     $dateNow = new DateTime();
-    $renewalDate = new DateTime($row['renewalDate']);
+    $renewalDate = new DateTime($row['renewalDate'] ?? '');
     $daysToRenewal = $dateNow->diff($renewalDate)->format('%r%a');
 
     if ($daysToRenewal <= 30) {$renewalColour = '#B60000';} elseif ($daysToRenewal <= 60) {
@@ -591,174 +592,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
 
 ";
 
-    $sql = "SELECT * FROM tblJobs LEFT JOIN tblVehicle ON tblJobs.VRN = tblVehicle.ID INNER JOIN tblJobType ON tblJobType.ID = tblJobs.jobType WHERE (tblJobs.ownerID='" . $_SESSION['currentCustomer'] . "' AND tblJobs.status<'8') ORDER BY tblJobs.date DESC";
-    $deviceResult = mysqli_query($link, $sql);
-
-    $returnString .= "
-
-
-    <form id='jobForm'>
-        <div id='showAccountInfo' class='settings-dialog'>
-            <h6><strong style='margin-top:10px;'>JOB REQUESTS</strong></h6>
-            <div id='errorBox'></div>
-            <div class='scrollBox' style='max-height: 30vh; overflow: auto;'>
-                <h6 class='bg-danger' style='margin: 0; padding: 1px 3px;'><strong>Outstanding ";
-    $numJobsOS = mysqli_num_rows($deviceResult);
-    if ($numJobsOS != 0) {
-        $returnString .= "(" . $numJobsOS . ")";
-    }
-    $returnString .= "</strong></h6>
-                    <table class='table table-sm table-bordered table-hover' id='jobTable' style='table-layout: fixed'>
-                        <thead>
-                            <tr>
-                                <th class='text-center align-middle'>Date</th>
-                                <th class='text-center align-middle'>Type</th>
-                                <th class='text-center align-middle'>VRN</th>
-                                <th class='text-center align-middle' style='padding: 0 3px;'>Notes</th>
-                                <th class='text-center align-middle' style='width:8%; padding: 0 3px;'>Edit</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>";
-
-    // $sql = "SELECT * FROM tblJobs INNER JOIN tblVehicle ON tblJobs.VRN = tblVehicle.ID INNER JOIN tblJobType ON tblJobType.ID = tblJobs.jobType WHERE (tblJobs.ownerID='" . $_SESSION['currentCustomer'] . "' AND tblJobs.status<'8') ORDER BY tblJobs.date DESC";
-    // $deviceResult = mysqli_query($link, $sql);
-
-    while ($row = mysqli_fetch_array($deviceResult)) {
-        $dateOfJob = new DateTime($row['date']);
-        $dateOfJob = $dateOfJob->format('d/m/Y');
-
-        $returnString = $returnString . "<tr><td class='text-center align-middle'>" . $dateOfJob . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle'>" . $row['description'] . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle'>" . $row['regNumber'] . "</td>";
-        $returnString = $returnString . "<td class='text-left align-middle' style='padding:0 3px;'>" . $row['notes'] . "</td>";
-        $returnString = $returnString . "<td class='align-middle text-center'>
-                            <btn class='btn btn-sm btn-warning' onclick='showFullJob(\"" . $row[0] . "edit\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
-                            <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
-                          </svg></btn></td>";
-        // if ($row['notes'] && $row['notes']!="") {
-        //     $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showJobNotes(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal-check' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z'/><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td>";
-        // } else {
-        //     $returnString .="<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showJobNotes(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal' viewBox='0 0 16 16'><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td>";
-        // }
-        $returnString = $returnString . "</tr>";
-    }
-
-    $sql = "SELECT * FROM tblJobs LEFT JOIN tblVehicle ON tblJobs.VRN = tblVehicle.ID INNER JOIN tblJobType ON tblJobType.ID = tblJobs.jobType WHERE (tblJobs.ownerID='" . $_SESSION['currentCustomer'] . "' AND tblJobs.status='8') ORDER BY tblJobs.date DESC";
-    $deviceResult = mysqli_query($link, $sql);
-
     $returnString = $returnString . "
-                        </tbody>
-                    </table>
-
-                    <h6 class='bg-warning' style='margin: 0; padding: 1px 3px;'><strong>Awaiting Sign Off ";
-    $numJobsAS = mysqli_num_rows($deviceResult);
-    if ($numJobsAS != 0) {
-        $returnString .= "(" . $numJobsAS . ")";
-    }
-    $returnString .= "
-                    </strong></h6>
-                    <table class='table table-sm table-bordered table-hover' id='jobTable' style='table-layout: fixed'>
-                        <thead>
-                            <tr>
-                                <th class='text-center align-middle'>Date</th>
-                                <th class='text-center align-middle'>Type</th>
-                                <th class='text-center align-middle'>VRN</th>
-                                <th class='text-center align-middle' style='padding: 0 3px;'>Notes</th>
-                                <th class='text-center align-middle' style='width:8%; padding: 0 3px;'>Edit</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>";
-
-    while ($row = mysqli_fetch_array($deviceResult)) {
-        $dateOfJob = new DateTime($row['date']);
-        $dateOfJob = $dateOfJob->format('d/m/Y');
-
-        $returnString = $returnString . "<tr><td class='text-center align-middle'>" . $dateOfJob . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle'>" . $row['description'] . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle'>" . $row['regNumber'] . "</td>";
-        $returnString = $returnString . "<td class='text-left align-middle' style='padding:0 3px;'>" . $row['notes'] . "</td>";
-        $returnString = $returnString . "<td class='align-middle text-center'>
-                            <btn class='btn btn-sm btn-warning' onclick='showFullJob(\"" . $row[0] . "edit\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
-                            <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
-                          </svg></btn></td>";
-        //   if ($row['notes'] && $row['notes']!="") {
-        //     $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showJobNotes(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal-check' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z'/><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td>";
-        // } else {
-        //     $returnString .="<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showJobNotes(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal' viewBox='0 0 16 16'><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td>";
-        // }
-        $returnString = $returnString . "</tr>";
-    }
-
-    $sql = "SELECT * FROM tblJobs LEFT JOIN tblVehicle ON tblJobs.VRN = tblVehicle.ID INNER JOIN tblJobType ON tblJobType.ID = tblJobs.jobType WHERE (tblJobs.ownerID='" . $_SESSION['currentCustomer'] . "' AND tblJobs.status>'8') ORDER BY tblJobs.date DESC";
-    $deviceResult = mysqli_query($link, $sql);
-
-    $returnString = $returnString . "
-                        </tbody>
-                    </table>
-
-                    <h6 class='bg-success' style='margin: 0; padding: 1px 3px;'><strong>Completed ";
-    $numJobsComp = mysqli_num_rows($deviceResult);
-    if ($numJobsComp != 0) {
-        $returnString .= "(" . $numJobsComp . ")";
-    }
-
-    $returnString .= "
-                    </strong></h6>
-                        <table class='table table-sm table-bordered table-hover' id='jobTable' style='table-layout: fixed'>
-                            <thead>
-                                <tr>
-                                    <th class='text-center align-middle'>Date</th>
-                                    <th class='text-center align-middle'>Type</th>
-                                    <th class='text-center align-middle'>VRN</th>
-                                    <th class='text-center align-middle' style='padding: 0 3px;'>Notes</th>
-                                    <th class='text-center align-middle' style='width:8%; padding: 0 3px;'>Edit</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>";
-
-    while ($row = mysqli_fetch_array($deviceResult)) {
-
-        $dateOfJob = new DateTime($row['date']);
-        $dateOfJob = $dateOfJob->format('d/m/Y');
-        //  $lineColour = $row['colour'];
-        // $returnString = $returnString . "<tr class='table-$lineColour'><td class='text-center align-middle'>" . $dateOfJob ."</td>";
-        $returnString = $returnString . "<tr><td class='text-center align-middle'>" . $dateOfJob . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle'>" . $row['description'] . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle'>" . $row['regNumber'] . "</td>";
-        $returnString = $returnString . "<td class='text-left align-middle' style='padding:0 3px;'>" . $row['notes'] . "</td>";
-        $returnString = $returnString . "<td class='align-middle text-center'>
-                                    <btn class='btn btn-sm btn-warning' onclick='showFullJob(\"" . $row[0] . "edit\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
-                                    <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
-                                  </svg>
-                                    </btn>
-                                    </td>";
-        // if ($row['notes'] && $row['notes']!="") {
-        //     $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showJobNotes(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal-check' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z'/><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td>";
-        // } else {
-        //     $returnString .="<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showJobNotes(\"" . $row[0]."customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal' viewBox='0 0 16 16'><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td>";
-        // }
-        $returnString = $returnString . "</tr>";
-    }
-
-    $returnString = $returnString . "
-                            </tbody>
-                        </table>
-            </div>
-            <div id='hiddenJobID' style='display: none'></div>
-            <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-            <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addJobRequest' onclick='addJobRequest(\"customer\")' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
-            </svg> New Request </btn>
-
-        </div>
-
-    </form>
-
-</div>
-
-
 <form id='footageForm'>
 <div id='showAccountInfo'  class='settings-dialog customerTable'>
     <h6><strong style='margin-top:10px;'>FOOTAGE REQUESTS</strong></h6>
@@ -837,10 +671,293 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
 </div>
 
 <div class='col-12' style='font-size: 80%'>
+    <form id='jobForm'>
+          <div id='showAccountInfo' class='settings-dialog customerTable'>
+            <h6><strong style='margin-top:10px;'>JOB REQUESTS</strong></h6>
+            <div id='errorBox'></div>
+            <div id='JobStats'>";
+
+    $sql = "SELECT * FROM tblJobs WHERE tblJobs.ownerID='" . $_SESSION['currentCustomer'] . "'";
+    $result = mysqli_query($link, $sql);
+    $jobs_NUMBEROF = mysqli_num_rows($result);
+
+    $sql = "SELECT COUNT(tblJobs.ID) AS JobCount, tblJobs.status FROM tblJobs WHERE tblJobs.ownerID='" . $_SESSION['currentCustomer'] . "' GROUP BY tblJobs.status";
+    $jobResult = mysqli_query($link, $sql);
+
+    $jobsString = "";
+    if ($jobs_NUMBEROF != 0) {
+        $jobsString = $jobsString . "Total Jobs: " . $jobs_NUMBEROF . " (";
+        while ($row = mysqli_fetch_array($jobResult)) {
+            if ($row['JobCount'] != 0) {
+                $jobsString .= $row[0] . " ";
+                switch ($row['status']) {
+                    case 1:
+                        $jobsString .= " pending, ";
+                        break;
+                    case 2:
+                        $jobsString .= " booked, ";
+                        break;
+                    case 4:
+                        $jobsString .= " date passed, ";
+                        break;
+                    case 8:
+                        $jobsString .= " awaiting approval, ";
+                        break;
+                    case 16:
+                        $jobsString .= " completed, ";
+                        break;
+                    case 32:
+                        $jobsString .= " cancelled, ";
+                        break;
+                    case 64:
+                        $jobsString .= " archived, ";
+                        break;
+                }
+            }
+        }
+        $jobsString = substr($jobsString, 0, -2);
+        $jobsString .= ")";
+    } else {
+        $jobsString = $jobsString . "Total Jobs: " . $jobs_NUMBEROF;
+    }
+    $returnString .= $jobsString . "
+            </div>
+            <br>";
+
+    $returnString .= "
+            <div class='scrollBox' style='max-height: 30vh; overflow: auto;'>";
+
+    $sql = "SELECT tblJobs.ID, tblJobs.ownerID,  tblJobs.date, tblJobs.dateAdded, tblJobs.PriorityIsUrgent, tblJobs.jobType, tblJobType.description, tblJobs.VRN, tblVehicle.regNumber, tblJobs.notes, tblCustomer.businessName, tblJobs.status, tblDeviceDescription.description as CameraType, tblusers.userName as EngineerName, tblUsers.colour as EngineerColour, tblJobs.bookingAddress, tblJobs.jobRate, tblJobs.customerRate
+                FROM tblJobs LEFT JOIN tblVehicle ON tblJobs.VRN = tblVehicle.ID INNER JOIN tblJobType ON tblJobs.jobType = tblJobType.ID INNER JOIN tblCustomer ON tblCustomer.ID = tblJobs.ownerID INNER JOIN tblDeviceDescription ON tblDeviceDescription.ID = tblJobs.cameratypeID LEFT JOIN tblusers ON tblusers.userID = tblJobs.engineerID WHERE tblJobs.ownerID = '" . $_SESSION['currentCustomer'] . "'";
+    $jobResult = mysqli_query($link, $sql);
+
+    if (mysqli_num_rows($jobResult) != 0) {
+        $returnString .= "<table id='jobsTable' style='table-layout:fixed' class='table cell-border table-sm compact'>
+                    <thead>
+                        <tr>
+                            <th class='text-center align-middle' colspan='1' rowspan='2'>Date Added</th>
+
+                            <th class='text-center align-middle' colspan='1' rowspan='2'>Job Type</th>
+                            <th class='align-middle' colspan='1' rowspan='2'>Camera Type</th>
+                            <th class='text-center align-middle' colspan='1' rowspan='2'>Registration(s)</th>
+                            <th colspan='2' class='text-center'>Job Rate</th>
+                            <th class='align-middle' colspan='1' rowspan='2'>Engineer Assigned</th>
+                            <th class='align-middle' colspan='1' rowspan='2'>Address</th>
+                            <th class='text-center align-middle' colspan='1' rowspan='2'>Date/Time Booked</th>
+                            <th class='text-center align-middle' colspan='1' rowspan='2'>Status</th>
+                            <th class='text-center align-middle' colspan='1' rowspan='2'>Edit</th>
+                        </tr>
+                        <tr>
+                            <th class='text-center align-middle'>Customer Rate</th>
+                            <th class='text-center align-middle'>Engineer Rate</th>
+                        </tr>
+                  </thead>
+                  <tbody>";
+
+        while ($row = mysqli_fetch_array($jobResult)) {
+            switch ($row['status']) {
+                case 1:
+                    $rowBackground = "Pending";
+                    $rowColour = '#CCCC55';
+                    break;
+                case 2:
+                    $bookedDate = strtotime($row['date']);
+                    $today = strtotime(date('Y-m-d H:i:s'));
+                    $diffInSeconds = $today - $bookedDate;
+
+                    if ($diffInSeconds < 0) {
+                        $rowBackground = "Booked";
+                        $rowColour = '#2255FF';
+                    } else {
+                        $rowBackground = "Booked - Date Passed";
+                        $rowColour = '#b60000';
+                        $sql = "UPDATE tblJobs SET status='4'";
+                        $sql .= " WHERE ID = '" . $row['ID'] . "'";
+                        $update = mysqli_query($link, $sql);
+                        break;
+                    }
+                    break;
+                case 4:
+                    $rowBackground = "Booked - Date Passed";
+                    $rowColour = '#b60000';
+                    break;
+                case 8:
+                    $rowBackground = "Awaiting Approval";
+                    $rowColour = '#1e90ff';
+                    break;
+                case 16:
+                    $rowBackground = "Complete";
+                    $rowColour = '#55CC55';
+                    break;
+                case 32:
+                    $rowBackground = "Cancelled";
+                    $rowColour = '#FF00FF';
+                    break;
+                case 64:
+                    $rowBackground = "Archived";
+                    $rowColour = '#888888';
+                    break;
+                default:
+                    $rowBackground = "UNKNOWN";
+                    $rowColour = '#B60000';
+            }
+            if ($row['PriorityIsUrgent'] == 2) {
+                $jobPriority = "Urgent";
+            } else {
+                $jobPriority = "Standard";
+            }
+
+            $EngineerTextColour = intval(substr($row['EngineerColour'] ?? '', 1, 2), 16) * 0.299;
+            $EngineerTextColour += intval(substr($row['EngineerColour'] ?? '', 3, 2), 16) * 0.587;
+            $EngineerTextColour += intval(substr($row['EngineerColour'] ?? '', 5, 2), 16) * 0.114;
+            if ($EngineerTextColour > 150) {
+                $engineerColor = '#222222';
+            } else {
+                $engineerColor = '#EEEEEE';
+            }
+
+            $returnString .= "
+                        <tr class = ''>
+                            <td class='text-center align-middle' style='padding:0 3px;' data-order=" . date('Y-m-d', strtotime($row['dateAdded'])) . ">" . date('d/m/Y', strtotime($row['dateAdded'])) . "</td>
+
+                            <td class='text-center align-middle' style='padding:0 3px;'>" . $row['description'] . "</td>
+                            <td class='align-middle' style='padding:0 3px;'>" . $row['CameraType'] . "</td>
+                            <td class='text-center align-middle' style='padding:0 3px;'>" . $row['regNumber'] . "</td>";
+
+            if ($row['customerRate'] != 0) {
+                $returnString .= "<td class='text-right align-middle' style='padding:0 10px;'>£" . number_format($row['customerRate'], 2, '.', ',') . "</td>";
+            } else {
+                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;'>N/A</td>";
+            }
+
+            if ($row['jobRate'] != 0) {
+                $returnString .= "<td class='text-right align-middle' style='padding:0 10px;'>£" . number_format($row['jobRate'], 2, '.', ',') . "</td>";
+            } else {
+                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;'>N/A</td>";
+            }
+            if ($row['EngineerName'] == '') {
+                $row['EngineerColour'] = '#CCCC55';
+                $row['EngineerName'] = "No Engineer Assigned...";
+                $returnString .= "
+                                <td class='text-center align-middle' style='font-size: 75%; padding:0 3px; color: " . $row['EngineerColour'] . "'>" . $row['EngineerName'] . "</td>";
+            } else {
+                $returnString .= "
+                                <td class='text-center align-middle' style='font-size: 85%; padding:0 3px; color: " . $row['EngineerColour'] . "'><b>" . $row['EngineerName'] . "</b></td>";
+            }
+            if ($row['bookingAddress'] == '') {
+                $row['bookingAddress'] = "Awaiting confirmation...";
+                $returnString .= "<td class='align-middle' style='padding:0 3px; color: #CCCC55'>" . $row['bookingAddress'] . "</td>";
+            } else {
+                $returnString .= "<td class='align-middle' style='padding:0 3px;'>" . $row['bookingAddress'] . "</td>";
+            }
+
+            if (date('d/m/Y', strtotime($row['date'] ?? '')) == '01/01/1970') {
+                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>TBD</td>";
+            } else {
+                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order=" . strtotime($row['date']) . ">" . date('d/m/Y (D) H:i', strtotime($row['date'])) . "</td>";
+            }
+            $returnString .= "
+                            <td class='text-center align-middle' style='font-size: 85%; color: " . $rowColour . "'><b>" . $rowBackground . "</b></td>";
+
+            $returnString .= "<td class='text-center align-middle' style='width:1%'><btn class='btn btn-sm btn-warning' onclick='showFullJob(\"" . $row[0] . "edit\")'><svg xmlns='http://www.w3.org/2000/svg' width='16px' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
+                              <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
+                              </svg></btn></td>";
+
+            $returnString .= "
+                        </tr>";
+        }
+
+        $returnString .= "
+                    </tbody>
+                    </table>";
+
+    } else {
+        $returnString .= "<p class='text-center'>No results found</p>";
+    }
+
+    $returnString .= "
+
+            </div>
+
+            <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+                <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addJobRequest' onclick='addJobRequest(\"customer\")' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
+                </svg> New Request </btn>
+            </div>
+</div>
+        </div>
+        </div>
+        </form>
+
+            <div id='hiddenJobID' style='display: none'></div>
+
+            <script>
+
+               $(document).ready(function() {
+                 var table = $('#jobsTable').DataTable({
+                   retrieve: true,
+                   stateSave: true,
+                   columnDefs: [
+                     {orderable: false, targets: [9] },
+                     {searchable: false, targets: [9] }
+                   ],
+                   order: [[4, 'asc']],
+                   processing: true,
+                   paging: false,
+                   fixedHeader: true,
+                   deferRender: true,
+                   responsive: true,
+                   select: {
+                     style: 'os',
+                     items: 'cell'
+                   },
+                   dom: '<\"top\"lfip>rt<\"bottom\"><\"clear\">',
+                   rowCallback: function(row, data, dataIndex) {
+                     if ($('body').hasClass('dark')) {
+                       $(row).css('background-color', 'rgba(68,68,68,1)')
+                             .css('color', 'white')
+                     } else {
+                       $(row).css('background-color', 'rgba(255,255,255,1)')
+                             .css('color', 'rgba(68,68,68,1)')
+                   }
+                 }
+               });
+
+             });
+
+               </script>
+
+
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class='col-12' style='font-size: 80%'>
 
 <form id='deviceForm'>
 <div id='showAccountInfo' class='settings-dialog customerTable'>
-    <h6><strong style='margin-top:10px;'>DEVICES</strong></h6>
+    <h6><strong style='margin-top:10px;'>DEVICES
+    </strong></h6>
     <div id='errorBox'></div>";
 
     $sql = "SELECT * FROM tblDevice WHERE tblDevice.ownerID='" . $_SESSION['currentCustomer'] . "'";
@@ -942,7 +1059,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMNumber'] . "</td>";
         $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMPhone'] . "</td>";
 
-        $simDate = date('d/m/Y', strtotime($row['scheduledDate']));
+        $simDate = date('d/m/Y', strtotime($row['scheduledDate'] ?? ''));
         if ($simDate == '' || $simDate == null || $simDate == '01/01/1970') {
             $simDate = '';
             $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>" . $simDate . "</td>";
@@ -953,7 +1070,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
 
         $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['installerName'] . "</td>";
 
-        $stringyDate = strtotime($row['installDate']);
+        $stringyDate = strtotime($row['installDate'] ?? '');
         if (date('d/m/Y', $stringyDate) == '01/01/1970' || date('d/m/Y', $stringyDate) == '01/01/0001' || date('d/m/Y', $stringyDate) == null) {
             $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>unknown</td>";
         } else {

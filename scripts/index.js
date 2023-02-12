@@ -20,7 +20,7 @@ $('#signUpForm').submit(function (event) {
 
 
     $.ajax({
-        url: "register.php",
+        url: "../php/login/register.php",
         type: "POST",
         data: dataToPost,
         success: function (data) {
@@ -49,10 +49,9 @@ $('#logInForm').submit(function (event) {
     event.preventDefault();
     // collect user inputs
     var dataToPost = $(this).serializeArray();
-    // send to logInCheck.php using AJAX
-  
+     
     $.ajax({
-        url: "logInCheck.php",
+        url: "../php/login/logInCheck.php",
         type: "POST",
         data: dataToPost,
         success: function (data) {
@@ -79,7 +78,7 @@ $('#forgotPasswordForm').submit(function (event) {
     // collect user inputs
     var dataToPost = $(this).serializeArray();
     $.ajax({
-        url: "forgotpassword.php",
+        url: "../php/login/forgotpassword.php",
         type: "POST",
         data: dataToPost,
         success: function (data) {

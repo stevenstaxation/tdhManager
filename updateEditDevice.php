@@ -25,7 +25,7 @@ $deviceRegNumber = strtoupper($deviceRegNumber);
 $deviceStatus = $_POST['status'];
 $deviceInstallerID = $_POST['installerID'];
 $deviceInstallDate = $_POST['installDate'];
-$deviceInstallerReference = $_POST['assocOrderNumber'];
+// $deviceInstallerReference = $_POST['assocOrderNumber'];
 $deviceSupplierID = $_POST['supplierID'];
 // $deviceSupplierInvoice = $_POST['supplierInvoice'];
 $deviceNote = $_POST['deviceNote'];
@@ -40,8 +40,8 @@ $deviceNote = addslashes($deviceNote);
 $errors = "";
 
 if ($deviceIMEI) {
-    if (strlen($deviceIMEI)!=15) {
-        $errors .= 'IMEI should be 15 digits long';
+    if (strlen($deviceIMEI)!=15 && $deviceIMEI!="" && $deviceIMEI!=null) {
+        $errors .= 'IMEI should be 15 digits long or left blank if unknown.';
     }
 }
 

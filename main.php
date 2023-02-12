@@ -22,6 +22,10 @@ $_SESSION['attempt'] = 0;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
+ <!-- POPPER -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
     
@@ -45,8 +49,6 @@ $_SESSION['attempt'] = 0;
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-    <!-- POPPER -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.2.2/js/dataTables.fixedHeader.min.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.11.5/api/fnGetColumnData.js"></script> 
@@ -75,8 +77,7 @@ $_SESSION['attempt'] = 0;
     <link rel="stylesheet" type="text/css" href="styles/datatables.css">
     <link rel="stylesheet" type="text/css" href="styles/select2.css">
     
-   
- 
+     
     <title>TDH Manager</title>
 
     <?php
@@ -87,6 +88,17 @@ $_SESSION['attempt'] = 0;
     ?>
 
 <script>
+
+$(document).ready(function(){
+  $('.hasToolTip').tooltip(
+    {
+        delay: { "show": 0, "hide": 0 },
+        animation: false,
+        html: true
+    }
+  );
+});
+
 
 function setDarkMode(colMode) {
     if (colMode==1) {
@@ -473,7 +485,7 @@ function toggleGender(gender) {
         var dataToPost = {};
         dataToPost.userID = <?php echo $_SESSION['userID'] ?>;
         $.ajax({
-            url: 'accountInfo.php',
+            url: '../php/users/accountInfo.php',
             timeout: 30000,
             type: 'POST',
             data: dataToPost,

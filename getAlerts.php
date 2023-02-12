@@ -108,7 +108,7 @@ $result = mysqli_query($link, $sql);
     }
 
     $dateNow = new dateTime();
-    $sql = "SELECT * FROM tblDevice INNER JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID INNER JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID WHERE (installDate >= '" . $dateNow->format('Y-m-d') ."')";
+    $sql = "SELECT * FROM tblDevice INNER JOIN tblCustomer ON tblCustomer.ID = tblDevice.ownerID INNER JOIN tblVehicle ON tblDevice.vehicleID = tblVehicle.ID WHERE (tblDevice.installDate >= '" . $dateNow->format('Y-m-d') ."')";
 
     $result = mysqli_query($link, $sql);
     if (!$result) {

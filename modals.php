@@ -502,7 +502,7 @@ while ($SIMRow = mysqli_fetch_array($result)) {
                             </div>
                             <div class='col-md-3'>
                                 <div class='input-group'>
-                                    <input type='text' class='form-control' maxlength='20' placeholder="IMEI..." id='editIMEI' style='margin-top:3px;'>
+                                    <input type='text' class='form-control hasToolTip' maxlength='20' placeholder="IMEI..." id='editIMEI' style='margin-top:3px;' data-placement="auto" title="<em>IMEI should be 15 digits in length, otherwise leave empty.</em>">
                                 </div>
                             </div>
                         </div>
@@ -569,7 +569,7 @@ while ($SIMRow = mysqli_fetch_array($result)) {
                             </div>
                             <div class='col-md-3'>
                                 <div class='input-group'>
-                                    <input type='date' class='form-control' id='editSIMScheduleDate' style='margin-top:18px;'>
+                                    <input type='date' class='form-control hasToolTip' id='editSIMScheduleDate' style='margin-top:18px;' data-placement="auto" title="<em>If empty, click the date field to set default of 31 days from today</em>">
                                 </div>
                             </div>
                             <div class='col-md-1'></div>
@@ -578,7 +578,7 @@ while ($SIMRow = mysqli_fetch_array($result)) {
                             </div>
                             <div class='col-md-3'>
                                 <div class='input-group'>
-                                    <input type='date' class='form-control' id='editSIMSuspensionDate' style='margin-top:18px;'>
+                                    <input type='date' class='form-control hasToolTip' id='editSIMSuspensionDate' style='margin-top:18px;' data-placement="auto" title="<em>If empty, click the date field to set default of today's date</em>" >
                                 </div>
                             </div>
                         </div>
@@ -607,7 +607,7 @@ while ($SIMRow = mysqli_fetch_array($result)) {
                             </div>
                             <div class='col-md-3'>
                                 <div class='input-group' style='display: none'>
-                                    <input type='date' class='form-control' id='editSIMDate' style='margin-top:3px;'>
+                                    <input type='date' class='form-control hasToolTip' id='editSIMDate' style='margin-top:3px;'>
                                 </div>
                             </div>
                         </div>
@@ -696,7 +696,7 @@ while ($SIMRow = mysqli_fetch_array($result)) {
                             </div>
                             <div class='col-md-3'>
                                 <div class='input-group'>
-                                    <input type='date' class='form-control' id='editDeviceInstallDate' style='margin-top:3px;'>
+                                    <input type='date' class='form-control hasToolTip' id='editDeviceInstallDate' style='margin-top:3px;' data-placement="auto" title="<em>If empty, click the date field to set default of today's date</em>">
                                 </div>
                             </div>
                             <div class='col-md-1'></div>
@@ -3042,7 +3042,6 @@ while ($deviceRow = mysqli_fetch_array($result)) {
                             <div class='col-4'>
                                 <div class='input-group'>
                                     <input type='number' class='form-control' id='customerJobRate' name='customerJobRate' min ='0' step='0.01'>
-                                    <!-- <input type='checkbox' style='margin: 15px' id='jobRateDefault' checked=checked><p style='margin-top: 13px; margin-left:-12px;'>default</p> -->
                                 </div>
                             </div>
 
@@ -4850,7 +4849,11 @@ while ($rowRow = mysqli_fetch_array($result)) {
         $sql = "SELECT * FROM tblJobRates WHERE deviceID='" . $rowRow['ID'] . "' AND jobTypeID='" . $headerItem . "'";
         $rowResult = mysqli_query($link, $sql);
         $rowItem = mysqli_fetch_array($rowResult);
-        echo "<td><input class='number2decimal' id='" . $rowItem['ID'] . "' type='text' style ='text-align: right' value='" . number_format($rowItem['rate'], 2, '.', ',') . "'></td>";
+        if ($rowItem['ID'] ?? '') {
+            echo "<td><input class='number2decimal' id='" . $rowItem['ID'] . "' type='text' style ='text-align: right' value='" . number_format($rowItem['rate'] ?? 0, 2, '.', ',') . "'></td>";
+        } else {
+            echo "<td><input class='number2decimal'  type='text' style ='text-align: right' value='" . number_format($rowItem['rate'] ?? 0, 2, '.', ',') . "'></td>";
+        }
     }
     unset($headerItem);
     echo "</tr>";
@@ -4903,7 +4906,8 @@ while ($rowRow = mysqli_fetch_array($result)) {
                                             <th class='align-middle text-center' style='width: 5%;'>Registration</th>
                                             <th class='align-middle text-center' style='width: 11%;'>Date/Time Booked</th>
                                             <th class='align-middle text-center' style='width: 8%;'>Engineer</th>
-                                            <th class='align-middle' style='width: 38%;'>Notes</th>
+                                            <th class='align-middle text-center' style='width: 13%;'>Address</th>
+                                            <th class='align-middle' style='width: 25%;'>Notes</th>
                                             <th class='align-middle text-center' style='width: 1%;'>Select</th>
                                         </tr>
                                     </thead>
@@ -4917,6 +4921,7 @@ $sql = "SELECT tblJobs.ID,
                                                                tblVehicle.regNumber,
                                                                tblJobs.date,
                                                                tblJobs.Notes,
+                                                               tblJobs.bookingAddress,
                                                                tblUsers.userName AS engineerName
                                                         FROM tblJobs
                                                         INNER JOIN tblCustomer ON tblCustomer.ID = tblJobs.ownerID
@@ -4932,12 +4937,13 @@ while ($Row = mysqli_fetch_array($result)) {
     echo "<td class='align-middle' style='width: 12%;'>" . $Row['CameraType'] . "</td>";
     echo "<td class='align-middle text-center' style='width: 5%;'>" . $Row['regNumber'] . "</td>";
 
-    if (date('d/m/Y', strtotime($Row['date'])) == '01/01/1970') {
+    if (date('d/m/Y', strtotime($Row['date'] ?? '')) == '01/01/1970') {
         echo "<td class='align-middle text-center' style='width: 11%;' data-order='0/0/0'>TBD</td>";
     } else {
-        echo "<td class='align-middle text-center' style='width: 11%;' data-order=" . strtotime($Row['date']) . ">" . date('d/m/y (D) H:i', strtotime($Row['date'])) . "</td>";
+        echo "<td class='align-middle text-center' style='width: 11%;' data-order=" . strtotime($Row['date'] ?? '') . ">" . date('d/m/y (D) H:i', strtotime($Row['date'] ?? '')) . "</td>";
     }
     echo "<td class='align-middle text-center' style='width: 8%;'>" . $Row['engineerName'] . "</td>";
+    echo "<td class='align-middle' style='width: 8%;'>" . $Row['bookingAddress'] . "</td>";
     echo "<td class='align-middle' style='width: 38%;'>" . $Row['Notes'] . "</td>";
     echo "<td class='align-middle text-center' style='width: 1%;'><input class='selectCheckBox' type='checkbox'></td>";
     echo "</tr>";
@@ -5034,13 +5040,14 @@ while ($deviceRow = mysqli_fetch_array($result)) {
                                 </div>
                                 <div class='col-1'></div>
                                 <div class='col-2'>
-                                    <label for = 'multipleUpdateDeviceNote' style='margin-top: 6px;'>Append Note</label>
+                                    <label for = 'multipleUpdateDeviceAddress' style='margin-top: 6px;'>Change Address</label>
                                 </div>
                                 <div class='col-3'>
                                     <div class='input-group'>
-                                        <textarea rows='1' cols='512' class='form-control' placeholder='Leave blank for no change...' id='multipleUpdateDeviceNote' style='margin-top:3px;'></textarea>
+                                        <textarea rows='1' cols='512' class='form-control' placeholder='Leave blank for no change...' id='multipleUpdateDeviceAddress' style='margin-top:3px;'></textarea>
                                     </div>
                                 </div>
+
                             </div>
                             <div class='row' style='margin-top: 10px; margin-left: 6px;'>
                                 <div class='col-2'>
@@ -5057,8 +5064,16 @@ while ($engineerRow = mysqli_fetch_array($result)) {
     echo "<option value = '" . $engineerRow['userID'] . "'>" . $engineerRow['userName'] . "</option>";
 }
 ?>
-                                            <option value='9999'>Unregistered Engineer</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class='col-1'></div>
+                                <div class='col-2'>
+                                    <label for = 'multipleUpdateDeviceNote' style='margin-top: 6px;'>Append Note</label>
+                                </div>
+                                <div class='col-3'>
+                                    <div class='input-group'>
+                                        <textarea rows='1' cols='512' class='form-control' placeholder='Leave blank for no change...' id='multipleUpdateDeviceNote' style='margin-top:3px;'></textarea>
                                     </div>
                                 </div>
                             </div>
