@@ -34,6 +34,18 @@ $(document).on('click', '#vehicleFilterClicked', function (event) {
     });
 });
 
+$(document).on('click', '#editVehicleInstalldate', function (event) {
+    event.preventDefault();
+    if (document.getElementById('editVehicleInstalldate').value=='') {
+        let thisDay = new Date();
+        thisDay = thisDay.toISOString().substring(0, 10);
+        document.getElementById('editVehicleInstalldate').value = thisDay;
+    }
+});
+
+
+
+
 
 $('#modalAddVehicle').on('hidden.bs.modal', function (event) {
     $(this).find('form').trigger('reset');
@@ -43,14 +55,49 @@ $('#modalAddVehicle').on('hidden.bs.modal', function (event) {
 $(document).on("input", "#vehicleStatusPending", function () {
     if ($("#vehicleStatusPending").is(':checked')) {
         $('#vehicleInstallDateLabel').html("Upcoming install date");
+        document.getElementById('vehicleInstalldate').disabled = false;
     }
 });
 $(document).on("input", "#vehicleStatusInstalled", function () {
     if ($("#vehicleStatusInstalled").is(':checked')) {
         $('#vehicleInstallDateLabel').html("Installation date");
+        // if (document.getElementById('vehicleInstalldate').value == '') {
+        //      let thisDay = new Date();
+        //      thisDay = thisDay.toISOString().substring(0, 10);
+        //      document.getElementById('vehicleInstalldate').value = thisDay;
+        //      document.getElementById('vehicleInstalldate').disabled = false;
+        // }
     }
 });
 
+$(document).on("input", "#vehicleStatusNotApplicable", function () {
+    if ($("#vehicleStatusNotApplicable").is(':checked')) {
+        $('#vehicleInstallDateLabel').html("Date not required");
+        document.getElementById('vehicleInstalldate').value = null;
+        document.getElementById('vehicleInstalldate').disabled = true;
+    }
+});
+
+$(document).on("input", "#editVehicleStatusPending", function () {
+    if ($("#editVehicleStatusPending").is(':checked')) {
+        $('#vehicleEditInstallDateLabel').html("Upcoming install date");
+        document.getElementById('editVehicleInstalldate').disabled = false;
+    }
+});
+$(document).on("input", "#editVehicleStatusInstalled", function () {
+    if ($("#editVehicleStatusInstalled").is(':checked')) {
+        $('#vehicleEditInstallDateLabel').html("Installation date");
+        document.getElementById('editVehicleInstalldate').disabled = false;
+        }
+});
+
+$(document).on("input", "#editVehicleStatusNotApplicable", function () {
+    if ($("#editVehicleStatusNotApplicable").is(':checked')) {
+        $('#vehicleEditInstallDateLabel').html("Date not required");
+        document.getElementById('editVehicleInstalldate').value = null;
+        document.getElementById('editVehicleInstalldate').disabled = true;
+    }
+});
 
 
 $(document).on('blur', '#editVRN', function (event) {
@@ -203,10 +250,16 @@ function showVehicleForEdit(rowNumber) {
 
             if (data['vehicleStatus'] == '2') {
                 $('#editVehicleStatusInstalled').prop('checked', true);
+                $('#vehicleEditInstallDateLabel').html("Installation date");
+                document.getElementById('editVehicleInstalldate').disabled = false;
             } else if (data['vehicleStatus'] == '1') {
                 $('#editVehicleStatusPending').prop('checked', true);
+                $('#vehicleEditInstallDateLabel').html("Upcoming install date");
+                document.getElementById('editVehicleInstalldate').disabled = false; 
             } else {
                 $('#editVehicleStatusNotApplicable').prop('checked', true);
+                $('#vehicleEditInstallDateLabel').html("Date not required");
+                document.getElementById('editVehicleInstalldate').disabled = true;
             }
 
             $('#editVehicleInstalldate').val(data['installDate']);
@@ -232,6 +285,8 @@ function showVehicleForEdit(rowNumber) {
                 $('#editSideScanDate').css('color', '#888888');
             }
 
+           
+            
         },
         error: function () {
 
@@ -410,6 +465,12 @@ function deleteVehicle() {
 $(document).on('show.bs.modal', '#modalAddVehicle', function (event) {
     $(this).find('form').trigger('reset');
     $('#addVehicleErrorBox').html('');
+    // if (document.getElementById('vehicleStatusInstalled').checked == true || document.getElementById('vehicleStatusPending').checked == true) {
+    //     let thisDay = new Date();
+    //     thisDay = thisDay.toISOString().substring(0, 10);
+    //     document.getElementById('vehicleInstalldate').value = thisDay;
+    // };
+
 });
 
 $(document).on('hide.bs.modal', '#modalVehicleShow', function (event) {

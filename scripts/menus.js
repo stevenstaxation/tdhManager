@@ -27,7 +27,7 @@ $('#homeMenu').on('click', function () {
 $('#customerMenu').on('click', function () {
     showCustomers();
     var dataToPost = {};
-    dataToPost.selectedValue = "<?php echo $_SESSION['firstCustomer']; ?>";
+    dataToPost.selectedValue = '<?php $_SESSION["firstCustomer"]; ?>';
     $.ajax({
         url: 'customers.php',
         type: 'POST',
@@ -464,4 +464,3 @@ $('.dropdown-menu a.dropdown-toggle').on('mouseover', function (e) {
 
     return false;
 });
-

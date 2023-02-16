@@ -70,7 +70,7 @@
             <div class="modal-body" style='font-size: 75%;max-height: 50vh; overflow: auto'>
                 <form method='POST' id='showAlerts' class='showAlerts form-block'>
                     <div class='form-group'>
-                        <div class='rowAlert'>
+                        <div class='rowAlert' id='alertTable'>
                         </div>
                     </div>
                     <div id='alertListMessage'></div>
@@ -2822,15 +2822,15 @@ echo " value= '" . $row['businessName'] . "'>";
                     <div class='col-md-7 col-lg-6' style='font-size:125%'>
                         <div class='form-check-inline'>
                             <input type='radio' class='form-check-input' id='editVehicleStatusInstalled' name='vehicleStatus'>
-                            <label class='form-check-label' for='editVehicleStatusInstalled' style='margin-right: 25px'>Installed</label>
+                            <label class='form-check-label' id='editVehicleStatusInstalledLabel' for='editVehicleStatusInstalled' style='margin-right: 25px'>Installed</label>
                         </div>
                         <div class='form-check-inline'>
                             <input type='radio' class='form-check-input' id='editVehicleStatusPending' name='vehicleStatus'>
-                            <label class='form-check-label' for='editVehicleStatusPending'>Pending</label>
+                            <label class='form-check-label' id = 'editVehicleStatusPendingLabel' for='editVehicleStatusPending'>Pending</label>
                         </div>
                         <div class='form-check-inline'>
                             <input type='radio' class='form-check-input' id='editVehicleStatusNotApplicable' name='vehicleStatus'>
-                            <label class='form-check-label' for='editVehicleStatusNotApplicable'>N/A</label>
+                            <label class='form-check-label' id='editVehicleStatusNotApplicableLabel' for='editVehicleStatusNotApplicable'>N/A</label>
                         </div>
                     </div>
                 </div>

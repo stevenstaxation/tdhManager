@@ -74,6 +74,11 @@ input[type=password]:focus  {
     
 }
 
+input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+}
+
 label {
     background-color: var(--greyEF);
     color: var(--black22);
@@ -208,7 +213,7 @@ body.dark select,
 body.dark textarea,
 body.dark textarea:active {
     background-color: var(--black55)!important;
-    color: var(--greyEF) important; 
+    color: var(--greyEF)!important; 
 }
 
 body.dark label {
@@ -264,6 +269,11 @@ body.dark table.table-bordered > tfoot > tr > th {
 
 body.dark table.table-bordered > tbody > tr > td {
     border: 1px solid var(--grey88);
+   
+}
+
+#alertTable table.table-bordered > tbody > tr > td  {
+    color: var(--black); 
 }
 
 .filterBox {

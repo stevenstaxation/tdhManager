@@ -61,7 +61,6 @@ session_start();
         </section>
     </div>
 
-
     <script src='scripts/index.js'></script>
 </BODY>
 
