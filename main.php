@@ -22,6 +22,10 @@ $_SESSION['attempt'] = 0;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
+    <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+
  <!-- POPPER -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   
@@ -123,13 +127,13 @@ function setDarkMode(colMode) {
     $("#footageTable").DataTable().draw();
     $("#deviceListTable").DataTable().draw();
     $("#footageListTable").DataTable().draw();
+    $('#jobsTable').DataTable().draw();
     $("#jobListTable").DataTable().draw();
     $("#issueListTable").DataTable().draw();
     $("#renewalsListTable").DataTable().draw();
     $("#vehicleListTable").DataTable().draw();
     $("#vehiclesTable").DataTable().draw();
     $("#devicesTable").DataTable().draw();
-
 
 }
 
@@ -167,6 +171,7 @@ function purgeEventLog() {
     <div id='overlay' class='container-fluid'></div>
     <div id='vehicleList' class='container'></div>
     <div id='devicesList' class='container-fluid'></div>
+    <div id='fleetList' class='container-fluid'></div>
     <div id='bulkUploadsPage' class='container'></div>
     <div id='hiddenDeviceSelector' style='display: none;'></div>
     <div id='hiddenVehicleSelector' style='display: none;'></div>
@@ -471,15 +476,15 @@ function printVRNLookup() {
     popupWin.document.close();    
 }
 
-function toggleGender(gender) {
-    if (gender == 'male') {
-        $('#gender_radio').html("<a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('female')>Female</a>");
-        $('#genderHidden').val('male');
-    } else {
-        $('#gender_radio').html("<a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('female')>Female</a>");
-        $('#genderHidden').val('female');
-    }
-}
+// function toggleGender(gender) {
+//     if (gender == 'male') {
+//         $('#gender_radio').html("<a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('female')>Female</a>");
+//         $('#genderHidden').val('male');
+//     } else {
+//         $('#gender_radio').html("<a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('female')>Female</a>");
+//         $('#genderHidden').val('female');
+//     }
+// }
 
     function showMyAccount() {
         var dataToPost = {};
@@ -497,6 +502,7 @@ function toggleGender(gender) {
                 $('#eventLog').html('');
                 $('#vehicleList').html('');
                 $('#devicesList').html('');
+                $('#fleetList').html('');
                 $('#bulkUploadsPage').html('');
                 $('#accountInfo').html(data);
             },

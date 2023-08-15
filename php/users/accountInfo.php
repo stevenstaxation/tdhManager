@@ -91,7 +91,7 @@ $row = mysqli_fetch_array($result);
     </div>
 
     <hr>
-
+    <div id='myAccountInfoBox'></div>
     <div class='row'>
         <!-- <div class='col-md-1'></div> -->
         <div class='btn-group m-auto profileButtons'>

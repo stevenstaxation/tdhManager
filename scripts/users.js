@@ -25,7 +25,7 @@ $(document).on('click', '#updateUserList', function (event) {
         success: function (data) {
             if (data.includes('success')) {
                 console.log('hello');
-                $('#userErrorBox').html('<div class="alert alert-success">Updated successfully</div>');
+                $('#userErrorBox').html('<div class="alert alert-success">Updated successfully.  Changes will be effective after you have logged out and logged back in again.</div>');
                 $('#userErrorBox').delay(2500).hide(0);
             } else {
                 $('#userErrorBox').html(data);
@@ -58,10 +58,10 @@ $(document).on("click", '#updateUser', function (event) {
             console.log(data);
             if (data.includes('success')) {
                 $('#errorBox').html('<div class="alert alert-success">Updated successfully</div>');
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#errorBox').html('');
                     showMyAccount();
-                },4000);
+                }, 4000);
             } else {
                 $('#errorBox').html(data);
             }
@@ -112,14 +112,14 @@ $(document).on("click", '#updatePasswordButton', function (event) {
         data: dataToPost,
         type: 'POST',
         success: function (data) {
-            console.log(data);
             if (data.includes('success')) {
-                $('#modalChangePassword').modal('hide');
-                $('#errorBox').html('<div class="alert alert-success">Updated successfully</div>');
-                setTimeout(function() {
-                    $('#errorBox').html('');
+                $('#changePasswordMessage').html('<div class="alert alert-success">Updated successfully.  Changes will take effect after you have logged out and back in again.</div>');
+                setTimeout(function () {
                     showMyAccount();
-                },4000);
+                    $('#changePasswordMessage').html('');
+                    $('#modalChangePassword').modal('hide');
+                }, 3000);
+               
             } else {
                 $('#changePasswordMessage').html(data);
             }

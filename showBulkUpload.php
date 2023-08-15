@@ -99,6 +99,7 @@ detailed below.  If the data for a column is unknown, leave the entry blank:
         </div>
     </div>
 </div>
+<div id='uploadProgress' class='progress-bar' role='progressbar'></div>
 <div class='container-fluid'>
 <div id='hiddenUploadTypeSelector' style='display: none'></div>
 <div class='imageContent' style='margin-top:10px'></div>

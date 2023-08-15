@@ -19,6 +19,8 @@ $(document).on('change', '#getClient', function() {
         //     $('.dhd').hide();      
         // }
 
+        // $('#brokerEditNumber').val ($('#brokerHiddenInfo').val());
+        
         if ($('#DeviceStats').text()=="Total Devices:  0") {
            $('#addFootageRequest').prop('disabled', true);
         } else {
@@ -58,6 +60,7 @@ function showCustomers(customer = 0) {
         type: 'POST',
         success: function(data) {
             $('#accountInfo').html('');
+            $('#fleetList').html('');
             $('#customerSelect').html(data);
             $('#getClient').trigger('change');
         },

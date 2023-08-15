@@ -319,9 +319,11 @@ $(document).on('click', '#queryDeleteBroker', function () {
 $('body').on('change', '#getBrokerSelect', function () {
     var dataToPost = {};
     dataToPost.brokerID = this.value;
+    $('#brokerEditNumber').val(this.value);
+    $('#brokerEditNumberC').val(this.value);
     $.ajax({
         url: "updateBrokerSelect.php",
-        type: "GET",
+        type: "POST",
         data: dataToPost,
         success: function (data) {}
     });

@@ -16,6 +16,8 @@ $contactTelephone = $_POST['telephone'];
 $contactEmail = $_POST['email'];
 $contactDepartment = $_POST['department'];
 $brokerID = $_POST['employeeOf'];
+
+
 if($_POST['footageRec']=='true') {
     $contactFootage = 1;
 } else {
@@ -89,12 +91,12 @@ if ($errors) {
     exit();
 }
 
-$contactFirstName = filter_var($contactFirstName, FILTER_SANITIZE_STRING);
-$contactLastName = filter_var($contactLastName, FILTER_SANITIZE_STRING);
-$contactMobileNumber = filter_var($contactMobileNumber, FILTER_SANITIZE_STRING);
-$contactTelephone = filter_var($contactTelephone, FILTER_SANITIZE_STRING);
+$contactFirstName = filter_var($contactFirstName);
+$contactLastName = filter_var($contactLastName);
+$contactMobileNumber = filter_var($contactMobileNumber);
+$contactTelephone = filter_var($contactTelephone);
 $contactEmail = filter_var($contactEmail, FILTER_SANITIZE_EMAIL);
-$contactDepartment = filter_var($contactDepartment, FILTER_SANITIZE_STRING);
+$contactDepartment = filter_var($contactDepartment);
 
 $contactFirstName = mysqli_real_escape_string($link,$contactFirstName);
 $contactLastName = mysqli_real_escape_string($link,$contactLastName);

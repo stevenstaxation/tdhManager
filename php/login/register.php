@@ -145,8 +145,8 @@ try {
     //content
     $mail->isHTML(true); // Set email format to HTML
     $mail->Subject='TDH Manager - Confirm your Registration';
-    $mail->Body="<html><head></head><body><h3 style='color: blue'>Thanks for registering for access to TDH Manager.</h3><br><br>If you are happy to continue your registration please click on the following link to activate your account.<br><br> http://tdhmanager.office-on-the.net/activate.php?email=" . urlencode($userEmail) . "&key=$activationKey</body></html>";
-    $mail->AltBody= "Thanks for registering for access to TDH Manager.\n\nIf you are happy to continue your registration please click on the following link to activate your account.\n\n http://tdhmanager.office-on-the.net/activate.php?email=" . urlencode($userEmail) . "&key=$activationKey</body></html>";
+    $mail->Body="<html><head></head><body><h3 style='color: blue'>Thanks for registering for access to TDH Manager.</h3><br><br>If you are happy to continue your registration please click on the following link to activate your account.<br><br> http://tdhmanager.azurewebsites.net/activate.php?email=" . urlencode($userEmail) . "&key=$activationKey</body></html>";
+    $mail->AltBody= "Thanks for registering for access to TDH Manager.\n\nIf you are happy to continue your registration please click on the following link to activate your account.\n\n http://tdhmanager.azurewebsites.net/activate.php?email=" . urlencode($userEmail) . "&key=$activationKey</body></html>";
     $mail->send();
 
     echo "<div class='alert alert-success'>Thank you for registering.  A confirmation email has been sent to $userEmail.  You will need to click on the activation link in this email to activate your account before you can log in.</div>";

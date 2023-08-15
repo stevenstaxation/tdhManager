@@ -8,6 +8,7 @@ $('#homeMenu').on('click', function () {
     $('#customerInfo').html('');
     $('#customerSelect').html('');
     $('#bulkUploadsPage').html('');
+    $('#fleetList').html('');
 
     var dataToPost = {};
     $.ajax({
@@ -21,6 +22,33 @@ $('#homeMenu').on('click', function () {
 
     $('#homeScreen').show();
 
+});
+
+// Fleet menu click
+$(document).on("click", '#fleetMenu', function () {
+    var dataToPost = {};
+    
+    $.ajax({
+        url: "fleetList.php",
+        type: "POST",
+        timeout: 60000,
+        data: dataToPost,
+        success: function (data) {
+            $('#accountInfo').html('');
+            $('#customerSelect').html('');
+            $('#customerInfo').html('');
+            $('#overlay').html('');
+            $('#homeScreen').hide();
+            $('#eventLog').html('');
+            $('#bulkUploadsPage').html('');
+            $('#fleetList').html(data);
+            $('#devicesList').html('');
+            $('#vehicleList').html('');
+        },
+        error: function () {
+            $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
+        }
+    });
 });
 
 // Customer menu click - show customer screen
@@ -40,6 +68,7 @@ $('#customerMenu').on('click', function () {
             $('#devicesList').html('');
             $('#overlay').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#customerInfo').html(data);
             $('#getRenewalTypeSelect').trigger('change');
         },
@@ -66,6 +95,7 @@ $(document).on("click", '#showDeviceList', function () {
             $('#homeScreen').hide();
             $('#eventLog').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#devicesList').html(data);
             $('#vehicleList').html('');
         },
@@ -93,6 +123,7 @@ $(document).on("click", '#showVehicleList', function () {
             $('#eventLog').html('');
             $('#devicesList').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#vehicleList').html(data);
         },
         error: function () {
@@ -118,6 +149,7 @@ $(document).on("click", '#showFootageList', function () {
             $('#homeScreen').hide();
             $('#eventLog').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#devicesList').html(data);
             $('#vehicleList').html('');
         },
@@ -145,6 +177,7 @@ $(document).on("click", '#showRenewalList', function () {
             $('#eventLog').html('');
             $('#devicesList').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#vehicleList').html(data);
         },
         error: function () {
@@ -155,6 +188,19 @@ $(document).on("click", '#showRenewalList', function () {
 
 // Jobs menu - show jobs list
 $(document).on("click", '#showJobList', function () {
+    let userType = [];
+    $.ajax ({
+        url: 'getUserType.php',
+        type: 'POST',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            userType = data;
+        }
+    })
+
+   if (userType.isEngineer!=1) {
+
     var dataToPost = {};
     dataToPost.SQLFilter = $('#jobFilter').html();
 
@@ -173,6 +219,7 @@ $(document).on("click", '#showJobList', function () {
             $('#homeScreen').hide();
             $('#eventLog').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#devicesList').html(data);
             $('#vehicleList').html('');
         },
@@ -180,6 +227,28 @@ $(document).on("click", '#showJobList', function () {
             $('#errorBox').html("<div class='alert alert-warning'>There was an error retrieving the jobs list, try again later or contact TDHManager administrator.</div>");
         }
     });
+    } else {
+        $.ajax({
+            url: "jobListEngineer.php",
+            type: "POST",
+            data: dataToPost,
+            success: function (data) {
+                $('#accountInfo').html('');
+                $('#customerSelect').html('');
+                $('#customerInfo').html('');
+                $('#overlay').html('');
+                $('#homeScreen').hide();
+                $('#eventLog').html('');
+                $('#bulkUploadsPage').html('');
+                $('#fleetList').html('');
+                $('#devicesList').html(data);
+                $('#vehicleList').html('');
+            },
+            error: function () {
+                $('#errorBox').html("<div class='alert alert-warning'>There was an error retrieving the jobs list, try again later or contact TDHManager administrator.</div>");
+            }
+        });
+    }
 });
 
 // Alerts menu - alert list is a modal dialog shown directly from navbar.php
@@ -197,6 +266,7 @@ $(document).on('click', '#showInsurers', function () {
             $('#eventLog').html('');
             $('#homeScreen').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#devicesList').html(data);
             $('#insurerNameSelection option:first').attr('selected', 'selected');
             $('#insurerNameSelection').trigger('change');
@@ -221,6 +291,7 @@ $(document).on('click', '#showInstallers', function () {
             $('#eventLog').html('');
             $('#homeScreen').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#devicesList').html(data);
             $('#installerNameSelection option:first').attr('selected', 'selected');
             $('#installerNameSelection').trigger('change');
@@ -245,6 +316,7 @@ $(document).on('click', '#showSuppliers', function () {
             $('#eventLog').html('');
             $('#homeScreen').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#devicesList').html(data);
             $('#supplierNameSelection option:first').attr('selected', 'selected');
             $('#supplierNameSelection').trigger('change');
@@ -269,6 +341,7 @@ $(document).on('click', '#showBrokers', function () {
             $('#eventLog').html('');
             $('#homeScreen').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#devicesList').html(data);
             $('#brokerNameSelection option:first').attr('selected', 'selected');
             $('#brokerNameSelection').trigger('change');
@@ -293,6 +366,7 @@ $(document).on('click', '#showOthers', function () {
             $('#eventLog').html('');
             $('#homeScreen').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#devicesList').html(data);
             $('#otherNameSelection option:first').attr('selected', 'selected');
             $('#otherNameSelection').trigger('change');
@@ -321,6 +395,7 @@ $(document).on('click', '#showGlobalSettings', function (event) {
             $('#vehicleList').html('');
             $('#homeScreen').hide();
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#overlay').html(data);
         },
         error: function () {
@@ -346,6 +421,7 @@ $(document).on("click", '#importHealthChecks', function () {
             $('#eventLog').html('');
             $('#devicesList').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#vehicleList').html(data);
         },
         error: function () {
@@ -372,6 +448,7 @@ $(document).on('click', '#showEventLog', function (event) {
             $('#devicesList').html('');
             $('#homeScreen').hide();
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#eventLog').html(data);
         },
         error: function () {
@@ -394,6 +471,7 @@ $(document).on('click', '#bulkUpload', function () {
             $('#vehicleList').html('');
             $('#devicesList').html('');
             $('#homeScreen').html('');
+            $('#fleetList').html('');
             $('#bulkUploadsPage').html(data);
         }
     });
@@ -419,6 +497,7 @@ $(document).on("click", '#showIssueLog', function () {
             $('#homeScreen').hide();
             $('#eventLog').html('');
             $('#bulkUploadsPage').html('');
+            $('#fleetList').html('');
             $('#devicesList').html(data);
             $('#vehicleList').html('');
         },
@@ -464,3 +543,22 @@ $('.dropdown-menu a.dropdown-toggle').on('mouseover', function (e) {
 
     return false;
 });
+
+
+
+// $(document).on('click', '#fleetListTable', function() {
+//     $('#fleetListTable').find('tr').click(function() {
+//         let dataToPost = {};
+//         dataToPost.customerName = ($(this).closest('tr').find('td:eq(0)').text());
+        
+//         $.ajax({
+//             url: 'getIDfromName.php',
+//             data: dataToPost,
+//             type: 'POST',
+//             success: function(data) {
+//                 $('#fleetList').html('');
+//                 showCustomers(data);
+//             }
+//         })
+//     });
+// });

@@ -3,7 +3,7 @@
 // Start Session 
 session_start();
 // Connect to the database
-include('connect.php');
+include('../../connect.php');
 
 
 
@@ -78,9 +78,9 @@ $row = mysqli_fetch_array($result);
 $emailToSendTo = $row['email'];
 
 // send email with link to resetpassword.php with userID and activation code
-require_once('mailer/SMTP.php');
-require_once('mailer/PHPMailer.php');
-require_once('mailer/Exception.php');
+require_once('../../mailer/SMTP.php');
+require_once('../../mailer/PHPMailer.php');
+require_once('../../mailer/Exception.php');
 
 use \PHPMailer\PHPMailer\PHPMailer;
 use \PHPMailer\PHPMailer\Exception;
@@ -91,10 +91,10 @@ try {
     //settings
     $mail->SMTPDebug=0; // Enable verbose debug output
     $mail->isSMTP(); // Set mailer to use SMTP
-    $mail->Host='mail.overssl.net';
+    $mail->Host='send.one.com';
     $mail->SMTPAuth=true; // Enable SMTP authentication
     $mail->Username='mailbox@stevenstaxation.com'; // SMTP username
-    $mail->Password='will220307'; // SMTP password
+    $mail->Password='W1!!M41!80xobo!7!'; // SMTP password
     $mail->SMTPSecure='ssl';
     $mail->Port=465;
 
@@ -106,7 +106,7 @@ try {
     //content
     $mail->isHTML(true); // Set email format to HTML
     $mail->Subject='Reset your password';
-    $mail->Body="<html><head></head><body><h3 style='color: blue'>Reset your Password.</h3><br><br>A request has been received to reset your password for access to TDH Manager.<br><br> Please click on the following link to reset your password.<br><br>http://tdhmanager.office-on-the.net/resetpassword.php?userID=" . $userID . "&key=$validationKey <br><br>This link will expire in 60 minutes.<br><br>If you did not make this request then please ignore this email.";
+    $mail->Body="<html><head></head><body><h3 style='color: blue'>Reset your Password.</h3><br><br>A request has been received to reset your password for access to TDH Manager.<br><br> Please click on the following link to reset your password.<br><br>https://127.0.0.1:8080/php/login//resetpassword.php?userID=" . $userID . "&key=$validationKey <br><br>This link will expire in 60 minutes.<br><br>If you did not make this request then please ignore this email.";
     
     $mail->AltBody= "Reset your Password.\n\n A request has been received to reset your password for access to TDH Manager.\n\n Please click on the following link to reset your password.\n\n This link will expire in 60 minutes \n\n http://tdhmanager.office-on-the.net/resetpassword.php?userID=" . $userID . "&key=$validationKey \n\nIf you did not make this request then please ignore this email.";
 

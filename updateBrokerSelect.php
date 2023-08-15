@@ -6,7 +6,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 }
 
 
-$brokerID = $_GET['brokerID'];
+$brokerID = $_POST['brokerID'];
 
 
 $sql = "UPDATE tblCustomer SET brokerID='$brokerID' WHERE ID = '" .$_SESSION['currentCustomer'] . "'";

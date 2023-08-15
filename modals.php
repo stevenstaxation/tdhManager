@@ -1124,10 +1124,10 @@ if ($_SESSION['isAdmin'] == '1') {
                         </div>
                         <div class='row'>
                             <div class='form-check-inline'>
-                                <label class='form-check-label' for='brokerContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='brokerContactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
+                                <label class='form-check-label' for='brokerContactFootageRequest' style='padding-top:18px;margin-left: 15px;'><strong>Footage Recipient</strong></label>
+                                <input type='checkbox' class='form-check-input' value='checked' id='brokerContactFootageRequest' style='margin: 15px 50px'>
                                 <label class='form-check-label' for='brokerContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='brokerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
+                                <input type='checkbox' class='form-check-input' value='checked' id='brokerContactHealthCheck' style='margin: 15px 50px'>
                             </div>
                         </div>
                     </div>
@@ -1136,6 +1136,7 @@ if ($_SESSION['isAdmin'] == '1') {
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
+                <div id='brokerEditNumberC' style='display:none'></div>
                 <button type="button" id='updateBrokerContact' class="btn btn-success">Add Contact</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
@@ -3223,7 +3224,7 @@ while ($engineerRow = mysqli_fetch_array($result)) {
 
 <!-- EDIT JOB REQUEST DIALOG -->
 <div class="modal" id="modalEditNewJobRequest" data-backdrop='static' >
-    <div class="modal-dialog" style='max-width:50%'>
+    <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">

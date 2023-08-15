@@ -1,5 +1,16 @@
 $(document).ready(function () {
 
+    $(document).on('click', '#addBrokerContactButton', function() {
+        
+        if ($('#getBrokerSelect').val() != 0) {
+            $('#modalAddNewBrokerContact').modal('show');
+            $('#brokerEditNumberC').html($('#getBrokerSelect').val());
+        } else {
+            $('#modalAddNewBrokerContact').modal('hide');
+            return;
+        }
+    });
+
     $(document).on('click', '#updateBrokerContact', function (event) {
         // prevent default PHP processing
         "use strict";
@@ -14,8 +25,7 @@ $(document).ready(function () {
         dataToPost.department = document.getElementById('brokerContactDepartment').value;
         dataToPost.footageRec = document.getElementById('brokerContactFootageRequest').checked;
         dataToPost.healthCheck = document.getElementById('brokerContactHealthCheck').checked;
-        dataToPost.employeeOf = document.getElementById('brokerEditNumber').value;
-
+        dataToPost.employeeOf = document.getElementById('brokerEditNumberC').innerHTML;
 
         $.ajax({
             url: "addBrokerContact.php",

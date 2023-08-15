@@ -27,157 +27,665 @@ $devices_NUMBEROF = mysqli_num_rows($result);
 $sql = "SELECT COUNT(tblDevice.ID), tblDevice.status, tblDeviceStatus.status, tblDeviceStatus.isActive FROM tblDevice INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.ID GROUP BY tblDevicestatus.ID ORDER BY tblDeviceStatus.isActive DESC, tblDeviceStatus.listPosition ASC";
 $result = mysqli_query($link, $sql);
 $returnString = $returnString . "
-        <div id='DeviceStats' style='font-size:120%'>";
+        <div id='DeviceStats'style='font-size:120%'>";
 
 $devicesString = '';
 $inactiveString = '';
 if ($devices_NUMBEROF != 0) {
-    $devicesString = $devicesString . "Total Devices: " . $devices_NUMBEROF;
+    $devicesString .= "Total Devices: " . $devices_NUMBEROF;
 
-    $devicesString .= "<div id='activeDevices'><strong>Active Units</strong><br>";
-    while ($row = mysqli_fetch_array($result)) {
-        if ($row['COUNT(tblDevice.ID)'] != 0 && $row['isActive'] == '1') {
-            $devicesString = $devicesString . $row['status'] . " - " . $row['COUNT(tblDevice.ID)'];
+    // $devicesString .= "<div id='activeDevices'><strong>Active Units</strong><br>";
+    // while ($row = mysqli_fetch_array($result)) {
+    //     if ($row['COUNT(tblDevice.ID)'] != 0 && $row['isActive'] == '1') {
+    //         $devicesString = $devicesString . $row['status'] . " - " . $row['COUNT(tblDevice.ID)'];
 
-            if ($row['status'] == 'Installed') {
-                $devicesString = $devicesString . " [";
-                $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
-                      INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID
-                      INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
-                      WHERE tbldevicestatus.status = 'Installed' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
+    //         if ($row['status'] == 'Installed') {
+    //             $devicesString = $devicesString . " [";
+    //             $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
+    //                   INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID
+    //                   INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
+    //                   WHERE tbldevicestatus.status = 'Installed' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
 
-                $UKresult = mysqli_query($link, $sql);
+    //             $UKresult = mysqli_query($link, $sql);
 
-                while ($Install = mysqli_fetch_array($UKresult)) {
-                    if ($Install['deviceGroup'] == 1 && $Install['sum(devCount)'] != 0) { //AI-12
-                        $devicesString .= $Install['sum(devCount)'] . " = AI-12, ";
-                    } elseif ($Install['deviceGroup'] == 2 && $Install['sum(devCount)'] != 0) { //CP2 group
-                        $devicesString .= $Install['sum(devCount)'] . " = CP2, ";
-                    } elseif ($Install['deviceGroup'] == 3 && $Install['sum(devCount)'] != 0) { //CP4 group
-                        $devicesString .= $Install['sum(devCount)'] . " = CP4, ";
-                    } elseif ($Install['deviceGroup'] == 5 && $Install['sum(devCount)'] != 0) { // KP1
-                        $devicesString .= $Install['sum(devCount)'] . " = KP1, ";
-                    } elseif ($Install['deviceGroup'] == 4 && $Install['sum(devCount)'] != 0) { // others
-                        $devicesString .= $Install['sum(devCount)'] . " = Other, ";
-                    }
-                }
-                $devicesString = substr($devicesString, 0, -2) . "]";
-            }
+    //             while ($Install = mysqli_fetch_array($UKresult)) {
+    //                 if ($Install['deviceGroup'] == 1 && $Install['sum(devCount)'] != 0) { //AI-12
+    //                     $devicesString .= $Install['sum(devCount)'] . " = AI-12, ";
+    //                 } elseif ($Install['deviceGroup'] == 2 && $Install['sum(devCount)'] != 0) { //CP2 group
+    //                     $devicesString .= $Install['sum(devCount)'] . " = CP2, ";
+    //                 } elseif ($Install['deviceGroup'] == 3 && $Install['sum(devCount)'] != 0) { //CP4 group
+    //                     $devicesString .= $Install['sum(devCount)'] . " = CP4, ";
+    //                 } elseif ($Install['deviceGroup'] == 5 && $Install['sum(devCount)'] != 0) { // KP1
+    //                     $devicesString .= $Install['sum(devCount)'] . " = KP1, ";
+    //                 } elseif ($Install['deviceGroup'] == 4 && $Install['sum(devCount)'] != 0) { // others
+    //                     $devicesString .= $Install['sum(devCount)'] . " = Other, ";
+    //                 }
+    //             }
+    //             $devicesString = substr($devicesString, 0, -2) . "]";
+    //         }
 
-            if (strpos($row['status'], 'Hub')) {
-                $devicesString = $devicesString . " [";
-                $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
-                      INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID
-                      INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
-                      WHERE tbldevicestatus.status LIKE '%In Hub%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
+    //         if (strpos($row['status'], 'Hub')) {
+    //             $devicesString = $devicesString . " [";
+    //             $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
+    //                   INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID
+    //                   INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
+    //                   WHERE tbldevicestatus.status LIKE '%In Hub%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
 
-                $UKresult = mysqli_query($link, $sql);
+    //             $UKresult = mysqli_query($link, $sql);
 
-                while ($UKMI = mysqli_fetch_array($UKresult)) {
-                    if ($UKMI['deviceGroup'] == 1 && $UKMI['sum(devCount)'] != 0) { //AI-12
-                        $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, ";
-                    } elseif ($UKMI['deviceGroup'] == 2 && $UKMI['sum(devCount)'] != 0) { //CP2 group
-                        $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";
-                    } elseif ($UKMI['deviceGroup'] == 3 && $UKMI['sum(devCount)'] != 0) { //CP4 group
-                        $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";
-                    } elseif ($UKMI['deviceGroup'] == 5 && $UKMI['sum(devCount)'] != 0) { // KP1
-                        $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";
-                    } elseif ($UKMI['deviceGroup'] == 4 && $UKMI['sum(devCount)'] != 0) { // others
-                        $devicesString .= $UKMI['sum(devCount)'] . " = Other, ";
-                    }
-                }
-                $devicesString = substr($devicesString, 0, -2) . "]";
-            }
+    //             while ($UKMI = mysqli_fetch_array($UKresult)) {
+    //                 if ($UKMI['deviceGroup'] == 1 && $UKMI['sum(devCount)'] != 0) { //AI-12
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 2 && $UKMI['sum(devCount)'] != 0) { //CP2 group
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 3 && $UKMI['sum(devCount)'] != 0) { //CP4 group
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 5 && $UKMI['sum(devCount)'] != 0) { // KP1
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 4 && $UKMI['sum(devCount)'] != 0) { // others
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = Other, ";
+    //                 }
+    //             }
+    //             $devicesString = substr($devicesString, 0, -2) . "]";
+    //         }
 
-            if (strpos($row['status'], 'UK Mobile')) {
-                $devicesString = $devicesString . " [";
-                $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
-                      INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID
-                      INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
-                      WHERE tbldevicestatus.status LIKE '%UK Mobile%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
+    //         if (strpos($row['status'], 'UK Mobile')) {
+    //             $devicesString = $devicesString . " [";
+    //             $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
+    //                   INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID
+    //                   INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
+    //                   WHERE tbldevicestatus.status LIKE '%UK Mobile%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
 
-                $UKresult = mysqli_query($link, $sql);
+    //             $UKresult = mysqli_query($link, $sql);
 
-                while ($UKMI = mysqli_fetch_array($UKresult)) {
-                    if ($UKMI['deviceGroup'] == 1 && $UKMI['sum(devCount)'] != 0) { //AI-12
-                        $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, ";
-                    } elseif ($UKMI['deviceGroup'] == 2 && $UKMI['sum(devCount)'] != 0) { //CP2 group
-                        $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";
-                    } elseif ($UKMI['deviceGroup'] == 3 && $UKMI['sum(devCount)'] != 0) { //CP4 group
-                        $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";
-                    } elseif ($UKMI['deviceGroup'] == 5 && $UKMI['sum(devCount)'] != 0) { // KP1
-                        $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";
-                    } elseif ($UKMI['deviceGroup'] == 4 && $UKMI['sum(devCount)'] != 0) { // others
-                        $devicesString .= $UKMI['sum(devCount)'] . " = Other, ";
-                    }
-                }
-                $devicesString = substr($devicesString, 0, -2) . "]";
-            }
+    //             while ($UKMI = mysqli_fetch_array($UKresult)) {
+    //                 if ($UKMI['deviceGroup'] == 1 && $UKMI['sum(devCount)'] != 0) { //AI-12
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 2 && $UKMI['sum(devCount)'] != 0) { //CP2 group
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 3 && $UKMI['sum(devCount)'] != 0) { //CP4 group
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 5 && $UKMI['sum(devCount)'] != 0) { // KP1
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 4 && $UKMI['sum(devCount)'] != 0) { // others
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = Other, ";
+    //                 }
+    //             }
+    //             $devicesString = substr($devicesString, 0, -2) . "]";
+    //         }
 
-            if (strpos($row['status'], 'Charlie')) {
+    //         if (strpos($row['status'], 'Charlie')) {
 
-                $devicesString = $devicesString . " [";
-                $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
-                      INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID
-                      INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
-                      WHERE tbldevicestatus.status LIKE '%Charlie%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
+    //             $devicesString = $devicesString . " [";
+    //             $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
+    //                   INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID
+    //                   INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
+    //                   WHERE tbldevicestatus.status LIKE '%Charlie%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
 
-                $UKresult = mysqli_query($link, $sql);
+    //             $UKresult = mysqli_query($link, $sql);
 
-                while ($UKMI = mysqli_fetch_array($UKresult)) {
-                    if ($UKMI['deviceGroup'] == 1 && $UKMI['sum(devCount)'] != 0) { //AI-12
-                        $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, ";
-                    } elseif ($UKMI['deviceGroup'] == 2 && $UKMI['sum(devCount)'] != 0) { //CP2 group
-                        $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";
-                    } elseif ($UKMI['deviceGroup'] == 3 && $UKMI['sum(devCount)'] != 0) { //CP4 group
-                        $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";
-                    } elseif ($UKMI['deviceGroup'] == 5 && $UKMI['sum(devCount)'] != 0) { // KP1
-                        $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";
-                    } elseif ($UKMI['deviceGroup'] == 4 && $UKMI['sum(devCount)'] != 0) { // others
-                        $devicesString .= $UKMI['sum(devCount)'] . " = Other, ";
-                    }
-                }
-                $devicesString = substr($devicesString, 0, -2) . "]";
-            }
+    //             while ($UKMI = mysqli_fetch_array($UKresult)) {
+    //                 if ($UKMI['deviceGroup'] == 1 && $UKMI['sum(devCount)'] != 0) { //AI-12
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 2 && $UKMI['sum(devCount)'] != 0) { //CP2 group
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 3 && $UKMI['sum(devCount)'] != 0) { //CP4 group
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 5 && $UKMI['sum(devCount)'] != 0) { // KP1
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 4 && $UKMI['sum(devCount)'] != 0) { // others
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = Other, ";
+    //                 }
+    //             }
+    //             $devicesString = substr($devicesString, 0, -2) . "]";
+    //         }
 
-            if (strpos($row['status'], 'Jimmy')) {
+    //         if (strpos($row['status'], 'Jimmy')) {
 
-                $devicesString = $devicesString . " [";
-                $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
-                      INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID
-                      INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
-                      WHERE tbldevicestatus.status LIKE '%Jimmy%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
+    //             $devicesString = $devicesString . " [";
+    //             $sql = "SELECT deviceGroup, sum(devCount) FROM (SELECT tbldevice.devicedescriptionID, tbldevicedescription.description, tbldevicedescription.deviceGroup, COUNT(tblDevice.deviceDescriptionID) AS devCount FROM tbldevice
+    //                   INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tblDeviceDescription.ID
+    //                   INNER JOIN tblDeviceStatus ON tblDevice.status = tblDeviceStatus.id
+    //                   WHERE tbldevicestatus.status LIKE '%Jimmy%' GROUP BY tbldevice.deviceDescriptionID) AS innerDevice GROUP BY innerDevice.deviceGroup";
 
-                $UKresult = mysqli_query($link, $sql);
+    //             $UKresult = mysqli_query($link, $sql);
 
-                while ($UKMI = mysqli_fetch_array($UKresult)) {
-                    if ($UKMI['deviceGroup'] == 1 && $UKMI['sum(devCount)'] != 0) { //AI-12
-                        $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, ";
-                    } elseif ($UKMI['deviceGroup'] == 2 && $UKMI['sum(devCount)'] != 0) { //CP2 group
-                        $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";
-                    } elseif ($UKMI['deviceGroup'] == 3 && $UKMI['sum(devCount)'] != 0) { //CP4 group
-                        $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";
-                    } elseif ($UKMI['deviceGroup'] == 5 && $UKMI['sum(devCount)'] != 0) { // KP1
-                        $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";
-                    } elseif ($UKMI['deviceGroup'] == 4 && $UKMI['sum(devCount)'] != 0) { // others
-                        $devicesString .= $UKMI['sum(devCount)'] . " = Other, ";
-                    }
-                }
-                $devicesString = substr($devicesString, 0, -2) . "]";
-            }
+    //             while ($UKMI = mysqli_fetch_array($UKresult)) {
+    //                 if ($UKMI['deviceGroup'] == 1 && $UKMI['sum(devCount)'] != 0) { //AI-12
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = AI-12, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 2 && $UKMI['sum(devCount)'] != 0) { //CP2 group
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = CP2, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 3 && $UKMI['sum(devCount)'] != 0) { //CP4 group
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = CP4, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 5 && $UKMI['sum(devCount)'] != 0) { // KP1
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = KP1, ";
+    //                 } elseif ($UKMI['deviceGroup'] == 4 && $UKMI['sum(devCount)'] != 0) { // others
+    //                     $devicesString .= $UKMI['sum(devCount)'] . " = Other, ";
+    //                 }
+    //             }
+    //             $devicesString = substr($devicesString, 0, -2) . "]";
+    //         }
 
-            $devicesString .= "<br>";
+    //         $devicesString .= "<br>";
 
-        }
-        if ($row['COUNT(tblDevice.ID)'] != 0 && $row['isActive'] == '0') {
-            $inactiveString = $inactiveString . $row['status'] . " - " . $row['COUNT(tblDevice.ID)'] . "<br>";
-        }
-    }
-    $devicesString .= "</div><div id='inactiveDevices'><strong>Inactive Units</strong><br>";
-    $devicesString .= $inactiveString . "</div>";
+    //     }
+    //     if ($row['COUNT(tblDevice.ID)'] != 0 && $row['isActive'] == '0') {
+    //         $inactiveString = $inactiveString . $row['status'] . " - " . $row['COUNT(tblDevice.ID)'] . "<br>";
+    //     }
+    // }
+    // $devicesString .= "</div><div id='inactiveDevices'><strong>Inactive Units</strong><br>";
+    // $devicesString .= $inactiveString . "</div>";
 }
 
-$returnString = $returnString . $devicesString;
+$returnString .= $devicesString;
+
+$returnString .= "<div class='container-fluid' style='margin: 10px'>
+<div class='row'>
+<div class='col-lg-6 col-xl-4'>
+<table id='deviceListStatsActive' class='table cell-borderless table-sm display compact'>
+    <thead>
+        <tr class='text-success'><th class='text-left align-middle'>ACTIVE UNITS</th><th class='text-right align-middle'>AI-12</th><th class='text-right align-middle'>CP2</th><th class='text-right align-middle'>CP4</th><th class='text-right align-middle'>Other</th><th class='text-right align-middle'>KP1</th><th class='text-right align-middle'>Total</th></tr>
+    </thead>
+    <tbody>
+";
+$AI12 = 0;
+$CP2 = 0;
+$CP4 = 0;
+$KP1 = 0;
+$OtherCams = 0;
+
+$returnString .= "<tr><td class='text-left align-middle'>Installed</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='1' AND tbldevicestatus.status LIKE 'Installed%' GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$result3 = mysqli_query($link, $sql);
+$counter = 0;
+$index = 1;
+$lastRow = 0;
+
+while ($row = mysqli_fetch_array($result3)) {
+    $counter += $row[0];
+
+    if ($row[1] == $index) {
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        if ($index == 5) {$lastRow = 1;}
+        $index++;
+    } else {
+        while ($row[1] != $index) {
+            $returnString .= "<td class='text-right align-middle'>0</td>";
+            $index++;
+        }
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+    }
+    switch ($row[1]) {
+        case 1:
+            $AI12 += $row[0];
+            break;
+        case 2:
+            $CP2 += $row[0];
+            break;
+        case 3:
+            $CP4 += $row[0];
+            break;
+        case 4:
+            $OtherCams += $row[0];
+            break;
+        case 5:
+            $KP1 += $row[0];
+            break;
+    }
+}
+
+while ($index < 5 && $lastRow != 1) {
+    $returnString .= "<td class='text-right align-middle'>0</td>";
+    $index++;
+}
+
+$returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
+
+$returnString .= "<tr><td class='text-left align-middle'>With Charlie</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='1' AND tbldevicestatus.status LIKE '%Charlie%' GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$result3 = mysqli_query($link, $sql);
+$counter = 0;
+$index = 1;
+$lastRow = 0;
+
+while ($row = mysqli_fetch_array($result3)) {
+    $counter += $row[0];
+
+    if ($row[1] == $index) {
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        if ($index == 5) {$lastRow = 1;}
+        $index++;
+    } else {
+        while ($row[1] != $index) {
+            $returnString .= "<td class='text-right align-middle'>0</td>";
+            $index++;
+        }
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+    }
+    switch ($row[1]) {
+        case 1:
+            $AI12 += $row[0];
+            break;
+        case 2:
+            $CP2 += $row[0];
+            break;
+        case 3:
+            $CP4 += $row[0];
+            break;
+        case 4:
+            $OtherCams += $row[0];
+            break;
+        case 5:
+            $KP1 += $row[0];
+            break;
+    }
+}
+while ($index < 5 && $lastRow != 1) {
+    $returnString .= "<td class='text-right align-middle'>0</td>";
+    $index++;
+}
+
+$returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
+
+$returnString .= "<tr><td class='text-left align-middle'>With Jimmy</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice LEFT JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='1' AND tbldevicestatus.status LIKE '%Jimmy%' GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$result3 = mysqli_query($link, $sql);
+$counter = 0;
+$index = 1;
+$lastRow = 0;
+while ($row = mysqli_fetch_array($result3)) {
+    $counter += $row[0];
+
+    if ($row[1] == $index) {
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+
+        if ($index == 5) {$lastRow = 1;}
+        $index++;
+    } else {
+        while ($row[1] != $index) {
+            $returnString .= "<td class='text-right align-middle'>0</td>";
+            $index++;
+        }
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+    }
+    switch ($row[1]) {
+        case 1:
+            $AI12 += $row[0];
+            break;
+        case 2:
+            $CP2 += $row[0];
+            break;
+        case 3:
+            $CP4 += $row[0];
+            break;
+        case 4:
+            $OtherCams += $row[0];
+            break;
+        case 5:
+            $KP1 += $row[0];
+            break;
+    }
+}
+
+while ($index <= 5 && $lastRow != 1) {
+    $returnString .= "<td class='text-right align-middle'>0</td>";
+    $index++;
+}
+
+$returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
+
+$returnString .= "<tr><td class='text-left align-middle'>With Fleet</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice LEFT JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='1' AND tbldevicestatus.status LIKE '%With Fleet' GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$result3 = mysqli_query($link, $sql);
+$counter = 0;
+$index = 1;
+$lastRow = 0;
+while ($row = mysqli_fetch_array($result3)) {
+    $counter += $row[0];
+
+    if ($row[1] == $index) {
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        if ($index == 5) {$lastRow = 1;}
+        $index++;
+    } else {
+        while ($row[1] != $index) {
+            $returnString .= "<td class='text-right align-middle'>0</td>";
+            $index++;
+        }
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+    }
+    switch ($row[1]) {
+        case 1:
+            $AI12 += $row[0];
+            break;
+        case 2:
+            $CP2 += $row[0];
+            break;
+        case 3:
+            $CP4 += $row[0];
+            break;
+        case 4:
+            $OtherCams += $row[0];
+            break;
+        case 5:
+            $KP1 += $row[0];
+            break;
+    }
+}
+
+while ($index < 5 && $lastRow != 1) {
+    $returnString .= "<td class='text-right align-middle'>0</td>";
+    $index++;
+}
+
+$returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
+
+$returnString .= "<tr><td class='text-left align-middle'>In Hub / With Fleet Comms</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice LEFT JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='1' AND (tbldevicestatus.status LIKE '%In Hub' OR tbldevicestatus.status LIKE '%Fleet Comms%') GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$result3 = mysqli_query($link, $sql);
+$counter = 0;
+$index = 1;
+$lastRow = 0;
+while ($row = mysqli_fetch_array($result3)) {
+    $counter += $row[0];
+
+    if ($row[1] == $index) {
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        $index++;
+        if ($index == 5) {$lastRow = 1;}
+    } else {
+        while ($row[1] != $index) {
+            $returnString .= "<td class='text-right align-middle'>0</td>";
+            $index++;
+        }
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+    }
+    switch ($row[1]) {
+        case 1:
+            $AI12 += $row[0];
+            break;
+        case 2:
+            $CP2 += $row[0];
+            break;
+        case 3:
+            $CP4 += $row[0];
+            break;
+        case 4:
+            $OtherCams += $row[0];
+            break;
+        case 5:
+            $KP1 += $row[0];
+            break;
+    }
+}
+
+while ($index < 5 && $lastRow != 1) {
+    $returnString .= "<td class='text-right align-middle'>0</td>";
+    $index++;
+}
+
+$returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
+$TotalCams = $AI12 + $CP2 + $CP4 + $KP1 + $OtherCams;
+
+$returnString .= "<tr><td><b>Total</b></td><td class='text-right align-middle'><b>" . $AI12 . "</b></td><td class='text-right align-middle'><b>" . $CP2 . "</b></td><td class='text-right align-middle'><b>" . $CP4 . "</b></td><td class='text-right align-middle'><b>" . $OtherCams . "</b></td><td class='text-right align-middle'><b>" . $KP1 . "</b></td><td class='text-right align-middle'><b>" . $TotalCams . "</b></td></tr>";
+
+$returnString .= "</tbody></table></div>
+<div class='col-lg-6 col-xl-4'>
+<table id='deviceListStatsInActive' class='table cell-borderless table-sm display compact'>
+    <thead>
+        <tr class='text-danger'><th class='text-left align-middle'>INACTIVE UNITS</th></th><th class='text-right align-middle'>AI-12</th><th class='text-right align-middle'>CP2</th><th class='text-right align-middle'>CP4</th><th class='text-right align-middle'>Other</th><th class='text-right align-middle'>KP1</th><th class='text-right align-middle'>Total</th></tr>
+    </thead>
+    <tbody>";
+
+$AI12 = 0;
+$CP2 = 0;
+$CP4 = 0;
+$KP1 = 0;
+$OtherCams = 0;
+
+$returnString .= "<tr><td class='text-left align-middle'>Faulty</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='0' AND tbldevicestatus.status LIKE '%Faulty%' GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$result3 = mysqli_query($link, $sql);
+$counter = 0;
+$index = 1;
+$lastRow = 0;
+
+while ($row = mysqli_fetch_array($result3)) {
+    $counter += $row[0];
+
+    if ($row[1] == $index) {
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        if ($index == 5) {$lastRow = 1;}
+        $index++;
+    } else {
+        while ($row[1] != $index) {
+            $returnString .= "<td class='text-right align-middle'>0</td>";
+            $index++;
+        }
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+    }
+    switch ($row[1]) {
+        case 1:
+            $AI12 += $row[0];
+            break;
+        case 2:
+            $CP2 += $row[0];
+            break;
+        case 3:
+            $CP4 += $row[0];
+            break;
+        case 4:
+            $OtherCams += $row[0];
+            break;
+        case 5:
+            $KP1 += $row[0];
+            break;
+    }
+}
+
+while ($index < 5 && $lastRow != 1) {
+    $returnString .= "<td class='text-right align-middle'>0</td>";
+    $index++;
+}
+
+$returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
+
+$returnString .= "<tr><td class='text-left align-middle'>Inactive</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='0' AND tbldevicestatus.status LIKE '%Inactive%' GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$result3 = mysqli_query($link, $sql);
+$counter = 0;
+$index = 1;
+$lastRow = 0;
+
+while ($row = mysqli_fetch_array($result3)) {
+    $counter += $row[0];
+
+    if ($row[1] == $index) {
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        if ($index == 5) {$lastRow = 1;}
+        $index++;
+    } else {
+        while ($row[1] != $index) {
+            $returnString .= "<td class='text-right align-middle'>0</td>";
+            $index++;
+        }
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+    }
+    switch ($row[1]) {
+        case 1:
+            $AI12 += $row[0];
+            break;
+        case 2:
+            $CP2 += $row[0];
+            break;
+        case 3:
+            $CP4 += $row[0];
+            break;
+        case 4:
+            $OtherCams += $row[0];
+            break;
+        case 5:
+            $KP1 += $row[0];
+            break;
+    }
+}
+
+while ($index < 5 && $lastRow != 1) {
+    $returnString .= "<td class='text-right align-middle'>0</td>";
+    $index++;
+}
+
+$returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
+
+$returnString .= "<tr><td class='text-left align-middle'>Sold, Stolen, Damaged or Lost</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='0' AND (tbldevicestatus.status LIKE '%Sold%' OR tbldevicestatus.status LIKE '%Stolen%' OR tbldevicestatus.status LIKE '%Lost%' OR tbldevicestatus.status LIKE '%Damaged%') GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$result3 = mysqli_query($link, $sql);
+$counter = 0;
+$index = 1;
+$lastRow = 0;
+
+while ($row = mysqli_fetch_array($result3)) {
+    $counter += $row[0];
+
+    if ($row[1] == $index) {
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        if ($index == 5) {$lastRow = 1;}
+        $index++;
+    } else {
+        while ($row[1] != $index) {
+            $returnString .= "<td class='text-right align-middle'>0</td>";
+            $index++;
+        }
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+    }
+    switch ($row[1]) {
+        case 1:
+            $AI12 += $row[0];
+            break;
+        case 2:
+            $CP2 += $row[0];
+            break;
+        case 3:
+            $CP4 += $row[0];
+            break;
+        case 4:
+            $OtherCams += $row[0];
+            break;
+        case 5:
+            $KP1 += $row[0];
+            break;
+    }
+}
+
+while ($index < 5 && $lastRow != 1) {
+    $returnString .= "<td class='text-right align-middle'>0</td>";
+    $index++;
+}
+
+$returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
+
+$returnString .= "<tr><td class='text-left align-middle'>In Hub for testing</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='0' AND (tbldevicestatus.status LIKE '%Tested%') GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$result3 = mysqli_query($link, $sql);
+$counter = 0;
+$index = 1;
+$lastRow = 0;
+
+while ($row = mysqli_fetch_array($result3)) {
+    $counter += $row[0];
+
+    if ($row[1] == $index) {
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        if ($index == 5) {$lastRow = 1;}
+        $index++;
+    } else {
+        while ($row[1] != $index) {
+            $returnString .= "<td class='text-right align-middle'>0</td>";
+            $index++;
+        }
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+    }
+    switch ($row[1]) {
+        case 1:
+            $AI12 += $row[0];
+            break;
+        case 2:
+            $CP2 += $row[0];
+            break;
+        case 3:
+            $CP4 += $row[0];
+            break;
+        case 4:
+            $OtherCams += $row[0];
+            break;
+        case 5:
+            $KP1 += $row[0];
+            break;
+    }
+}
+
+while ($index <= 5 && $lastRow != 1) {
+    $returnString .= "<td class='text-right align-middle'>0</td>";
+    $index++;
+}
+
+$returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
+
+$returnString .= "<tr><td class='text-left align-middle'>RMA'd or to be RMA'd</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='0' AND (tbldevicestatus.status LIKE '%RMA%') GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$result3 = mysqli_query($link, $sql);
+$counter = 0;
+$index = 1;
+$lastRow = 0;
+
+while ($row = mysqli_fetch_array($result3)) {
+    $counter += $row[0];
+
+    if ($row[1] == $index) {
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        if ($index == 5) {$lastRow = 1;}
+        $index++;
+    } else {
+        while ($row[1] != $index) {
+            $returnString .= "<td class='text-right align-middle'>0</td>";
+            $index++;
+        }
+        $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+    }
+    switch ($row[1]) {
+        case 1:
+            $AI12 += $row[0];
+            break;
+        case 2:
+            $CP2 += $row[0];
+            break;
+        case 3:
+            $CP4 += $row[0];
+            break;
+        case 4:
+            $OtherCams += $row[0];
+            break;
+        case 5:
+            $KP1 += $row[0];
+            break;
+    }
+}
+
+while ($index < 5 && $lastRow != 1) {
+    $returnString .= "<td class='text-right align-middle'>0</td>";
+    $index++;
+}
+
+$returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
+
+$TotalCams = $AI12 + $CP2 + $CP4 + $KP1 + $OtherCams;
+
+$returnString .= "<tr><td><b>Total</b></td><td class='text-right align-middle'><b>" . $AI12 . "</b></td><td class='text-right align-middle'><b>" . $CP2 . "</b></td><td class='text-right align-middle'><b>" . $CP4 . "</b></td><td class='text-right align-middle'><b>" . $OtherCams . "</b></td><td class='text-right align-middle'><b>" . $KP1 . "</b></td><td class='text-right align-middle'><b>" . $TotalCams . "</b></td></tr>";
+
+$returnString .= "</tbody></table>";
+
+$returnString .= "</div></div></div>";
+
 $returnString = $returnString . "
         </div><br>";
 
@@ -451,44 +959,42 @@ $returnString .= "</tbody>
 
 echo $returnString;
 
+//   initComplete: function () {
+//     count = 0;
+//     this.api().columns([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]).every( function () {
+//         var title = this.header();
+//         title = $(title).html().replace(/[\W]/g, '-');
+//         var column = this;
+//         var lineBreak = $('<br>')
+//         .appendTo( $(column.header()));
+//         var select = $('<select id=\"' + title + '\" class=\"select2\" style=\"width:100%\" ></select>')
+//             .appendTo( $(column.header()))
+//             .on( 'change', function () {
+//               var data = $.map( $(this).select2('data'), function( value, key ) {
+//                 return value.text ? '^' + $.fn.dataTable.util.escapeRegex(value.text) + '$' : null;
+//                          });
+//               if (data.length === 0) {
+//                 data = [\"\"];
+//               }
+//               var val = data.join('|');
+//               column
+//                     .search( val ? val : '', true, false )
+//                     .draw();
+//             } );
 
+//         column.data().unique().sort().each( function ( d, j ) {
+//             select.append( '<option value=\"'+d+'\">'+d+'</option>' );
+//         } );
 
-    //   initComplete: function () {
-    //     count = 0;
-    //     this.api().columns([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]).every( function () {
-    //         var title = this.header();
-    //         title = $(title).html().replace(/[\W]/g, '-');
-    //         var column = this;
-    //         var lineBreak = $('<br>')
-    //         .appendTo( $(column.header()));
-    //         var select = $('<select id=\"' + title + '\" class=\"select2\" style=\"width:100%\" ></select>')
-    //             .appendTo( $(column.header()))
-    //             .on( 'change', function () {
-    //               var data = $.map( $(this).select2('data'), function( value, key ) {
-    //                 return value.text ? '^' + $.fn.dataTable.util.escapeRegex(value.text) + '$' : null;
-    //                          });
-    //               if (data.length === 0) {
-    //                 data = [\"\"];
-    //               }
-    //               var val = data.join('|');
-    //               column
-    //                     .search( val ? val : '', true, false )
-    //                     .draw();
-    //             } );
+//       //use column title as selector and placeholder
+//       $('#' + title).select2({
+//         multiple: true,
+//         closeOnSelect: false,
+//         placeholder: \"\"
+//       });
 
-    //         column.data().unique().sort().each( function ( d, j ) {
-    //             select.append( '<option value=\"'+d+'\">'+d+'</option>' );
-    //         } );
+//       //initially clear select otherwise first option is selected
+//       $('.select2').val(null).trigger('change');
+//     } );
 
-    //       //use column title as selector and placeholder
-    //       $('#' + title).select2({
-    //         multiple: true,
-    //         closeOnSelect: false,
-    //         placeholder: \"\"
-    //       });
-
-    //       //initially clear select otherwise first option is selected
-    //       $('.select2').val(null).trigger('change');
-    //     } );
-
-    // },
+// },

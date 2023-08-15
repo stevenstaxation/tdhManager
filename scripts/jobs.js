@@ -1448,3 +1448,7 @@ $(document).on('click', '#downloadImages', function () {
     el.click();
     el.remove();
 })
+
+$(document).on('click', '#engineerTable tr', function() {
+    alert ($(this).find('td:first').text());
+})
