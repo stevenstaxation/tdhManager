@@ -24,6 +24,7 @@ $(document).on("change", '#jobCustomerName', function () {
             if ($('.addVRNButton').hasClass('disabled') && $('#jobCustomerName').val() != null) {
                 $('.addVRNButton').removeClass('disabled');
             }
+            $('#jobRegistrationPlate').html(($('#editJobVRN option:selected').text()));            
         },
         error: function () {}
     });
@@ -73,6 +74,10 @@ $(document).on("change", '#jobCustomerName', function () {
 
 });
 
+$(document).on("change", '#editJobVRN', function() {
+    $('#jobRegistrationPlate').html(($('#editJobVRN option:selected').text()));
+})
+
 // When editing a job a change in the dropdown of customer names runs this routine 
 // to get the customer's vehicles and change the vehicle dropdown list 
 $(document).on("change", '#editJobCustomerName', function () {
@@ -88,6 +93,7 @@ $(document).on("change", '#editJobCustomerName', function () {
             var old = "<option value='0' disabled selected>Not Applicable</option>" + data;
             $('.addJobTypeOldVRN').html(old);
             $('#editJobVRN').html(data);
+            $('#jobRegistrationPlate').html(($('#editJobVRN option:selected').text()));
         },
         error: function () {}
     });
@@ -507,6 +513,7 @@ function showFullJob(rowNumber) {
             var $cs = $('#editJobVRN');
             $cs.val(currentVRN.toString());
             $cs.trigger('change');
+            $('#jobRegistrationPlate').html(($('#editJobVRN option:selected').text()));
         }
         if (oldVRN != 0) {
             var $os = $('#editJobOldVRN');
@@ -664,7 +671,7 @@ function editCurrentJob() {
     dataToPost.jobEmail = document.getElementById('editJobContactEmail').value;
     dataToPost.jobPhone = document.getElementById('editJobContactPhone').value;
     dataToPost.jobVRN = document.getElementById('editJobVRN').value;
-    dataToPost.oldVRN = document.getElementById('editJobOldVRN').value;
+    // dataToPost.oldVRN = document.getElementById('editJobOldVRN').value;
     dataToPost.jobInstallAddress = document.getElementById('editJobInstallAddress').value;
     dataToPost.jobLocation = document.getElementById('editBookingLocation').value;
     dataToPost.jobEngineer = document.getElementById('editEngineerAssigned').value;

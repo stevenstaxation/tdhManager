@@ -637,6 +637,17 @@ body.dark .buttons-columnVisibility.active:hover {
     border-radius: 50%;
   }
 
+@font-face {
+    font-family: 'Charles-Wright-Bold';
+    src:url('../assets/Charles-Wright-Bold.ttf.woff') format('woff'),
+        url('../assets/Charles-Wright-Bold.ttf.svg#Charles-Wright-Bold') format('svg'),
+        url('../assets/Charles-Wright-Bold.ttf.eot'),
+        url('../assets/Charles-Wright-Bold.ttf.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 
 
 

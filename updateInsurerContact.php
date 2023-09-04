@@ -18,11 +18,11 @@ if($_POST['footageRec']=='true') {
 } else {
     $contactFootage = 0;
 }
-if($_POST['healthCheck']=='true') {
-    $isHealthCheck = 1;
-} else {
-    $isHealthCheck = 0;
-}
+// if($_POST['healthCheck']=='true') {
+//     $isHealthCheck = 1;
+// } else {
+//     $isHealthCheck = 0;
+// }
 $contactCustomer = $_POST['employeeOf'];
 
 $errors="";
@@ -99,7 +99,7 @@ $contactJobTitle = mysqli_real_escape_string($link,$contactJobTitle);
 $sql = "SELECT * FROM tblInsurerContact WHERE ID = '$contactCustomer'";
 $prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
-$sql = "UPDATE tblInsurerContact SET firstName='$contactFirstName', lastName='$contactLastName', mobileNo='$contactMobileNumber', telephone='$contactTelephone', email='$contactEmail', jobTitle='$contactJobTitle', isFootageRecipient='$contactFootage', isHealthCheck='$isHealthCheck' WHERE ID = '$contactCustomer'";
+$sql = "UPDATE tblInsurerContact SET firstName='$contactFirstName', lastName='$contactLastName', mobileNo='$contactMobileNumber', telephone='$contactTelephone', email='$contactEmail', jobTitle='$contactJobTitle', isFootageRecipient='$contactFootage' WHERE ID = '$contactCustomer'";
 $result = mysqli_query($link, $sql);
 
     if (!$result) {

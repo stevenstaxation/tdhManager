@@ -19,11 +19,11 @@ if($_POST['footageRec']=='true') {
 } else {
     $contactFootage = 0;
 }
-if($_POST['healthCheck']=='true') {
-    $healthCheck = 1;
-} else {
-    $healthCheck = 0;
-}
+// if($_POST['healthCheck']=='true') {
+//     $healthCheck = 1;
+// } else {
+//     $healthCheck = 0;
+// }
 $contactCustomer = $_POST['employeeOf'];
 
 
@@ -103,7 +103,7 @@ $contactTelephone = mysqli_real_escape_string($link,$contactTelephone);
 $contactEmail = mysqli_real_escape_string($link,$contactEmail);
 $contactJobTitle = mysqli_real_escape_string($link,$contactJobTitle);
 
- $sql = "INSERT INTO tblInsurerContact (insurerID, firstName, lastName, mobileNo, telephone, email, jobTitle, isFootageRecipient, isHealthCheck) VALUES ('$insurerID','$contactFirstName', '$contactLastName', '$contactMobileNumber', '$contactTelephone', '$contactEmail', '$contactJobTitle','$contactFootage', '$healthCheck')";
+ $sql = "INSERT INTO tblInsurerContact (insurerID, firstName, lastName, mobileNo, telephone, email, jobTitle, isFootageRecipient) VALUES ('$insurerID','$contactFirstName', '$contactLastName', '$contactMobileNumber', '$contactTelephone', '$contactEmail', '$contactJobTitle','$contactFootage')";
 
 $result = mysqli_query($link, $sql);
 

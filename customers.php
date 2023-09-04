@@ -343,6 +343,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                             <th class='text-center align-middle' style='padding:0 3px;'>Phone</th>
                             <th class='align-middle text-center' style='width:8%; padding: 0 3px;'>Ftg</th>
                             <th class='align-middle text-center' style='width:8%; padding: 0 3px;'>H/C</th>
+                            <th class='align-middle text-center' style='width:8%; padding: 0 3px;'>Rpt</th>
                         </tr>
                     </thead>
                     <tbody>";
@@ -357,6 +358,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         $returnString .= "<td class='text-center align-middle' style='padding:0 3px;'>" . $contact['telephone'] . "</td>";
         $returnString .= "<td class='align-middle' style='padding:0 3px;'><center><input type='checkbox' class='isFootageRequest' name='isFootageRequest' onclick='return false' " . ($contact['isFootageRecipient'] == 1 ? 'checked' : '') . " value='1'/>&nbsp;</center></td>";
         $returnString .= "<td class='align-middle' style='padding:0 3px;'><center><input type='checkbox' class='isHealthCheck' name='isHealthCheck' onclick='return false' " . ($contact['isHealthCheck'] == 1 ? 'checked' : '') . " value='1'/>&nbsp;</center></td>";
+        $returnString .= "<td class='align-middle' style='padding:0 3px;'><center><input type='checkbox' class='isReporting' name='isReporting' onclick='return false' " . ($contact['isReporting'] == 1 ? 'checked' : '') . " value='1'/>&nbsp;</center></td>";
         $returnString .= "</tr>";
     }
 
@@ -444,8 +446,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                                         <th class='text-center align-middle'>Mobile</th>
                                         <th class='text-center align-middle'>Phone</th>
                                         <th class='text-center align-middle' style='width:8%; padding: 0 3px;'>Ftg</th>
-                                        <th class='text-center align-middle' style='width:8%; padding: 0 3px;'>H/C</th>
-
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>";
@@ -458,7 +459,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         $returnString .= "<td class='text-center align-middle'>" . $contact['mobileNo'] . "</td>";
         $returnString .= "<td class='text-center align-middle'>" . $contact['telephone'] . "</td>";
         $returnString .= "<td class='align-middle'><center><input type='checkbox' class='isFootageRequest' onclick='return false;' name='isFootageRequest' " . ($contact['isFootageRecipient'] == 1 ? 'checked' : '') . " value='1' />&nbsp;</center></td>";
-        $returnString .= "<td class='align-middle'><center><input type='checkbox' class='isHealthCheck' onclick='return false;' name='isHealthCheck' " . ($contact['isHealthCheck'] == 1 ? 'checked' : '') . " value='1' />&nbsp;</center></td>";
+        // $returnString .= "<td class='align-middle'><center><input type='checkbox' class='isHealthCheck' onclick='return false;' name='isHealthCheck' " . ($contact['isHealthCheck'] == 1 ? 'checked' : '') . " value='1' />&nbsp;</center></td>";
         $returnString .= "</tr>";
     }
 
@@ -552,7 +553,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                                 <th class='align-middle text-center' style='padding:0 3px;'>Mobile</th>
                                 <th class='align-middle text-center' style='padding:0 3px;'>Phone</th>
                                 <th class='text-center' style='width:8%; padding: 0 3px;'>Ftg</th>
-                                <th class='text-center' style='width:8%; padding: 0 3px;'>H/C</th>
+                                <th class='text-center' style='width:8%; padding: 0 3px;'>Rpt</th>
                             </tr>
                         </thead>
                         <tbody>";
@@ -567,7 +568,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         $returnString .= "<td class='align-middle text-center' style='padding:0 3px;'>" . $contact['mobileNo'] . "</td>";
         $returnString .= "<td class='align-middle text-center' style='padding:0 3px;'>" . $contact['telephone'] . "</td>";
         $returnString .= "<td class='align-middle'><center><input type='checkbox' class='isFootageRequest' name='isFootageRequest' onclick='return false;' " . ($contact['isFootageRecipient'] == 1 ? 'checked' : '') . " value='1'/>&nbsp;</center></td>";
-        $returnString .= "<td class='align-middle'><center><input type='checkbox' class='isHealthCheck' name='isHealthCheck' onclick='return false;' " . ($contact['isHealthCheck'] == 1 ? 'checked' : '') . " value='1'/>&nbsp;</center></td>";
+        $returnString .= "<td class='align-middle'><center><input type='checkbox' class='isHealthCheck' name='isHealthCheck' onclick='return false;' " . ($contact['isReporting'] == 1 ? 'checked' : '') . " value='1'/>&nbsp;</center></td>";
         $returnString .= "</tr>";
     }
 
@@ -889,7 +890,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         </form>
 
             <div id='hiddenJobID' style='display: none'></div>
-            
+
 
             <script>
 
@@ -1292,9 +1293,9 @@ document.getElementById('hiddenDeviceSelector').value = 'dhinstall';
         } else {
             $returnString .= "<td class='text-center align-middle' style='padding-left: 5px;width: 6%'><img class='noIcon' src='images/red_cross_16.png'/><span style='display:none;'>red_cross</span></td>";
         }
-       
+
         $stringyDate = strtotime($row['installDate'] ?? '');
-       
+
         if (date('d/m/Y', $stringyDate) == '01/01/1970' || date('d/m/Y', $stringyDate) == '01/01/0001' || date('d/m/Y', $stringyDate) == null) {
             $returnString .= "<td class='text-center align-middle' data-order='0/0/0'>TBC</td>";
         } else {

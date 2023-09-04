@@ -8,7 +8,7 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 }
 
 
-$currentCustomer = $_SESSION['currentCustomer'];
+// $currentCustomer = $_SESSION['currentCustomer'];
 $contactFirstName = $_POST['firstName'];
 $contactLastName = $_POST['lastName'];
 $contactMobileNumber = $_POST['mobileNumber'];
@@ -18,17 +18,18 @@ $contactDepartment = $_POST['department'];
 $brokerID = $_POST['employeeOf'];
 
 
+
 if($_POST['footageRec']=='true') {
     $contactFootage = 1;
 } else {
     $contactFootage = 0;
 }
-if($_POST['healthCheck']=='true') {
-    $healthCheck = 1;
+if($_POST['reporting']=='true') {
+    $reporting = 1;
 } else {
-    $healthCheck = 0;
+    $reporting = 0;
 }
-$contactCustomer = $_POST['employeeOf'];
+$contactCustomer = $brokerID; //$_POST['employeeOf'];
 
 $sql = "SELECT brokerName FROM tblBroker WHERE ID = '$brokerID'";
 $result = mysqli_query($link, $sql);
@@ -105,7 +106,7 @@ $contactTelephone = mysqli_real_escape_string($link,$contactTelephone);
 $contactEmail = mysqli_real_escape_string($link,$contactEmail);
 $contactDepartment = mysqli_real_escape_string($link,$contactDepartment);
 
- $sql = "INSERT INTO tblBrokerContact (brokerID, firstName, lastName, mobileNo, telephone, email, department, isFootageRecipient, isHealthCheck) VALUES ('$brokerID','$contactFirstName', '$contactLastName', '$contactMobileNumber', '$contactTelephone', '$contactEmail', '$contactDepartment','$contactFootage', '$healthCheck')";
+$sql = "INSERT INTO tblBrokerContact (brokerID, firstName, lastName, mobileNo, telephone, email, department, isFootageRecipient, isReporting) VALUES ('$brokerID','$contactFirstName', '$contactLastName', '$contactMobileNumber', '$contactTelephone', '$contactEmail', '$contactDepartment','$contactFootage', '$reporting')";
 
 $result = mysqli_query($link, $sql);
 

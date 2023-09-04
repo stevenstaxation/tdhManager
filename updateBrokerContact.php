@@ -18,10 +18,10 @@ if($_POST['footageRec']=='true') {
 } else {
     $contactFootage = 0;
 }
-if($_POST['healthCheck']=='true') {
-    $healthCheck = 1;
+if($_POST['reporting']=='true') {
+    $reporting = 1;
 } else {
-    $healthCheck = 0;
+    $reporting = 0;
 }
 $contactCustomer = $_POST['employeeOf'];
 $errors = "";
@@ -63,12 +63,16 @@ if (strlen($contactDepartment)>50) {
     $errors .= "Department should not be longer than 50 characters<br>";
 }
 
-if (!(is_numeric($contactMobileNumber)) && strlen($contactMobileNumber!=0)) {
-    $errors .= "Mobile number should only contain numbers<br>";
+if (strlen($contactMobileNumber)!=0) {
+    if (!is_numeric($contactMobileNumber)) {
+        $errors .= "Mobile number should only contain numbers<br>";
+    }
 }
 
-if (!(is_numeric($contactTelephone)) && strlen ($contactTelephone!=0)) {
-    $errors .= "Telephone should only contain numbers<br>";
+if (strlen($contactTelephone)!=0) {
+    if (!is_numeric($contactTelephone)) {
+        $errors .= "Telephone should only contain numbers<br>";
+    }
 }
 
 if ($errors) {
@@ -96,7 +100,7 @@ $sql = "SELECT * FROM tblBrokerContact WHERE ID = '$contactCustomer'";
 $prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
 // update
-$sql = "UPDATE tblBrokerContact SET firstName='$contactFirstName', lastName='$contactLastName', mobileNo='$contactMobileNumber', telephone='$contactTelephone', email='$contactEmail', department='$contactDepartment', isFootageRecipient='$contactFootage', isHealthCheck='$healthCheck' WHERE ID = '$contactCustomer'";
+$sql = "UPDATE tblBrokerContact SET firstName='$contactFirstName', lastName='$contactLastName', mobileNo='$contactMobileNumber', telephone='$contactTelephone', email='$contactEmail', department='$contactDepartment', isFootageRecipient='$contactFootage', isReporting='$reporting' WHERE ID = '$contactCustomer'";
 $result = mysqli_query($link, $sql);
     if (!$result) {
         echo '<div class="alert alert-danger">Error accessing the database</div>';

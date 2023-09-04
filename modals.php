@@ -1123,11 +1123,17 @@ if ($_SESSION['isAdmin'] == '1') {
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='form-check-inline'>
-                                <label class='form-check-label' for='brokerContactFootageRequest' style='padding-top:18px;margin-left: 15px;'><strong>Footage Recipient</strong></label>
+                            <div class='col-4'>
+                                <label class='form-check-label' for='brokerContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
+                            </div>
+                            <div class='col-8'>
                                 <input type='checkbox' class='form-check-input' value='checked' id='brokerContactFootageRequest' style='margin: 15px 50px'>
-                                <label class='form-check-label' for='brokerContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='brokerContactHealthCheck' style='margin: 15px 50px'>
+                            </div>
+                            <div class='col-4'>
+                                <label class='form-check-label' for='brokerContactReporting' style='padding-top:18px;'><strong>Report Recipient</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <input type='checkbox' class='form-check-input' value='checked' id='brokerContactReporting' style='margin: 15px 50px'>
                             </div>
                         </div>
                     </div>
@@ -1136,7 +1142,7 @@ if ($_SESSION['isAdmin'] == '1') {
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <div id='brokerEditNumberC' style='display:none'></div>
+                <div id='brokerEditNumberC' style='display: none'></div>
                 <button type="button" id='updateBrokerContact' class="btn btn-success">Add Contact</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
@@ -1220,11 +1226,17 @@ if ($_SESSION['isAdmin'] == '1') {
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='form-check-inline'>
+                            <div class='col-4'>
                                 <label class='form-check-label' for='editBrokerContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
+                            </div>
+                            <div class='col-8'>
                                 <input type='checkbox' class='form-check-input' value='checked' id='editBrokerContactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
-                                <label class='form-check-label' for='editBrokerContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='editBrokerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
+                            </div>
+                            <div class='col-4'>
+                                <label class='form-check-label' for='editBrokerContactReports' style='padding-top:18px;'><strong>Report Recipient</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                 <input type='checkbox' class='form-check-input' value='checked' id='editBrokerContactReports' style='margin: 15px 50px;padding: 10px 10px;'>
                             </div>
                         </div>
                     </div>
@@ -1505,11 +1517,14 @@ if ($_SESSION['isAdmin'] == '1') {
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='form-check-inline'>
+                            <div class='col-4'>
                                 <label class='form-check-label' for='insurerContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
+                            </div>
+                            <div class='col-8'>
                                 <input type='checkbox' class='form-check-input' value='checked' id='insurerContactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
-                                <label class='form-check-label' for='insurerContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='insurerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
+                            </div>
+                                <!-- <label class='form-check-label' for='insurerContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
+                                <input type='checkbox' class='form-check-input' value='checked' id='insurerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'> -->
 
 
 
@@ -1607,11 +1622,12 @@ if ($_SESSION['isAdmin'] == '1') {
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='form-check-inline'>
+                            <div class='col-4'>
                                 <label class='form-check-label' for='editInsurerContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
+                            </div>
+                            <div class='col-8'>
                                 <input type='checkbox' class='form-check-input' value='checked' id='editInsurerContactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
-                                <label class='form-check-label' for='editInsurerContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='editInsurerContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -1808,15 +1824,40 @@ if ($_SESSION['isAdmin'] == '1') {
                                 </div>
                             </div>
                         </div>
-                        <div class='row'>
-                            <div class='form-check-inline'>
+                        <!-- <div class='row'>
+
                                 <label class='form-check-label' for='contactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
                                 <input type='checkbox' class='form-check-input' value='checked' id='contactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
                                 <label class='form-check-label' for='contactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
-                                <input type='checkbox' class='form-check-input' value='checked' id='contactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
+                                <input type='checkbox' class='form-check-input' value='checked' id='contactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'
 
+                            </div> -->
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='form-check-label' for='contactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <input type='checkbox' class='form-check-input' value='checked' id='contactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
                             </div>
                         </div>
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='form-check-label' for='contactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <input type='checkbox' class='form-check-input' value='checked' id='contactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='form-check-label' for='contractReports' style='padding-top:18px;'><strong>Report Recipient</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <input type='checkbox' class='form-check-input' value='checked' id='contactReports' style='margin: 15px 50px;padding: 10px 10px;'>
+                            </div>
+                        </div>
+
+
                     </div>
                     <div id='contactMessage'></div>
                 </form>
@@ -1906,11 +1947,27 @@ if ($_SESSION['isAdmin'] == '1') {
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='form-check-inline'>
+                            <div class='col-4'>
                                 <label class='form-check-label' for='editContactFootageRequest' style='padding-top:18px;'><strong>Footage Recipient</strong></label>
+                            </div>
+                            <div class='col-8'>
                                 <input type='checkbox' class='form-check-input' value='checked' id='editContactFootageRequest' style='margin: 15px 50px;padding: 10px 10px;'>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-4'>
                                 <label class='form-check-label' for='editContactHealthCheck' style='padding-top:18px;'><strong>Health Checks</strong></label>
+                            </div>
+                            <div class='col-8'>
                                 <input type='checkbox' class='form-check-input' value='checked' id='editContactHealthCheck' style='margin: 15px 50px;padding: 10px 10px;'>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-4'>
+                                <label class='form-check-label' for='editContactReports' style='padding-top:18px;'><strong>Report Recipient</strong></label>
+                            </div>
+                            <div class='col-8'>
+                                <input type='checkbox' class='form-check-input' value='checked' id='editContactReports' style='margin: 15px 50px;padding: 10px 10px;'>
                             </div>
                         </div>
                     </div>
@@ -3224,7 +3281,7 @@ while ($engineerRow = mysqli_fetch_array($result)) {
 
 <!-- EDIT JOB REQUEST DIALOG -->
 <div class="modal" id="modalEditNewJobRequest" data-backdrop='static' >
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -3430,7 +3487,7 @@ if ($_SESSION['isInstaller'] == '0' && $_SESSION['isEngineer'] == '0') {
                             <div class='col-4'>
                                 <div class='input-group' id='bookingEditEquipmentWith'>
                                     <select id='editBookingLocation' name='bookingLocation' class='custom-select'>
-                                        <option value = "1">UK Mobile Installations Ltd</option>
+                                        <!-- <option value = "1">UK Mobile Installations Ltd</option> -->
                                         <option value = "2">Engineer</option>
                                         <option value = "3">Customer</option>
                                         <option value = "4">Not required</option>
@@ -3496,10 +3553,11 @@ while ($engineerRow = mysqli_fetch_array($result)) {
                                 <label class='control-label' style='padding-top:8px;'><h6><strong>Vehicle Details</strong></h6></label>
                             </div>
                             <div class='col-4'>
-                                <label class='control-label' style='padding-top:8px;'><strong>Old VRM (if applicable)</strong></label>
+                                <!-- <label class='control-label' style='padding-top:8px;'><strong>Old VRM (if applicable)</strong></label> -->
+                                <label class='control-label' style='padding-top:8px;'><strong>Vehicle Registration Mark</strong></label>
                             </div>
                             <div class='col-4'>
-                                <label class='control-label' style='padding-top:8px;'><strong>New/Current VRM</strong></label>
+
                             </div>
                         </div>
                          <div class='row' id='VRNEditListForJob'>
@@ -3507,10 +3565,12 @@ while ($engineerRow = mysqli_fetch_array($result)) {
                                 <label class='control-label' for='editJobOldVRN' style='padding-top:8px;'>This job</label>
                             </div>
                             <div class='col-4'>
-                                <select name='editJobOldVRN' id = 'editJobOldVRN' class='custom-select addJobTypeOldVRN'></select>
-                            </div>
-                            <div class='col-4'>
+                                <!-- <select name='editJobOldVRN' id = 'editJobOldVRN' class='custom-select addJobTypeOldVRN'></select> -->
                                 <select name='editJobVRN' id = 'editJobVRN' class='custom-select addJobTypeVRN'></select>
+                            </div>
+                            <div class='col-4' style='font-family: Charles-Wright-Bold'>
+                                <label style='height:30%; width=100%; background-color:#232F68; color: white; padding: 24px 2px; border:2px solid #232F68'><b>&nbsp;GB&nbsp;</b></label>
+                                <label id='jobRegistrationPlate' style='height:70%; width=100%; background-color:#f5bd38; color: dark-gray; padding:5px 10px; font-size: 32px; border: 1px solid gray;'></label>
                             </div>
                         </div>
                         <div class='row' style='padding-top: 8px;'>

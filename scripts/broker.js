@@ -235,11 +235,15 @@ $(document).on('show.bs.modal', '#modalAddNewBroker', function (event) {
  * on Partners >> Brokers page.
  */
 $(document).on('change', '#brokerNameSelection', function (event) {
+
     var dataToPost = {};
     var e = document.getElementById('brokerNameSelection');
+ 
     if (e.selectedIndex != -1) {
         dataToPost.brokerNumber = e.options[e.selectedIndex].value;
-        document.getElementById('editBrokerHide').value = dataToPost.brokerNumber;
+      document.getElementById('editBrokerHide').value = dataToPost.brokerNumber;
+        document.getElementById('brokerEditNumberC').innerHTML = dataToPost.brokerNumber;
+   
         $('#btnAddNewBroker').show();
         $.ajax({
             url: 'getBrokerDetails.php',
@@ -254,7 +258,7 @@ $(document).on('change', '#brokerNameSelection', function (event) {
                 document.getElementById('editBrokerAddress3').value = data['brokerAddress3'];
                 document.getElementById('editBrokerAddress4').value = data['brokerAddress4'];
                 document.getElementById('editBrokerAddress5').value = data['brokerAddress5'];
-                document.getElementById('brokerEditNumber').value = data['ID'];
+                document.getElementById('brokerEditNumberC').value = data['ID'];
                 $('#brokerContactListHolder').html(data['brokerContactTable']);
             },
             error: function () {

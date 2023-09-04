@@ -55,7 +55,7 @@ if ($invoiceApproved == "N/A") {
 $jobStatus = $_POST['jobStatus'];
 $jobType = $_POST['jobType'];
 $jobVRN = $_POST['jobVRN'];
-$oldVRN = $_POST['oldVRN'];
+// $oldVRN = $_POST['oldVRN'];
 if (isset($_POST['picReg'])) {
     $picRegistration = $_POST['picReg'];
 } else {
@@ -125,7 +125,7 @@ if ($pics['regPicDeviceDetails'] != $picDevice) {
 $sql = "UPDATE tblJobs SET ownerID='$customerID', date=NULLIF('$jobDateBooked',''), jobType='$jobType', VRN='$jobVRN', notes='$jobNotes', 
 status='$jobStatus', cameratypeid='$cameraType', OtherKitFlag='$otherKitFlag', PriorityIsUrgent='$jobPriority', JobRate='$jobRate', customerRate = '$customerJobRate',
 BookingContact='$jobContact', BookingEmail='$jobEmail', BookingTelephone='$jobPhone', BookingAddress='$jobInstallAddress', 
-EquipmentLocationID='$jobLocation', EngineerID=NULLIF('$jobEngineer',''), JobCompleteFlag='$jobComplete', TDHSignOff='$jobTDHComplete', regPicFilename=NULLIF('$picRegistration',''), regPicDeviceDetails=NULLIF('$picDevice',''), oldVRN=NULLIF('$oldVRN',''), jobInvoiced = '$jobIsInvoiced', monthlyInvoice='$monthlyIsInvoiced', approvedPayment='$invoiceIsApproved'  WHERE tblJobs.ID='$jobID'";
+EquipmentLocationID='$jobLocation', EngineerID=NULLIF('$jobEngineer',''), JobCompleteFlag='$jobComplete', TDHSignOff='$jobTDHComplete', regPicFilename=NULLIF('$picRegistration',''), regPicDeviceDetails=NULLIF('$picDevice',''), oldVRN=NULL, jobInvoiced = '$jobIsInvoiced', monthlyInvoice='$monthlyIsInvoiced', approvedPayment='$invoiceIsApproved'  WHERE tblJobs.ID='$jobID'";
 
 $result = mysqli_query($link, $sql);
 

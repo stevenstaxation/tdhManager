@@ -11,7 +11,7 @@ $(document).on('click', '#updateInsurerContact', function(event) {
     dataToPost.email = document.getElementById('insurerContactEmail').value;
     dataToPost.jobTitle = document.getElementById('insurerContactJobTitle').value;
     dataToPost.footageRec = document.getElementById('insurerContactFootageRequest').checked;
-    dataToPost.healthCheck = document.getElementById('insurerContactHealthCheck').checked;
+    // dataToPost.healthCheck = document.getElementById('insurerContactHealthCheck').checked;
     
     dataToPost.employeeOf = document.getElementById('insurerEditNumber').value;
    
@@ -48,7 +48,7 @@ $(document).on('click', '#updateEditInsurerContact', function(event) {
     dataToPost.email = document.getElementById('editInsurerContactEmail').value;
     dataToPost.jobTitle = document.getElementById('editInsurerContactJobTitle').value;
     dataToPost.footageRec = document.getElementById('editInsurerContactFootageRequest').checked;
-    dataToPost.healthCheck = document.getElementById('editInsurerContactHealthCheck').checked;
+    // dataToPost.healthCheck = document.getElementById('editInsurerContactHealthCheck').checked;
     dataToPost.employeeOf = document.getElementById('editInsurerContactHide').value;
 
     $.ajax({
@@ -105,11 +105,11 @@ function editInsurerContact(rowNumber) {
             } else {
                 document.getElementById('editInsurerContactFootageRequest').checked = false;
             }
-            if (arr[8] == 1) {
-                document.getElementById('editInsurerContactHealthCheck').checked = true;
-            } else {
-                document.getElementById('editInsurerContactHealthCheck').checked = false;
-            }
+            // if (arr[8] == 1) {
+            //     document.getElementById('editInsurerContactHealthCheck').checked = true;
+            // } else {
+            //     document.getElementById('editInsurerContactHealthCheck').checked = false;
+            // }
                             document.getElementById('insurerEditNumber').value  = arr[0];
             document.getElementById('editInsurerContactHide').value = arr[9];
 

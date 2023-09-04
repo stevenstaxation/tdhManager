@@ -24,7 +24,7 @@ echo $row['telephone'] . "^^^";
 echo $row['email'] . "^^^";
 echo $row['department'] . "^^^";
 echo $row['isFootageRecipient'] . "^^^";
-echo $row['isHealthCheck'] . "^^^";
+echo $row['isReporting'] . "^^^";
 echo $contactNumber . "^^^";
 
 ?>

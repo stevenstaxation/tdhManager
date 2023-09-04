@@ -23,6 +23,11 @@ if($_POST['healthCheck']=='true') {
 } else {
     $contactHealthCheck = 0;
 }
+if($_POST['reporting']=='true') {
+    $contactReporting = 1;
+} else {
+    $contactReporting = 0;
+}
 $contactCustomer = $_POST['employeeOf'];
 $errors = "";
 // rules
@@ -103,7 +108,7 @@ $contactTelephone = mysqli_real_escape_string($link,$contactTelephone);
 $contactEmail = mysqli_real_escape_string($link,$contactEmail);
 $contactJobTitle = mysqli_real_escape_string($link,$contactJobTitle);
 
- $sql = "INSERT INTO tblCustomerContact (businessID, firstName, lastName, mobileNo, telephone, email, jobTitle, isFootageRecipient, isHealthCheck) VALUES ('$currentCustomer','$contactFirstName', '$contactLastName', '$contactMobileNumber', '$contactTelephone', '$contactEmail', '$contactJobTitle','$contactFootage', '$contactHealthCheck')";
+ $sql = "INSERT INTO tblCustomerContact (businessID, firstName, lastName, mobileNo, telephone, email, jobTitle, isFootageRecipient, isHealthCheck, isReporting) VALUES ('$currentCustomer','$contactFirstName', '$contactLastName', '$contactMobileNumber', '$contactTelephone', '$contactEmail', '$contactJobTitle','$contactFootage', '$contactHealthCheck', '$contactReporting')";
 
 $result = mysqli_query($link, $sql);
 

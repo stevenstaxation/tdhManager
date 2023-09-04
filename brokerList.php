@@ -125,7 +125,7 @@ $returnString .= "
                                 <th class='text-center align-middle'>Telephone</th>
                                 <th class='align-middle' style='padding-left:3px;'>Email</th>
                                 <th class='text-center align-middle'>Footage</th>
-                                <th class='text-center align-middle'>Health Check</th>
+                                <th class='text-center align-middle'>Reports</th>
                                 <th class='text-center align-middle'>Edit</th>
                             </tr>
                         </thead>

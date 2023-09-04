@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     $(document).on('click', '#addBrokerContactButton', function() {
-        
+    
         if ($('#getBrokerSelect').val() != 0) {
             $('#modalAddNewBrokerContact').modal('show');
             $('#brokerEditNumberC').html($('#getBrokerSelect').val());
@@ -17,6 +17,7 @@ $(document).ready(function () {
         event.preventDefault();
         // collect user inputs
         var dataToPost = {};
+        // $('#brokerNameSelection').trigger('change');    // xxxxxx
         dataToPost.firstName = document.getElementById('brokerContactFirstName').value;
         dataToPost.lastName = document.getElementById('brokerContactLastName').value;
         dataToPost.mobileNumber = document.getElementById('brokerContactMobile').value;
@@ -24,14 +25,16 @@ $(document).ready(function () {
         dataToPost.email = document.getElementById('brokerContactEmail').value;
         dataToPost.department = document.getElementById('brokerContactDepartment').value;
         dataToPost.footageRec = document.getElementById('brokerContactFootageRequest').checked;
-        dataToPost.healthCheck = document.getElementById('brokerContactHealthCheck').checked;
+        dataToPost.reporting = document.getElementById('brokerContactReporting').checked;
+        
         dataToPost.employeeOf = document.getElementById('brokerEditNumberC').innerHTML;
-
+      
         $.ajax({
             url: "addBrokerContact.php",
             type: "POST",
             data: dataToPost,
             success: function (data) {
+          
                 if (data.includes('success')) {
                     $('#getClient').trigger('change');
                     $('#brokerNameSelection').trigger('change');
@@ -60,7 +63,7 @@ $(document).ready(function () {
         dataToPost.email = document.getElementById('editBrokerContactEmail').value;
         dataToPost.department = document.getElementById('editBrokerContactDepartment').value;
         dataToPost.footageRec = document.getElementById('editBrokerContactFootageRequest').checked;
-        dataToPost.healthCheck = document.getElementById('editBrokerContactHealthCheck').checked;
+        dataToPost.reporting = document.getElementById('editBrokerContactReports').checked;
         dataToPost.employeeOf = document.getElementById('editBrokerContactHide').value;
 
         $.ajax({
@@ -114,9 +117,9 @@ function editBrokerContact(rowNumber) {
                 document.getElementById('editBrokerContactFootageRequest').checked = false;
             }
             if (arr[8] == 1) {
-                document.getElementById('editBrokerContactHealthCheck').checked = true;
+                document.getElementById('editBrokerContactReports').checked = true;
             } else {
-                document.getElementById('editBrokerContactHealthCheck').checked = false;
+                document.getElementById('editBrokerContactReports').checked = false;
             }
             document.getElementById('brokerEditNumber').value = arr[0];
             document.getElementById('editBrokerContactHide').value = arr[9];

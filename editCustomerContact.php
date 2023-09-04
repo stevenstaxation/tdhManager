@@ -22,6 +22,7 @@ echo $row['email'] . "^^^";
 echo $row['jobTitle'] . "^^^";
 echo $row['isFootageRecipient'] . "^^^";
 echo $row['isHealthCheck'] . "^^^";
+echo $row['isReporting'] . "^^^";
 echo $contactNumber . "^^^";
 
 

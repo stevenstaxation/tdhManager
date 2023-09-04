@@ -28,16 +28,16 @@ $_SESSION['attempt'] = 0;
 
  <!-- POPPER -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  
+
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-    
+
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-   
+
     <!-- FONT AWESOME -->
     <script src="https://use.fontawesome.com/887b334360.js"></script>
     <link href="https://fonts.cdnfonts.com/css/uk-number-plate" rel="stylesheet">
@@ -52,19 +52,19 @@ $_SESSION['attempt'] = 0;
     <!-- SWEETALERT -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.2.2/js/dataTables.fixedHeader.min.js"></script>
-    <script src="https://cdn.datatables.net/plug-ins/1.11.5/api/fnGetColumnData.js"></script> 
-    
+    <script src="https://cdn.datatables.net/plug-ins/1.11.5/api/fnGetColumnData.js"></script>
+
    <!-- DATATABLES -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/fh-3.2.2/r-2.2.9/sb-1.3.2/sp-2.0.0/sl-1.3.4/sr-1.1.0/datatables.min.css"/>
-  
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/fh-3.2.2/r-2.2.9/sb-1.3.2/sp-2.0.0/sl-1.3.4/sr-1.1.0/datatables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/sl-1.3.4/datatables.min.css"/>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/sl-1.3.4/datatables.min.js"></script> 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/sl-1.3.4/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/colreorder/1.5.2/js/dataTables.colReorder.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/scroller/2.0.7/js/dataTables.scroller.js"></script>
@@ -80,16 +80,16 @@ $_SESSION['attempt'] = 0;
     <link rel='stylesheet' type='text/css' href='styles/bootstrap-combobox.css'>
     <link rel="stylesheet" type="text/css" href="styles/datatables.css">
     <link rel="stylesheet" type="text/css" href="styles/select2.css">
-    
-     
+
+
     <title>TDH Manager</title>
 
     <?php
-        $_SESSION['firstCustomer'] = 0;
-        $_SESSION['textColor'] = '#222222';
-        $_SESSION['renewalColor'] = '#ffffff';
-        $notRenewable = $_SESSION['renewalColor'];
-    ?>
+$_SESSION['firstCustomer'] = 0;
+$_SESSION['textColor'] = '#222222';
+$_SESSION['renewalColor'] = '#ffffff';
+$notRenewable = $_SESSION['renewalColor'];
+?>
 
 <script>
 
@@ -147,7 +147,7 @@ function purgeEventLog() {
         success: function(data) {
         }
     });
-}    
+}
 
 </script>
 
@@ -155,13 +155,13 @@ function purgeEventLog() {
 
 
 
-<BODY onload='setDarkMode(<?php echo $_SESSION['darkMode'] ?? FALSE;?>);purgeEventLog();'>
+<BODY onload='setDarkMode(<?php echo $_SESSION['darkMode'] ?? false; ?>);purgeEventLog();'>
 
    <div class='container-fluid'>
         <?php
-          
-            include 'navbar.php';
-        ?>
+
+include 'navbar.php';
+?>
     </div>
     <div id='IsDarkMode' style='visible: none'></div>
     <div id='accountInfo' class='container'></div>
@@ -180,7 +180,7 @@ function purgeEventLog() {
     <div id='hiddenJobSelector' style='display: none;'></div>
     <div id='hiddenVehicleNotesSelector' style='display: none;'></div>
     <div id='homeScreen' class='container'></div>
-    
+
 
 
 <script src='scripts/index.js'></script>
@@ -211,7 +211,7 @@ function purgeEventLog() {
 
     var pickedUp;
 
-    
+
     $(document).ready(function() {
 
         var dataToPost = {};
@@ -223,7 +223,7 @@ function purgeEventLog() {
                     $('#homeScreen').html(data);
                 }
             });
-      
+
             $('#homeScreen').show();
 
         //update alert number
@@ -254,11 +254,11 @@ function purgeEventLog() {
             }
         });
 
-       
+
         $('body').on('change', '#getRenewalTypeSelect', function() {
             var dataToPost = {};
             dataToPost.renewalTypeID = this.value;
-       
+
             $.ajax({
                 url: "updateRenewalTypeSelect.php",
                 type: "GET",
@@ -276,9 +276,9 @@ function purgeEventLog() {
             });
         })
 
-      
 
-  
+
+
 
         $(document).ready(function() {
           $('.willCollapse').click(function(event) {
@@ -316,10 +316,10 @@ function purgeEventLog() {
         }
         });
 
-     
 
 
-      
+
+
         $('#footageInfo').on('click', function() {
             swal ('Footage information not implemented yet','coming soon', 'info');
         });
@@ -351,13 +351,13 @@ function purgeEventLog() {
         $('#modalEditFootage').on('hidden.bs.modal', function() {
              $('#footageEditFileTableBodyBlock').html('');
             $(this).find('form').trigger('reset');
-        }); 
+        });
 
         $('#modalGetVRNLookup').on('hidden.bs.modal', function(event) {
             $('#VRNToFindMessage').html('');
             $('#VehicleLookupInfo').html('');
              $(this).find('form').trigger('reset');
-        });    
+        });
 
         $('#modalAddNewDevice').on('shown.bs.modal', function() {
             var ele = document.getElementById('customerName');
@@ -365,7 +365,7 @@ function purgeEventLog() {
                 document.getElementById('addOwnerID').value = ele.value;
             }
         });
-       
+
         $('#modalShowAlerts').on('shown.bs.modal', function() {
             $.ajax({
                 url: "alertModal.php",
@@ -378,9 +378,9 @@ function purgeEventLog() {
         });
     });
 
-   
 
- 
+
+
 
     function lookupAddress() {
         var dataToPost = {};
@@ -458,14 +458,14 @@ function purgeEventLog() {
             }
         });
     }
-  
+
 
 function printDiv() {
     var divToPrint = document.getElementById('filteredEventList');
     var popupWin = window.open('', '_blank', 'status=1,width=600,height=600');
     popupWin.document.open();
     popupWin.document.write('<html><body onload="window.print()" onafterprint="self.close()">' + "<div style='margin:50px; font-family: sans-serif'><h3><strong>TDHManager - Event Log print as at " + new Date() +"</strong></H3> " + divToPrint.innerHTML + '</div></html>');
-    popupWin.document.close();    
+    popupWin.document.close();
 }
 
 function printVRNLookup() {
@@ -473,7 +473,7 @@ function printVRNLookup() {
     var popupWin = window.open('', '_blank', 'status=1,width=600,height=600');
     popupWin.document.open();
     popupWin.document.write('<html><head></head><body onload="window.print()" onafterprint="self.close()">' + "<div style='margin: 50px;font-family: sans-serif'>" + divToPrint.innerHTML + '</div></html>');
-    popupWin.document.close();    
+    popupWin.document.close();
 }
 
 // function toggleGender(gender) {
@@ -517,9 +517,9 @@ function printVRNLookup() {
         var todaysDate = new Date();
         var renewalDate = new Date(e.target.value);
         var daysDiff = (renewalDate - todaysDate) / 86400000;
-       
+
         if (daysDiff <= 30) {
-            $('.showRenewalStatus').html("<img style='margin-left: 10px;width: 90%; height: 90%' src='images/red_warning_24.png'/>");     
+            $('.showRenewalStatus').html("<img style='margin-left: 10px;width: 90%; height: 90%' src='images/red_warning_24.png'/>");
         } else if (daysDiff <= 60) {
             $('.showRenewalStatus').html("<img style='margin-left: 10px;width: 90%; height: 90%' src='images/yellow_warning_24.png'/>");
         } else {
@@ -554,7 +554,7 @@ function printVRNLookup() {
         });
     }
 
-  
+
 
     function addNewIssue() {
         var dataToPost = {};
@@ -575,8 +575,8 @@ function printVRNLookup() {
                 if(!data){
                 $('#uploaded_image').html('');
                 $('#uploadScreenshot').removeAttr('src');
-                $('#modalAddIssue').modal('hide');     
-                $('#showIssueLog').trigger('click');           
+                $('#modalAddIssue').modal('hide');
+                $('#showIssueLog').trigger('click');
                 } else {
                     $('#issueRequestMessage').html(data);
                 }
@@ -616,7 +616,7 @@ function printVRNLookup() {
         dataToPost.issuePriority = document.getElementById('editIssuePriority').value;
         dataToPost.issueStatus = document.getElementById('editIssueStatus').value;
         dataToPost.issueDescription = document.getElementById('editIssueDescription').value;
-        
+
         $.ajax ({
             url: "updateIssue.php",
             timeout: 3000,
@@ -625,11 +625,11 @@ function printVRNLookup() {
             success: function(data) {
                 if (data.includes('success')) {
                 $('#modalEditIssue').modal('hide');
-                $('#showIssueLog').trigger('click');  
+                $('#showIssueLog').trigger('click');
                 } else {
                     $('#issueRequestMessage').html(data);
                 }
-            }, 
+            },
             error: function() {
 
             }
@@ -663,9 +663,13 @@ function printVRNLookup() {
                 } else {
                     document.getElementById('editContactHealthCheck').checked = false;
                 }
-
+                if (arr[9] == 1) {
+                    document.getElementById('editContactReports').checked = true;
+                } else {
+                    document.getElementById('editContactReports').checked = false;
+                }
                 document.getElementById('customerContactEditNumber').value = arr[0];
-                document.getElementById('contactEditNumber').value = arr[9];
+                document.getElementById('contactEditNumber').value = arr[10];
 
 
                 $('#modalEditContact').modal('show');
@@ -691,8 +695,8 @@ function printVRNLookup() {
                 document.getElementById('noteEditDate').value = arr[0].substring(0, arr[0].length - 3);
                 document.getElementById('noteEditText').value = arr[1];
                 document.getElementById('noteUserName').innerHTML = arr[7];
-               
-                
+
+
                 if (arr[2] == 1) {
                     document.getElementById('isImportantEditNote').checked = true;
                 } else {
@@ -717,7 +721,7 @@ function printVRNLookup() {
                     $('#isImportantEditNote').removeClass('disabled');
                     $('#createEditAlert').removeAttr("disabled");
                     $('#createEditAlert').removeClass('disabled');
-                    
+
                 } else {
                     $('#updateCustomerNoteEdit').attr("disabled", true);
                     $('#updateCustomerNoteEdit').addClass('disabled');
@@ -920,11 +924,6 @@ function getAlerts($link)
 }
 
 require_once 'modals.php';
-
-
-
-
-
 
 ?>
 

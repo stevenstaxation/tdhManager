@@ -214,6 +214,7 @@ function deleteCustomer() {
  // CUSTOMER CONTACT SCRIPTS
     // Update new
     $(document).on('click', '#updateCustomerContact', function(event) {
+   
         // prevent default PHP processing
         "use strict";
         event.preventDefault();
@@ -227,6 +228,8 @@ function deleteCustomer() {
         dataToPost.jobTitle = document.getElementById('contactJobTitle').value;
         dataToPost.footageRec = document.getElementById('contactFootageRequest').checked;
         dataToPost.healthCheck = document.getElementById('contactHealthCheck').checked;
+        dataToPost.reporting = document.getElementById('contactReports').checked;
+        
 
         $.ajax({
             url: "addCustomerContact.php",
@@ -316,6 +319,8 @@ function deleteCustomer() {
         dataToPost.contactJobTitle = document.getElementById('editContactJobTitle').value;
         dataToPost.contactFootageRecipient = document.getElementById('editContactFootageRequest').checked;
         dataToPost.contactHealthCheck = document.getElementById('editContactHealthCheck').checked;
+        dataToPost.contactReporting = document.getElementById('editContactReports').checked;
+        
         dataToPost.customerNumber = document.getElementById('customerContactEditNumber').value;
         dataToPost.contactNumber = document.getElementById('contactEditNumber').value;
 
@@ -400,7 +405,7 @@ function deleteCustomer() {
                     $('#modalGetCustomerAndVRN').modal('hide');
                     $('#getClient').trigger('change');
                 } else {
-console.log(data);
+
                     // swal ("Error", data, "warning");
                 }
             }

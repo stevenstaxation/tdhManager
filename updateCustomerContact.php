@@ -13,6 +13,7 @@ $email = $_POST['contactEmail'];
 $jobTitle = $_POST['contactJobTitle'];
 $footageRecipient = $_POST['contactFootageRecipient'];
 $healthCheck = $_POST['contactHealthCheck'];
+$reporting = $_POST['contactReporting'];
 $customerNumber = $_POST['customerNumber'];
 $contactNumber = $_POST['contactNumber'];
 
@@ -26,6 +27,11 @@ if($healthCheck=='true') {
     $healthCheck = 1;
 } else {
     $healthCheck = 0;
+}
+if($reporting=='true') {
+    $reporting = 1;
+} else {
+    $reporting = 0;
 }
 $errors = "";
 
@@ -107,7 +113,7 @@ if ($errors) {
     exit();
 }
 
-$sql = "UPDATE tblCustomerContact SET businessID = '$customerNumber', firstName='$firstName', lastName='$lastName', mobileNo='$mobile', telephone='$telephone', email='$email', jobTitle='$jobTitle', isFootageRecipient='$footageRecipient', isHealthCheck='$healthCheck' WHERE tblCustomerContact.ID = '$contactNumber'";
+$sql = "UPDATE tblCustomerContact SET businessID = '$customerNumber', firstName='$firstName', lastName='$lastName', mobileNo='$mobile', telephone='$telephone', email='$email', jobTitle='$jobTitle', isFootageRecipient='$footageRecipient', isHealthCheck='$healthCheck', isReporting='$reporting' WHERE tblCustomerContact.ID = '$contactNumber'";
 
 $result = mysqli_query($link, $sql);
 
