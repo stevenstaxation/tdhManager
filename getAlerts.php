@@ -1,5 +1,5 @@
  <?php
-session_start();
+// session_start();
 include('connect.php');
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
@@ -24,10 +24,10 @@ $xCount = [];
 $totalCount = '';
 if (!empty($_SESSION['Alerts'])) {
     foreach ($_SESSION['Alerts'] as $alert) {
-        $xCount[$alert['alertType']] ++;
+        $xCount[$alert['alertType']] += 1;
     }
 }
-if (!empty($xCount)) {
+if (count($xCount)==4) {
     $totalCount = $xCount[1] . "^^^" . $xCount[2] . "^^^" . $xCount[3] . "^^^" . $xCount[4];
 } else {
     $totalCount = 0 . "^^^" . 0 . "^^^" . 0 . "^^^" . 0;

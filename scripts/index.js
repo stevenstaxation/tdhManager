@@ -20,7 +20,7 @@ $('#signUpForm').submit(function (event) {
 
 
     $.ajax({
-        url: "../php/login/register.php",
+        url: "register.php",
         type: "POST",
         data: dataToPost,
         success: function (data) {
@@ -51,7 +51,7 @@ $('#logInForm').submit(function (event) {
     var dataToPost = $(this).serializeArray();
      
     $.ajax({
-        url: "../php/login/logInCheck.php",
+        url: "logInCheck.php",
         type: "POST",
         data: dataToPost,
         success: function (data) {

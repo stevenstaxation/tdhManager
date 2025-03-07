@@ -9,7 +9,37 @@ $returnString = "<div style='margin-top:50px; margin=left:10px;'><h3><strong>Pre
 
 $returnString .= "
 <form id='preferencesForm'>
+
     <div class='row'>
+        <div class='col-md-6 col-lg-4 col-xl-3'>
+            <div id='deviceTypesList' class='settings-dialog'>
+                <h6>
+                    <strong style='margin-top:10px;'>Platforms</strong>
+                </h6>";
+
+$sql = 'SELECT * FROM tblPlatform ORDER BY Name ASC';
+$result = mysqli_query($link,$sql);
+
+$returnString .= "<select name='platformList' id='platformList' size='8' style='width:100%'>";
+while ($row = mysqli_fetch_array($result)) {
+    $returnString .= "<option value='" . $row['ID'] . "'>" . $row['Name'] . "</option>";
+}
+$returnString .="</select>
+                <hr color=#3276B1>
+
+                <div class='input-group flex'>
+                    <input type='text' id='textAddOrUpdatePlatform' style='width:100%' placeholder='Platform description...'>
+                </div>
+
+                <div class='btn-group' style='display : flex; margin: 5px;'>
+                    <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdatePlatform' disabled>Add</button>
+                    <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdatePlatform' disabled>Cancel</button>
+                    <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deletePlatform' disabled>Delete</button>
+                </div>
+                <div id='platformErrorBox'></div>
+            </div>
+        </div>
+   
         <div class='col-md-6 col-lg-4 col-xl-3'>
             <div id='deviceTypesList' class='settings-dialog'>
                 <h6>
@@ -219,37 +249,6 @@ $returnString .="</select>
     </div>
 </div>";
 
-// <div class='col-md-6 col-lg-4 col-xl-3'>
-
-//     <div id='platformList' class='settings-dialog'>
-//                 <h6>
-//                     <strong style='margin-top:10px;'>Platform Descriptions</strong>
-//                 </h6>";
-         
-//                     $sql = 'SELECT * FROM tblPlatform ORDER BY Name ASC';
-//                     $result = mysqli_query($link,$sql);
-
-//                     $returnString .= "<select name='platformNameList' id='platformNameList' size='8' style='width:100%;'>";
-//                     while ($row = mysqli_fetch_array($result)) {
-//                         $returnString .= "<option value='" . $row['ID'] . "'>" . $row['Name'] . "</option>";
-//                     }
-//                     $returnString .="</select>
-
-//         <hr color=#3276B1>
-//         <div class='input-group flex'>
-//             <input type='text' id='textAddOrUpdatePlatform' style='width:100%' placeholder='Platform name...'>
-//         </div>
-   
-//         <div class='btn-group' style='display : flex; margin: 5px;'>
-//             <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdatePlatformType' data-toggle='modal' data-target='#modalAddNewPlatform' disabled>Add</button>
-//             <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdatePlatform'>Cancel</button>
-//             <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deletePlatform' disabled>Delete</button>
-//         </div>
-//         <div id='platformErrorBox'></div>
-//     </div>
-// </div>
-
-
 $returnString .="
 <div class='col-md-6 col-lg-4 col-xl-3'>
 
@@ -375,7 +374,6 @@ $returnString .= "
 </form>
 ";
 
-// <center><input type='checkbox' id='isFootageRequest' onclick='return false;' name='isFootageRequest' " . ($contact['isFootageRecipient'] == 1 ? 'checked' : '')." value='1'/>&nbsp;</center></td>
 
     echo $returnString;
 

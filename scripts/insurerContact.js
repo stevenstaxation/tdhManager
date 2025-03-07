@@ -1,6 +1,11 @@
-$(document).on('click', '#updateInsurerContact', function(event) {
+"use strict";
+
+$(document).ready(function () {
+
+
+
+$(document).on("click", "#updateInsurerContact", function(event) {
     // prevent default PHP processing
-    "use strict";
     event.preventDefault();
     // collect user inputs
     var dataToPost = {};
@@ -11,10 +16,7 @@ $(document).on('click', '#updateInsurerContact', function(event) {
     dataToPost.email = document.getElementById('insurerContactEmail').value;
     dataToPost.jobTitle = document.getElementById('insurerContactJobTitle').value;
     dataToPost.footageRec = document.getElementById('insurerContactFootageRequest').checked;
-    // dataToPost.healthCheck = document.getElementById('insurerContactHealthCheck').checked;
-    
-    dataToPost.employeeOf = document.getElementById('insurerEditNumber').value;
-   
+    dataToPost.employeeOf = document.getElementById('insurerEditNumber').innerHTML ||  document.getElementById('editInsurerHide').innerHTML ;
 
     $.ajax({
         url: "addInsurerContact.php",
@@ -36,9 +38,11 @@ $(document).on('click', '#updateInsurerContact', function(event) {
 });
 
 $(document).on('click', '#updateEditInsurerContact', function(event) {
-    // prevent default PHP processing
-    "use strict";
+ 
+
+
     event.preventDefault();
+    
     // collect user inputs
     var dataToPost = {};
     dataToPost.firstName = document.getElementById('editInsurerContactFirstName').value;
@@ -49,7 +53,7 @@ $(document).on('click', '#updateEditInsurerContact', function(event) {
     dataToPost.jobTitle = document.getElementById('editInsurerContactJobTitle').value;
     dataToPost.footageRec = document.getElementById('editInsurerContactFootageRequest').checked;
     // dataToPost.healthCheck = document.getElementById('editInsurerContactHealthCheck').checked;
-    dataToPost.employeeOf = document.getElementById('editInsurerContactHide').value;
+    dataToPost.employeeOf = document.getElementById('editInsurerContactHide').innerHTML;
 
     $.ajax({
         url: "updateInsurerContact.php",
@@ -74,6 +78,8 @@ $(document).on('click', '#updateEditInsurerContact', function(event) {
 $(document).on('show.bs.modal', '#modalAddNewInsurerContact' , function(event) {
     var callerID = $(event.relatedTarget).data('caller');
     $('#addInsureContactCaller').val(callerID);
+    $(this).find('form').trigger('reset');
+
 });
 
  $(document).on('show.bs.modal', '#modalEditInsurerContact' , function(event) {
@@ -82,7 +88,12 @@ $(document).on('show.bs.modal', '#modalAddNewInsurerContact' , function(event) {
 
 
 
+
+});
+
 function editInsurerContact(rowNumber) {
+   
+
     var dataToPost = {};
     dataToPost.contactID = rowNumber;
 
@@ -111,8 +122,9 @@ function editInsurerContact(rowNumber) {
             //     document.getElementById('editInsurerContactHealthCheck').checked = false;
             // }
                             document.getElementById('insurerEditNumber').value  = arr[0];
-            document.getElementById('editInsurerContactHide').value = arr[9];
+            document.getElementById('editInsurerContactHide').innerHTML = rowNumber;
 
+         
 
             $('#modalEditInsurerContact').modal('show');
         },
@@ -122,12 +134,11 @@ function editInsurerContact(rowNumber) {
     });
 }
 
-
 function deleteInsurerContact() {
     var dataToPost = {};
     dataToPost.contactFirstName = document.getElementById('editInsurerContactFirstName').value;
     dataToPost.contactLastName = document.getElementById('editInsurerContactLastName').value;
-    dataToPost.contactNumber = document.getElementById('editInsurerContactHide').value;
+    dataToPost.contactNumber = document.getElementById('editInsurerContactHide').innerHTML;
 
    
     new swal ({

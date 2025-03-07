@@ -8,7 +8,7 @@ if (isset($_GET['email']) && isset($_GET['activationKey'])) {
     $sql = "SELECT * FROM tblInvites WHERE email='" . $_GET['email'] . "' AND activationKey='" . $_GET['activationKey'] . "'";
     $result = mysqli_query($link, $sql);
 
-    if (!result || mysqli_num_rows($result)!=1) {
+    if (!$result || mysqli_num_rows($result)!=1) {
         echo "You are not authorised to access this page";
         exit();
     }  

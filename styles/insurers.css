@@ -1,0 +1,11 @@
+.insurerFormGroup {
+  display: flex;
+  align-items: center;
+}
+.insurerFormGroup > label {
+  width: 40%;
+  padding-top: 6px;
+}
+.insurerFormGroup > input[type="text"] {
+  font-size: 80%;
+}

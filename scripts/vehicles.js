@@ -3,8 +3,6 @@ $(document).on('click', '#vehicleFilterClicked', function (event) {
     event.preventDefault();
     var dataToPost = {};
     dataToPost.FilterVRN = document.getElementById('VRNToLookup').value;
-    //   dataToPost.FilterVRN = dataToPost.FilterVRN.replace(/ /g,'').toUpperCase();
-    //   dataToPost.FilterTDHNumber = document.getElementById('TDHToLookup').value;
     dataToPost.FilterCustomer = document.getElementById('getCustomerSelect').value;
     dataToPost.FilterInsurer = document.getElementById('getInsurerSelect').value;
 
@@ -15,7 +13,6 @@ $(document).on('click', '#vehicleFilterClicked', function (event) {
         success: function (data) {
             dataToPost.SQLFilter = data;
 
-
             $.ajax({
                 url: "vehicleList.php",
                 type: "POST",
@@ -24,19 +21,19 @@ $(document).on('click', '#vehicleFilterClicked', function (event) {
                     $('#vehicleList').html(data);
                 },
                 error: function () {
-                    $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact the author.</div>");
+                    $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact TDH Manager Support.</div>");
                 }
             });
         },
         error: function () {
-
+            $('#errorBox').html("<div class='alert alert-warning'>There was an error updating, try again later or contact TDH Manager Support.</div>");
         }
     });
 });
 
 $(document).on('click', '#editVehicleInstalldate', function (event) {
     event.preventDefault();
-    if (document.getElementById('editVehicleInstalldate').value=='') {
+    if (!document.getElementById('editVehicleInstalldate').value) {
         let thisDay = new Date();
         thisDay = thisDay.toISOString().substring(0, 10);
         document.getElementById('editVehicleInstalldate').value = thisDay;
@@ -195,7 +192,7 @@ function addNewVehicle() {
     // dataToPost.addDescription = document.getElementById('addVehicleAddDescription').value;
 
     $.ajax({
-        url: 'addNewVehicle.php',
+        url: '../php/vehicles/addNewVehicle.php',
         type: "POST",
         data: dataToPost,
         success: function (data) {
@@ -204,11 +201,10 @@ function addNewVehicle() {
                 $('#getClient').trigger('change');
             } else {
                 $('#addVehicleErrorBox').html(data);
-
-            }
+           }
         },
-        error: function () {
-
+        error: function (err) {
+            console.log(err);
         }
     });
 }
@@ -353,7 +349,6 @@ function editCurrentVehicle() {
                 } else {
                     $('#getClient').trigger('change');
                     var newID = parseInt(data.replace('success', ''), 10);
-                    console.log("cust: " + newID);
                     showCustomers(newID);
                 }
             } else {
@@ -485,3 +480,4 @@ $(document).on('click', '#vehicleListTable tbody td', function () {
     let clip = dt.column(colIndex).data();
     copyArrayToClipboard(clip);
 });
+

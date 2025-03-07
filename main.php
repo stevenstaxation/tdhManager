@@ -16,7 +16,7 @@ $_SESSION['attempt'] = 0;
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- JQUERY -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <!-- JQUERY UI -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
@@ -26,12 +26,13 @@ $_SESSION['attempt'] = 0;
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
 
- <!-- POPPER -->
+    <!-- POPPER -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
 
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,22 +58,22 @@ $_SESSION['attempt'] = 0;
     <script src="https://cdn.datatables.net/fixedheader/3.2.2/js/dataTables.fixedHeader.min.js"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.11.5/api/fnGetColumnData.js"></script>
 
-   <!-- DATATABLES -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/fh-3.2.2/r-2.2.9/sb-1.3.2/sp-2.0.0/sl-1.3.4/sr-1.1.0/datatables.min.css"/>
+    <!-- DATATABLES -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/fh-3.2.2/r-2.2.9/sb-1.3.2/sp-2.0.0/sl-1.3.4/sr-1.1.0/datatables.min.css" />
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/b-html5-2.2.2/b-print-2.2.2/fh-3.2.2/r-2.2.9/sb-1.3.2/sp-2.0.0/sl-1.3.4/sr-1.1.0/datatables.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/sl-1.3.4/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/sl-1.3.4/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/sl-1.3.4/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/colreorder/1.5.2/js/dataTables.colReorder.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/scroller/2.0.7/js/dataTables.scroller.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/2.0.7/css/scroller.bootstrap5.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/scroller/2.0.7/css/scroller.bootstrap5.css" />
 
     <!-- SELECT2 PLUGIN -->
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="styles/styles.css">
     <link rel="stylesheet" type="text/css" href="styles/custombootstrap.css">
@@ -80,76 +81,76 @@ $_SESSION['attempt'] = 0;
     <link rel='stylesheet' type='text/css' href='styles/bootstrap-combobox.css'>
     <link rel="stylesheet" type="text/css" href="styles/datatables.css">
     <link rel="stylesheet" type="text/css" href="styles/select2.css">
+    <link rel="stylesheet" type="text/css" href="styles/insurers.css">
+    
 
 
     <title>TDH Manager</title>
 
     <?php
-$_SESSION['firstCustomer'] = 0;
-$_SESSION['textColor'] = '#222222';
-$_SESSION['renewalColor'] = '#ffffff';
-$notRenewable = $_SESSION['renewalColor'];
-?>
+    $_SESSION['firstCustomer'] = 0;
+    $_SESSION['textColor'] = '#222222';
+    $_SESSION['renewalColor'] = '#ffffff';
+    $notRenewable = $_SESSION['renewalColor'];
+    ?>
 
-<script>
+    <script>
+        $(document).ready(function() {
+            $('.hasToolTip').tooltip({
+                delay: {
+                    "show": 0,
+                    "hide": 0
+                },
+                animation: false,
+                html: true
+            });
+        });
 
-$(document).ready(function(){
-  $('.hasToolTip').tooltip(
-    {
-        delay: { "show": 0, "hide": 0 },
-        animation: false,
-        html: true
-    }
-  );
-});
 
+        function setDarkMode(colMode) {
+            if (colMode == 1) {
+                $("body").removeClass("dark");
+                document.getElementById('companyLogo').src = "images/logo_swirl.png";
+            } else if (colMode == 0) {
+                $("body").addClass("dark");
+                document.getElementById('companyLogo').src = "images/logo_swirl_black.png";
+            } else {
+                if ($("body").hasClass("dark")) {
+                    $("body").removeClass("dark");
+                    document.getElementById('companyLogo').src = "images/logo_swirl.png";
+                } else {
+                    $("body").addClass("dark");
+                    document.getElementById('companyLogo').src = "images/logo_swirl_black.png";
+                }
+            }
 
-function setDarkMode(colMode) {
-    if (colMode==1) {
-        $("body").removeClass("dark");
-        document.getElementById('companyLogo').src = "images/logo_swirl.png";
-    } else if (colMode==0) {
-        $("body").addClass("dark");
-        document.getElementById('companyLogo').src = "images/logo_swirl_black.png";
-    } else {
-        if ($("body").hasClass("dark")) {
-            $("body").removeClass("dark");
-            document.getElementById('companyLogo').src = "images/logo_swirl.png";
-        } else {
-            $("body").addClass("dark");
-            document.getElementById('companyLogo').src = "images/logo_swirl_black.png";
+            $("#customerContactTable").DataTable().draw();
+            $("#customerNotesTable").DataTable().draw();
+            $("#insurerContactTable").DataTable().draw();
+            $("#footageTable").DataTable().draw();
+            $("#deviceListTable").DataTable().draw();
+            $("#footageListTable").DataTable().draw();
+            $('#jobsTable').DataTable().draw();
+            $("#jobListTable").DataTable().draw();
+            $("#issueListTable").DataTable().draw();
+            $("#renewalsListTable").DataTable().draw();
+            $("#vehicleListTable").DataTable().draw();
+            $("#vehiclesTable").DataTable().draw();
+            $("#devicesTable").DataTable().draw();
+
         }
-    }
 
-    $("#customerContactTable").DataTable().draw();
-    $("#customerNotesTable").DataTable().draw();
-    $("#insurerContactTable").DataTable().draw();
-    $("#footageTable").DataTable().draw();
-    $("#deviceListTable").DataTable().draw();
-    $("#footageListTable").DataTable().draw();
-    $('#jobsTable').DataTable().draw();
-    $("#jobListTable").DataTable().draw();
-    $("#issueListTable").DataTable().draw();
-    $("#renewalsListTable").DataTable().draw();
-    $("#vehicleListTable").DataTable().draw();
-    $("#vehiclesTable").DataTable().draw();
-    $("#devicesTable").DataTable().draw();
-
-}
-
-function purgeEventLog() {
-    var dataToPost={};
-    dataToPost.daysToAdd = 365;
-    $.ajax({
-        url: 'purgeEventLog.php',
-        type: 'POST',
-        data: dataToPost,
-        success: function(data) {
+        function purgeEventLog() {
+            var dataToPost = {};
+            dataToPost.daysToAdd = 365;
+            $.ajax({
+                url: 'purgeEventLog.php',
+                type: 'POST',
+                data: dataToPost,
+                success: function(data) {}
+            });
         }
-    });
-}
-
-</script>
+    </script>
 
 </HEAD>
 
@@ -157,13 +158,13 @@ function purgeEventLog() {
 
 <BODY onload='setDarkMode(<?php echo $_SESSION['darkMode'] ?? false; ?>);purgeEventLog();'>
 
-   <div class='container-fluid'>
+    <div class='container-fluid'>
         <?php
 
-include 'navbar.php';
-?>
+        include 'navbar.php';
+        ?>
     </div>
-    <div id='IsDarkMode' style='visible: none'></div>
+    <div id='IsDarkMode' style='display: none'></div>
     <div id='accountInfo' class='container'></div>
     <div id='customerSelect' class='container'></div>
     <div id='customerInfo' class='container-fluid'></div>
@@ -183,48 +184,50 @@ include 'navbar.php';
 
 
 
-<script src='scripts/index.js'></script>
-<script src='scripts/clickEvents.js'></script>
-<script src='scripts/customers.js'></script>
-<script src='scripts/insurer.js'></script>
-<script src='scripts/insurerContact.js'></script>
-<script src='scripts/installer.js'></script>
-<script src='scripts/installerContact.js'></script>
-<script src='scripts/supplier.js'></script>
-<script src='scripts/supplierContact.js'></script>
-<script src='scripts/broker.js'></script>
-<script src='scripts/brokerContact.js'></script>
-<script src='scripts/others.js'></script>
-<script src='scripts/othersContact.js'></script>
-<script src='scripts/devices.js'></script>
-<script src='scripts/footage.js'></script>
-<script src='scripts/vehicles.js'></script>
-<script src='scripts/jobs.js'></script>
-<script src='scripts/uploads.js'></script>
-<script src='scripts/menus.js'></script>
-<script src='scripts/users.js'></script>
-<script src='scripts/globals.js'></script>
+    <script src='scripts/index.js'></script>
+    <script src='scripts/clickEvents.js'></script>
+    <script src='scripts/customers.js'></script>
+    <script src='scripts/insurer.js'></script>
+    <script src='scripts/installer.js'></script>
+    <script src='scripts/installerContact.js'></script>
+    <script src='scripts/supplier.js'></script>
+    <script src='scripts/supplierContact.js'></script>
+    <script src='scripts/broker.js'></script>
+    <script src='scripts/brokerContact.js'></script>
+    <script src='scripts/others.js'></script>
+    <script src='scripts/othersContact.js'></script>
+    <script src='scripts/devices.js'></script>
+    <script src='scripts/footage.js'></script>
+    <script src='scripts/vehicles.js'></script>
+    <script src='scripts/jobs.js'></script>
+    <script src='scripts/uploads.js'></script>
+    <script src='scripts/menus.js'></script>
+    <script src='scripts/users.js'></script>
+    <script src='scripts/globals.js'></script>
+    <script src='scripts/insurerContact.js'></script>
+
 
 </BODY>
 
 <script>
-
     var pickedUp;
 
 
     $(document).ready(function() {
 
         var dataToPost = {};
-            $.ajax({
-                url: 'getHomeScreen.php',
-                type: 'POST',
-                data: dataToPost,
-                success: function(data) {
-                    $('#homeScreen').html(data);
-                }
-            });
+        $.ajax({
+            url: 'getHomeScreen.php',
+            type: 'POST',
+            data: dataToPost,
+            success: function(data) {
+                $('#homeScreen').html(data);
+            }
+        });
 
-            $('#homeScreen').show();
+        $('#homeScreen').show();
+
+
 
         //update alert number
         $.ajax({
@@ -277,43 +280,40 @@ include 'navbar.php';
         })
 
 
-
-
-
         $(document).ready(function() {
-          $('.willCollapse').click(function(event) {
-             $('.navbar-collapse').collapse('hide');
+            $('.willCollapse').click(function(event) {
+                $('.navbar-collapse').collapse('hide');
             });
         });
 
         $(document).on('click', '.isAdministrator', function() {
-          if ($(this).val() != 1) {
-            $(this).prop("value", 1);
-          } else {
-            $(this).prop("value", 0);
-        }
+            if ($(this).val() != 1) {
+                $(this).prop("value", 1);
+            } else {
+                $(this).prop("value", 0);
+            }
         });
         $(document).on('click', '.isInstaller', function() {
-          if ($(this).val() != 1) {
-            $(this).prop("value", 1);
-          } else {
-            $(this).prop("value", 0);
-        }
+            if ($(this).val() != 1) {
+                $(this).prop("value", 1);
+            } else {
+                $(this).prop("value", 0);
+            }
         });
         $(document).on('click', '.isEngineer', function() {
-          if ($(this).val() != 1) {
-            $(this).prop("value", 1);
-          } else {
-            $(this).prop("value", 0);
-        }
+            if ($(this).val() != 1) {
+                $(this).prop("value", 1);
+            } else {
+                $(this).prop("value", 0);
+            }
         });
 
         $(document).on('click', '.isActivated', function() {
-          if ($(this).val() != 1) {
-            $(this).prop("value", 1);
-          } else {
-            $(this).prop("value", 0);
-        }
+            if ($(this).val() != 1) {
+                $(this).prop("value", 1);
+            } else {
+                $(this).prop("value", 0);
+            }
         });
 
 
@@ -321,10 +321,10 @@ include 'navbar.php';
 
 
         $('#footageInfo').on('click', function() {
-            swal ('Footage information not implemented yet','coming soon', 'info');
+            swal('Footage information not implemented yet', 'coming soon', 'info');
         });
         $('#footageRemove').on('click', function() {
-            swal ('Footage removal not implemented yet','coming soon', 'info');
+            swal('Footage removal not implemented yet', 'coming soon', 'info');
         });
 
         $('#modalAddNewNote').on('hidden.bs.modal', function() {
@@ -349,14 +349,14 @@ include 'navbar.php';
 
 
         $('#modalEditFootage').on('hidden.bs.modal', function() {
-             $('#footageEditFileTableBodyBlock').html('');
+            $('#footageEditFileTableBodyBlock').html('');
             $(this).find('form').trigger('reset');
         });
 
         $('#modalGetVRNLookup').on('hidden.bs.modal', function(event) {
             $('#VRNToFindMessage').html('');
             $('#VehicleLookupInfo').html('');
-             $(this).find('form').trigger('reset');
+            $(this).find('form').trigger('reset');
         });
 
         $('#modalAddNewDevice').on('shown.bs.modal', function() {
@@ -387,7 +387,7 @@ include 'navbar.php';
         dataToPost.building = document.getElementById('addressLookup').value;
         dataToPost.postcode = document.getElementById('addressLookup2').value;
         dataToPost.postcode = dataToPost.postcode.toUpperCase();
-        dataToPost.postcode = dataToPost.postcode.replace(" ","");
+        dataToPost.postcode = dataToPost.postcode.replace(" ", "");
 
         $.ajax({
             url: 'addressLookup.php',
@@ -395,7 +395,7 @@ include 'navbar.php';
             type: 'POST',
             success: function(data) {
                 data = $.parseJSON(data);
-                if (data!=null) {
+                if (data != null) {
                     document.getElementById('custAddressLine1').value = dataToPost.building + ' ' + data['route'];
                     document.getElementById('custAddressLine1').style.borderColor = 'red';
                     document.getElementById('custAddressLine2').value = ''
@@ -412,9 +412,8 @@ include 'navbar.php';
                     window.alert('Address not found for postcode ' + dataToPost.postcode);
                 }
             },
-            error: function() {
-            }
-          });
+            error: function() {}
+        });
 
     }
 
@@ -460,31 +459,31 @@ include 'navbar.php';
     }
 
 
-function printDiv() {
-    var divToPrint = document.getElementById('filteredEventList');
-    var popupWin = window.open('', '_blank', 'status=1,width=600,height=600');
-    popupWin.document.open();
-    popupWin.document.write('<html><body onload="window.print()" onafterprint="self.close()">' + "<div style='margin:50px; font-family: sans-serif'><h3><strong>TDHManager - Event Log print as at " + new Date() +"</strong></H3> " + divToPrint.innerHTML + '</div></html>');
-    popupWin.document.close();
-}
+    function printDiv() {
+        var divToPrint = document.getElementById('filteredEventList');
+        var popupWin = window.open('', '_blank', 'status=1,width=600,height=600');
+        popupWin.document.open();
+        popupWin.document.write('<html><body onload="window.print()" onafterprint="self.close()">' + "<div style='margin:50px; font-family: sans-serif'><h3><strong>TDHManager - Event Log print as at " + new Date() + "</strong></H3> " + divToPrint.innerHTML + '</div></html>');
+        popupWin.document.close();
+    }
 
-function printVRNLookup() {
-    var divToPrint = document.getElementById('VehicleLookupInfo');
-    var popupWin = window.open('', '_blank', 'status=1,width=600,height=600');
-    popupWin.document.open();
-    popupWin.document.write('<html><head></head><body onload="window.print()" onafterprint="self.close()">' + "<div style='margin: 50px;font-family: sans-serif'>" + divToPrint.innerHTML + '</div></html>');
-    popupWin.document.close();
-}
+    function printVRNLookup() {
+        var divToPrint = document.getElementById('VehicleLookupInfo');
+        var popupWin = window.open('', '_blank', 'status=1,width=600,height=600');
+        popupWin.document.open();
+        popupWin.document.write('<html><head></head><body onload="window.print()" onafterprint="self.close()">' + "<div style='margin: 50px;font-family: sans-serif'>" + divToPrint.innerHTML + '</div></html>');
+        popupWin.document.close();
+    }
 
-// function toggleGender(gender) {
-//     if (gender == 'male') {
-//         $('#gender_radio').html("<a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('female')>Female</a>");
-//         $('#genderHidden').val('male');
-//     } else {
-//         $('#gender_radio').html("<a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('female')>Female</a>");
-//         $('#genderHidden').val('female');
-//     }
-// }
+    // function toggleGender(gender) {
+    //     if (gender == 'male') {
+    //         $('#gender_radio').html("<a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('female')>Female</a>");
+    //         $('#genderHidden').val('male');
+    //     } else {
+    //         $('#gender_radio').html("<a class='btn btn-primary' style='background-color: white; color: #3276B1' onclick=toggleGender('male')>Male</a><a class='btn btn-primary' style='background-color: #3276B1; color: white' onclick=toggleGender('female')>Female</a>");
+    //         $('#genderHidden').val('female');
+    //     }
+    // }
 
     function showMyAccount() {
         var dataToPost = {};
@@ -564,19 +563,19 @@ function printVRNLookup() {
         dataToPost.issueFilename = $('#uploadScreenshot').attr('src');
 
         if (!dataToPost.issueFilename) {
-            dataToPost.issueFilename='';
+            dataToPost.issueFilename = '';
         }
-        $.ajax ({
+        $.ajax({
             url: "addNewIssue.php",
             timeout: 30000,
             data: dataToPost,
             type: "POST",
             success: function(data) {
-                if(!data){
-                $('#uploaded_image').html('');
-                $('#uploadScreenshot').removeAttr('src');
-                $('#modalAddIssue').modal('hide');
-                $('#showIssueLog').trigger('click');
+                if (!data) {
+                    $('#uploaded_image').html('');
+                    $('#uploadScreenshot').removeAttr('src');
+                    $('#modalAddIssue').modal('hide');
+                    $('#showIssueLog').trigger('click');
                 } else {
                     $('#issueRequestMessage').html(data);
                 }
@@ -587,7 +586,7 @@ function printVRNLookup() {
     function showIssueForEdit(sender) {
         var dataToPost = {};
         dataToPost.issueID = sender;
-        $.ajax ({
+        $.ajax({
             url: "getCurrentIssue.php",
             timeout: 30000,
             data: dataToPost,
@@ -609,7 +608,7 @@ function printVRNLookup() {
         });
     }
 
-    function editIssue () {
+    function editIssue() {
         var dataToPost = {};
         dataToPost.issueIDToUpdate = document.getElementById('editIssueHide').value;
         dataToPost.issueDate = document.getElementById('editIssueDate').value;
@@ -617,15 +616,15 @@ function printVRNLookup() {
         dataToPost.issueStatus = document.getElementById('editIssueStatus').value;
         dataToPost.issueDescription = document.getElementById('editIssueDescription').value;
 
-        $.ajax ({
+        $.ajax({
             url: "updateIssue.php",
             timeout: 3000,
             data: dataToPost,
             type: "POST",
             success: function(data) {
                 if (data.includes('success')) {
-                $('#modalEditIssue').modal('hide');
-                $('#showIssueLog').trigger('click');
+                    $('#modalEditIssue').modal('hide');
+                    $('#showIssueLog').trigger('click');
                 } else {
                     $('#issueRequestMessage').html(data);
                 }
@@ -825,7 +824,6 @@ function printVRNLookup() {
             return false;
         return true;
     }
-
 </script>
 
 
@@ -923,7 +921,12 @@ function getAlerts($link)
     return $alerts;
 }
 
+
+foreach (glob('php/modals/*.php') as $filename) {
+    require_once $filename;
+}
 require_once 'modals.php';
+
 
 ?>
 

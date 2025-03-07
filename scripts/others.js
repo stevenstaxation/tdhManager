@@ -289,7 +289,7 @@ function readURL(input) {
         pence = pence.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, "");
         pence +="00";
         pence = pence.substring(0,2);
-        number = pounds +"." + pence;
+        number = `${pounds}.${pence}`;
     } else {
         number = number.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, "");
         number +=".00";
@@ -350,9 +350,9 @@ function ajaxFileGetUpload(fileObj, picSelector) {
             oOutput = picSelector;
 
             if (xhttp.status == 200) {
-                oOutput.innerHTML = "<img src='" + this.responseText + "' width='200'>";
+                oOutput.innerHTML = `<img src='${this.responseText}' width='200'>`;
             } else {
-                oOutput.innerHTML = "Error " + xhttp.status + " occurred when trying to upload your file.";
+                oOutput.innerHTML = `Error ${xhttp.status} occurred when trying to upload your file.`;
                 oOutput.removeClass('imageLoaded');
             }
         }
@@ -377,7 +377,7 @@ function ajaxFileUpload(fileObj) {
             if (xhttp.status == 200) {
                 oOutput.innerHTML = this.responseText;
             } else {
-                oOutput.innerHTML = "Error " + xhttp.status + " occurred when trying to upload your file.";
+                oOutput.innerHTML = `Error ${xhttp.status} occurred when trying to upload your file.`;
             }
         }
 
@@ -388,7 +388,7 @@ function ajaxFileUpload(fileObj) {
 $(document).on('click', '#downloadDeviceTemplate', function (event) {
     var csv = "Model, Platform, Serial, IMEI, DeviceStatus, DRIDNumber, SimSerialNo, SimPhone, Customer\n";
     var hiddenElement = document.createElement('a');
-    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.href = `data:text/csv;charset=utf-8,${encodeURI(csv)}`;
     hiddenElement.target = '_blank';
     hiddenElement.download = 'bulkUploadDevices.csv';
     hiddenElement.click();
@@ -398,7 +398,7 @@ $(document).on('click', '#downloadDeviceTemplate', function (event) {
 $(document).on('click', '#downloadVehicleTemplate', function (event) {
     var csv = "RegNumber, CameraRequired, Status, InstallDate, Customer\n";
     var hiddenElement = document.createElement('a');
-    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.href = `data:text/csv;charset=utf-8,${encodeURI(csv)}`;
     hiddenElement.target = '_blank';
     hiddenElement.download = 'bulkUploadVehicles.csv';
     hiddenElement.click();

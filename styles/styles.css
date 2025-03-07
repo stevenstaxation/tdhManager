@@ -1,149 +1,154 @@
 :root {
-    --black: #000;
-    --black22: #222222;
-    --black44: #444444;
-    --black55: #555555;
-    --grey66: #666666;
-    --grey88: #888888;
-    --greyAA: #aaaaaa;
-    --greyCD: #cdcdcd;
-    --greyE0: #e0e0e0;
-    --greyEF: #efefef;
-    --greyF8: #f8f8f8;
-    --white: #FFFFFF;
-    --navbarText: #047abe;
-    --red: #b60000;
+  --black: #000;
+  --black22: #222222;
+  --black44: #444444;
+  --black55: #555555;
+  --grey66: #666666;
+  --grey88: #888888;
+  --greyAA: #aaaaaa;
+  --greyCD: #cdcdcd;
+  --greyE0: #e0e0e0;
+  --greyEF: #efefef;
+  --greyF8: #f8f8f8;
+  --white: #ffffff;
+  --navbarText: #047abe;
+  --red: #b60000;
 }
 
-
 body {
-    font-family: 'Quicksand', sans-serif;;
-    background: var(--greyEF);;
-    color: var(--black);
-    margin-top: 80px;
+  font-family: "Quicksand", sans-serif;
+  background: var(--greyEF);
+  color: var(--black);
+  margin-top: 80px;
 }
 
 .navbar strong {
-    font-weight: 700;
-    color: var(--navbarText);
+  font-weight: 700;
+  color: var(--navbarText);
 }
 
 #customerSelection {
-    background: var(--greyEF);
-    color: var(--black);
+  background: var(--greyEF);
+  color: var(--black);
 }
 
 /* Log in and signup forms */
 
-.signUpContent, .logInContent {
-    background-color:var(--white);
-    border-radius: 25px;
-    border-width: 2px;
-    padding:20px 30px 15px 30px;
-    width: 420px;
-    margin: 50px auto;
+.signUpContent,
+.logInContent {
+  background-color: var(--white);
+  border-radius: 25px;
+  border-width: 2px;
+  padding: 20px 30px 15px 30px;
+  width: 420px;
+  margin: 50px auto;
 }
 
-input[type=text],
-input[type=email],
-input[type=password],
-input[type=date]
-input[type=number]
-  {
-    background-color: var(--greyF8);
-    border: 1px solid;
-    border-radius: 7px;
-    color: var(--black22);
-    margin: auto;
-    padding: 5px 15px; 
-    display: fill;
-    width: 100%;
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] input[type="number"] {
+  background-color: var(--greyF8);
+  border: 1px solid;
+  border-radius: 7px;
+  color: var(--black22);
+  margin: auto;
+  padding: 5px 15px;
+  display: fill;
+  width: 100%;
 }
 
-input[type=text]:hover,
-input[type=email]:hover,
-input[type=password]:hover  {
-    background-color: var(--greyCD);
-    
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="password"]:hover {
+  background-color: var(--greyCD);
 }
 
-input[type=text]:focus,
-input[type=email]:focus,
-input[type=password]:focus  {
-    background-color: rgba(220, 188,188,.33);
-    
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  background-color: rgba(220, 188, 188, 0.33);
 }
 
-input[type=checkbox] {
-    width: 25px;
-    height: 25px; 
-    clip-path: circle(40% at 50% 50%); 
+input[type="checkbox"] {
+  width: 25px;
+  height: 25px;
+  clip-path: circle(40% at 50% 50%);
+}
+input[type="radio"] {
+  width: 15px;
+  height: 15px;
 }
 
 label {
-    background-color: var(--greyEF);
-    color: var(--black22);
+  background-color: var(--greyEF);
+  color: var(--black22);
 }
 
 .form-submit {
-    display: center;
-    width: 60%;
+  display: center;
+  width: 60%;
 }
 
 .form-input:hover {
-    background-color: var(--greyE0);
+  background-color: var(--greyE0);
 }
 
 .noActive {
-    color: (--navbarText);
-    background-color: var(--white);
+  color: (--navbarText);
+  background-color: var(--white);
 }
 
 .modal-dialog {
-    padding-top: 5%;
+  padding-top: 5%;
 }
 
 .settings-dialog {
-    background-color: var(--greyE0);
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 7px;
-    padding: 20px;
+  background-color: var(--greyE0);
+  margin-top: 5px;
+  margin-bottom: 10px;
+  /* border-width: 1px;
+  border-style: solid; */
+  border-left: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  border-right: 3px solid darkgray;
+  border-bottom: 3px solid darkgray;
+  border-radius: 7px;
+  padding: 20px;
 }
 
 .settings-dialog label {
-    background-color: var(--greyE0);
-    line-height: 1;
+  background-color: var(--greyE0);
+  line-height: 1;
 }
 
 .listHeader {
-    margin-top: 50px;
-    margin-bottom: 20px;
-    color: var(--navbarText);
+  margin-top: 50px;
+  margin-bottom: 20px;
+  color: var(--navbarText);
 }
 
 .homeTable thead {
-    background-color: var(--greyEF);
-    color: var(--black44);
+  background-color: var(--greyEF);
+  color: var(--black44);
 }
 
 table {
-    background-color: var(--greyF8);
+  background-color: var(--greyF8);
 }
 body.dark table {
-    background-color: var(--grey66);
+  background-color: var(--grey66);
 }
 
-thead, tfoot {
-    background-color: #d0e0f0;
-    color: var(--black44);
+thead,
+tfoot {
+  background-color: #d0e0f0;
+  color: var(--black44);
 }
 
 tbody {
-    background-color: var(--white);
-    color: var(--black44);
+  background-color: var(--white);
+  color: var(--black44);
 }
 
 /* body.dark tbody {
@@ -151,579 +156,569 @@ tbody {
     color: var(--white);
 } */
 
-table.table-bordered > thead > tr > th 
-{
-    border: 1px solid var(--greyAA);
-    padding: 8px 3px;
+table.table-bordered > thead > tr > th {
+  border: 1px solid var(--greyAA);
+  padding: 8px 3px;
 }
 
-table.table-bordered > tfoot > tr > th 
-{
-    border: 1px solid var(--greyAA);
-    padding: 3px 3px;
+table.table-bordered > tfoot > tr > th {
+  border: 1px solid var(--greyAA);
+  padding: 3px 3px;
 }
 
 table.table-bordered > tbody > tr > td {
-    border: 1px solid var(--greyAA);
-    padding: 1px 0;
-    overflow-wrap:break-word;
+  border: 1px solid var(--greyAA);
+  padding: 1px 0;
+  overflow-wrap: break-word;
 }
 table.table-bordered > tbody > tr:hover {
-    background-color: var(--greyCD);
-    color: var(--black44);
-} 
-
-
+  background-color: var(--greyCD);
+  color: var(--black44);
+}
 
 .custom-select {
-    border: 1px solid;
-    border-radius: 7px;
+  border: 1px solid;
+  border-radius: 7px;
 }
 
 .reminderScreen {
-    font-weight: bold;
-    color: var(--red);
+  font-weight: bold;
+  color: var(--red);
 }
 
 .collapsible {
-    background-color: #ffaaaa;
-    color: var(--black44);
-    cursor: pointer;
-    padding: 6px 6px;
-    border: none;
-    text-align: center;
-    outline: none;
-    margin-top: 2px;
-    margin-right: 2px;
-    font-size: 12px; 
-    width: 15%;
+  background-color: #ffaaaa;
+  color: var(--black44);
+  cursor: pointer;
+  padding: 6px 6px;
+  border: none;
+  text-align: center;
+  outline: none;
+  margin-top: 2px;
+  margin-right: 2px;
+  font-size: 12px;
+  width: 15%;
 }
 
 .canCollapse {
-    display: none; 
-    overflow: hidden;
+  display: none;
+  overflow: hidden;
 }
-
-
 
 /* DARK MODE */
 
-body.dark input[type=text],
-body.dark input[type=date],
-body.dark input[type=datetime],
-body.dark input[type=datetime-local],
-body.dark input[type=email],
-body.dark input[type=password],
-body.dark input[type=number],
+body.dark input[type="text"],
+body.dark input[type="date"],
+body.dark input[type="datetime"],
+body.dark input[type="datetime-local"],
+body.dark input[type="email"],
+body.dark input[type="password"],
+body.dark input[type="number"],
 body.dark select,
 body.dark textarea,
 body.dark textarea:active {
-    background-color: var(--black55)!important;
-    color: var(--greyEF)!important; 
+  background-color: var(--black55) !important;
+  color: var(--greyEF) !important;
 }
 
 body.dark label {
-    background-color: var(--black44);
-    color: var(--greyEF);
+  background-color: var(--black44);
+  color: var(--greyEF);
 }
 
 body.dark .scrollBox {
-    background-color: var(--black44);
-    color: var(--greyEF);
+  background-color: var(--black44);
+  color: var(--greyEF);
 }
 
 body.dark .settings-dialog {
-    background-color: var(--black44);
-    color: var(--greyEF);
+  background-color: var(--black44);
+  color: var(--greyEF);
 }
 
 body.dark .homeTable thead {
-    background-color: var(--black44);
+  background-color: var(--black44);
 }
 body.dark table {
-    background-color: var(--grey66);
+  background-color: var(--grey66);
 }
 
-body.dark thead, body.dark tfoot, body.dark tbody  {
-    background-color: var(--grey66);
-    color: var(--greyEF);
+body.dark thead,
+body.dark tfoot,
+body.dark tbody {
+  background-color: var(--grey66);
+  color: var(--greyEF);
 }
 
 body.dark .listHeader {
-    color:var(--navbarText);
-    
+  color: var(--navbarText);
 }
 
-body.dark input[type=text]:hover,
-body.dark input[type=email]:hover,
-body.dark input[type=password]:hover  {
-    background-color: #aaddaa;
-    
+body.dark input[type="text"]:hover,
+body.dark input[type="email"]:hover,
+body.dark input[type="password"]:hover {
+  background-color: #aaddaa;
 }
 
-body.dark input[type=text]:focus,
-body.dark input[type=email]:focus,
-body.dark input[type=password]:focus  {
-    background-color: rgba(188, 220,188,.33);
-    
+body.dark input[type="text"]:focus,
+body.dark input[type="email"]:focus,
+body.dark input[type="password"]:focus {
+  background-color: rgba(188, 220, 188, 0.33);
 }
 
 body.dark table.table-bordered > thead > tr > th,
 body.dark table.table-bordered > tfoot > tr > th {
-    border: 1px solid var(--grey88);
+  border: 1px solid var(--grey88);
 }
 
 body.dark table.table-bordered > tbody > tr > td {
-    border: 1px solid var(--grey88);
-   
+  border: 1px solid var(--grey88);
 }
 
-#alertTable table.table-bordered > tbody > tr > td  {
-    color: var(--black); 
+#alertTable table.table-bordered > tbody > tr > td {
+  color: var(--black);
 }
 
 .filterBox {
-    background-color: var(--greyEF);
-    border-radius: 6px;
+  background-color: var(--greyEF);
+  border-radius: 6px;
 }
 
 body.dark .filterBox {
-    background-color:#454545;
-    border-radius: 6px;
+  background-color: #454545;
+  border-radius: 6px;
 }
 
-body.dark #customerSelection{
-    color: #eeeeee;
-    background-color: var(--black22);
-   }
+body.dark #customerSelection {
+  color: #eeeeee;
+  background-color: var(--black22);
+}
 
 body.dark table.table-bordered > tbody > tr:hover {
-    background-color: #aaddaa;
-    color: var(--black44);
-} 
+  background-color: #aaddaa;
+  color: var(--black44);
+}
 
 body.dark .reminderScreen {
-    font-weight: bold;
-    color: rgba(182,0,0,0.75);
+  font-weight: bold;
+  color: rgba(182, 0, 0, 0.75);
 }
 
 .btn-file-input {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
-.btn-file-input input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;   
-    cursor: inherit;
-    display: block;
+.btn-file-input input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  cursor: inherit;
+  display: block;
 }
 
 /* Icons */
-.yesIcon, .noIcon, .pendingIcon {
-    opacity: 1;
+.yesIcon,
+.noIcon,
+.pendingIcon {
+  opacity: 1;
 }
 
-body.dark .yesIcon, 
-body.dark .noIcon, 
+body.dark .yesIcon,
+body.dark .noIcon,
 body.dark .pendingIcon {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 .dateColour {
-    background-color: var(--white);
+  background-color: var(--white);
 }
 
 body.dark .dateColour {
-    background-color: var(--black22);
+  background-color: var(--black22);
 }
 
-
-div.container { max-width: 1200px }
+div.container {
+  max-width: 1200px;
+}
 
 .profileButton {
-    margin: 0 10px;
+  margin: 0 10px;
 }
 #pBlueSky {
-    padding-left: 5px;
-    background-color: #1E90FF;
+  padding-left: 5px;
+  background-color: #1e90ff;
 }
 
-#pLow  {
-    padding-left: 5px;
-    background-color: #00FF00;
+#pLow {
+  padding-left: 5px;
+  background-color: #00ff00;
 }
 #pMedium {
-    padding-left: 5px;
-    background-color: #FFF035;
+  padding-left: 5px;
+  background-color: #fff035;
 }
 #pHigh {
-    padding-left: 5px;
-    background-color: #FF8888;
+  padding-left: 5px;
+  background-color: #ff8888;
 }
 #pCritical {
-    padding-left: 5px;
-    background-color: var(--red);
+  padding-left: 5px;
+  background-color: var(--red);
 }
 body.dark #pBlueSky {
-    padding-left: 5px;
-    background-color: #1E90FF;
+  padding-left: 5px;
+  background-color: #1e90ff;
 }
 
-body.dark #pLow  {
-    padding-left: 5px;
-    background-color: rgba(0,255,0,0.5);
+body.dark #pLow {
+  padding-left: 5px;
+  background-color: rgba(0, 255, 0, 0.5);
 }
 body.dark #pMedium {
-    padding-left: 5px;
-    background-color: rgba(255,240,53,0.5)
+  padding-left: 5px;
+  background-color: rgba(255, 240, 53, 0.5);
 }
 body.dark #pHigh {
-    padding-left: 5px;
-    background-color: rgba(255,136,136,0.5);
+  padding-left: 5px;
+  background-color: rgba(255, 136, 136, 0.5);
 }
 body.dark #pCritical {
-    padding-left: 5px;
-    background-color: rgba(182,0,0,0.75);
+  padding-left: 5px;
+  background-color: rgba(182, 0, 0, 0.75);
 }
-.dhinstall, .dhd {
-    position: absolute;
-    right: 20px;
-    border: 1px solid;
-    border-radius: 7px;
-    padding: 5px;
-    background-color: var(--white);
-}
-
-body.dark .dhinstall, body.dark .dhd {
-    background-color: var(--grey88);
+.dhinstall,
+.dhd {
+  position: absolute;
+  right: 20px;
+  border: 1px solid;
+  border-radius: 7px;
+  padding: 5px;
+  background-color: var(--white);
 }
 
-.dhinstallbutton, .dhdbutton {
-    border-radius:50px;
+body.dark .dhinstall,
+body.dark .dhd {
+  background-color: var(--grey88);
+}
+
+.dhinstallbutton,
+.dhdbutton {
+  border-radius: 50px;
 }
 
 .multiselect {
-    width: 200px;
-  }
-  
-  .selectBox {
-    position: relative;
-  }
-  
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
 .overSelect {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
-  
-  #checkboxes {
-    display: none;
-    background-color: var(--white);
-    font-size: 115%;
-    padding-left: 8px;
-  }
-  
-  #checkboxes label {
-    display: block;
-    background-color: var(--white);
-    padding-top:2px;
-  
-  }
-  
-  #checkboxes label:hover {
-    background-color: rgba(236,204,204);
-  }
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
 
-  body.dark #checkboxes {
-    background-color: var(--black55);
-  }
+#checkboxes {
+  display: none;
+  background-color: var(--white);
+  font-size: 115%;
+  padding-left: 8px;
+}
 
-  body.dark #checkboxes label {
-    background-color: var(--black55);
-  }
+#checkboxes label {
+  display: block;
+  background-color: var(--white);
+  padding-top: 2px;
+}
 
-  body.dark #checkboxes label:hover {
-    background-color: var(--black22);
-  }
+#checkboxes label:hover {
+  background-color: rgba(236, 204, 204);
+}
+
+body.dark #checkboxes {
+  background-color: var(--black55);
+}
+
+body.dark #checkboxes label {
+  background-color: var(--black55);
+}
+
+body.dark #checkboxes label:hover {
+  background-color: var(--black22);
+}
 
 .navbar-wrap {
-    transition: top 0.2s;
+  transition: top 0.2s;
 }
 
 .showVRNPlate {
-    border-width: 0;
-    background-color: #FFF035;
-    color: 0;
-
+  border-width: 0;
+  background-color: #fff035;
+  color: 0;
 }
 
 .uploadFormatDetails {
-    background-color: var(--white);
-    border: 1px solid  var(--red);
-    border-radius: 8px;
-    color: var(--black22);
-    margin-top: 30px;
-    padding: 10px;
+  background-color: var(--white);
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  color: var(--black22);
+  margin-top: 30px;
+  padding: 10px;
 }
 
 body.dark .uploadFormatDetails {
-    background-color: var(--black);
-    border-color: #77ff77;
-    color: var(--white);
+  background-color: var(--black);
+  border-color: #77ff77;
+  color: var(--white);
 }
 
 /* FILE DROP ZONE */
 #dropZone {
-    background-color: var(--white);
-    border: var(--black22)5px dashed;
-    font-size: 18px;
-    margin-top: 2rem;
-    padding: 8px;
-    width: 50%;
+  background-color: var(--white);
+  border: var(--black22) 5px dashed;
+  font-size: 18px;
+  margin-top: 2rem;
+  padding: 8px;
+  width: 50%;
 }
 body.dark #dropZone {
-    background-color: var(--black);
-    border: #77ff77 5px dashed;
+  background-color: var(--black);
+  border: #77ff77 5px dashed;
 }
 
 #fileDragUpload {
-    margin: 0 auto;
-    text-align: center;
+  margin: 0 auto;
+  text-align: center;
 }
 
 #fileDragUpload p {
-    text-align: center;
+  text-align: center;
 }
 
 #fileDragUpload img {
-    margin: 60px auto;
-    margin-bottom: 0;
+  margin: 60px auto;
+  margin-bottom: 0;
 }
 #fileDragUpload #selectFile {
-    display: none;
+  display: none;
 }
 
-#uploadFileButton, #uploadDeviceButton {
-    background-color: indigo;
-    color: white;
-    padding: 0.5rem;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    margin-top: 0.1rem;   
+#uploadFileButton,
+#uploadDeviceButton {
+  background-color: indigo;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 0.1rem;
 }
 
 .dt-buttons {
-    margin: 8px 50px;
+  margin: 8px 50px;
 }
 
 .dt-buttons .dt-button {
-    border-radius: 4px;
-    margin: 0 10px;
-    background-image: linear-gradient(var(--white), var(--greyCD))!important;
-
+  border-radius: 4px;
+  margin: 0 10px;
+  background-image: linear-gradient(var(--white), var(--greyCD)) !important;
 }
 body.dark .dt-buttons .dt-button {
-    background-image: linear-gradient(var(--greyCD), var(--grey88))!important;
-   
+  background-image: linear-gradient(var(--greyCD), var(--grey88)) !important;
 }
-    
-
 
 .buttons-columnVisibility {
-    color: red!important;
-    background-color: #f9fff3!important;
+  color: red !important;
+  background-color: #f9fff3 !important;
 }
 .buttons-columnVisibility:hover {
-    color: greenyellow!important;
-    background-color: #f9fff3!important;
+  color: greenyellow !important;
+  background-color: #f9fff3 !important;
 }
 .buttons-columnVisibility.active {
-    color: greenyellow!important;
-    background-color: #FAA61A!important;
+  color: greenyellow !important;
+  background-color: #faa61a !important;
 }
 .buttons-columnVisibility.active:hover {
-    color: red!important;
-    background-color: #151721!important;
+  color: red !important;
+  background-color: #151721 !important;
 }
 
 body.dark .buttons-columnVisibility {
-    color: red!important;    
-
+  color: red !important;
 }
 body.dark .buttons-columnVisibility:hover {
-    color: greenyellow!important;
-
+  color: greenyellow !important;
 }
 body.dark .buttons-columnVisibility.active {
-    color: greenyellow!important;
-
+  color: greenyellow !important;
 }
 body.dark .buttons-columnVisibility.active:hover {
-    color: red!important;
+  color: red !important;
+}
 
+.alertStyle {
+  border-radius: 7px;
+  padding: 4px 7px;
+  margin-bottom: 10px;
 }
 
 /* The switch - the box around the slider */
 .switch {
-    position: relative;
-    display: inline-block;
-    top: 15px;
-    width: 30px;
-    height: 17px;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #FF7777;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 13px;
-    width: 13px;
-    left: 2px;
-    bottom: 2px;
-    background-color: var(--white);
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #77FF77;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #77FF77;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(13px);
-    -ms-transform: translateX(13px);
-    transform: translateX(13px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 17px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
-
-@font-face {
-    font-family: 'Charles-Wright-Bold';
-    src:url('../assets/Charles-Wright-Bold.ttf.woff') format('woff'),
-        url('../assets/Charles-Wright-Bold.ttf.svg#Charles-Wright-Bold') format('svg'),
-        url('../assets/Charles-Wright-Bold.ttf.eot'),
-        url('../assets/Charles-Wright-Bold.ttf.eot?#iefix') format('embedded-opentype'); 
-    font-weight: normal;
-    font-style: normal;
+  position: relative;
+  display: inline-block;
+  top: 15px;
+  width: 30px;
+  height: 17px;
 }
 
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ff7777;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
 
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--white);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
 
+input:checked + .slider {
+  background-color: #77ff77;
+}
 
+input:focus + .slider {
+  box-shadow: 0 0 1px #77ff77;
+}
 
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 17px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+@font-face {
+  font-family: "Charles-Wright-Bold";
+  src: url("../assets/Charles-Wright-Bold.ttf.woff") format("woff"),
+    url("../assets/Charles-Wright-Bold.ttf.svg#Charles-Wright-Bold")
+      format("svg"),
+    url("../assets/Charles-Wright-Bold.ttf.eot"),
+    url("../assets/Charles-Wright-Bold.ttf.eot?#iefix")
+      format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    body {
-        font-size: 12px;
-    }
-       .table td, .table th {
-        font-size: 12px;
-    }
+  body {
+    font-size: 12px;
+  }
+  .table td,
+  .table th {
+    font-size: 12px;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-
-    .table td, .table th {
-        font-size: 13px;
-    }
+  .table td,
+  .table th {
+    font-size: 13px;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    body {
-        font-size: 14px;
-    }
-    .table td, .table th {
-        font-size: 12px;
-    }
-
+  body {
+    font-size: 14px;
+  }
+  .table td,
+  .table th {
+    font-size: 12px;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    body {
-        font-size: 15px;
-    }
-    .table td, .table th {
-        font-size: 8px;
-    }
-    .navbar{
-        font-size: 13px;
-    }
+  body {
+    font-size: 15px;
+  }
+  .table td,
+  .table th {
+    font-size: 8px;
+  }
+  .navbar {
+    font-size: 13px;
+  }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-    body {
-        font-size: 16px;
-    }
-    .table td, .table th {
-        font-size: 12px;
-    }
+  body {
+    font-size: 16px;
+  }
+  .table td,
+  .table th {
+    font-size: 12px;
+  }
 }
 
 @media only screen and (min-width: 1440px) and (max-width: 1580px) {
-    .navbar{
-        font-size: 13px;
-    }
+  .navbar {
+    font-size: 13px;
+  }
 }
-
 
 @media only screen and (min-width: 1581px) {
-    .navbar{
-        font-size: 16px;
-    }
+  .navbar {
+    font-size: 16px;
+  }
 }
 
-@media print
-{    
-    .no-print, .no-print *
-    {
-        display: none !important;
-    }
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
 }
-
-

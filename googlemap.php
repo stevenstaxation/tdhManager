@@ -255,10 +255,10 @@ function drawJobs(jobs) {
     for (var i = 0; i < jobs.length; i++) {
 
         var job = jobs[i];
-
+       
         switch (parseInt(job['status'])) {
             case 1:
-                iconString = "images/pendingPin.png";
+                iconString = "images/pendingPinC.png";
                 break;
             case 2:
                 iconString = "images/bookedPin.png";

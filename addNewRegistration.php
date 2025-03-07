@@ -7,7 +7,6 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
 }
 
-
 $regNumber = $_POST['NewVRN'];
 $customerID = $_POST['customerID'];
 
@@ -32,12 +31,7 @@ if ($regNumber!='TBC') {
         exit();
     }
 }
-// if installation is not applicable or camera required = no, we do not need an install date
-// if ($installationStatus !='not applicable' && $cameraRequired) {
-//     if (!$installationDate) {
-//         $errors .="<p>You should enter the install date</p>";
-//     }
-// }
+
 if ($errors) {
     echo "<div class='alert alert-danger'>" .$errors . "</div>";
     exit();

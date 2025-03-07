@@ -91,7 +91,7 @@ if (mysqli_num_rows($result) != 0) {
         if ($row['Description'] == '' || $row['Description'] == null) {
             $returnString .= "<td class='align-middle' style='padding:0 3px; color: #FF4444'>" . $row['businessName'] . "</td>";
         } else {
-            $returnString .= "      <td class='align-middle' style='padding:0 3px'>" . $row['businessName'] . "</td>";
+            $returnString .= "<td class='align-middle' style='padding:0 3px'>" . $row['businessName'] . "</td>";
         }
         $returnString .= "
       <td class='align-middle' style='padding:0 3px;'>" . $row['insurerName'] . "</td>

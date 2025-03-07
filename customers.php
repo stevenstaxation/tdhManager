@@ -48,7 +48,9 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     $renewalDate = new DateTime($row['renewalDate'] ?? '');
     $daysToRenewal = $dateNow->diff($renewalDate)->format('%r%a');
 
-    if ($daysToRenewal <= 30) {$renewalColour = '#B60000';} elseif ($daysToRenewal <= 60) {
+    if ($daysToRenewal <= 30) {
+        $renewalColour = '#B60000';
+    } elseif ($daysToRenewal <= 60) {
         $renewalColour = 'orange';
     } else {
         $renewalColour = $notRenewable;
@@ -78,10 +80,9 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                         placeholder='Vodafone reference...' value='" . $row['VCOReference'] . "'>
                     </div>
                 </div>
+                
                 <div class='btn-group' style ='display: flex; margin: 2px 2px;'>
-                    <btn class='btn btn-success btn-sm updateCustomer' style='margin: 0 10px' onclick='updateCustomer()' id='updateCustomer' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-left-circle-fill' viewBox='0 0 16 16'>
-                    <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z'/>
-                    </svg> Update Name/VCO Reference </btn>
+                    <btn class='btn btn-success btn-sm updateCustomer profileButton' onclick='updateCustomer()' id='updateCustomer' type='button'><i class='bi bi-arrow-up-left-circle-fill h5'></i> Update Name/VCO Reference </btn>
                 </div>
             </div>
 
@@ -173,9 +174,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     $theRenewalDate = $row['renewalDate'];
 
     $returnString .= "<div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-                        <btn class='btn btn-success btn-sm updateCustomer' style='margin: 0 10px' onclick='updateCustomer()' id='updateCustomer' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-left-circle-fill' viewBox='0 0 16 16'>
-                        <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z'/>
-                        </svg> Update </btn>";
+                        <btn class='btn btn-success btn-sm updateCustomer profileButton' onclick='updateCustomer()' id='updateCustomer' type='button'><i class='bi bi-arrow-up-left-circle-fill h5'></i> Update </btn>";
 
     $returnString .= "
                     </div>
@@ -188,7 +187,9 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     $renewalDate = new DateTime($row['renewalDate'] ?? '');
     $daysToRenewal = $dateNow->diff($renewalDate)->format('%r%a');
 
-    if ($daysToRenewal <= 30) {$renewalColour = '#B60000';} elseif ($daysToRenewal <= 60) {
+    if ($daysToRenewal <= 30) {
+        $renewalColour = '#B60000';
+    } elseif ($daysToRenewal <= 60) {
         $renewalColour = 'orange';
     } else {
         $renewalColour = $notRenewable;
@@ -232,9 +233,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         </table>
     </div>
     <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-        <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addCustomerNote' type='button' data-toggle='modal' data-target='#modalAddNewNote'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
-        <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
-        </svg> New Note</btn>
+        <btn class='btn btn-success btn-sm profileButton' id='addCustomerNote' type='button' data-toggle='modal' data-target='#modalAddNewNote'><i class='bi bi-plus-circle-fill h5'></i> New Note</btn>
     </div>
 </div>
 </form>
@@ -275,7 +274,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         <h6><strong style='margin-top:10px;'>RENEWAL DETAILS</strong></h6>
         <div id='errorBox'></div>
         <div class='form-group' style='display: flex; align-items: center'>
-        <label class='control-label inline' for='renewalType' style='width:40%; padding-top:6px'>Renewal type</label>
+        <p class='control-label inline' style='width:40%; padding-top:10px'>Renewal type</p>
         <div class='input-group'>
             <select style='font-size: 100%' id='getRenewalTypeSelect' name='getRenewalTypeSelect' onchange='makeDirty(" . '"getRenewalTypeSelect"' . ")' class='custom-select getRenewalTypeSelect enabler'>";
     $sql = "SELECT * FROM tblRenewalType ORDER BY Description ASC";
@@ -285,7 +284,8 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     while ($renewalRow = mysqli_fetch_array($result)) {
         if ($theRenewalType == $renewalRow['ID']) {
             $returnString .= "
-                    <option value= " . $renewalRow['ID'] . " selected='selected'>";} else {
+                    <option value= " . $renewalRow['ID'] . " selected='selected'>";
+        } else {
             $returnString .= "
                     <option value= " . $renewalRow['ID'] . ">";
         }
@@ -306,9 +306,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     </div>
     <hr>
     <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-    <btn class='btn btn-success btn-sm updateCustomer' style='margin: 0 10px; float: right' onclick='updateCustomerRenewal()' id='updateCustomerRenewal' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-left-circle-fill' viewBox='0 0 16 16'>
-    <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z'/>
-    </svg> Update Renewal</btn>
+    <btn class='btn btn-success btn-sm updateCustomer profileButton' style='float: right' onclick='updateCustomerRenewal()' id='updateCustomerRenewal' type='button'><i class='bi bi-arrow-up-left-circle-fill h5'></i> Update Renewal</btn>
 
     </div>
     </div>
@@ -341,9 +339,9 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                             <th class='align-middle' style='padding:0 3px;'>Email</th>
                             <th class='text-center align-middle' style='padding:0 3px;'>Mobile</th>
                             <th class='text-center align-middle' style='padding:0 3px;'>Phone</th>
-                            <th class='align-middle text-center' style='width:8%; padding: 0 3px;'>Ftg</th>
-                            <th class='align-middle text-center' style='width:8%; padding: 0 3px;'>H/C</th>
-                            <th class='align-middle text-center' style='width:8%; padding: 0 3px;'>Rpt</th>
+                            <th class='align-middle text-center mx-1' style='width:8%;'>Ftg</th>
+                            <th class='align-middle text-center mx-1' style='width:8%;'>H/C</th>
+                            <th class='align-middle text-center mx-1' style='width:8%;'>Rpt</th>
                         </tr>
                     </thead>
                     <tbody>";
@@ -367,9 +365,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                 </table>
             </div>
             <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-                 <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addNewContact' type='button' data-toggle='modal' data-target='#modalAddNewContact'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
-                <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
-                </svg> New Contact</btn>
+                 <btn class='btn btn-success btn-sm profileButton' id='addNewContact' type='button' data-toggle='modal' data-target='#modalAddNewContact'><i class='bi bi-plus-circle-fill h5'></i> New Contact</btn>
 
             </div>
         </div>
@@ -409,7 +405,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                     <h6><strong style='margin-top:10px;'>INSURER</strong></h6>
                     <div id='errorBox'></div>
                     <div class='form-group' style='display: flex; align-items: center'>
-                        <label class='control-label inline' for='insurerName' style='width:40%; padding-top:6px'>Name</label>
+                        <p class='control-label inline' style='width:40%; padding-top:10px'>Name</p>
                         <div class='input-group'>
                             <select  style='font-size: 80%' id='getInsurerSelect' name='getInsurerSelect' class='custom-select getInsurerSelect'>";
     $sql = "SELECT * FROM tblInsurer ORDER BY insurerName ASC";
@@ -419,7 +415,8 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     while ($insurerRow = mysqli_fetch_array($result)) {
         if ($row['insurerID'] == $insurerRow['ID']) {
             $returnString .= "
-                                    <option value= " . $insurerRow['ID'] . " selected='selected'>";} else {
+                                    <option value= " . $insurerRow['ID'] . " selected='selected'>";
+        } else {
             $returnString .= "
                                     <option value= " . $insurerRow['ID'] . ">";
         }
@@ -441,11 +438,11 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                             <table class='table table-sm table-bordered table-hover' id='insurerContactTable' style='table-layout: fixed;'>
                                 <thead>
                                     <tr>
-                                        <th class='align-middle' style='padding: 0 3px;'>Name</th>
-                                        <th class='align-middle' style='padding: 0 3px;'>Email</th>
+                                        <th class='align-middle mx-1'>Name</th>
+                                        <th class='align-middle mx-1'>Email</th>
                                         <th class='text-center align-middle'>Mobile</th>
                                         <th class='text-center align-middle'>Phone</th>
-                                        <th class='text-center align-middle' style='width:8%; padding: 0 3px;'>Ftg</th>
+                                        <th class='text-center align-middle mx-1' style='width:8%;'>Ftg</th>
                                         
                                     </tr>
                                 </thead>
@@ -470,9 +467,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                             <div id='insurerEditNumber' style='display: none'>" . $row['insurerID'] . "</div>
                         </div>
                         <div class='btn-group' style='display: flex; margin: 10px 20px;'>
-                            <btn class='btn btn-success btn-sm' style='margin: 0 10px' type='button' data-toggle='modal' data-target='#modalAddNewInsurerContact' data-caller='customer'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-                            fill='currentColor' class='bi bi-person-lines-fill' viewBox='0 0 16 16'><path d='M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z' />
-                            </svg> New Contact </btn>
+                            <btn class='btn btn-success btn-sm profileButton' type='button' data-toggle='modal' data-target='#modalAddNewInsurerContact' data-caller='customer'><i class='bi bi-person-lines-fill h5'></i> New Contact </btn>
 
 
                         </div>
@@ -516,7 +511,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
             <h6><strong style='margin-top:10px;'>BROKER</strong></h6>
             <div id='errorBox'></div>
             <div class='form-group' style='display: flex; align-items: center'>
-                <label class='control-label inline' for='brokerName' style='width:40%; padding-top:6px'>Name</label>
+                <p class='control-label inline' for='brokerName' style='width:40%; padding-top:10px'>Name</p>
                 <div class='input-group'>
                     <select style='font-size: 80%' id='getBrokerSelect' name='getBrokerSelect' class='custom-select getBrokerSelect'>";
 
@@ -548,12 +543,12 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                     <table class='table table-sm table-bordered table-hover' style='table-layout: fixed'>
                         <thead>
                             <tr>
-                                <th class='align-middle' style='padding:0 3px;'>Name</th>
-                                <th class='align-middle' style='padding:0 3px;'>Email</th>
-                                <th class='align-middle text-center' style='padding:0 3px;'>Mobile</th>
-                                <th class='align-middle text-center' style='padding:0 3px;'>Phone</th>
-                                <th class='text-center' style='width:8%; padding: 0 3px;'>Ftg</th>
-                                <th class='text-center' style='width:8%; padding: 0 3px;'>Rpt</th>
+                                <th class='align-middle mx-1'>Name</th>
+                                <th class='align-middle mx-1'>Email</th>
+                                <th class='align-middle text-center mx-1'>Mobile</th>
+                                <th class='align-middle text-center mx-1'>Phone</th>
+                                <th class='text-center mx-1' style='width:8%;'>Ftg</th>
+                                <th class='text-center mx-1' style='width:8%;'>Rpt</th>
                             </tr>
                         </thead>
                         <tbody>";
@@ -578,9 +573,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                     <div id='brokerHiddenInfo' style='display: none'>" . $row['brokerID'] . "</div>
                 </div>
                 <div class='btn-group' style='display: flex; margin: 10px 20px;'>
-                    <btn id='addBrokerContactButton' class='btn btn-success btn-sm' style='margin: 0 10px' type='button' data-toggle='modal' data-target='#modalAddNewBrokerContact'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-person-lines-fill' viewBox='0 0 16 16'>
-                    <path d='M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z'/>
-                    </svg> New Contact </btn>
+                    <btn id='addBrokerContactButton' class='btn btn-success btn-sm profileButton' type='button' data-toggle='modal' data-target='#modalAddNewBrokerContact'><i class='bi bi-person-lines-fill h5'></i> New Contact </btn>
                 </div>
             </div>
             </div>
@@ -604,9 +597,9 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                 <tr>
                     <th class='text-center align-middle'>Date</th>
                     <th class='text-center align-middle'>VRN</th>
-                    <th class='text-center align-middle' style='padding: 0 3px;'>Claim Ref</th>
+                    <th class='text-center align-middle mx-1'>Claim Ref</th>
                     <th class='text-center align-middle'>Status</th>
-                    <th class='text-center align-middle' style='width:8%; padding: 0 3px;'>Edit</th>
+                    <th class='text-center align-middle mx-1' style='width:8%;'>Edit</th>
                 </tr>
             </thead>
             <tbody>";
@@ -623,9 +616,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         $returnString = $returnString . "<td class='text-center align-middle'>" . $row['regNumber'] . "</td>";
         $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['claimRef'] . "</td>";
         $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['description'] . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showFullFootage(" . $row['0'] . ")'><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
-                    <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
-                  </svg></btn></td>";
+        $returnString = $returnString . "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showFullFootage(" . $row['0'] . ")'><i class='bi bi-pencil-fill h5'></i></btn></td>";
         $returnString = $returnString . "</tr>";
     }
 
@@ -635,8 +626,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     </div>
 
     <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-        <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addFootageRequest' type='button' onclick='populateFootageBox()'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
-        </svg> New Request </btn>
+        <btn class='btn btn-success btn-sm profileButton' id='addFootageRequest' type='button' onclick='populateFootageBox()'><i class='bi bi-plus-circle-fill h5'></i> New Request </btn>
     </div>
 </div>
 </form>
@@ -728,7 +718,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     $returnString .= "
             <div class='scrollBox' style='max-height: 30vh; overflow: auto;'>";
 
-    $sql = "SELECT tblJobs.ID, tblJobs.ownerID,  tblJobs.date, tblJobs.dateAdded, tblJobs.PriorityIsUrgent, tblJobs.jobType, tblJobType.description, tblJobs.VRN, tblVehicle.regNumber, tblJobs.notes, tblCustomer.businessName, tblJobs.status, tblDeviceDescription.description as CameraType, tblusers.userName as EngineerName, tblUsers.colour as EngineerColour, tblJobs.bookingAddress, tblJobs.jobRate, tblJobs.customerRate
+    $sql = "SELECT tblJobs.ID, tblJobs.timePeriod, tblJobs.ownerID,  tblJobs.date, tblJobs.dateAdded, tblJobs.PriorityIsUrgent, tblJobs.jobType, tblJobType.description, tblJobs.VRN, tblVehicle.regNumber, tblJobs.notes, tblCustomer.businessName, tblJobs.status, tblDeviceDescription.description as CameraType, tblusers.userName as EngineerName, tblUsers.colour as EngineerColour, tblJobs.bookingAddress, tblJobs.jobRate, tblJobs.customerRate
                 FROM tblJobs LEFT JOIN tblVehicle ON tblJobs.VRN = tblVehicle.ID INNER JOIN tblJobType ON tblJobs.jobType = tblJobType.ID INNER JOIN tblCustomer ON tblCustomer.ID = tblJobs.ownerID INNER JOIN tblDeviceDescription ON tblDeviceDescription.ID = tblJobs.cameratypeID LEFT JOIN tblusers ON tblusers.userID = tblJobs.engineerID WHERE tblJobs.ownerID = '" . $_SESSION['currentCustomer'] . "'";
     $jobResult = mysqli_query($link, $sql);
 
@@ -852,17 +842,36 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                 $returnString .= "<td class='align-middle' style='padding:0 3px;'>" . $row['bookingAddress'] . "</td>";
             }
 
-            if (date('d/m/Y', strtotime($row['date'] ?? '')) == '01/01/1970') {
-                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>TBD</td>";
+            if ($row["date"]) {         
+                if (date('d/m/Y', strtotime($row['date'] ?? '')) == '01/01/1970') {
+                    $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>TBD</td>";
+                } else {
+                    if (date('H:i', strtotime($row['date']))!="00:00") {
+                        $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order=" . strtotime($row['date']) . ">" . date('d/m/Y (D) H:i', strtotime($row['date'])) . "</td>";
+                    } else {
+                        switch ($row['timePeriod']) {
+                            case 1:
+                            $periodOfTime = " All Day";
+                            break;
+                            case 2:
+                            $periodOfTime = " Morning";
+                            break;
+                            case 3:
+                            $periodOfTime = " Afternoon";
+                            break;
+                            default:
+                            $periodOfTime = " Unknown";
+                        }
+                        $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order=" . strtotime($row['date']) . ">" . date('d/m/Y (D)', strtotime($row['date'])). $periodOfTime ."</td>";
+                    }
+                }
             } else {
-                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order=" . strtotime($row['date']) . ">" . date('d/m/Y (D) H:i', strtotime($row['date'])) . "</td>";
+                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>TBD</td>";
             }
             $returnString .= "
                             <td class='text-center align-middle' style='font-size: 85%; color: " . $rowColour . "'><b>" . $rowBackground . "</b></td>";
 
-            $returnString .= "<td class='text-center align-middle' style='width:1%'><btn class='btn btn-sm btn-warning' onclick='showFullJob(\"" . $row[0] . "edit\")'><svg xmlns='http://www.w3.org/2000/svg' width='16px' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
-                              <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
-                              </svg></btn></td>";
+            $returnString .= "<td class='text-center align-middle' style='width:1%'><btn class='btn btn-sm btn-warning' onclick='showFullJob(\"" . $row[0] . "edit\")'><i class='bi bi-pencil-fill h5'></i></btn></td>";
 
             $returnString .= "
                         </tr>";
@@ -871,7 +880,6 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         $returnString .= "
                     </tbody>
                     </table>";
-
     } else {
         $returnString .= "<p class='text-center'>No results found</p>";
     }
@@ -881,8 +889,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
             </div>
 
             <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-                <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addJobRequest' onclick='addJobRequest(\"customer\")' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'><path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
-                </svg> New Request </btn>
+                <btn class='btn btn-success btn-sm profileButton' id='addJobRequest' onclick='addJobRequest(\"customer\")' type='button'><i class='bi bi-plus-circle-fill'></i> New Request </btn>
             </div>
 </div>
         </div>
@@ -1050,43 +1057,41 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
 
         $returnString = $returnString . "<tr>";
         // $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['TDHNumber']. "</td>";
-        $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['regNumber'] . "</td>";
-        $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['description'] . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle' style='padding: 0 3px;'>" . $row['supplierName'] . "</td>";
-        $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['serialNumber'] . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['IMEI'] . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['DRIDNumber'] . "</td>";
-        $returnString = $returnString . "<td class='align-middle' style='padding:0 3px;'>" . $row['config'] . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['status'] . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMNumber'] . "</td>";
-        $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMPhone'] . "</td>";
+        $returnString = $returnString . "<td class='align-middle text-center mx-1'>" . $row['regNumber'] . "</td>";
+        $returnString = $returnString . "<td class='align-middle text-center mx-1'>" . $row['description'] . "</td>";
+        $returnString = $returnString . "<td class='text-center align-middle mx-1'>" . $row['supplierName'] . "</td>";
+        $returnString = $returnString . "<td class='align-middle text-center mx-1'>" . $row['serialNumber'] . "</td>";
+        $returnString = $returnString . "<td class='text-center align-middle mx-1'>" . $row['IMEI'] . "</td>";
+        $returnString = $returnString . "<td class='text-center align-middle mx-1'>" . $row['DRIDNumber'] . "</td>";
+        $returnString = $returnString . "<td class='align-middle mx-1'>" . $row['config'] . "</td>";
+        $returnString = $returnString . "<td class='text-center align-middle mx-1'>" . $row['status'] . "</td>";
+        $returnString = $returnString . "<td class='text-center align-middle mx-1'>" . $row['SIMNumber'] . "</td>";
+        $returnString = $returnString . "<td class='text-center align-middle mx-1'>" . $row['SIMPhone'] . "</td>";
 
         $simDate = date('d/m/Y', strtotime($row['scheduledDate'] ?? ''));
         if ($simDate == '' || $simDate == null || $simDate == '01/01/1970') {
             $simDate = '';
-            $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>" . $simDate . "</td>";
+            $returnString .= "<td class='text-center align-middle mx-1' data-order='0/0/0'>" . $simDate . "</td>";
         } else {
-            $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order=" . date('Y-m-d', strtotime($row['scheduledDate'])) . ">" . $simDate . "</td>";
+            $returnString .= "<td class='text-center align-middle mx-1' data-order=" . date('Y-m-d', strtotime($row['scheduledDate'])) . ">" . $simDate . "</td>";
         }
-        $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMStatus'] . "</td>";
+        $returnString = $returnString . "<td class='text-center align-middle mx-1'>" . $row['SIMStatus'] . "</td>";
 
-        $returnString = $returnString . "<td class='text-center align-middle' style='padding:0 3px;'>" . $row['installerName'] . "</td>";
+        $returnString = $returnString . "<td class='text-center align-middle mx-1'>" . $row['installerName'] . "</td>";
 
         $stringyDate = strtotime($row['installDate'] ?? '');
         if (date('d/m/Y', $stringyDate) == '01/01/1970' || date('d/m/Y', $stringyDate) == '01/01/0001' || date('d/m/Y', $stringyDate) == null) {
-            $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>unknown</td>";
+            $returnString .= "<td class='text-center align-middle mx-1' data-order='0/0/0'>unknown</td>";
         } else {
-            $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='" . date('Y-m-d', strtotime($row['installDate'])) . "'>" . date('d/m/Y', strtotime($row['installDate'])) . "</td>";
+            $returnString .= "<td class='text-center align-middle mx-1' data-order='" . date('Y-m-d', strtotime($row['installDate'])) . "'>" . date('d/m/Y', strtotime($row['installDate'])) . "</td>";
         }
 
-        $returnString = $returnString . "<td class='align-middle text-center'><btn class='btn btn-sm btn-warning' onclick='showFullDevice(\"" . $row[0] . "customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
-                        <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
-                      </svg></btn></td>";
+        $returnString = $returnString . "<td class='align-middle text-center'><btn class='btn btn-sm btn-warning' onclick='showFullDevice(\"" . $row[0] . "customer\")'><i class='bi bi-pencil-fill h5'></i></btn></td>";
 
         if ($row['deviceNote'] && $row['deviceNote'] != "") {
-            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showDeviceNotes(\"" . $row[0] . "customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal-check' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z'/><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td>";
+            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showDeviceNotes(\"" . $row[0] . "customer\")'><i class='bi bi-journal-check h5'></i></btn></td>";
         } else {
-            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showDeviceNotes(\"" . $row[0] . "customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal' viewBox='0 0 16 16'><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td>";
+            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showDeviceNotes(\"" . $row[0] . "customer\")'><i class='bi bi-journal h5'></i></btn></td>";
         }
 
         $hiddenVRN = $row['regNumber'];
@@ -1104,41 +1109,10 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
 
     $returnString = $returnString . "
                 </tbody>
-
-      <!--          <tfoot>
-    <tr>
-      <th class='text-center align-middle'>Reg Number</th>
-      <th class='text-center align-middle'>Type</th>
-      <th class='text-center align-middle'>Platform</th>
-      <th class='text-center align-middle'>Serial</th>
-      <th class='text-center align-middle'>IMEI</th>
-      <th class='text-center align-middle'>DRID Number</th>
-      <th class='text-center align-middle'>Config</th>
-      <th class='text-center align-middle'>Status</th>
-      <th class='text-center align-middle'>SIM Number</th>
-      <th class='text-center align-middle'>SIM Phone</th>
-      <th class='text-center align-middle'>Deactivation Date</th>
-      <th class='text-center align-middle'>SIM Status</th>
-
-      <th class='text-center align-middle'>Original installer</th>
-      <th class='text-center align-middle'>Original install Date</th>
-      <th class='text-center align-middle'>Edit</th>
-      <th class='text-center align-middle'>Notes</th>
-      <th class='text-center align-middle' style='display: none'>Hide</th>
-      <th class='text-center align-middle' style='display: none'>Hide Notes</th>
-      <th class='text-center align-middle' style='display: none'>updatePlatform</th>
-      <th class='text-center align-middle' style='display: none'>updateConfig</th>
-      <th class='text-center align-middle' style='display: none'>updateVCO</th>
-
-    </tr>
-  </tfoot>-->
             </table>
         </div>
         <div class='btn-group' style='display: flex; margin: 10px 20px;'>
-            <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addDevice' type='button' data-toggle='modal' data-target='#modalAddNewDevice'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-            fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
-            <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z' />
-            </svg> New Device </btn>
+            <btn class='btn btn-success btn-sm profileButton' id='addDevice' type='button' data-toggle='modal' data-target='#modalAddNewDevice'><i class='bi bi-plus-circle-fill h5'></i> New Device </btn>
         </div>
 </div>
 </form>
@@ -1279,7 +1253,7 @@ document.getElementById('hiddenDeviceSelector').value = 'dhinstall';
     //    $ix = 1;
     while ($row = mysqli_fetch_array($deviceResult)) {
         $returnString = $returnString . "<tr>";
-        $returnString = $returnString . "<td class='align-middle text-center' style='padding: 0 3px;'>" . $row['regNumber'] . "</td>";
+        $returnString = $returnString . "<td class='align-middle text-center mx-1'>" . $row['regNumber'] . "</td>";
 
         if ($row['cameraRequired'] == '1') {
             $returnString .= "<td class='text-center align-middle' style='padding-left: 5px;width: 6%'><img class='yesIcon' src='images/green_tick_16.png'/><span style='display:none;'>green_tick</span></td>";
@@ -1302,14 +1276,12 @@ document.getElementById('hiddenDeviceSelector').value = 'dhinstall';
             $returnString .= "<td class='text-center align-middle' data-order=" . date('Y-m-d', $stringyDate) . ">" . date('d/m/Y', $stringyDate) . "</td>";
         }
 
-        $returnString = $returnString . "<td class='align-middle text-center'><btn class='btn btn-sm btn-warning' onclick='showVehicleForEdit(\"" . $row[0] . "customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
-                        <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
-                      </svg></btn></td>";
+        $returnString = $returnString . "<td class='align-middle text-center'><btn class='btn btn-sm btn-warning' onclick='showVehicleForEdit(\"" . $row[0] . "customer\")'><i class='bi bi-pencil-fill h5'></i></btn></td>";
 
         if ($row['vehicleNotes'] && $row['vehicleNotes'] != "") {
-            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showVehicleNotes(\"" . $row[0] . "customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal-check' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z'/><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td></tr>";
+            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showVehicleNotes(\"" . $row[0] . "customer\")'><i class='bi bi-journal-check h5'></i></btn></td></tr>";
         } else {
-            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showVehicleNotes(\"" . $row[0] . "customer\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' height='8px' fill='currentColor' class='bi bi-journal' viewBox='0 0 16 16'><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td></tr>";
+            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showVehicleNotes(\"" . $row[0] . "customer\")'><i class='bi bi-journal'></i></btn></td></tr>";
         }
 
         $returnString = $returnString . "</tr>";
@@ -1321,10 +1293,7 @@ document.getElementById('hiddenDeviceSelector').value = 'dhinstall';
             </table>
         </div>
         <div class='btn-group' style='display: flex; margin: 10px 20px;'>
-            <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addVehicle' type='button' data-toggle='modal' data-target='#modalAddVehicle'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-            fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
-            <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z' />
-            </svg> New Vehicle </btn>
+            <btn class='btn btn-success btn-sm profileButton' id='addVehicle' type='button' data-toggle='modal' data-target='#modalAddVehicle'><i class='bi bi-plus-circle-fill h5'></i> New Vehicle </btn>
         </div>
         </div>
     </form>
@@ -1365,7 +1334,6 @@ document.getElementById('hiddenDeviceSelector').value = 'dhinstall';
 </div>
 
 ";
-
 } else {
 
     // DH INSTALL
@@ -1469,63 +1437,59 @@ document.getElementById('hiddenDeviceSelector').value = 'dhinstall';
                     $rowBackgroundClass = "";
                     break;
             }
-            //     if ($row['status']=='Faulty') {
-            //       $rowBackgroundClass= "faulty";
-            //   } elseif ($row['status']=='Inactive') {
-            //       $rowBackgroundClass= "inactive";
-            //   } else {
-            //       $rowBackgroundClass= "";
-            //   }
+   
 
             $returnString .= "<tr class='" . $rowBackgroundClass . "'>
-        <td class='text-center align-middle' style='padding:0 3px;'>" . $row['regNumber'] . "</td>
-        <td class='text-center align-middle' style='padding:0 3px;'>" . $row['description'] . "</td>
-        <td class='text-center align-middle' style='padding:0 3px;'>" . $row['serialNumber'] . "</td>
-        <td class='text-center align-middle' style='padding:0 3px;'>" . $row['IMEI'] . "</td>
-        <td class='text-center align-middle' style='padding:0 3px;'>" . $row['DRIDNumber'] . "</td>
-        <td class='align-middle' style='padding:0 3px;'>" . $row['config'] . "</td>
-        <td class='text-center align-middle' style='padding:0 3px;'>" . $row['status'] . "</td>
-        <td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMNumber'] . "</td>
-        <td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMPhone'] . "</td>";
+        <td class='text-center align-middle mx-1'>" . $row['regNumber'] . "</td>
+        <td class='text-center align-middle mx-1'>" . $row['description'] . "</td>
+        <td class='text-center align-middle mx-1'>" . $row['serialNumber'] . "</td>
+        <td class='text-center align-middle mx-1'>" . $row['IMEI'] . "</td>
+        <td class='text-center align-middle mx-1'>" . $row['DRIDNumber'] . "</td>
+        <td class='align-middle mx-1'>" . $row['config'] . "</td>
+        <td class='text-center align-middle mx-1'>" . $row['status'] . "</td>
+        <td class='text-center align-middle mx-1'>" . $row['SIMNumber'] . "</td>
+        <td class='text-center align-middle mx-1'>" . $row['SIMPhone'] . "</td>";
 
-            // $simDate =  date('d/m/Y', strtotime($row['SIMDeactivationDate']));
-            $simDate = date('d/m/Y', strtotime($row['SIMDeactivationDate']));
-
+            if ($row['SIMDeactivationDate'] != '') {
+                $simDate = date('d/m/Y', strtotime($row['SIMDeactivationDate']));
+            } else {
+                $simDate = strtotime(0);
+            }
             if ($simDate == '' || $simDate == null || $simDate == '01/01/1970') {
                 $simDate = '';
-                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>" . $simDate . "</td>";
+                $returnString .= "<td class='text-center align-middle mx-1' data-order='0/0/0'>" . $simDate . "</td>";
             } else {
-                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='" . strtotime($row['SIMDeactivationDate']) . "'>" . $simDate . "</td>";
+                $returnString .= "<td class='text-center align-middle mx-1' data-order='" . strtotime($row['SIMDeactivationDate']) . "'>" . $simDate . "</td>";
             }
 
             $returnString .= "
-        <td class='text-center align-middle' style='padding:0 3px;'>" . $row['SIMStatus'] . "</td>
+        <td class='text-center align-middle mx-1'>" . $row['SIMStatus'] . "</td>
 
-        <td class='text-center align-middle' style='padding:0 3px;'>" . $row['installerName'] . "</td>";
+        <td class='text-center align-middle mx-1'>" . $row['installerName'] . "</td>";
 
-            $stringyDate = strtotime($row['installDate']);
+            if ($row['installDate'] != '') {
+                $stringyDate = strtotime($row['installDate']);
+            } else {
+                $stringyDate = strtotime(0);
+            }
             if (date('d/m/Y', $stringyDate) == '01/01/1970' || date('d/m/Y', $stringyDate) == '01/01/0001' || date('d/m/Y', $stringyDate) == null) {
-                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='0/0/0'>unknown</td>";
+                $returnString .= "<td class='text-center align-middle mx-1' data-order='0/0/0'>unknown</td>";
             } else {
-                $returnString .= "<td class='text-center align-middle' style='padding:0 3px;' data-order='" . strtotime($row['installDate']) . "'>" . date('d/m/Y', strtotime($row['installDate'])) . "</td>";
+                $returnString .= "<td class='text-center align-middle mx-1' data-order='" . strtotime($row['installDate']) . "'>" . date('d/m/Y', strtotime($row['installDate'])) . "</td>";
             }
 
             $returnString .= "
-        <td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showFullDevice(\"" . $row['ID'] . "DHI\")'><svg xmlns='http://www.w3.org/2000/svg' width='8px' fill='currentColor' class='bi bi-pencil-fill' viewBox='0 0 16 16'>
-        <path d='M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z'/>
-        </svg></btn></td>";
+        <td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showFullDevice(\"" . $row['ID'] . "DHI\")'><i class='bi bi-pencil-fill h5'></i></btn></td>";
 
             if ($row['deviceNote'] && $row['deviceNote'] != "") {
-                $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showDeviceNotes(\"" . $row['ID'] . "DHI\")'><svg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px' fill='currentColor' class='bi bi-journal-check' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0z'/><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td>";
+                $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-warning' onclick='showDeviceNotes(\"" . $row['ID'] . "DHI\")'><i class='bi bi-journal-check h5'></i></btn></td>";
             } else {
-                $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showDeviceNotes(\"" . $row['ID'] . "DHI\")'><svg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px' fill='currentColor' class='bi bi-journal' viewBox='0 0 16 16'><path d='M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z'/><path d='M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z'/></svg></btn></td>";
+                $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showDeviceNotes(\"" . $row['ID'] . "DHI\")'><i class='bi bi-journal h5'></i></btn></td>";
             }
 
-            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-success' onclick='allocateDevice(\"" . $row['ID'] . "DHI\")'><svg xmlns='http://www.w3.org/2000/svg' width='16px' height='16px' fill='currentColor' class='bi bi-bezier' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5 0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5v-1zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z'/><path d='M6 4.5H1.866a1 1 0 1 0 0 1h2.668A6.517 6.517 0 0 0 1.814 9H2.5c.123 0 .244.015.358.043a5.517 5.517 0 0 1 3.185-3.185A1.503 1.503 0 0 1 6 5.5v-1zm3.957 1.358A1.5 1.5 0 0 0 10 5.5v-1h4.134a1 1 0 1 1 0 1h-2.668a6.517 6.517 0 0 1 2.72 3.5H13.5c-.123 0-.243.015-.358.043a5.517 5.517 0 0 0-3.185-3.185z'/>
-        </svg></btn></td>";
+            $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-success' onclick='allocateDevice(\"" . $row['ID'] . "DHI\")'><i class='bi bi-bezier h5'></i></btn></td>";
 
             $returnString .= "</tr>";
-
         }
 
         // } else {
@@ -1599,9 +1563,7 @@ document.getElementById('hiddenDeviceSelector').value = 'dhinstall';
   });
     </script>
 ";
-
     }
-
 }
 
 echo $returnString;

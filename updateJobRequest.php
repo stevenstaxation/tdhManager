@@ -14,6 +14,15 @@ $customerID = $_POST['customerID'];
 $jobCompleted = $_POST['jobCompleted'];
 $jobContact =  mysqli_real_escape_string($link, $_POST['jobContact']);
 $jobDateBooked = $_POST['jobDateBooked'];
+$jobTimeBooked = $_POST['jobTimeBooked'];
+if ($jobDateBooked && $jobTimeBooked) {
+    $jobDateandTime = $jobDateBooked . "T" . $jobTimeBooked;
+} elseif ($jobDateBooked) {
+    $jobDateandTime = $jobDateBooked . "T00:00:00";
+} else {
+    $jobDateandTime = null;
+}
+$timePeriod = $_POST['timePeriod'];
 $jobEmail =  mysqli_real_escape_string($link, $_POST['jobEmail']);
 $jobEngineer = $_POST['jobEngineer'];
 $jobInstallAddress = mysqli_real_escape_string($link, $_POST['jobInstallAddress']);
@@ -122,10 +131,10 @@ if ($pics['regPicDeviceDetails'] != $picDevice) {
 }
 
 
-$sql = "UPDATE tblJobs SET ownerID='$customerID', date=NULLIF('$jobDateBooked',''), jobType='$jobType', VRN='$jobVRN', notes='$jobNotes', 
+$sql = "UPDATE tblJobs SET ownerID='$customerID', date=NULLIF('$jobDateandTime',''), jobType='$jobType', VRN='$jobVRN', notes='$jobNotes', 
 status='$jobStatus', cameratypeid='$cameraType', OtherKitFlag='$otherKitFlag', PriorityIsUrgent='$jobPriority', JobRate='$jobRate', customerRate = '$customerJobRate',
 BookingContact='$jobContact', BookingEmail='$jobEmail', BookingTelephone='$jobPhone', BookingAddress='$jobInstallAddress', 
-EquipmentLocationID='$jobLocation', EngineerID=NULLIF('$jobEngineer',''), JobCompleteFlag='$jobComplete', TDHSignOff='$jobTDHComplete', regPicFilename=NULLIF('$picRegistration',''), regPicDeviceDetails=NULLIF('$picDevice',''), oldVRN=NULL, jobInvoiced = '$jobIsInvoiced', monthlyInvoice='$monthlyIsInvoiced', approvedPayment='$invoiceIsApproved'  WHERE tblJobs.ID='$jobID'";
+EquipmentLocationID='$jobLocation', EngineerID=NULLIF('$jobEngineer',''), JobCompleteFlag='$jobComplete', TDHSignOff='$jobTDHComplete', regPicFilename=NULLIF('$picRegistration',''), regPicDeviceDetails=NULLIF('$picDevice',''), oldVRN=NULL, jobInvoiced = '$jobIsInvoiced', monthlyInvoice='$monthlyIsInvoiced', approvedPayment='$invoiceIsApproved', timePeriod='$timePeriod'  WHERE tblJobs.ID='$jobID'";
 
 $result = mysqli_query($link, $sql);
 

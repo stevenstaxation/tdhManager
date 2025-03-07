@@ -38,12 +38,12 @@ if ($errors) {
     exit();
 }
 
-$insurerName = mysqli_real_escape_string($link,filter_var($insurerName, FILTER_SANITIZE_STRING));
-$insurerAddress1 = mysqli_real_escape_string($link,filter_var($insurerAddress1, FILTER_SANITIZE_STRING));
-$insurerAddress2 = mysqli_real_escape_string($link,filter_var($insurerAddress2, FILTER_SANITIZE_STRING));
-$insurerAddress3 = mysqli_real_escape_string($link,filter_var($insurerAddress3, FILTER_SANITIZE_STRING));
-$insurerAddress4 = mysqli_real_escape_string($link,filter_var($insurerAddress4, FILTER_SANITIZE_STRING));
-$insurerAddress5 = mysqli_real_escape_string($link,filter_var(strtoupper($insurerAddress5), FILTER_SANITIZE_STRING));
+$insurerName = mysqli_real_escape_string($link,$insurerName);
+$insurerAddress1 = mysqli_real_escape_string($link,$insurerAddress1);
+$insurerAddress2 = mysqli_real_escape_string($link,$insurerAddress2);
+$insurerAddress3 = mysqli_real_escape_string($link,$insurerAddress3);
+$insurerAddress4 = mysqli_real_escape_string($link,$insurerAddress4);
+$insurerAddress5 = mysqli_real_escape_string($link,strtoupper($insurerAddress5));
 
 // before update
 $sql = "SELECT * FROM tblInsurer WHERE ID = '$insurerID'";

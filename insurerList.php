@@ -28,14 +28,10 @@ $returnString .= "
         $returnString .="</select>
 
             <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-            <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addNewInsurer' type='button' data-toggle='modal' data-target='#modalAddNewInsurer' data-caller='insurer'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
-            <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
-            </svg> New Insurer</btn>";
+            <btn class='btn btn-success btn-sm mx-2' id='addNewInsurer' type='button' data-toggle='modal' data-target='#modalAddNewInsurer' data-caller='insurer'><i class='bi bi-plus-circle-fill' viewBox='0 0 16 16'></i> New Insurer</btn>";
 
                 if ($_SESSION['isAdmin']== '1') {
-                    $returnString .= "<btn class='btn btn-danger btn-sm deleteInsurer' style='margin: 0 10px' onclick='deleteInsurer()' id='deleteInsurer' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
-                    <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/>
-                    </svg> Delete </btn>";
+                    $returnString .= "<btn class='btn btn-danger btn-sm deleteInsurer mx-2' onclick='deleteInsurer()' id='deleteInsurer' type='button'><i class='bi bi-trash-fill' viewBox='0 0 16 16'></i> Delete </btn>";
                 }
                 $returnString .="
             </div>
@@ -43,47 +39,47 @@ $returnString .= "
         </div>
         <div class = 'col-1'></div>
         <div class='col-lg-6 col-xl-7 settings-dialog'>
-            <h6><strong style='margin-top:10px;'>Selected Insurer details</strong></h6>
+            <h6><strong>Selected Insurer details</strong></h6>
 
-            <div class='form-group' style='display: flex; align-items: center'>
-            <label class='control-label inline' for='editInsurerName' style='width:40%; padding-top:6px'>Name </label>
+            <div class='form-group insurerFormGroup'>
+            <label class='control-label inline' for='editInsurerName'>Name </label>
             <div class='input-group'>
-                <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editInsurerName' name='editInsurerName' 
+                <input maxlength='100' class='form-control' type='text' id='editInsurerName' name='editInsurerName' 
                 placeholder='insurer name...' value=''>
             </div>   
         </div>
-            <div class='form-group' style='display: flex; align-items: center'>
-                <label class='control-label inline' for='editInsurerAddress1' style='width:40%; padding-top:6px'>Address </label>
+            <div class='form-group insurerFormGroup'>
+                <label class='control-label inline' for='editInsurerAddress1'>Address </label>
                 <div class='input-group'>
-                    <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editInsurerAddress1' name='editInsurerAddress1' 
+                    <input maxlength='100' class='form-control' type='text' id='editInsurerAddress1' name='editInsurerAddress1' 
                     placeholder='address line 1...' value=''>
                 </div>   
             </div>
-            <div class='form-group' style='display: flex; align-items: center'>
-                <label class='control-label inline' for='editInsurerAddress2' style='width:40%; padding-top:6px'>Address </label>
+            <div class='form-group insurerFormGroup'>
+                <label class='control-label inline' for='editInsurerAddress2'>Address </label>
                 <div class='input-group'>
-                    <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editInsurerAddress2' name='editInsurerAddress2' 
+                    <input maxlength='100' class='form-control' type='text' id='editInsurerAddress2' name='editInsurerAddress2' 
                     placeholder='address line 2...' value=''>
                 </div>   
             </div>
-            <div class='form-group' style='display: flex; align-items: center'>   
-                <label class='control-label inline' for='editInsurerAddress3' style='width:40%; padding-top:6px'>Town/City </label>
+            <div class='form-group insurerFormGroup'>   
+                <label class='control-label inline' for='editInsurerAddress3'>Town/City </label>
                 <div class='input-group'>
-                    <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editInsurerAddress3' name='editInsurerAddress3' 
+                    <input maxlength='100' class='form-control' type='text' id='editInsurerAddress3' name='editInsurerAddress3' 
                     placeholder='town/city...' value=''>
                 </div>   
             </div>
-            <div class='form-group' style='display: flex; align-items: center'>            
-                <label class='control-label inline' for='editInsurerAddress4' style='width:40%; padding-top:6px'>County </label>
+            <div class='form-group insurerFormGroup'>            
+                <label class='control-label inline' for='editInsurerAddress4'>County </label>
                 <div class='input-group'>
-                    <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editInsurerAddress4' name='editInsurerAddress4' 
+                    <input maxlength='100' class='form-control' type='text' id='editInsurerAddress4' name='editInsurerAddress4' 
                     placeholder='county...' value=''>
                 </div>   
             </div>
-            <div class='form-group' style='display: flex; align-items: center'>        
-                <label class='control-label inline' for='editInsurerAddress5' style='width:40%; padding-top:6px'>Post Code </label>
+            <div class='form-group insurerFormGroup'>        
+                <label class='control-label inline' for='editInsurerAddress5'>Post Code </label>
                 <div class='input-group'>
-                    <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editInsurerAddress5' name='editInsurerAddress5' 
+                    <input maxlength='100' class='form-control' type='text' id='editInsurerAddress5' name='editInsurerAddress5' 
                     placeholder='post code...' value=''>
                 </div>          
             </div>
@@ -91,9 +87,8 @@ $returnString .= "
             <div id='editInsurerMessage'></div>
             <div class='row'>
             <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-            <btn class='btn btn-success btn-sm updateEditInsurer' style='margin: 0 10px' onclick='updateEditInsurer()' id='updateEditInsurer' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-left-circle-fill' viewBox='0 0 16 16'>
-            <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z'/>
-            </svg> Update </btn>";
+            <btn class='btn btn-success btn-sm updateEditInsurer mx-2' onclick='updateEditInsurer()' id='updateEditInsurer' type='button'><i class='bi bi-arrow-up-left-circle-fill'></i>
+             Update </btn>";
      
             $returnString .="
         </div>
@@ -105,16 +100,16 @@ $returnString .= "
 <div class='col-lg-6 col-xl-5'></div>
 
 <div class='col-lg-12 col-xl-7 settings-dialog'>
-    <h6><strong style='margin-top:10px;'>Contact details</strong></h6>
+    <h6><strong>Contact details</strong></h6>
     <table class='table table-bordered table-sm'>
         <thead>
             <tr>
-                <th class='align-middle' style='padding-left:3px;'>First Name</th>
-                <th class='align-middle' style='padding-left:3px;'>Last Name</th> 
-                <th class='align-middle' style='padding-left:3px;'>Job Title</th>
+                <th class='align-middle pl-1'>First Name</th>
+                <th class='align-middle pl-1'>Last Name</th> 
+                <th class='align-middle pl-1'>Job Title</th>
                 <th class='text-center align-middle'>Mobile</th>
                 <th class='text-center align-middle'>Telephone</th>
-                <th class='align-middle' style='padding-left:3px;'>Email</th>
+                <th class='align-middle pl-1'>Email</th>
                 <th class='text-center align-middle'>Footage</th>
                 <th class='text-center align-middle'>Health Check</th>
                 <th class='text-center align-middle'>Edit</th>
@@ -126,9 +121,7 @@ $returnString .= "
     </table>
     <div id='hiddenInfo' style='display: none'></div>
         
-    <btn class='btn btn-success btn-sm' id='btnAddNewContact' style='margin: 0 10px' type='button' data-toggle='modal' data-target='#modalAddNewInsurerContact' data-caller='insurer'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-    fill='currentColor' class='bi bi-person-lines-fill' viewBox='0 0 16 16'><path d='M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z' />
-    </svg> New Contact </btn>
+    <btn class='btn btn-success btn-sm mx-2' id='btnAddNewContact' type='button' data-toggle='modal' data-target='#modalAddNewInsurerContact' data-caller='insurer'><i class='bi bi-person-lines-fill' viewBox='0 0 16 16'></i> New Contact </btn>
 
 </div>
 

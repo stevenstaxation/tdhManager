@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('connect.php');
-require_once ('simple_dom_ext/simple_html_dom.php');
+require_once('simple_dom_ext/simple_html_dom.php');
 if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
     header("Location: index.php");
 }
@@ -20,7 +20,7 @@ $deviceSIMStatus = $_POST['SIMStatus'];
 $deviceSIMScheduleDate = $_POST['SIMScheduleDate'];
 $deviceSIMDeactDate = $_POST['SIMDeactivationDate'];
 $deviceConfig = $_POST['config'];
-$deviceRegNumber = str_replace(' ', '',$_POST['regNumber']);
+$deviceRegNumber = str_replace(' ', '', $_POST['regNumber']);
 $deviceRegNumber = strtoupper($deviceRegNumber);
 $deviceStatus = $_POST['status'];
 $deviceInstallerID = $_POST['installerID'];
@@ -29,7 +29,8 @@ $deviceInstallDate = $_POST['installDate'];
 $deviceSupplierID = $_POST['supplierID'];
 // $deviceSupplierInvoice = $_POST['supplierInvoice'];
 $deviceNote = $_POST['deviceNote'];
-// $devicePurchaseDate = $_POST['purchaseDate'];
+$devicePurchaseDate = $_POST['purchaseDate'];
+$deviceBuyer = $_POST['buyer'];
 $updated_config = $_POST['configUpdated'];
 $updated_platform = $_POST['platformUpdated'];
 $updated_vco = $_POST['vcoUpdated'];
@@ -39,11 +40,11 @@ $deviceNote = addslashes($deviceNote);
 
 $errors = "";
 
-if ($deviceIMEI) {
-    if (strlen($deviceIMEI)!=15 && $deviceIMEI!="" && $deviceIMEI!=null) {
-        $errors .= 'IMEI should be 15 digits long or left blank if unknown.';
-    }
-}
+// if ($deviceIMEI) {
+//     if (strlen($deviceIMEI)!=15 && $deviceIMEI!="" && $deviceIMEI!=null) {
+//         $errors .= 'IMEI should be 15 digits long or left blank if unknown.';
+//     }
+// }
 
 
 if ($errors) {
@@ -60,7 +61,7 @@ $result = mysqli_query($link, $sql);
 
 $count = mysqli_num_rows($result);
 
-if ($count==1) { // vehicle exists
+if ($count == 1) { // vehicle exists
     $row = mysqli_fetch_array($result);
     $deviceVehicleID = $row['ID'];
 } else {
@@ -121,7 +122,7 @@ if ($updated_platform === 'true') {
 $sql = "UPDATE tblDevice SET ownerID='$deviceOwnerID', isCamera='1', deviceDescriptionID='$deviceDescriptionID', TDHNumber='$deviceTDHNumber',
 serialNumber='$deviceSerialNumber', IMEI='$deviceIMEI', DRIDNumber='$deviceDRIDNumber', SIMNumber='$deviceSIMNumber', SIMPhone='$deviceSIMPhone', SIMStatus='$deviceSIMStatus',
 SIMDeactivationDate=NULLIF('$deviceSIMDeactDate',''), config='$deviceConfig', cameraUsedFor='$deviceOwnerID', vehicleID='$deviceVehicleID', status='$deviceStatus', installerID=NULLIF('$deviceInstallerID',''),
-installDate=NULLIF('$deviceInstallDate',''), assocOrderNumber='$deviceInstallerReference', supplierID=NULLIF('$deviceSupplierID',''), supplierInvoice='$deviceSupplierInvoice', purchaseDate=NULLIF('$devicePurchaseDate',''), deviceNote='$deviceNote', scheduledDate=NULLIF('$deviceSIMScheduleDate',''),
+installDate=NULLIF('$deviceInstallDate',''), assocOrderNumber='$deviceInstallerReference', supplierID=NULLIF('$deviceSupplierID',''), supplierInvoice='$deviceSupplierInvoice', buyer = '$deviceBuyer', purchaseDate=NULLIF('$devicePurchaseDate',''), deviceNote='$deviceNote', scheduledDate=NULLIF('$deviceSIMScheduleDate',''),
 platformUpdated = '$updated_platform', configUpdated = '$updated_config', vcoUpdated = '$updated_vco' WHERE ID = '$deviceID'";
 
 
@@ -129,7 +130,3 @@ platformUpdated = '$updated_platform', configUpdated = '$updated_config', vcoUpd
 $result = mysqli_query($link, $sql);
 
 echo $sql . "success";
-
-
-?>
-

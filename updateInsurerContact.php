@@ -13,7 +13,7 @@ $contactTelephone = $_POST['telephone'];
 $contactEmail = $_POST['email'];
 $contactJobTitle = $_POST['jobTitle'];
 $insurerID = $_POST['employeeOf'];
-if($_POST['footageRec']=='true') {
+if ($_POST['footageRec'] == 'true') {
     $contactFootage = 1;
 } else {
     $contactFootage = 0;
@@ -25,7 +25,7 @@ if($_POST['footageRec']=='true') {
 // }
 $contactCustomer = $_POST['employeeOf'];
 
-$errors="";
+$errors = "";
 // rules
 // Must include first name /
 // Must include a mobile, telephone or email /
@@ -35,18 +35,18 @@ $errors="";
 // Job Title max length is 50 /
 
 if (!$contactFirstName) {
-    $errors .="You must include at least the contact's first name<br>";
+    $errors .= "You must include at least the contact's first name<br>";
 }
 
 if (!$contactMobileNumber && !$contactTelephone && !$contactEmail) {
-    $errors .="You must include a mobile number, a telephone number or an email address<br>";
+    $errors .= "You must include a mobile number, a telephone number or an email address<br>";
 }
 
-if (strlen($contactFirstName)>30) {
-    $contactFirstName = substr($contactFirstName,0,30);
+if (strlen($contactFirstName) > 30) {
+    $contactFirstName = substr($contactFirstName, 0, 30);
 }
-if (strlen($contactLastName)>30) {
-    $contactLastName = substr($contactLastName,0,30);
+if (strlen($contactLastName) > 30) {
+    $contactLastName = substr($contactLastName, 0, 30);
 }
 
 $contactMobileNumber = str_replace(" ", "", $contactMobileNumber);
@@ -54,24 +54,24 @@ $contactTelephone = str_replace(" ", "", $contactTelephone);
 $contactMobileNumber = str_replace("-", "", $contactMobileNumber);
 $contactTelephone = str_replace("-", "", $contactTelephone);
 
-if (strlen($contactMobileNumber)>14) {
+if (strlen($contactMobileNumber) > 14) {
     $errors .= "Mobile number should not be longer than 14 characters<br>";
 }
-if (strlen($contactTelephone)>14) {
+if (strlen($contactTelephone) > 14) {
     $errors .= "Mobile number should not be longer than 14 characters<br>";
 }
-if (strlen($contactEmail)>100) {
+if (strlen($contactEmail) > 100) {
     $errors .= "Email address should not be longer than 100 characters<br>";
 }
-if (strlen($contactJobTitle)>50) {
+if (strlen($contactJobTitle) > 50) {
     $errors .= "Job title should not be longer than 50 characters<br>";
 }
 
-if (!(is_numeric($contactMobileNumber)) && strlen($contactMobileNumber)!=0) {
+if (!(is_numeric($contactMobileNumber)) && strlen($contactMobileNumber) != 0) {
     $errors .= "Mobile number should only contain numbers<br>";
 }
 
-if (!(is_numeric($contactTelephone)) && strlen ($contactTelephone)!=0) {
+if (!(is_numeric($contactTelephone)) && strlen($contactTelephone) != 0) {
     $errors .= "Telephone should only contain numbers<br>";
 }
 
@@ -81,52 +81,46 @@ if ($errors) {
     exit();
 }
 
-$contactFirstName = filter_var($contactFirstName, FILTER_SANITIZE_STRING);
-$contactLastName = filter_var($contactLastName, FILTER_SANITIZE_STRING);
-$contactMobileNumber = filter_var($contactMobileNumber, FILTER_SANITIZE_STRING);
-$contactTelephone = filter_var($contactTelephone, FILTER_SANITIZE_STRING);
 $contactEmail = filter_var($contactEmail, FILTER_SANITIZE_EMAIL);
-$contactJobTitle = filter_var($contactJobTitle, FILTER_SANITIZE_STRING);
 
-$contactFirstName = mysqli_real_escape_string($link,$contactFirstName);
-$contactLastName = mysqli_real_escape_string($link,$contactLastName);
-$contactMobileNumber = mysqli_real_escape_string($link,$contactMobileNumber);
-$contactTelephone = mysqli_real_escape_string($link,$contactTelephone);
-$contactEmail = mysqli_real_escape_string($link,$contactEmail);
-$contactJobTitle = mysqli_real_escape_string($link,$contactJobTitle);
+
+$contactFirstName = mysqli_real_escape_string($link, $contactFirstName);
+$contactLastName = mysqli_real_escape_string($link, $contactLastName);
+$contactMobileNumber = mysqli_real_escape_string($link, $contactMobileNumber);
+$contactTelephone = mysqli_real_escape_string($link, $contactTelephone);
+$contactEmail = mysqli_real_escape_string($link, $contactEmail);
+$contactJobTitle = mysqli_real_escape_string($link, $contactJobTitle);
 
 // before update
 $sql = "SELECT * FROM tblInsurerContact WHERE ID = '$contactCustomer'";
-$prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
+// $prev = mysqli_fetch_assoc(mysqli_query($link, $sql));
 
 $sql = "UPDATE tblInsurerContact SET firstName='$contactFirstName', lastName='$contactLastName', mobileNo='$contactMobileNumber', telephone='$contactTelephone', email='$contactEmail', jobTitle='$contactJobTitle', isFootageRecipient='$contactFootage' WHERE ID = '$contactCustomer'";
 $result = mysqli_query($link, $sql);
 
-    if (!$result) {
-        echo '<div class="alert alert-danger">Error accessing the database</div>';
-        echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
-        exit();
-    }
-
-// after update
-$sql = "SELECT * FROM tblInsurerContact WHERE ID = '$contactCustomer'";
-$updated = mysqli_fetch_assoc(mysqli_query($link, $sql));
-
-// get changes
-$updatedColumns = array_diff_assoc($updated, $prev);
-
-// parse changes
-$description="Insurer contact " . $contactFirstName . " " . $contactLastName . " was edited - " ;
-foreach ($updatedColumns as $column=>$value) {
-    $description .= $column . " was changed to " .$value .", ";
+if (!$result) {
+    echo '<div class="alert alert-danger">Error accessing the database</div>';
+    echo '<div class="alert alert-danger">' . mysqli_error($link) . '</div>';
+    exit();
 }
-$description = substr($description,0,strlen($description)-2);
+
+// // after update
+// $sql = "SELECT * FROM tblInsurerContact WHERE ID = '$contactCustomer'";
+// $updated = mysqli_fetch_assoc(mysqli_query($link, $sql));
+
+// // get changes
+// $updatedColumns = array_diff_assoc($updated, $prev);
+
+// // parse changes
+// $description = "Insurer contact " . $contactFirstName . " " . $contactLastName . " was edited - ";
+// foreach ($updatedColumns as $column => $value) {
+//     $description .= $column . " was changed to " . $value . ", ";
+// }
+// $description = substr($description, 0, strlen($description) - 2);
 
 
-$sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID']. "')";
-$result = mysqli_query($link, $sql);
-      
+// $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('$description', '" . $_SESSION['userID'] . "')";
+// $result = mysqli_query($link, $sql);
+
 
 echo "success";
-
-?>
