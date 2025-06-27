@@ -40,16 +40,16 @@ session_start();
                 <div class='logInContent'>
                     <form method='POST' id='logInForm' class='logInForm'>
                         <img src='images/logo_swirl.png' alt='Data Hub Logo'>
-                        <h2 class='form-header text-center' style='color: #0078bd; float: right; margin-top: 17px;'><strong>TDH Manager</strong></h2>
-                        <h3 class='form-title h4' style='text-align: center; margin-top: 8px; margin-bottom: 30px;'>Log in to your account</h3>
+                        <h2 class='form-header centeredText' style='display: inline; color: #0078C0; margin-top: 17px;'><strong>TDH Manager</strong></h2>
+                        <h3 class='form-title h4 centeredText' style='margin-top: 8px; margin-bottom: 30px;'>Log in to your account</h3>
                         <div class='form-group'>
                             <input type='text' class='form-input' name='userName' id='userName' placeholder='Enter your email address...' autocomplete='username'>
                         </div>
 
                         <div class='input-group'>
-                            <input style='width: 87%; margin-left: 0' type='password' class='form-control py-2 border-right-0 border' name='password' id='password' placeholder='Enter a password...' autocomplete='current-password'>
+                            <input style='width: 87%; margin-left: 0' type='password' class='form-control py-2 border-right-0' name='password' id='password' placeholder='Enter a password...' autocomplete='current-password'>
                             <span class='input-group-append'>
-                                <button class='btn shadow-none border-left-0 border' id='pwButton' type='button' onclick='togglePassword()'>
+                                <button class='btn btn-light shadow-none border-left-0' style='border: 1px solid var(--greyAA); border-radius: 0 7px 7px 0;' id='pwButton' type='button' onclick='togglePassword()'>
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </span>
@@ -62,6 +62,10 @@ session_start();
                     <p class='forgotPassword text-center'>
                         <small>Forgot password? <a href='forgot.php' class='forgotLink'>reset it here</a></small>
                     </p>
+                    <p class='copyrightNotice text-center' style='font-size: 12px;'>
+                       <br>&copy; 2022-<?php echo date("Y");?> The Data Analysis Hub Ltd<br>All Rights Reserved
+                    </p>
+
 
                 </div>
             </div>

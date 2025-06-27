@@ -40,7 +40,6 @@ if (mysqli_num_rows($result) == 1) {
     $result = mysqli_query($link, $sql);
     $row = mysqli_fetch_array($result);
 }
-$thisClientName = $row['businessName'];
 
 if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     $dateNow = new DateTime();
@@ -80,9 +79,17 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                         placeholder='Vodafone reference...' value='" . $row['VCOReference'] . "'>
                     </div>
                 </div>
-                
+                <div class='form-group' style='display: flex; align-items: center; font-size: 12px'>
+                    <label class='control-label inline' for='policyNumber' style='width:40%; padding-top:7px'><strong>Policy No.</strong></label>
+                    <div class='input-group'>
+                        <input style='font-weight: bold; font-size: 12px;' maxlength=100
+                        class='form-control enabler' type='text' id='policyNumber' name='policyNumbver'
+                        placeholder='Policy Number...' value='" . $row['policynumber'] . "'>
+                    </div>
+                </div>
+
                 <div class='btn-group' style ='display: flex; margin: 2px 2px;'>
-                    <btn class='btn btn-success btn-sm updateCustomer profileButton' onclick='updateCustomer()' id='updateCustomer' type='button'><i class='bi bi-arrow-up-left-circle-fill h5'></i> Update Name/VCO Reference </btn>
+                    <btn class='btn btn-success btn-sm updateCustomer profileButton' onclick='updateCustomer()' id='updateCustomer' type='button'><i class='bi bi-arrow-up-left-circle-fill h5'></i> Update customer details </btn>
                 </div>
             </div>
 

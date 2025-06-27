@@ -77,12 +77,15 @@ try {
     $mail->isSMTP(); // Set mailer to use SMTP
     $mail->Host = 'send.one.com';
     $mail->SMTPAuth = true; // Enable SMTP authentication
-    $mail->Username = 'accounts@thedatahub.uk'; // SMTP username
-    $mail->Password = '.b.;p}2,F4paaa!u'; // SMTP password
+    // $mail->Username = 'accounts@thedatahub.uk'; // SMTP username
+    $mail->Username = 'mailbox@stevenstaxation.com'; // SMTP username
+    // $mail->Password = '.b.;p}2,F4paaa!u'; // SMTP password
+    $mail->Password = 'W1!!M41!80xobo!7!'; // SMTP password
+    
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
 
-    $mail->setFrom('accounts@thedatahub.uk', 'TDH Manager'); // sender
+    $mail->setFrom('mailbox@stevenstaxation.com', 'TDH Manager'); // sender
     $mail->addAddress($userEmail, $userEmail); // Add a recipient
     $mail->isHTML(true); // Set email format to HTML
     $mail->Subject = 'TDH Manager - Invitation to Register';
@@ -98,4 +101,5 @@ try {
 
 $sql = "INSERT INTO tblEventLog (Description, UserID) VALUES ('New user invited - $userEmail', '" . $_SESSION['userID'] . "')";
 $result = mysqli_query($link, $sql);
-e
+
+

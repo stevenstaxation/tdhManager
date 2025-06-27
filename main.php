@@ -173,6 +173,7 @@ $_SESSION['attempt'] = 0;
     <div id='vehicleList' class='container'></div>
     <div id='devicesList' class='container-fluid'></div>
     <div id='fleetList' class='container-fluid'></div>
+    <div id='dashboard' class='container-fluid'></div>
     <div id='bulkUploadsPage' class='container'></div>
     <div id='hiddenDeviceSelector' style='display: none;'></div>
     <div id='hiddenVehicleSelector' style='display: none;'></div>
@@ -183,7 +184,7 @@ $_SESSION['attempt'] = 0;
     <div id='homeScreen' class='container'></div>
 
 
-
+    <script src='scripts/dashboard.js'></script>
     <script src='scripts/index.js'></script>
     <script src='scripts/clickEvents.js'></script>
     <script src='scripts/customers.js'></script>
@@ -205,6 +206,9 @@ $_SESSION['attempt'] = 0;
     <script src='scripts/users.js'></script>
     <script src='scripts/globals.js'></script>
     <script src='scripts/insurerContact.js'></script>
+        <script src='scripts/api.js'></script>
+    <!-- <script src='scripts/webhooks.js'></script> -->
+
 
 
 </BODY>

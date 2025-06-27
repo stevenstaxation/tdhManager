@@ -82,6 +82,12 @@ if ($_SESSION['isInstaller'] == '0' && $_SESSION['isEngineer'] == '0') {
 <?php
 if ($_SESSION['isInstaller'] == '0' && $_SESSION['isEngineer'] == '0') {
     echo "
+                        <li id='showEventDashboard' class='nav-item pl-4 pl-xl-0 ml-0 ml-xl-4'>
+                            <a class='nav-link willCollapse' href='#' style='text-align: center'>
+                                <i class='bi bi-speedometer h4'></i>
+                                Events Dashboard
+                            </a>
+                        </li>
                         <li class='nav-item dropdown pl-4 pl-xl-0 ml-0 ml-xl-4'>
                             <a class='nav-link dropdown-toggle' data-toggle='dropdown' href='#' role='button' aria-haspopup='true' aria-expanded='true' id='dropdownMenuButton'>
                                 <i class='bi bi-flag-fill h4'></i>
@@ -136,6 +142,11 @@ if ($_SESSION['isAdmin'] == '1') {
                                         <a class='dropdown-item willCollapse' href='#' id='showBrokers'>
                                             <i class='bi bi-person-lines-fill h5'></i> 
                                             Brokers
+                                        </a>
+                                         <div class='dropdown-divider'></div>
+                                        <a class='dropdown-item willCollapse' href='#' id='showInstallers'>
+                                            <i class='bi bi-person-lines-fill h5'></i> 
+                                            Installers
                                         </a>
                                         <div class='dropdown-divider'></div>
                                         <a class='dropdown-item willCollapse' href='#' id='showOthers'>

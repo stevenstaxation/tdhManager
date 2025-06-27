@@ -56,7 +56,7 @@ function readUINT32($Handle, $BigEndian = false) {
             $byte0 = unpack("N*",fread($Handle,4));  
     }
     
-     return $byte0[1];
+     return $byte0[1] ?? $byte0[0] ?? 0;
 }
 
 function readSINT32($Handle, $BigEndian = false) {

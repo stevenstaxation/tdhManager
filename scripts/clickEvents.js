@@ -2,9 +2,9 @@ var prevScrollpos = window.pageYOffset;
 window.onscroll = function () {
   var currentScrollPos = window.pageYOffset;
   if (prevScrollpos > currentScrollPos) {
-    document.getElementById("navbar-wrapper").style.top = "0";
+    document.querySelector("#navbar-wrapper").style.top = "0";
   } else {
-    document.getElementById("navbar-wrapper").style.top = "-60px";
+    document.querySelector("#navbar-wrapper").style.top = "-60px";
   }
   prevScrollpos = currentScrollPos;
 };
@@ -85,7 +85,7 @@ $(document).on("click", "#companyLogo", function () {
 var expanded = false;
 
 function showCheckboxes() {
-  var checkboxes = document.getElementById("checkboxes");
+  var checkboxes = document.querySelector("#checkboxes");
 
   if (!expanded) {
     checkboxes.style.display = "block";
@@ -97,7 +97,7 @@ function showCheckboxes() {
 }
 
 // function showEditCheckboxes() {
-//     var checkboxes = document.getElementById("editCheckboxes");
+//     var checkboxes = document.querySelector("#editCheckboxes");
 
 //     if (!expanded) {
 //         checkboxes.style.display = "block";
@@ -109,8 +109,8 @@ function showCheckboxes() {
 // }
 
 function togglePassword() {
-  var pwIn = document.getElementById("password");
-  var btn = document.getElementById("pwButton");
+  var pwIn = document.querySelector("#password");
+  var btn = document.querySelector("#pwButton");
   if (pwIn.type === "password") {
     pwIn.type = "text";
     btn.innerHTML = '<i class="bi bi-eye-slash"></i>';
@@ -125,7 +125,7 @@ $(document).on("click", "#lookupVRNByAPI", function (event) {
   "use strict";
   var dataToPost = {};
   dataToPost.VRN = document
-    .getElementById("VRNToFind")
+    .querySelector("#VRNToFind")
     .value.replaceAll(" ", "");
   dataToPost.VRN = dataToPost.VRN.replaceAll(".", "");
   dataToPost.VRN = dataToPost.VRN.replaceAll("-", "");
@@ -313,93 +313,93 @@ $(document).on("click", "#updateDefaults", function (event) {
 $(document).on("click", "#statusList", function (event) {
   event.preventDefault();
   if (!event.target.options) {
-    document.getElementById("textAddOrUpdateStatus").value =
+    document.querySelector("#textAddOrUpdateStatus").value =
       event.target.innerText;
     $("#addOrUpdateStatus").text("Update");
-    document.getElementById("addOrUpdateStatus").disabled = false;
-    document.getElementById("deleteStatus").disabled = false;
-    document.getElementById("cancelUpdateStatus").style.display = "block";
-    document.getElementById("cancelUpdateStatus").disabled = false;
+    document.querySelector("#addOrUpdateStatus").disabled = false;
+    document.querySelector("#deleteStatus").disabled = false;
+    document.querySelector("#cancelUpdateStatus").style.display = "block";
+    document.querySelector("#cancelUpdateStatus").disabled = false;
   }
 });
 
 $(document).on("click", "#SIMStatusList", function (event) {
   event.preventDefault();
   if (!event.target.options) {
-    document.getElementById("textAddOrUpdateSIMStatus").value =
+    document.querySelector("#textAddOrUpdateSIMStatus").value =
       event.target.innerText;
     $("#addOrUpdateSIMStatus").text("Update");
-    document.getElementById("addOrUpdateSIMStatus").disabled = false;
-    document.getElementById("deleteSIMStatus").disabled = false;
-    document.getElementById("cancelUpdateSIMStatus").style.display = "block";
-    document.getElementById("cancelUpdateSIMStatus").disabled = false;
+    document.querySelector("#addOrUpdateSIMStatus").disabled = false;
+    document.querySelector("#deleteSIMStatus").disabled = false;
+    document.querySelector("#cancelUpdateSIMStatus").style.display = "block";
+    document.querySelector("#cancelUpdateSIMStatus").disabled = false;
   }
 });
 
 $(document).on("click", "#footageStatusList", function (event) {
   event.preventDefault();
   if (!event.target.options) {
-    document.getElementById("textAddOrUpdateFootageStatus").value =
+    document.querySelector("#textAddOrUpdateFootageStatus").value =
       event.target.innerText;
     $("#addOrUpdateFootageStatus").text("Update");
-    document.getElementById("addOrUpdateFootageStatus").disabled = false;
-    document.getElementById("deleteFootageStatus").disabled = false;
-    document.getElementById("cancelUpdateFootageStatus").style.display =
+    document.querySelector("#addOrUpdateFootageStatus").disabled = false;
+    document.querySelector("#deleteFootageStatus").disabled = false;
+    document.querySelector("#cancelUpdateFootageStatus").style.display =
       "block";
-    document.getElementById("cancelUpdateFootageStatus").disabled = false;
+    document.querySelector("#cancelUpdateFootageStatus").disabled = false;
   }
 });
 
 $(document).on("click", "#renewalTypeList", function (event) {
   event.preventDefault();
   if (!event.target.options) {
-    document.getElementById("textAddOrUpdateRenewalType").value =
+    document.querySelector("#textAddOrUpdateRenewalType").value =
       event.target.innerText;
     $("#addOrUpdateRenewalType").text("Update");
-    document.getElementById("addOrUpdateRenewalType").disabled = false;
-    document.getElementById("deleteRenewalType").disabled = false;
-    document.getElementById("cancelUpdateRenewalType").style.display = "block";
-    document.getElementById("cancelUpdateRenewalType").disabled = false;
+    document.querySelector("#addOrUpdateRenewalType").disabled = false;
+    document.querySelector("#deleteRenewalType").disabled = false;
+    document.querySelector("#cancelUpdateRenewalType").style.display = "block";
+    document.querySelector("#cancelUpdateRenewalType").disabled = false;
   }
 });
 
 $(document).on("click", "#jobTypeList", function (event) {
   event.preventDefault();
   if (!event.target.options) {
-    document.getElementById("textAddOrUpdateJobType").value =
+    document.querySelector("#textAddOrUpdateJobType").value =
       event.target.innerText;
     $("#addOrUpdateJobType").text("Update");
-    document.getElementById("addOrUpdateJobType").disabled = false;
-    document.getElementById("deleteJobType").disabled = false;
-    document.getElementById("cancelUpdateJobType").style.display = "block";
-    document.getElementById("cancelUpdateJobType").disabled = false;
+    document.querySelector("#addOrUpdateJobType").disabled = false;
+    document.querySelector("#deleteJobType").disabled = false;
+    document.querySelector("#cancelUpdateJobType").style.display = "block";
+    document.querySelector("#cancelUpdateJobType").disabled = false;
   }
 });
 
 $(document).on("click", "#healthStatusList", function (event) {
   event.preventDefault();
   if (!event.target.options) {
-    document.getElementById("textAddOrUpdateHealthcheckType").value =
+    document.querySelector("#textAddOrUpdateHealthcheckType").value =
       event.target.innerText;
     $("#addOrUpdateHealthcheckType").text("Update");
-    document.getElementById("addOrUpdateHealthcheckType").disabled = false;
-    document.getElementById("deleteHealthcheckType").disabled = false;
-    document.getElementById("cancelUpdateHealthcheckType").style.display =
+    document.querySelector("#addOrUpdateHealthcheckType").disabled = false;
+    document.querySelector("#deleteHealthcheckType").disabled = false;
+    document.querySelector("#cancelUpdateHealthcheckType").style.display =
       "block";
-    document.getElementById("cancelUpdateHealthcheckType").disabled = false;
+    document.querySelector("#cancelUpdateHealthcheckType").disabled = false;
   }
 });
 
 $(document).on("click", "#platformNameList", function (event) {
   event.preventDefault();
   if (!event.target.options) {
-    document.getElementById("textAddOrUpdatePlatform").value =
+    document.querySelector("#textAddOrUpdatePlatform").value =
       event.target.innerText;
     $("#addOrUpdatePlatformType").text("Update");
-    document.getElementById("addOrUpdatePlatformType").disabled = false;
-    document.getElementById("deletePlatform").disabled = false;
-    document.getElementById("cancelUpdatePlatform").style.display = "block";
-    document.getElementById("cancelUpdatePlatform").disabled = false;
+    document.querySelector("#addOrUpdatePlatformType").disabled = false;
+    document.querySelector("#deletePlatform").disabled = false;
+    document.querySelector("#cancelUpdatePlatform").style.display = "block";
+    document.querySelector("#cancelUpdatePlatform").disabled = false;
   }
 });
 
@@ -409,29 +409,29 @@ $(document).on("show.bs.modal", "#modalAddNewJobRequest", function (event) {
 });
 
 $(document).on("click", "#bulkUploadDevices", function () {
-  document.getElementById("uploadDeviceFormatDetails").style.display = "block";
-  document.getElementById("uploadHealthcheckFormatDetails").style.display =
+  document.querySelector("#uploadDeviceFormatDetails").style.display = "block";
+  document.querySelector("#uploadHealthcheckFormatDetails").style.display =
     "none";
-  document.getElementById("uploadVehicleFormatDetails").style.display = "none";
-  document.getElementById("dropZone").style.display = "block";
+  document.querySelector("#uploadVehicleFormatDetails").style.display = "none";
+  document.querySelector("#dropZone").style.display = "block";
   $("#hiddenUploadTypeSelector").val("devices");
   $(".imageContent").html("");
 });
 $(document).on("click", "#bulkUploadHealthChecks", function () {
-  document.getElementById("uploadDeviceFormatDetails").style.display = "none";
-  document.getElementById("uploadHealthcheckFormatDetails").style.display =
+  document.querySelector("#uploadDeviceFormatDetails").style.display = "none";
+  document.querySelector("#uploadHealthcheckFormatDetails").style.display =
     "block";
-  document.getElementById("uploadVehicleFormatDetails").style.display = "none";
-  document.getElementById("dropZone").style.display = "block";
+  document.querySelector("#uploadVehicleFormatDetails").style.display = "none";
+  document.querySelector("#dropZone").style.display = "block";
   $("#hiddenUploadTypeSelector").val("healthchecks");
   $(".imageContent").html("");
 });
 $(document).on("click", "#bulkUploadVehicles", function () {
-  document.getElementById("uploadDeviceFormatDetails").style.display = "none";
-  document.getElementById("uploadHealthcheckFormatDetails").style.display =
+  document.querySelector("#uploadDeviceFormatDetails").style.display = "none";
+  document.querySelector("#uploadHealthcheckFormatDetails").style.display =
     "none";
-  document.getElementById("uploadVehicleFormatDetails").style.display = "block";
-  document.getElementById("dropZone").style.display = "block";
+  document.querySelector("#uploadVehicleFormatDetails").style.display = "block";
+  document.querySelector("#dropZone").style.display = "block";
   $("#hiddenUploadTypeSelector").val("vehicles");
   $(".imageContent").html("");
 });

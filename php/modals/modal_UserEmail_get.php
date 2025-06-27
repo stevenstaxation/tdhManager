@@ -1,6 +1,6 @@
 <!-- GET NEW USER EMAIL ADDRESS -->
 <div class="modal" id="modalGetNewUserEmail" data-backdrop='static'>
-    <div class="modal-dialog" style='max-width:50%'>
+    <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
@@ -13,7 +13,7 @@
                     <div class='form-group'>
                         <div class='row'>
                             <div class='col-sm-4 col-md-4'>
-                                <label class='control-label inline' for='newUserEmailAddress' style='padding-top:8px;'><strong>Email invite</strong></label>
+                                <label class='control-label inline' for='newUserEmailAddress'><strong>Email invite</strong></label>
                             </div>
                             <div class='col-sm-8 col-md-6'>
                                 <div class='input-group'>
@@ -22,19 +22,19 @@
                             </div>
                         </div>
                         <div class='row'>
-                            <div class='col-3'>
-                                <label for='userLogInStandard' class='control-label inline' style='padding-top:16px;'><strong>User Type</strong></label>
+                            <div class='col-12'>
+                                <label for='userLogInStandard' class='control-label inline'><strong>User Type</strong></label>
                             </div>
-                            <div class='col-2' style='margin-top:16px'>
+                            <div class='col-lg-2 col-md-4 radioList'>
                                 <input type='radio' class='form-check-input' id='userLogInStandard' name='userType'>Standard
                             </div>
-                            <div class='col-2' style='margin-top:16px'>
+                            <div class='col-lg-2 col-md-4 radioList'>
                                 <input type='radio' class='form-check-input' id='userLogInAdmin' name='userType'>Admin
                             </div>
-                            <div class='col-2' style='margin-top:16px'>
+                            <div class='col-lg-2 col-md-4 radioList'>
                                 <input type='radio' class='form-check-input' id='userLogInInstaller' name='userType'>Jobs Admin
                             </div>
-                            <div class='col-2' style='margin-top:16px'>
+                            <div class='col-lg-2 col-md-4 radioList'>
                                 <input type='radio' class='form-check-input' id='userLogInEngineer' name='userType'>Engineer
                             </div>
                         </div>

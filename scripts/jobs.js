@@ -201,7 +201,7 @@ $(document).on("blur", "#editCustomerJobRate", function () {
 $(document).on("blur", "#editJobDateBooked", function () {
   var today = new Date().getTime();
   var jobWhen = new Date(
-    document.getElementById("editJobDateBooked").value
+    document.querySelector("#editJobDateBooked").value
   ).getTime();
 
   if ($("#editHubCompleted").prop("checked") == true) {
@@ -331,7 +331,7 @@ function addNewJob() {
       if (data.includes("success")) {
         var newID = parseInt(data.replace("success", ""), 10);
 
-        if (document.getElementById("hiddenJobSelector").value == "job") {
+        if (document.querySelector("#hiddenJobSelector").value == "job") {
           $("#showJobList").trigger("click");
         } else {
           $("#getClient").trigger("change");
@@ -353,7 +353,7 @@ function addNewJob() {
         $("#modalAddNewJobRequest").modal("hide");
         $("#modalAddNewJobRequest").trigger("reset");
       } else {
-        document.getElementById("jobRequestMessage").innerHTML = data;
+        document.querySelector("#jobRequestMessage").innerHTML = data;
       }
     },
   });
@@ -388,7 +388,7 @@ function showFullJob(rowNumber) {
 
   dataToPost.jobCustomer = $("#hiddenCustomerID").text();
   dataToPost.jobID = rowNumber;
-  document.getElementById("hiddenJobID").text = rowNumber;
+  document.querySelector("#hiddenJobID").text = rowNumber;
   var currentVRN;
   var oldVRN;
 
@@ -499,25 +499,25 @@ function showFullJob(rowNumber) {
         oldVRN = data["oldVRN"];
 
         if ($("#regPicContent").length > 0) {
-          document.getElementById("regPicContent").innerHTML = "";
+          document.querySelector("#regPicContent").innerHTML = "";
         }
 
         if ($("#devicePicContent").length > 0) {
-          document.getElementById("devicePicContent").innerHTML = "";
+          document.querySelector("#devicePicContent").innerHTML = "";
         }
 
         $("#regPicContent").removeClass("imageLoaded");
         $("#devicePicContent").removeClass("imageLoaded");
 
         if (data["regPicFilename"] && $("#regPicContent").length > 0) {
-          document.getElementById("regPicContent").innerHTML =
+          document.querySelector("#regPicContent").innerHTML =
             "<img src = '" + data["regPicFilename"] + "' width='160'>";
           $("#regPicContent").addClass("imageLoaded");
           $("#downloadImages").css("display", "inline");
         }
 
         if (data["regPicDeviceDetails"] && $("#devicePicContent").length > 0) {
-          document.getElementById("devicePicContent").innerHTML =
+          document.querySelector("#devicePicContent").innerHTML =
             "<img src = '" + data["regPicDeviceDetails"] + "' width='160'>";
           $("#devicePicContent").addClass("imageLoaded");
           $("#downloadImages").css("display", "inline");
@@ -644,22 +644,22 @@ function editJobComplete(buttonClicked) {
   }
 
   var dataToPost = {};
-  dataToPost.jobID = document.getElementById("hiddenJobID").text;
+  dataToPost.jobID = document.querySelector("#hiddenJobID").text;
 
   if (updateType == "Mark as Outstanding") {
     dataToPost.jobStatus = "allowUpdate";
   } else if (updateType == "Mark as Complete") {
     dataToPost.jobStatus = "allowEdit";
-    dataToPost.jobDate = document.getElementById("editJobDate").value;
-    dataToPost.jobType = document.getElementById("editJobTypeType").value;
-    dataToPost.jobVRN = document.getElementById("editJobTypeVRN").value;
-    dataToPost.jobNotes = document.getElementById("editJobNotes").value;
+    dataToPost.jobDate = document.querySelector("#editJobDate").value;
+    dataToPost.jobType = document.querySelector("#editJobTypeType").value;
+    dataToPost.jobVRN = document.querySelector("#editJobTypeVRN").value;
+    dataToPost.jobNotes = document.querySelector("#editJobNotes").value;
   } else if (updateType == "Update") {
     dataToPost.jobStatus = "updateOnly";
-    dataToPost.jobDate = document.getElementById("editJobDate").value;
-    dataToPost.jobType = document.getElementById("editJobTypeType").value;
-    dataToPost.jobVRN = document.getElementById("editJobTypeVRN").value;
-    dataToPost.jobNotes = document.getElementById("editJobNotes").value;
+    dataToPost.jobDate = document.querySelector("#editJobDate").value;
+    dataToPost.jobType = document.querySelector("#editJobTypeType").value;
+    dataToPost.jobVRN = document.querySelector("#editJobTypeVRN").value;
+    dataToPost.jobNotes = document.querySelector("#editJobNotes").value;
   }
 
   $.ajax({
@@ -682,20 +682,20 @@ function ShowJobRequests() {
     url: "getOSJobRequests",
     type: "POST",
     success: function (data) {
-      document.getElementById("alertScreen").innerHTML = data;
+      document.querySelector("#alertScreen").innerHTML = data;
     },
   });
 }
 
 function showJobNotes(rowNumber) {
   if (rowNumber.includes("customer")) {
-    document.getElementById("hiddenJobNotesSelector").value = "customer";
+    document.querySelector("#hiddenJobNotesSelector").value = "customer";
     rowNumber = rowNumber.replace("customer", "");
   } else if (rowNumber.includes("job")) {
-    document.getElementById("hiddenJobNotesSelector").value = "job";
+    document.querySelector("#hiddenJobNotesSelector").value = "job";
     rowNumber = rowNumber.replace("job", "");
   } else if (rowNumber.includes("DHI")) {
-    document.getElementById("hiddenJobNotesSelector").value = "DHI";
+    document.querySelector("#hiddenJobNotesSelector").value = "DHI";
     rowNumber = rowNumber.replace("DHI", "");
   }
 
@@ -709,8 +709,8 @@ function showJobNotes(rowNumber) {
     type: "POST",
     success: function (data) {
       data = $.parseJSON(data);
-      document.getElementById("editJobNotesText").value = data["notes"];
-      document.getElementById("hiddenJobNotesID").value = rowNumber;
+      document.querySelector("#editJobNotesText").value = data["notes"];
+      document.querySelector("#hiddenJobNotesID").value = rowNumber;
       $("#modalEditJobNotes").modal("show");
     },
     error: function () {},
@@ -719,8 +719,8 @@ function showJobNotes(rowNumber) {
 
 function editCurrentJobNotes() {
   var dataToPost = {};
-  dataToPost.jobID = document.getElementById("hiddenJobNotesID").value;
-  dataToPost.jobNote = document.getElementById("editJobNotesText").value;
+  dataToPost.jobID = document.querySelector("#hiddenJobNotesID").value;
+  dataToPost.jobNote = document.querySelector("#editJobNotesText").value;
 
   $.ajax({
     url: "updateEditJobNotes.php",
@@ -732,7 +732,7 @@ function editCurrentJobNotes() {
         $("#editJobNotesMessage").html("");
         $("#modalEditJobNotes").modal("hide");
 
-        if (document.getElementById("hiddenJobNotesSelector").value == "job") {
+        if (document.querySelector("#hiddenJobNotesSelector").value == "job") {
           $("#showJobList").trigger("change");
         } else {
           $("#getClient").trigger("change");
@@ -747,41 +747,41 @@ function editCurrentJobNotes() {
 
 function editCurrentJob() {
   var dataToPost = {};
-  dataToPost.jobID = document.getElementById("hiddenJobID").text;
-  dataToPost.customerID = document.getElementById("editJobCustomerName").value;
-  dataToPost.jobType = document.getElementById("editJobType").value;
-  dataToPost.cameraType = document.getElementById("editJobCameraType").value;
+  dataToPost.jobID = document.querySelector("#hiddenJobID").text;
+  dataToPost.customerID = document.querySelector("#editJobCustomerName").value;
+  dataToPost.jobType = document.querySelector("#editJobType").value;
+  dataToPost.cameraType = document.querySelector("#editJobCameraType").value;
   dataToPost.jobPriority = 1;
   dataToPost.LTAlarm = $("#editLT").prop("checked");
   dataToPost.SideSensor = $("#editSS").prop("checked");
-  var jR = document.getElementById("editJobRate");
+  var jR = document.querySelector("#editJobRate");
   if (jR != null && jR.value != "") {
     dataToPost.jobRate = jR.value;
   } else {
     dataToPost.jobRate = 0;
   }
-  var cjR = document.getElementById("editCustomerJobRate");
+  var cjR = document.querySelector("#editCustomerJobRate");
   if (cjR != null && cjR.value != "") {
     dataToPost.jobCustomerRate = cjR.value;
   } else {
     dataToPost.jobCustomerRate = 0;
   }
 
-  dataToPost.jobNotes = document.getElementById("editJobNotes").value;
-  dataToPost.jobContact = document.getElementById("editJobContactName").value;
-  dataToPost.jobEmail = document.getElementById("editJobContactEmail").value;
-  dataToPost.jobPhone = document.getElementById("editJobContactPhone").value;
-  dataToPost.jobVRN = document.getElementById("editJobVRN").value;
+  dataToPost.jobNotes = document.querySelector("#editJobNotes").value;
+  dataToPost.jobContact = document.querySelector("#editJobContactName").value;
+  dataToPost.jobEmail = document.querySelector("#editJobContactEmail").value;
+  dataToPost.jobPhone = document.querySelector("#editJobContactPhone").value;
+  dataToPost.jobVRN = document.querySelector("#editJobVRN").value;
   // dataToPost.oldVRN = document.getElementById('editJobOldVRN').value;
   dataToPost.jobInstallAddress = document.getElementById(
     "editJobInstallAddress"
   ).value;
-  dataToPost.jobLocation = document.getElementById("editBookingLocation").value;
+  dataToPost.jobLocation = document.querySelector("#editBookingLocation").value;
   dataToPost.jobEngineer = document.getElementById(
     "editEngineerAssigned"
   ).value;
-  dataToPost.jobDateBooked = document.getElementById("editJobDateBooked").value;
-  dataToPost.jobTimeBooked = document.getElementById("editJobTimeBooked").value;
+  dataToPost.jobDateBooked = document.querySelector("#editJobDateBooked").value;
+  dataToPost.jobTimeBooked = document.querySelector("#editJobTimeBooked").value;
   radios = $("input[name=editJobTimeBooked]");
   radio = radios.filter(":checked");
   if (radio.length) {
@@ -814,7 +814,7 @@ function editCurrentJob() {
 
   var today = new Date().getTime();
   var jobWhen = new Date(
-    document.getElementById("editJobDateBooked").value
+    document.querySelector("#editJobDateBooked").value
   ).getTime();
 
   // if (dataToPost.TDHSignOff == true) {
@@ -856,7 +856,7 @@ function editCurrentJob() {
         $("#editJobMessage").html("");
         $("#modalEditNewJobRequest").modal("hide");
 
-        if (document.getElementById("hiddenJobSelector").value == "job") {
+        if (document.querySelector("#hiddenJobSelector").value == "job") {
           $("#showJobList").trigger("click");
         } else {
           $("#getClient").trigger("change");
@@ -885,7 +885,7 @@ function editCurrentJob() {
 
 function deleteCurrentJob() {
   var dataToPost = {};
-  dataToPost.jobID = document.getElementById("hiddenJobID").text;
+  dataToPost.jobID = document.querySelector("#hiddenJobID").text;
 
   new swal({
     text: "Are you sure you want to delete this job?",
@@ -903,7 +903,7 @@ function deleteCurrentJob() {
         success: function (data) {
           if (data.includes("success")) {
             $("#modalEditNewJobRequest").modal("hide");
-            if (document.getElementById("hiddenJobSelector").value == "job") {
+            if (document.querySelector("#hiddenJobSelector").value == "job") {
               $("#showJobList").trigger("click");
             } else {
               $("#getClient").trigger("change");
@@ -990,7 +990,7 @@ $(document).on("change", "#editHubCompleted", function () {
 
 function cancelCurrentJob() {
   var dataToPost = {};
-  dataToPost.jobID = document.getElementById("hiddenJobID").text;
+  dataToPost.jobID = document.querySelector("#hiddenJobID").text;
 
   new swal({
     text: "Are you sure you want to cancel this job?",
@@ -1102,7 +1102,7 @@ $(document).on("click", "#addNewVRNToCustomer", function () {
     error: function () {},
   });
 
-  if (document.getElementById("hiddenJobSelector").value == "job") {
+  if (document.querySelector("#hiddenJobSelector").value == "job") {
     $("#showJobList").trigger("click");
   } else {
     $("#getClient").trigger("change");
@@ -1136,9 +1136,9 @@ function showJobMap() {
 $(document).on("click", "#updateMapView", function () {
   var dataToPost = {};
   var map;
-  dataToPost.startDate = document.getElementById("startReportDate").value;
-  dataToPost.endDate = document.getElementById("endReportDate").value;
-  dataToPost.engineerID = document.getElementById("engineerSelector").value;
+  dataToPost.startDate = document.querySelector("#startReportDate").value;
+  dataToPost.endDate = document.querySelector("#endReportDate").value;
+  dataToPost.engineerID = document.querySelector("#engineerSelector").value;
 
   var jobs = [];
 
@@ -1342,7 +1342,7 @@ $(document).on("click", "#updateMapView", function () {
   });
 
   function redrawJobs(jobs) {
-    map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.querySelector("#map"), {
       zoom: 7,
       center: {
         lat: 54.00366,
@@ -1448,7 +1448,7 @@ $(document).on("focusout", ".number2decimal", function (e) {
 });
 
 $(document).on("change", "#jobRateDefault", function () {
-  $checkState = document.getElementById("jobRateDefault").checked;
+  $checkState = document.querySelector("#jobRateDefault").checked;
 
   if ($checkState) {
     updateJobRate();
@@ -1495,7 +1495,7 @@ function updateJobRate() {
     data: dataToPost,
     type: "POST",
     success: function (data) {
-      if (document.getElementById("jobRateDefault").checked) {
+      if (document.querySelector("#jobRateDefault").checked) {
         $("#jobRate").val(parseFloat(data).toFixed(2));
       }
     },

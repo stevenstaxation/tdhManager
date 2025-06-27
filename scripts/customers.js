@@ -65,23 +65,23 @@ function showCustomers(customer = 0) {
 
 function addCustomer() {
   var dataToPost = {};
-  dataToPost.customerName = document.getElementById("newCustomerName").value;
+  dataToPost.customerName = document.querySelector("#newCustomerName").value;
   dataToPost.customerAddress1 =
-    document.getElementById("customerAddress1").value;
+    document.querySelector("#customerAddress1").value;
   dataToPost.customerAddress2 =
-    document.getElementById("customerAddress2").value;
+    document.querySelector("#customerAddress2").value;
   dataToPost.customerAddress3 =
-    document.getElementById("customerAddress3").value;
+    document.querySelector("#customerAddress3").value;
   dataToPost.customerAddress4 =
-    document.getElementById("customerAddress4").value;
+    document.querySelector("#customerAddress4").value;
   dataToPost.customerAddress5 =
-    document.getElementById("customerAddress5").value;
-  dataToPost.customerTelephone = document.getElementById("customerPhone").value;
-  dataToPost.customerEmail = document.getElementById("customerEmail").value;
+    document.querySelector("#customerAddress5").value;
+  dataToPost.customerTelephone = document.querySelector("#customerPhone").value;
+  dataToPost.customerEmail = document.querySelector("#customerEmail").value;
   // dataToPost.customerCoRegNo = document.getElementById('customerRegNo').value;
   // dataToPost.customerVATRegNo = document.getElementById('customerVATNo').value;
-  dataToPost.customerInsurerID = document.getElementById("getInsurer").value;
-  dataToPost.customerBrokerID = document.getElementById("getBroker").value;
+  dataToPost.customerInsurerID = document.querySelector("#getInsurer").value;
+  dataToPost.customerBrokerID = document.querySelector("#getBroker").value;
 
   $.ajax({
     url: "addNewCustomer.php",
@@ -132,7 +132,7 @@ function updateCustomerRenewal() {
   dataToPost.customerRenewalType = document.getElementById(
     "getRenewalTypeSelect"
   ).value;
-  dataToPost.customerRenewalDate = document.getElementById("renewalDate").value;
+  dataToPost.customerRenewalDate = document.querySelector("#renewalDate").value;
   $.ajax({
     url: "updateCustomerRenewal.php",
     timeout: 30000,
@@ -144,14 +144,15 @@ function updateCustomerRenewal() {
 }
 function updateCustomer() {
   var dataToPost = {};
-  dataToPost.customerName = document.getElementById("customerName").value;
-  dataToPost.customerAddr1 = document.getElementById("custAddressLine1").value;
-  dataToPost.customerAddr2 = document.getElementById("custAddressLine2").value;
-  dataToPost.customerAddr3 = document.getElementById("custAddressLine3").value;
-  dataToPost.customerAddr4 = document.getElementById("custAddressLine4").value;
-  dataToPost.customerAddr5 = document.getElementById("custAddressLine5").value;
-  dataToPost.VCOReference = document.getElementById("VCOReference").value;
-
+  dataToPost.customerName = document.querySelector("#customerName").value;
+  dataToPost.customerAddr1 = document.querySelector("#custAddressLine1").value;
+  dataToPost.customerAddr2 = document.querySelector("#custAddressLine2").value;
+  dataToPost.customerAddr3 = document.querySelector("#custAddressLine3").value;
+  dataToPost.customerAddr4 = document.querySelector("#custAddressLine4").value;
+  dataToPost.customerAddr5 = document.querySelector("#custAddressLine5").value;
+  dataToPost.VCOReference = document.querySelector("#VCOReference").value;
+  dataToPost.policynumber = document.querySelector("#policyNumber").value;
+  console.log(policynumber);
   // dataToPost.customerPhone = document.getElementById('custPhone').value;
   // dataToPost.customerEmail = document.getElementById('custEmail').value;
   // dataToPost.customerRenewalType = document.getElementById('getRenewalTypeSelect').value;
@@ -177,6 +178,7 @@ function updateCustomer() {
         $("#getClient").trigger("change");
         showCustomers(customerNumber);
       } else {
+        console.log(data);
         $("#customerUpdateMessage").html(data);
         $("#customerUpdateMessage").show();
       }
@@ -204,18 +206,19 @@ $(document).on("click", "#updateCustomerContact", function (event) {
   event.preventDefault();
   // collect user inputs
   var dataToPost = {};
-  dataToPost.firstName = document.getElementById("contactFirstName").value;
-  dataToPost.lastName = document.getElementById("contactLastName").value;
-  dataToPost.mobileNumber = document.getElementById("contactMobile").value;
-  dataToPost.telephone = document.getElementById("contactTelephone").value;
-  dataToPost.email = document.getElementById("contactEmail").value;
-  dataToPost.jobTitle = document.getElementById("contactJobTitle").value;
+  dataToPost.firstName = document.querySelector("#contactFirstName").value;
+  dataToPost.lastName = document.querySelector("#contactLastName").value;
+  dataToPost.mobileNumber = document.querySelector("#contactMobile").value;
+  dataToPost.telephone = document.querySelector("#contactTelephone").value;
+  dataToPost.email = document.querySelector("#contactEmail").value;
+  dataToPost.jobTitle = document.querySelector("#contactJobTitle").value;
   dataToPost.footageRec = document.getElementById(
     "contactFootageRequest"
   ).checked;
-  dataToPost.healthCheck =
-    document.getElementById("contactHealthCheck").checked;
-  dataToPost.reporting = document.getElementById("contactReports").checked;
+  dataToPost.healthCheck = document.querySelector(
+    "#contactHealthCheck"
+  ).checked;
+  dataToPost.reporting = document.querySelector("#contactReports").checked;
 
   $.ajax({
     url: "addCustomerContact.php",
@@ -244,10 +247,10 @@ $(document).on("click", "#updateCustomerNote", function (event) {
   event.preventDefault();
   // collect user inputs
   var dataToPost = {};
-  dataToPost.noteDate = document.getElementById("noteDate").value;
-  dataToPost.noteText = document.getElementById("noteText").value;
-  dataToPost.isImportant = document.getElementById("isImportantNote").checked;
-  dataToPost.isAlertable = document.getElementById("createAlert").checked;
+  dataToPost.noteDate = document.querySelector("#noteDate").value;
+  dataToPost.noteText = document.querySelector("#noteText").value;
+  dataToPost.isImportant = document.querySelector("#isImportantNote").checked;
+  dataToPost.isAlertable = document.querySelector("#createAlert").checked;
 
   $.ajax({
     url: "addCustomerNote.php",
@@ -306,11 +309,11 @@ function updateCustomerContact() {
   dataToPost.contactLastName = document.getElementById(
     "editContactLastName"
   ).value;
-  dataToPost.contactMobile = document.getElementById("editContactMobile").value;
+  dataToPost.contactMobile = document.querySelector("#editContactMobile").value;
   dataToPost.contactTelephone = document.getElementById(
     "editContactTelephone"
   ).value;
-  dataToPost.contactEmail = document.getElementById("editContactEmail").value;
+  dataToPost.contactEmail = document.querySelector("#editContactEmail").value;
   dataToPost.contactJobTitle = document.getElementById(
     "editContactJobTitle"
   ).value;
@@ -320,13 +323,14 @@ function updateCustomerContact() {
   dataToPost.contactHealthCheck = document.getElementById(
     "editContactHealthCheck"
   ).checked;
-  dataToPost.contactReporting =
-    document.getElementById("editContactReports").checked;
+  dataToPost.contactReporting = document.querySelector(
+    "#editContactReports"
+  ).checked;
 
   dataToPost.customerNumber = document.getElementById(
     "customerContactEditNumber"
   ).value;
-  dataToPost.contactNumber = document.getElementById("contactEditNumber").value;
+  dataToPost.contactNumber = document.querySelector("#contactEditNumber").value;
 
   $.ajax({
     url: "updateCustomerContact.php",
@@ -354,7 +358,7 @@ function deleteCustomerContact() {
   dataToPost.contactLastName = document.getElementById(
     "editContactLastName"
   ).value;
-  dataToPost.contactNumber = document.getElementById("contactEditNumber").value;
+  dataToPost.contactNumber = document.querySelector("#contactEditNumber").value;
 
   // var proceed = confirm(`Are you sure you want to delete the contact ${dataToPost.contactFirstName} ${dataToPost.contactLastName}?  This cannot be undone once you click OK`);
   new swal({
@@ -402,10 +406,10 @@ $(document).on("change", "#selectCustomer", function () {
 
 function allocateDeviceToCustomer() {
   var dataToPost = {};
-  dataToPost.allocateCustomer = document.getElementById("selectCustomer").value;
-  dataToPost.allocateVRN = document.getElementById("selectVRN").value;
+  dataToPost.allocateCustomer = document.querySelector("#selectCustomer").value;
+  dataToPost.allocateVRN = document.querySelector("#selectVRN").value;
   dataToPost.allocateDevice =
-    document.getElementById("hiddenAllocateID").innerHTML;
+    document.querySelector("#hiddenAllocateID").innerHTML;
   dataToPost.allocateDevice = dataToPost.allocateDevice.replace("DHI", "");
 
   $.ajax({
@@ -451,7 +455,7 @@ $(document).on("click", "#goToDHInstall", function () {
 
 $(document).on("click", "#addToDHInstall", function () {
   $("#modalAddNewDevice").modal("show");
-  document.getElementById("addOwnerID").value = "DHInstall";
+  document.querySelector("#addOwnerID").value = "DHInstall";
   $("#addOwnerID").val("DHINSTALL");
 });
 
@@ -482,6 +486,6 @@ $(document).on("click", "#goToDHD", function () {
 
 $(document).on("click", "#addToDHD", function () {
   $("#modalAddNewDevice").modal("show");
-  document.getElementById("addOwnerID").value = "DHD";
+  document.querySelector("#addOwnerID").value = "DHD";
   $("#addOwnerID").val("DHD");
 });

@@ -4,13 +4,13 @@ function showFullDevice(rowNumber) {
   // update SQL
 
   if (rowNumber.includes("customer")) {
-    document.getElementById("hiddenDeviceSelector").value = "customer";
+    document.querySelector("#hiddenDeviceSelector").value = "customer";
     rowNumber = rowNumber.replace("customer", "");
   } else if (rowNumber.includes("device")) {
-    document.getElementById("hiddenDeviceSelector").value = "device";
+    document.querySelector("#hiddenDeviceSelector").value = "device";
     rowNumber = rowNumber.replace("device", "");
   } else if (rowNumber.includes("DHI")) {
-    document.getElementById("hiddenDeviceSelector").value = "DHI";
+    document.querySelector("#hiddenDeviceSelector").value = "DHI";
     rowNumber = rowNumber.replace("DHI", "");
   }
 
@@ -26,50 +26,50 @@ function showFullDevice(rowNumber) {
       data = $.parseJSON(data);
 
       if ($("#editTDHNumber").length > 0) {
-        document.getElementById("editTDHNumber").value = data["TDHNumber"];
+        document.querySelector("#editTDHNumber").value = data["TDHNumber"];
       }
-      document.getElementById("editSerial").value = data["serialNumber"];
-      document.getElementById("editIMEI").value = data["IMEI"];
-      document.getElementById("editDRIDNumber").value = data["DRIDNumber"];
-      document.getElementById("editSIMNumber").value = data["SIMNumber"];
-      document.getElementById("editSIMPhone").value = data["SIMPhone"];
-      document.getElementById("editSIMStatus").value = data["SIMStatus"];
+      document.querySelector("#editSerial").value = data["serialNumber"];
+      document.querySelector("#editIMEI").value = data["IMEI"];
+      document.querySelector("#editDRIDNumber").value = data["DRIDNumber"];
+      document.querySelector("#editSIMNumber").value = data["SIMNumber"];
+      document.querySelector("#editSIMPhone").value = data["SIMPhone"];
+      document.querySelector("#editSIMStatus").value = data["SIMStatus"];
 
-      document.getElementById("editConfigFile").value = data["config"];
+      document.querySelector("#editConfigFile").value = data["config"];
       // document.getElementById('editDeviceInstallReference').value = data['assocOrderNumber'];
       // document.getElementById('editDeviceSupplierInvoice').value = data['supplierInvoice'];
-      document.getElementById("editSIMScheduleDate").value =
+      document.querySelector("#editSIMScheduleDate").value =
         data["scheduledDate"];
       if (data["VCOReference"] != null) {
         document.getElementById(
           "labelVCOReference"
         ).innerHTML = `<strong>VCO Reference: ${data["VCOReference"]}</strong>`;
       } else {
-        document.getElementById("labelVCOReference").innerHTML =
+        document.querySelector("#labelVCOReference").innerHTML =
           "<strong>VCO Reference: none</strong>";
       }
-      document.getElementById("editSIMSuspensionDate").value =
+      document.querySelector("#editSIMSuspensionDate").value =
         data["SIMDeactivationDate"];
-      document.getElementById("editDeviceInstallDate").value =
+      document.querySelector("#editDeviceInstallDate").value =
         data["installDate"];
-      document.getElementById("editDeviceNoteText").value = data["deviceNote"];
-      document.getElementById("editDeviceInstaller").value =
+      document.querySelector("#editDeviceNoteText").value = data["deviceNote"];
+      document.querySelector("#editDeviceInstaller").value =
         data["installerID"];
-      document.getElementById("editDeviceSupplier").value = data["supplierID"];
-      document.getElementById("editDeviceDescription").value =
+      document.querySelector("#editDeviceSupplier").value = data["supplierID"];
+      document.querySelector("#editDeviceDescription").value =
         data["deviceDescriptionID"];
-      document.getElementById("editDeviceStatus").value = data["status"];
-      document.getElementById("editVRN").value = data["regNumber"];
+      document.querySelector("#editDeviceStatus").value = data["status"];
+      document.querySelector("#editVRN").value = data["regNumber"];
       // document.getElementById('editVehicleDescription').value = data['make'] + data['model'] + data['addDescription'];
-      document.getElementById("editOwnerID").value = data["ID"];
-      document.getElementById("editDevicePurchaseDate").value =
+      document.querySelector("#editOwnerID").value = data["ID"];
+      document.querySelector("#editDevicePurchaseDate").value =
         data["purchaseDate"];
-      document.getElementById("editDeviceBuyer").value = data["buyer"];
-      document.getElementById("hiddenDeviceID").value = rowNumber;
+      document.querySelector("#editDeviceBuyer").value = data["buyer"];
+      document.querySelector("#hiddenDeviceID").value = rowNumber;
 
-      vco = document.getElementById("vcoUpdated");
-      platform = document.getElementById("platformUpdated");
-      config = document.getElementById("configUpdated");
+      vco = document.querySelector("#vcoUpdated");
+      platform = document.querySelector("#platformUpdated");
+      config = document.querySelector("#configUpdated");
 
       if (data["vcoUpdated"] == 1) {
         vco.checked = true;
@@ -95,20 +95,20 @@ function showFullDevice(rowNumber) {
 
 function addNewDevice() {
   var dataToPost = {};
-  dataToPost.deviceID = document.getElementById("addDeviceDescription").value;
-  dataToPost.TDHNumber = document.getElementById("addTDHNumber").value;
-  dataToPost.serialNumber = document.getElementById("addSerial").value;
-  dataToPost.IMEI = document.getElementById("addIMEI").value;
-  dataToPost.DRID = document.getElementById("addDRIDNumber").value;
-  dataToPost.SIMNumber = document.getElementById("addSIMNumber").value;
-  dataToPost.SIMPhone = document.getElementById("addSIMPhone").value;
-  dataToPost.SIMStatus = document.getElementById("addSIMStatus").value;
-  dataToPost.SIMDeactDate = document.getElementById("addSIMDate").value;
-  dataToPost.ownerID = document.getElementById("addOwnerID").value;
-  dataToPost.VRN = document.getElementById("addVRN").value;
-  dataToPost.configFile = document.getElementById("addConfigFile").value;
-  dataToPost.currentStatus = document.getElementById("addDeviceStatus").value;
-  dataToPost.installerID = document.getElementById("addDeviceInstaller").value;
+  dataToPost.deviceID = document.querySelector("#addDeviceDescription").value;
+  dataToPost.TDHNumber = document.querySelector("#addTDHNumber").value;
+  dataToPost.serialNumber = document.querySelector("#addSerial").value;
+  dataToPost.IMEI = document.querySelector("#addIMEI").value;
+  dataToPost.DRID = document.querySelector("#addDRIDNumber").value;
+  dataToPost.SIMNumber = document.querySelector("#addSIMNumber").value;
+  dataToPost.SIMPhone = document.querySelector("#addSIMPhone").value;
+  dataToPost.SIMStatus = document.querySelector("#addSIMStatus").value;
+  dataToPost.SIMDeactDate = document.querySelector("#addSIMDate").value;
+  dataToPost.ownerID = document.querySelector("#addOwnerID").value;
+  dataToPost.VRN = document.querySelector("#addVRN").value;
+  dataToPost.configFile = document.querySelector("#addConfigFile").value;
+  dataToPost.currentStatus = document.querySelector("#addDeviceStatus").value;
+  dataToPost.installerID = document.querySelector("#addDeviceInstaller").value;
   dataToPost.installDate = document.getElementById(
     "addDeviceInstallDate"
   ).value;
@@ -116,11 +116,11 @@ function addNewDevice() {
   dataToPost.supplierID = document.getElementById(
     "addDeviceSupplierList"
   ).value;
-  dataToPost.buyerID = document.getElementById("addDeviceBuyer").value;
+  dataToPost.buyerID = document.querySelector("#addDeviceBuyer").value;
   dataToPost.purchaseDate = document.getElementById(
     "addDevicePurchaseDate"
   ).value;
-  dataToPost.notesText = document.getElementById("addDeviceNoteText").value;
+  dataToPost.notesText = document.querySelector("#addDeviceNoteText").value;
 
   $.ajax({
     url: "addNewDevice.php",
@@ -183,39 +183,39 @@ function addNewDevice() {
 
 function editCurrentDevice() {
   var dataToPost = {};
-  dataToPost.deviceID = document.getElementById("hiddenDeviceID").value;
-  dataToPost.ownerID = document.getElementById("editOwnerID").value;
+  dataToPost.deviceID = document.querySelector("#hiddenDeviceID").value;
+  dataToPost.ownerID = document.querySelector("#editOwnerID").value;
   dataToPost.deviceDescriptionID = document.getElementById(
     "editDeviceDescription"
   ).value;
-  dataToPost.TDHNumber = document.getElementById("editTDHNumber").value;
-  dataToPost.serialNumber = document.getElementById("editSerial").value;
-  dataToPost.IMEI = document.getElementById("editIMEI").value;
-  dataToPost.DRIDNumber = document.getElementById("editDRIDNumber").value;
-  dataToPost.SIMNumber = document.getElementById("editSIMNumber").value;
-  dataToPost.SIMPhone = document.getElementById("editSIMPhone").value;
-  dataToPost.SIMStatus = document.getElementById("editSIMStatus").value;
+  dataToPost.TDHNumber = document.querySelector("#editTDHNumber").value;
+  dataToPost.serialNumber = document.querySelector("#editSerial").value;
+  dataToPost.IMEI = document.querySelector("#editIMEI").value;
+  dataToPost.DRIDNumber = document.querySelector("#editDRIDNumber").value;
+  dataToPost.SIMNumber = document.querySelector("#editSIMNumber").value;
+  dataToPost.SIMPhone = document.querySelector("#editSIMPhone").value;
+  dataToPost.SIMStatus = document.querySelector("#editSIMStatus").value;
   dataToPost.SIMScheduleDate = document.getElementById(
     "editSIMScheduleDate"
   ).value;
   dataToPost.SIMDeactivationDate = document.getElementById(
     "editSIMSuspensionDate"
   ).value;
-  dataToPost.config = document.getElementById("editConfigFile").value;
-  dataToPost.regNumber = document.getElementById("editVRN").value;
-  dataToPost.status = document.getElementById("editDeviceStatus").value;
-  dataToPost.installerID = document.getElementById("editDeviceInstaller").value;
+  dataToPost.config = document.querySelector("#editConfigFile").value;
+  dataToPost.regNumber = document.querySelector("#editVRN").value;
+  dataToPost.status = document.querySelector("#editDeviceStatus").value;
+  dataToPost.installerID = document.querySelector("#editDeviceInstaller").value;
   dataToPost.installDate = document.getElementById(
     "editDeviceInstallDate"
   ).value;
   // dataToPost.assocOrderNumber = document.getElementById('editDeviceInstallReference').value;
-  dataToPost.supplierID = document.getElementById("editDeviceSupplier").value;
+  dataToPost.supplierID = document.querySelector("#editDeviceSupplier").value;
   // dataToPost.supplierInvoice = document.getElementById('editDeviceSupplierInvoice').value;
   dataToPost.purchaseDate = document.getElementById(
     "editDevicePurchaseDate"
   ).value;
-  dataToPost.buyer = document.getElementById("editDeviceBuyer").value;
-  dataToPost.deviceNote = document.getElementById("editDeviceNoteText").value;
+  dataToPost.buyer = document.querySelector("#editDeviceBuyer").value;
+  dataToPost.deviceNote = document.querySelector("#editDeviceNoteText").value;
   dataToPost.vcoUpdated = $("#vcoUpdated").is(":checked");
   dataToPost.configUpdated = $("#configUpdated").is(":checked");
   dataToPost.platformUpdated = $("#platformUpdated").is(":checked");
@@ -230,7 +230,7 @@ function editCurrentDevice() {
         $("#editDeviceMessage").html("");
         $("#getClient").trigger("change");
         $("#modalEditDevice").modal("hide");
-        if (document.getElementById("hiddenDeviceSelector").value == "device") {
+        if (document.querySelector("#hiddenDeviceSelector").value == "device") {
           $("#showDeviceList").trigger("click");
         }
         $.ajax({
@@ -267,15 +267,99 @@ function editCurrentDevice() {
   });
 }
 
-function showDeviceNotes(rowNumber) {
+function showDeviceEvents(rowNumber) {
   if (rowNumber.includes("customer")) {
-    document.getElementById("hiddenDeviceNotesSelector").value = "customer";
+    // document.querySelector("#hiddenDeviceNotesSelector").value = "customer";
     rowNumber = rowNumber.replace("customer", "");
   } else if (rowNumber.includes("device")) {
-    document.getElementById("hiddenDeviceNotesSelector").value = "device";
+    // document.querySelector("#hiddenDeviceNotesSelector").value = "device";
     rowNumber = rowNumber.replace("device", "");
   } else if (rowNumber.includes("DHI")) {
-    document.getElementById("hiddenDeviceNotesSelector").value = "DHI";
+    // document.querySelector("#hiddenDeviceNotesSelector").value = "DHI";
+    rowNumber = rowNumber.replace("DHI", "");
+  }
+  // need to get IMEI for device
+  var dataToPost = {};
+  dataToPost.deviceID = rowNumber;
+  $.ajax({
+    url: "getIMEI.php",
+    timeout: 30000,
+    data: dataToPost,
+    datatype: "json",
+    type: "POST",
+    success: async function (data) {
+      const imei = $.parseJSON(data).imei;
+      $("#events31Modal").html(
+        `Events in the last 31 days for ${$.parseJSON(data).regNumber}`
+      );
+      
+      let toEvents = new Date();
+      let fromEvents = new Date();
+      fromEvents.setDate(toEvents.getDate() - 31);
+      fromEvents = fromEvents.toISOString();
+      toEvents = toEvents.toISOString();
+      let lastEvents = await getEventList(
+        imei,
+        fromEvents,
+        toEvents
+        // numEvents
+      );
+
+      lastEvents = JSON.parse(lastEvents);
+      document.querySelector("#eventListBody").innerHTML = "";
+      Object.entries(lastEvents.data).forEach((entry) => {
+        const [key, value] = entry;
+        let eventArray = {};
+        eventArray.date = `${value["time"].substring(8, 10)}/${value[
+          "time"
+        ].substring(5, 7)}/${value["time"].substring(0, 4)}`;
+        eventArray.time = value["time"].substring(11, 19);
+
+        if (value["eventType"] == "button") {
+          eventArray.event = "<div class='btn btn-danger btn-sm'>Button</div>";
+        } else if (value["eventType"] == "accOn") {
+          eventArray.event =
+            "<div class='btn btn-success btn-sm'>Power On</div>";
+        } else if (value["eventType"] == "accOff") {
+          eventArray.event =
+            "<div class='btn btn-warning btn-sm'>Power Off</div>";
+        }
+
+        eventArray.severity = value["severity"];
+
+        const eventLocation = getAddressByCoords(
+          value["lat"],
+          value["lon"],
+          eventArray
+        )
+          .then((result) => {
+            document
+              .querySelector("#eventListBody")
+              .insertAdjacentHTML(
+                "beforeend",
+                `<tr><td>${result.date}</td><td>${result.time}</td><td>${result.event}</td><td>${result.location}</td><td>${result.severity}</td></tr>`
+              );
+          })
+          .catch((error) => {
+           
+          });
+      });
+
+      $("#modalDeviceEvents").modal("show");
+    },
+    error: function () {},
+  });
+}
+
+function showDeviceNotes(rowNumber) {
+  if (rowNumber.includes("customer")) {
+    document.querySelector("#hiddenDeviceNotesSelector").value = "customer";
+    rowNumber = rowNumber.replace("customer", "");
+  } else if (rowNumber.includes("device")) {
+    document.querySelector("#hiddenDeviceNotesSelector").value = "device";
+    rowNumber = rowNumber.replace("device", "");
+  } else if (rowNumber.includes("DHI")) {
+    document.querySelector("#hiddenDeviceNotesSelector").value = "DHI";
     rowNumber = rowNumber.replace("DHI", "");
   }
 
@@ -289,8 +373,8 @@ function showDeviceNotes(rowNumber) {
     type: "POST",
     success: function (data) {
       data = $.parseJSON(data);
-      document.getElementById("editDeviceNotesText").value = data["deviceNote"];
-      document.getElementById("hiddenDeviceNotesID").value = rowNumber;
+      document.querySelector("#editDeviceNotesText").value = data["deviceNote"];
+      document.querySelector("#hiddenDeviceNotesID").value = rowNumber;
       $("#modalEditDeviceNotes").modal("show");
     },
     error: function () {},
@@ -299,8 +383,8 @@ function showDeviceNotes(rowNumber) {
 
 function editCurrentDeviceNotes() {
   var dataToPost = {};
-  dataToPost.deviceID = document.getElementById("hiddenDeviceNotesID").value;
-  dataToPost.deviceNote = document.getElementById("editDeviceNotesText").value;
+  dataToPost.deviceID = document.querySelector("#hiddenDeviceNotesID").value;
+  dataToPost.deviceNote = document.querySelector("#editDeviceNotesText").value;
 
   $.ajax({
     url: "updateEditDeviceNotes.php",
@@ -313,7 +397,7 @@ function editCurrentDeviceNotes() {
         $("#modalEditDeviceNotes").modal("hide");
 
         if (
-          document.getElementById("hiddenDeviceNotesSelector").value == "device"
+          document.querySelector("#hiddenDeviceNotesSelector").value == "device"
         ) {
           $("#showDeviceList").trigger("click");
         } else {
@@ -333,7 +417,7 @@ function deletePhysicalDevice() {
   // if (e.selectedIndex==-1) {
   //     return;
   // }
-  dataToPost.deviceNumber = document.getElementById("hiddenDeviceID").value;
+  dataToPost.deviceNumber = document.querySelector("#hiddenDeviceID").value;
 
   new swal({
     title: "Confirm delete",
@@ -354,7 +438,7 @@ function deletePhysicalDevice() {
             $("#editDeviceMessage").html("");
             $("#modalEditDevice").modal("hide");
             if (
-              document.getElementById("hiddenDeviceSelector").value == "device"
+              document.querySelector("#hiddenDeviceSelector").value == "device"
             ) {
               $("#showDeviceList").trigger("click");
             } else {
@@ -391,9 +475,9 @@ $(document).on("click", "#deviceFilterClicked", function (event) {
   event.preventDefault();
   var dataToPost = {};
   dataToPost.FilterCustomer =
-    document.getElementById("getCustomerSelect").value;
-  dataToPost.FilterType = document.getElementById("byDeviceType").value;
-  dataToPost.FilterOtherTerm = document.getElementById("byOther").value;
+    document.querySelector("#getCustomerSelect").value;
+  dataToPost.FilterType = document.querySelector("#byDeviceType").value;
+  dataToPost.FilterOtherTerm = document.querySelector("#byOther").value;
   dataToPost.SQLFilter = "";
 
   $.ajax({
@@ -423,26 +507,26 @@ $(document).on("click", "#deviceFilterClicked", function (event) {
 $(document).on("click", "#platformList", function (event) {
   event.preventDefault();
   if (!event.target.options) {
-    document.getElementById("textAddOrUpdatePlatform").value =
+    document.querySelector("#textAddOrUpdatePlatform").value =
       event.target.innerText;
     $("#addOrUpdatePlatform").text("Update");
-    document.getElementById("addOrUpdatePlatform").disabled = false;
-    document.getElementById("deletePlatform").disabled = false;
-    document.getElementById("cancelUpdatePlatform").style.display = "block";
-    document.getElementById("cancelUpdatePlatform").disabled = false;
+    document.querySelector("#addOrUpdatePlatform").disabled = false;
+    document.querySelector("#deletePlatform").disabled = false;
+    document.querySelector("#cancelUpdatePlatform").style.display = "block";
+    document.querySelector("#cancelUpdatePlatform").disabled = false;
   }
 });
 
 $(document).on("click", "#deviceList", function (event) {
   event.preventDefault();
   if (!event.target.options) {
-    document.getElementById("textAddOrUpdateDevice").value =
+    document.querySelector("#textAddOrUpdateDevice").value =
       event.target.innerText;
     $("#addOrUpdateDevice").text("Update");
-    document.getElementById("addOrUpdateDevice").disabled = false;
-    document.getElementById("deleteDevice").disabled = false;
-    document.getElementById("cancelUpdateDevice").style.display = "block";
-    document.getElementById("cancelUpdateDevice").disabled = false;
+    document.querySelector("#addOrUpdateDevice").disabled = false;
+    document.querySelector("#deleteDevice").disabled = false;
+    document.querySelector("#cancelUpdateDevice").style.display = "block";
+    document.querySelector("#cancelUpdateDevice").disabled = false;
   }
 });
 
@@ -458,29 +542,29 @@ $(document).on("show.bs.modal", "#modalEditDevice", function (event) {
 
 function allocateDevice(deviceToAllocate) {
   $("#modalGetCustomerAndVRN").modal("show");
-  document.getElementById("hiddenAllocateID").innerHTML = deviceToAllocate;
+  document.querySelector("#hiddenAllocateID").innerHTML = deviceToAllocate;
 }
 
 $(document).on("click", "#editSIMScheduleDate", function () {
-  if (document.getElementById("editSIMScheduleDate").valueAsDate == null) {
+  if (document.querySelector("#editSIMScheduleDate").valueAsDate == null) {
     var schDate = new Date();
     schDate.setDate(schDate.getDate() + 31);
-    document.getElementById("editSIMScheduleDate").valueAsDate = schDate;
+    document.querySelector("#editSIMScheduleDate").valueAsDate = schDate;
   }
 });
 
 $(document).on("click", "#editSIMSuspensionDate", function () {
-  if (document.getElementById("editSIMSuspensionDate").valueAsDate == null) {
+  if (document.querySelector("#editSIMSuspensionDate").valueAsDate == null) {
     var schDate = new Date();
     schDate.setDate(schDate.getDate());
-    document.getElementById("editSIMSuspensionDate").valueAsDate = schDate;
+    document.querySelector("#editSIMSuspensionDate").valueAsDate = schDate;
   }
 });
 
 $(document).on("click", "#editDeviceInstallDate", function () {
-  if (document.getElementById("editDeviceInstallDate").valueAsDate == null) {
+  if (document.querySelector("#editDeviceInstallDate").valueAsDate == null) {
     var schDate = new Date();
     schDate.setDate(schDate.getDate());
-    document.getElementById("editDeviceInstallDate").valueAsDate = schDate;
+    document.querySelector("#editDeviceInstallDate").valueAsDate = schDate;
   }
 });

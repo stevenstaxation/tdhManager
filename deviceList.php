@@ -214,6 +214,7 @@ while ($row = mysqli_fetch_array($result3)) {
             $index++;
         }
         $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        $index++;
     }
     switch ($row[1]) {
         case 1:
@@ -234,7 +235,7 @@ while ($row = mysqli_fetch_array($result3)) {
     }
 }
 
-while ($index < 5 && $lastRow != 1) {
+while ($index < 6 && $lastRow != 1) {
     $returnString .= "<td class='text-right align-middle'>0</td>";
     $index++;
 }
@@ -261,6 +262,7 @@ while ($row = mysqli_fetch_array($result3)) {
             $index++;
         }
         $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        $index++;
     }
     switch ($row[1]) {
         case 1:
@@ -280,7 +282,7 @@ while ($row = mysqli_fetch_array($result3)) {
             break;
     }
 }
-while ($index < 5 && $lastRow != 1) {
+while ($index < 6 && $lastRow != 1) {
     $returnString .= "<td class='text-right align-middle'>0</td>";
     $index++;
 }
@@ -307,6 +309,7 @@ while ($row = mysqli_fetch_array($result3)) {
             $index++;
         }
         $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        $index++;
     }
     switch ($row[1]) {
         case 1:
@@ -353,6 +356,7 @@ while ($row = mysqli_fetch_array($result3)) {
             $index++;
         }
         $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        $index++;
     }
     switch ($row[1]) {
         case 1:
@@ -373,7 +377,7 @@ while ($row = mysqli_fetch_array($result3)) {
     }
 }
 
-while ($index < 5 && $lastRow != 1) {
+while ($index < 6 && $lastRow != 1) {
     $returnString .= "<td class='text-right align-middle'>0</td>";
     $index++;
 }
@@ -399,6 +403,7 @@ while ($row = mysqli_fetch_array($result3)) {
             $index++;
         }
         $returnString .= "<td class='text-right align-middle'>" . $row[0] . "</td>";
+        $index++;
     }
     switch ($row[1]) {
         case 1:
@@ -419,7 +424,7 @@ while ($row = mysqli_fetch_array($result3)) {
     }
 }
 
-while ($index < 5 && $lastRow != 1) {
+while ($index < 6 && $lastRow != 1) {
     $returnString .= "<td class='text-right align-middle'>0</td>";
     $index++;
 }
@@ -483,7 +488,7 @@ while ($row = mysqli_fetch_array($result3)) {
     }
 }
 
-while ($index < 5 && $lastRow != 1) {
+while ($index < 6 && $lastRow != 1) {
     $returnString .= "<td class='text-right align-middle'>0</td>";
     $index++;
 }
@@ -530,15 +535,15 @@ while ($row = mysqli_fetch_array($result3)) {
     }
 }
 
-while ($index < 5 && $lastRow != 1) {
+while ($index < 6 && $lastRow != 1) {
     $returnString .= "<td class='text-right align-middle'>0</td>";
     $index++;
 }
 
 $returnString .= "<td class='text-right align-middle'>" . $counter . "</td></tr>";
 
-$returnString .= "<tr><td class='text-left align-middle'>Sold, Stolen, Damaged or Lost</td>"; //</tr>
-$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='0' AND (tbldevicestatus.status LIKE '%Sold%' OR tbldevicestatus.status LIKE '%Stolen%' OR tbldevicestatus.status LIKE '%Lost%' OR tbldevicestatus.status LIKE '%Damaged%') GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
+$returnString .= "<tr><td class='text-left align-middle'>Sold, Stolen, Damaged, Lost, Disposed</td>"; //</tr>
+$sql = "SELECT COUNT(*), tbldevicedescription.devicegroup FROM tbldevice INNER JOIN tbldevicedescription ON tbldevice.devicedescriptionID = tbldevicedescription.id INNER JOIN tbldevicestatus ON tbldevicestatus.id = tbldevice.status WHERE tbldevicestatus.isactive='0' AND (tbldevicestatus.status LIKE '%Sold%' OR tbldevicestatus.status LIKE '%Stolen%' OR tbldevicestatus.status LIKE '%Lost%' OR tbldevicestatus.status LIKE '%Damaged%' OR tbldevicestatus.status LIKE '%Thrown%') GROUP BY tbldevicedescription.devicegroup ORDER BY tbldevicedescription.devicegroup ASC";
 $result3 = mysqli_query($link, $sql);
 $counter = 0;
 $index = 1;
@@ -577,7 +582,7 @@ while ($row = mysqli_fetch_array($result3)) {
     }
 }
 
-while ($index < 5 && $lastRow != 1) {
+while ($index < 6 && $lastRow != 1) {
     $returnString .= "<td class='text-right align-middle'>0</td>";
     $index++;
 }
@@ -671,7 +676,7 @@ while ($row = mysqli_fetch_array($result3)) {
     }
 }
 
-while ($index < 5 && $lastRow != 1) {
+while ($index < 6 && $lastRow != 1) {
     $returnString .= "<td class='text-right align-middle'>0</td>";
     $index++;
 }
@@ -737,11 +742,11 @@ if (mysqli_num_rows($result) != 0) {
           <th class='text-center align-middle'>SIM Phone</th>
           <th class='text-center align-middle'>Deactivation Date</th>
           <th class='text-center align-middle'>SIM Status</th>
-
           <th class='text-center align-middle'>Original installer</th>
           <th class='text-center align-middle'>Original install Date</th>
           <th class='text-center align-middle'>Edit</th>
           <th class='text-center align-middle'>Notes</th>
+          <th class='text-center align-middle'>Events</th>
           <th class='text-center align-middle' style='display: none'>Hide</th>
           <th class='text-center align-middle' style='display: none'>Hide Notes</th>
           <th class='text-center align-middle' style='display: none'>updatePlatform</th>
@@ -798,6 +803,11 @@ if (mysqli_num_rows($result) != 0) {
             $returnString .= "<td class='text-center align-middle'><btn class='btn btn-sm btn-info' onclick='showDeviceNotes(\"" . $row['ID'] . "device\")'><i class='bi bi-journal h5'></i></btn></td>";
         }
 
+         $returnString .= "
+       <td class='text-center align-middle'><btn class='btn btn-sm btn-success' onclick='showDeviceEvents(\"" . $row['ID'] . "device\")'><i class='bi bi-car-front-fill h5'></i></btn></td>";
+
+
+
         $hiddenVRN = $row['regNumber'];
         if ($row['regNumber'] == '') {
             $hiddenVRN = 'zzzzzzzzzz';
@@ -838,11 +848,11 @@ $returnString .= "</tbody>
       <th class='text-center align-middle'>SIM Phone</th>
       <th class='text-center align-middle'>Deactivation Date</th>
       <th class='text-center align-middle'>SIM Status</th>
-
       <th class='text-center align-middle'>Original installer</th>
       <th class='text-center align-middle'>Original install Date</th>
       <th class='text-center align-middle'>Edit</th>
       <th class='text-center align-middle'>Notes</th>
+      <th class='text-center align-middle'>Events</th>
       <th class='text-center align-middle' style='display: none'>Hide</th>
       <th class='text-center align-middle' style='display: none'>HideNotes</th>
       <th class='text-center align-middle' style='display: none'>updatePlatform</th>
@@ -898,11 +908,11 @@ $returnString .= "</tbody>
             }
         }
     },
-            { 'targets': [17,18,19,20,21], className: 'noVis'},
+            { 'targets': [18,19,20,21,22], className: 'noVis'},
 
-            { 'targets': [17,18,19,20,21], className: 'never'},
-            {'orderable': false, 'targets': [15,16,17,18,19,20,21] },
-            {'searchable': false, 'targets': [15,16,17,19,20,21] }
+            { 'targets': [18,19,20,21,22], className: 'never'},
+            {'orderable': false, 'targets': [15,16,17,18,19,20,21,22] },
+            {'searchable': false, 'targets': [15,16,17,19,20,21,22] }
 
         ],
         order: [[0, 'asc'], [1,'asc']],

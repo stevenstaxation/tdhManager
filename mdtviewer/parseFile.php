@@ -234,10 +234,10 @@ $sensorListX = substr($sensorListX,0,-1);
 $sensorListY = substr($sensorListY,0,-1);
 $sensorListZ = substr($sensorListZ,0,-1);
 $coordinateList = substr($coordinateList,0,-1);
-$startLatitude = $locations[0]->Latitude;
-$startLongitude = $locations[0]->Longitude;
-$endLatitude = $locations[array_key_last($locations)]->Latitude;
-$endLongitude = $locations[array_key_last($locations)]->Longitude;
+$startLatitude = $locations[0]->Latitude ?? 0;
+$startLongitude = $locations[0]->Longitude ?? 0;
+$endLatitude = $locations[array_key_last($locations)]->Latitude ?? "";
+$endLongitude = $locations[array_key_last($locations)]->Longitude ?? "";
 
 if ($MDTHeader['Channels']==1) {
   

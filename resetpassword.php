@@ -45,6 +45,7 @@ include('connect.php');
                     $key = mysqli_real_escape_string($link, $key);
                     
                     $sql = "SELECT userID FROM tblForgotPassword WHERE (userID = '$userID' AND validationKey ='$key' AND time > '$time' AND status='pending')";
+                
                     $result = mysqli_query($link,$sql);
                     if (!$result) {
                         echo "<div class='alert alert-danger'>Cannot find user</div>";
@@ -54,6 +55,7 @@ include('connect.php');
                     $count = mysqli_num_rows($result);
                     
                     if ($count !== 1) {
+                        echo $sql;
                         echo "<div class='alert alert-danger'>This link is no longer valid</div>";
                         exit();
                     }

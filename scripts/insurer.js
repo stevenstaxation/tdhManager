@@ -7,17 +7,22 @@
 // ***********************************************************************
 function addNewInsurer() {
   var dataToPost = {};
-  dataToPost.insurerName = document.getElementById("addInsurerName").value;
-  dataToPost.InsurerAddress1 =
-    document.getElementById("addInsurerAddress1").value;
-  dataToPost.InsurerAddress2 =
-    document.getElementById("addInsurerAddress2").value;
-  dataToPost.InsurerAddress3 =
-    document.getElementById("addInsurerAddress3").value;
-  dataToPost.InsurerAddress4 =
-    document.getElementById("addInsurerAddress4").value;
-  dataToPost.InsurerAddress5 =
-    document.getElementById("addInsurerAddress5").value;
+  dataToPost.insurerName = document.querySelector("#addInsurerName").value;
+  dataToPost.InsurerAddress1 = document.querySelector(
+    "#addInsurerAddress1"
+  ).value;
+  dataToPost.InsurerAddress2 = document.querySelector(
+    "#addInsurerAddress2"
+  ).value;
+  dataToPost.InsurerAddress3 = document.querySelector(
+    "#addInsurerAddress3"
+  ).value;
+  dataToPost.InsurerAddress4 = document.querySelector(
+    "#addInsurerAddress4"
+  ).value;
+  dataToPost.InsurerAddress5 = document.querySelector(
+    "#addInsurerAddress5"
+  ).value;
 
   $.ajax({
     url: "addNewInsurer.php",
@@ -86,7 +91,7 @@ $(document).on("show.bs.modal", "#modalAddNewInsurer", function (event) {
 // *******************************************************
 function editInsurer() {
   var dataToPost = {};
-  var e = document.getElementById("getInsurerSelect");
+  var e = document.querySelector("#getInsurerSelect");
   dataToPost.insurerNumber = e.options[e.selectedIndex].value;
   if (dataToPost.insurerNumber == 0) {
     return;
@@ -99,13 +104,13 @@ function editInsurer() {
     type: "POST",
     success: function (data) {
       var arr = data.split("^^^");
-      document.getElementById("editInsurerName").value = arr[0];
-      document.getElementById("editInsurerAddress1").value = arr[1];
-      document.getElementById("editInsurerAddress2").value = arr[2];
-      document.getElementById("editInsurerAddress3").value = arr[3];
-      document.getElementById("editInsurerAddress4").value = arr[4];
-      document.getElementById("editInsurerAddress5").value = arr[5];
-      document.getElementById("editInsurerHide").value = arr[6];
+      document.querySelector("#editInsurerName").value = arr[0];
+      document.querySelector("#editInsurerAddress1").value = arr[1];
+      document.querySelector("#editInsurerAddress2").value = arr[2];
+      document.querySelector("#editInsurerAddress3").value = arr[3];
+      document.querySelector("#editInsurerAddress4").value = arr[4];
+      document.querySelector("#editInsurerAddress5").value = arr[5];
+      document.querySelector("#editInsurerHide").value = arr[6];
       $("#modalEditInsurer").modal("show");
     },
     error: function () {},
@@ -117,7 +122,7 @@ function editInsurer() {
 // *********************************************
 function updateEditInsurer() {
   var dataToPost = {};
-  dataToPost.insurerName = document.getElementById("editInsurerName").value;
+  dataToPost.insurerName = document.querySelector("#editInsurerName").value;
   dataToPost.insurerAddress1 = document.getElementById(
     "editInsurerAddress1"
   ).value;
@@ -133,7 +138,7 @@ function updateEditInsurer() {
   dataToPost.insurerAddress5 = document.getElementById(
     "editInsurerAddress5"
   ).value;
-  dataToPost.insurerID = document.getElementById("editInsurerHide").value;
+  dataToPost.insurerID = document.querySelector("#editInsurerHide").value;
   if (!dataToPost.insurerID) {
     return;
   }
@@ -185,10 +190,10 @@ $("body").on("change", "#getInsurerSelect", function () {
 
 $(document).on("change", "#insurerNameSelection", function (event) {
   var dataToPost = {};
-  var e = document.getElementById("insurerNameSelection");
+  var e = document.querySelector("#insurerNameSelection");
   if (e.selectedIndex != -1) {
     dataToPost.insurerNumber = e.options[e.selectedIndex].value;
-    document.getElementById("editInsurerHide").innerHTML =
+    document.querySelector("#editInsurerHide").innerHTML =
       dataToPost.insurerNumber;
     $("#btnAddNewContact").show();
 
@@ -199,18 +204,18 @@ $(document).on("change", "#insurerNameSelection", function (event) {
       type: "POST",
       success: function (data) {
         data = $.parseJSON(data);
-        document.getElementById("editInsurerName").value = data["insurerName"];
-        document.getElementById("editInsurerAddress1").value =
+        document.querySelector("#editInsurerName").value = data["insurerName"];
+        document.querySelector("#editInsurerAddress1").value =
           data["insurerAddress1"];
-        document.getElementById("editInsurerAddress2").value =
+        document.querySelector("#editInsurerAddress2").value =
           data["insurerAddress2"];
-        document.getElementById("editInsurerAddress3").value =
+        document.querySelector("#editInsurerAddress3").value =
           data["insurerAddress3"];
-        document.getElementById("editInsurerAddress4").value =
+        document.querySelector("#editInsurerAddress4").value =
           data["insurerAddress4"];
-        document.getElementById("editInsurerAddress5").value =
+        document.querySelector("#editInsurerAddress5").value =
           data["insurerAddress5"];
-        document.getElementById("insurerEditNumber").value = data["ID"];
+        document.querySelector("#insurerEditNumber").value = data["ID"];
         $("#insurerContactListHolder").html(data["insurerContactTable"]);
       },
       error: function () {},
@@ -229,7 +234,7 @@ $(document).on("change", "#insurerNameSelection", function (event) {
 
 function deleteInsurer() {
   var dataToPost = {};
-  var e = document.getElementById("insurerNameSelection");
+  var e = document.querySelector("#insurerNameSelection");
   if (e.selectedIndex == -1) {
     return;
   }
@@ -280,7 +285,7 @@ function deleteInsurer() {
 }
 
 $(document).on("click", "#queryDeleteInsurer", function () {
-  var queryDelete = document.getElementById("goAheadDeleteInsurer").checked;
+  var queryDelete = document.querySelector("#goAheadDeleteInsurer").checked;
 
   if (queryDelete == false) {
     $("#currentInsurerMessageBox").html("");

@@ -127,12 +127,12 @@ try {
     $mail->isSMTP(); // Set mailer to use SMTP
     $mail->Host = 'send.one.com';
     $mail->SMTPAuth = true; // Enable SMTP authentication
-    $mail->Username = 'accounts@thedatahub.uk'; // SMTP username
-    $mail->Password = '.b.;p}2,F4paaa!u'; // SMTP password
+    $mail->Username = 'mailbox@stevenstaxation.com'; // SMTP username
+    $mail->Password = 'W1!!M41!80xobo!7!'; // SMTP password
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
 
-    $mail->setFrom('accounts@thedatahub.uk', 'TDH Manager');
+    $mail->setFrom('mailbox@stevenstaxation.com', 'TDH Manager');
     //recipient
     $mail->addAddress($userEmail, $userEmail); // Add a recipient
     //content

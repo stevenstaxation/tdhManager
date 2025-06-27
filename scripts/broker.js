@@ -8,17 +8,17 @@ function addNewBroker() {
    * Get the Broker name and address from the Add New Broker modal dialog
    */
   var dataToPost = {};
-  dataToPost.BrokerName = document.getElementById("addBrokerName").value;
+  dataToPost.BrokerName = document.querySelector("#addBrokerName").value;
   dataToPost.BrokerAddress1 =
-    document.getElementById("addBrokerAddress1").value;
+    document.querySelector("#addBrokerAddress1").value;
   dataToPost.BrokerAddress2 =
-    document.getElementById("addBrokerAddress2").value;
+    document.querySelector("#addBrokerAddress2").value;
   dataToPost.BrokerAddress3 =
-    document.getElementById("addBrokerAddress3").value;
+    document.querySelector("#addBrokerAddress3").value;
   dataToPost.BrokerAddress4 =
-    document.getElementById("addBrokerAddress4").value;
+    document.querySelector("#addBrokerAddress4").value;
   dataToPost.BrokerAddress5 =
-    document.getElementById("addBrokerAddress5").value;
+    document.querySelector("#addBrokerAddress5").value;
   /**
    * addNewBroker.php checks broker name is included and postcode is valid
    * and then adds the broker to the tblBroker table
@@ -92,18 +92,23 @@ function addNewBroker() {
 function updateEditBroker() {
   // Get name and address values from Modal dialog
   var dataToPost = {};
-  dataToPost.brokerName = document.getElementById("editBrokerName").value;
-  dataToPost.brokerAddress1 =
-    document.getElementById("editBrokerAddress1").value;
-  dataToPost.brokerAddress2 =
-    document.getElementById("editBrokerAddress2").value;
-  dataToPost.brokerAddress3 =
-    document.getElementById("editBrokerAddress3").value;
-  dataToPost.brokerAddress4 =
-    document.getElementById("editBrokerAddress4").value;
-  dataToPost.brokerAddress5 =
-    document.getElementById("editBrokerAddress5").value;
-  dataToPost.brokerID = document.getElementById("editBrokerHide").value;
+  dataToPost.brokerName = document.querySelector("#editBrokerName").value;
+  dataToPost.brokerAddress1 = document.querySelector(
+    "#editBrokerAddress1"
+  ).value;
+  dataToPost.brokerAddress2 = document.querySelector(
+    "#editBrokerAddress2"
+  ).value;
+  dataToPost.brokerAddress3 = document.querySelector(
+    "#editBrokerAddress3"
+  ).value;
+  dataToPost.brokerAddress4 = document.querySelector(
+    "#editBrokerAddress4"
+  ).value;
+  dataToPost.brokerAddress5 = document.querySelector(
+    "#editBrokerAddress5"
+  ).value;
+  dataToPost.brokerID = document.querySelector("#editBrokerHide").value;
   if (!dataToPost.brokerID) {
     return;
   }
@@ -144,7 +149,7 @@ function updateEditBroker() {
 
 function editBroker() {
   var dataToPost = {};
-  var e = document.getElementById("getBrokerSelect");
+  var e = document.querySelector("#getBrokerSelect");
   dataToPost.brokerNumber = e.options[e.selectedIndex].value;
   if (dataToPost.brokerNumber == 0) {
     return;
@@ -157,18 +162,18 @@ function editBroker() {
     type: "POST",
     success: function (data) {
       data = $.parseJSON(data);
-      document.getElementById("editBrokerName").value = data["brokerName"];
-      document.getElementById("editBrokerAddress1").value =
+      document.querySelector("#editBrokerName").value = data["brokerName"];
+      document.querySelector("#editBrokerAddress1").value =
         data["addressLine1"];
-      document.getElementById("editBrokerAddress2").value =
+      document.querySelector("#editBrokerAddress2").value =
         data["addressLine2"];
-      document.getElementById("editBrokerAddress3").value =
+      document.querySelector("#editBrokerAddress3").value =
         data["addressLine3"];
-      document.getElementById("editBrokerAddress4").value =
+      document.querySelector("#editBrokerAddress4").value =
         data["addressLine4"];
-      document.getElementById("editBrokerAddress5").value =
+      document.querySelector("#editBrokerAddress5").value =
         data["addressLine5"];
-      document.getElementById("editBrokerHide").value = data["ID"];
+      document.querySelector("#editBrokerHide").value = data["ID"];
       $("#modalEditBroker").modal("show");
     },
     error: function () {},
@@ -183,7 +188,7 @@ function editBroker() {
  */
 function deleteBroker() {
   var dataToPost = {};
-  var e = document.getElementById("brokerNameSelection");
+  var e = document.querySelector("#brokerNameSelection");
   if (e.selectedIndex == -1) {
     return;
   }
@@ -251,12 +256,12 @@ $(document).on("show.bs.modal", "#modalAddNewBroker", function (event) {
  */
 $(document).on("change", "#brokerNameSelection", function (event) {
   var dataToPost = {};
-  var e = document.getElementById("brokerNameSelection");
+  var e = document.querySelector("#brokerNameSelection");
 
   if (e.selectedIndex != -1) {
     dataToPost.brokerNumber = e.options[e.selectedIndex].value;
-    document.getElementById("editBrokerHide").value = dataToPost.brokerNumber;
-    document.getElementById("brokerEditNumberC").innerHTML =
+    document.querySelector("#editBrokerHide").value = dataToPost.brokerNumber;
+    document.querySelector("#brokerEditNumberC").innerHTML =
       dataToPost.brokerNumber;
 
     $("#btnAddNewBroker").show();
@@ -267,18 +272,18 @@ $(document).on("change", "#brokerNameSelection", function (event) {
       type: "POST",
       success: function (data) {
         data = $.parseJSON(data);
-        document.getElementById("editBrokerName").value = data["brokerName"];
-        document.getElementById("editBrokerAddress1").value =
+        document.querySelector("#editBrokerName").value = data["brokerName"];
+        document.querySelector("#editBrokerAddress1").value =
           data["brokerAddress1"];
-        document.getElementById("editBrokerAddress2").value =
+        document.querySelector("#editBrokerAddress2").value =
           data["brokerAddress2"];
-        document.getElementById("editBrokerAddress3").value =
+        document.querySelector("#editBrokerAddress3").value =
           data["brokerAddress3"];
-        document.getElementById("editBrokerAddress4").value =
+        document.querySelector("#editBrokerAddress4").value =
           data["brokerAddress4"];
-        document.getElementById("editBrokerAddress5").value =
+        document.querySelector("#editBrokerAddress5").value =
           data["brokerAddress5"];
-        document.getElementById("brokerEditNumberC").value = data["ID"];
+        document.querySelector("#brokerEditNumberC").value = data["ID"];
         $("#brokerContactListHolder").html(data["brokerContactTable"]);
       },
       error: function () {},
@@ -294,7 +299,7 @@ $(document).on("change", "#brokerNameSelection", function (event) {
  * to any customers
  */
 $(document).on("click", "#queryDeleteBroker", function () {
-  var queryDelete = document.getElementById("goAheadDeleteBroker").checked;
+  var queryDelete = document.querySelector("#goAheadDeleteBroker").checked;
   if (queryDelete == false) {
     $("#currentBrokerMessageBox").html("");
   } else {

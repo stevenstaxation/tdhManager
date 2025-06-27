@@ -107,9 +107,9 @@ if ($_FILES['file']['name']!='') {
          }
 
         // $readFile[x][3] = IMEI must be 15 characters long
-         if (strlen($readItem[3])!=15 && $readItem[3]!='') {
-            $errorString .= "Invalid IMEI '" . $readItem[3] . "' at row " . $itemCount . "<br>"; 
-         }
+        //  if (strlen($readItem[3])!=15 && $readItem[3]!='') {
+        //     $errorString .= "Invalid IMEI '" . $readItem[3] . "' at row " . $itemCount . "<br>"; 
+        //  }
 
         // $readFile[x][4] = Status must be in database
          $sqlStatus = "SELECT status FROM tblDeviceStatus WHERE status='$readItem[4]'";

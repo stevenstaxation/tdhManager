@@ -60,7 +60,7 @@ $returnString = "
             
 
     </div>
-
+  
     
     <div class='dhinstall'>    
         <button class='btn btn-danger btn-sm dhinstallbutton' id='goToDHInstall' style='padding: 5px 20px' type='button'>DH<br>Install</button>  

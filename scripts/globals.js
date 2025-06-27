@@ -1,44 +1,44 @@
 $(document).on("focusin", "#textAddOrUpdateDevice", function (event) {
   event.preventDefault();
-  document.getElementById("addOrUpdateDevice").disabled = false;
+  document.querySelector("#addOrUpdateDevice").disabled = false;
   $("#deviceErrorBox").html("");
 });
 
 $(document).on("focusin", "#textAddOrUpdateStatus", function (event) {
   event.preventDefault();
-  document.getElementById("addOrUpdateStatus").disabled = false;
+  document.querySelector("#addOrUpdateStatus").disabled = false;
   $("#statusErrorBox").html("");
 });
 
 $(document).on("focusin", "#textAddOrUpdateSIMStatus", function (event) {
   event.preventDefault();
-  document.getElementById("addOrUpdateSIMStatus").disabled = false;
+  document.querySelector("#addOrUpdateSIMStatus").disabled = false;
   $("#SIMStatusErrorBox").html("");
 });
 
 $(document).on("focusin", "#textAddOrUpdateFootageStatus", function (event) {
   event.preventDefault();
-  document.getElementById("addOrUpdateFootageStatus").disabled = false;
+  document.querySelector("#addOrUpdateFootageStatus").disabled = false;
   $("#footageStatusErrorBox").html("");
 });
 $(document).on("focusin", "#textAddOrUpdateRenewalType", function (event) {
   event.preventDefault();
-  document.getElementById("addOrUpdateRenewalType").disabled = false;
+  document.querySelector("#addOrUpdateRenewalType").disabled = false;
   $("#renewalTypeErrorBox").html("");
 });
 $(document).on("focusin", "#textAddOrUpdateJobType", function (event) {
   event.preventDefault();
-  document.getElementById("addOrUpdateJobType").disabled = false;
+  document.querySelector("#addOrUpdateJobType").disabled = false;
   $("#jobTypeErrorBox").html("");
 });
 $(document).on("focusin", "#textAddOrUpdateHealthcheckType", function (event) {
   event.preventDefault();
-  document.getElementById("addOrUpdateHealthcheckType").disabled = false;
+  document.querySelector("#addOrUpdateHealthcheckType").disabled = false;
   $("#healthcheckTypeErrorBox").html("");
 });
 $(document).on("focusin", "#textAddOrUpdatePlatform", function (event) {
   event.preventDefault();
-  document.getElementById("addOrUpdatePlatform").disabled = false;
+  document.querySelector("#addOrUpdatePlatform").disabled = false;
   $("#platformErrorBox").html("");
 });
 

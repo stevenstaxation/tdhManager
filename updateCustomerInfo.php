@@ -14,6 +14,7 @@ $customerAddress3 = $_POST['customerAddr3'];
 $customerAddress4 = $_POST['customerAddr4'];
 $customerAddress5 = $_POST['customerAddr5'];
 $VCOReference = $_POST['VCOReference'];
+$policynumber = $_POST['policynumber'];
 // $customerPhone  = $_POST['customerPhone'];
 // $customerEmail = $_POST['customerEmail'];
 // $customerRenewalType = $_POST['customerRenewalType'];
@@ -94,12 +95,14 @@ $customerAddress3 = mysqli_real_escape_string($link,filter_var($customerAddress3
 $customerAddress4 = mysqli_real_escape_string($link,filter_var($customerAddress4, FILTER_SANITIZE_STRING));
 $customerAddress5 = mysqli_real_escape_string($link,filter_var($customerAddress5, FILTER_SANITIZE_STRING));
 $VCOReference = mysqli_real_escape_string($link,filter_var($VCOReference, FILTER_SANITIZE_STRING));
+$policynumber = mysqli_real_escape_string($link, filter_var($policynumber,FILTER_SANITIZE_STRING));
+
 // $customerPhone = mysqli_real_escape_string($link,filter_var($customerPhone, FILTER_SANITIZE_STRING));
 // $customerRegNo = mysqli_real_escape_string($link,filter_var($customerRegNo, FILTER_SANITIZE_STRING));
 // $customerVATNo = mysqli_real_escape_string($link,filter_var($customerVATNo, FILTER_SANITIZE_STRING));
 // $customerEmail = mysqli_real_escape_string($link,filter_var($customerEmail, FILTER_SANITIZE_EMAIL));
 
-$sql = "UPDATE tblCustomer SET businessName='$customerName', custAddressLine1 = '$customerAddress1', custAddressLine2 = '$customerAddress2', custAddressLine3 = '$customerAddress3', custAddressLine4 = '$customerAddress4', custAddressLine5 = '$customerAddress5', VCOReference = '$VCOReference' WHERE ID = '$customerNumber'";
+$sql = "UPDATE tblCustomer SET businessName='$customerName', custAddressLine1 = '$customerAddress1', custAddressLine2 = '$customerAddress2', custAddressLine3 = '$customerAddress3', custAddressLine4 = '$customerAddress4', custAddressLine5 = '$customerAddress5', VCOReference = '$VCOReference', policynumber = '$policynumber' WHERE ID = '$customerNumber'";
 
 $result = mysqli_query($link, $sql);
 
