@@ -18,8 +18,8 @@ $returnString = "
 $returnString .= "
 <div class='container'>
   <div id='issueLogList' class='listHeader'><h4><strong>Issues Log</strong></h4></div>
-  <div id='issueFilter' style='display: none'>" .$completeFilter ."</div>
-  <form id='issueForm' class='filterBox' style='display: none'>
+  <div id='issueFilter' class='d-none'>" .$completeFilter ."</div>
+  <form id='issueForm' class='filterBox d-none'>
   </form>
 
 ";

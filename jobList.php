@@ -9,8 +9,8 @@ if (!isset($_SESSION['userEmail']) || !isset($_SESSION['userName'])) {
 $sqlFILTER = $_POST['SQLFilter'] ?? 1;
 
 $returnString = "
-<div id='hiddenCustomerID' style='display: none'></div>
-<div id='jobFilter' style='display: none'> " . $sqlFILTER . "</div>
+<div id='hiddenCustomerID' class='d-none'></div>
+<div id='jobFilter d-none'> " . $sqlFILTER . "</div>
 
 <div id='deviceLongList' class='listHeader'>
   <h4><strong>Job Requests</strong></h4>
@@ -88,7 +88,7 @@ $returnString .= "
 
   <div class='container-fluid'>
   <div id='jobListFilter'>
-    <form id='deviceForm' class='filterBox' style='display: none'><div id='deviceFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%'>
+    <form id='deviceForm' class='filterBox d-none'><div id='deviceFilters' class='settings-dialog' style='border-width: 1px; border-style: solid; padding: 5px; width:100%'>
       <div class='input-group'>
         <input type='text' style='padding: 5px;' id='byOther' value=''/>
       </div>
@@ -289,7 +289,7 @@ if (mysqli_num_rows($result) != 0) {
   </table>
 
 </div>
-<div id='hiddenJobID' style='display: none'></div>
+<div id='hiddenJobID' class='d-none'></div>
 <script>
  document.getElementById('byOther').addEventListener('keypress', function (event) {
        if (event.keyCode == 13) {

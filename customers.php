@@ -54,16 +54,16 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     } else {
         $renewalColour = $notRenewable;
     }
-
+// line 60 removed $thisClinetName from if hiddenCustomerName
     $returnString = "
-<div id='hiddenCustomerID' style='display: none'>" . $row[0] . "</div>
-<div id='hiddenCustomerName' style='display: none'>" . $thisClientName . "</div>
+<div id='hiddenCustomerID' class='d-none'>" . $row[0] . "</div>
+<div id='hiddenCustomerName' class='d-none'></div>
 
 <div class='row' style='font-size:100%;'>
     <div class='col-lg-6 col-xl-4'>
         <form id='nameForm'>
             <div id='showAccountInfo' class='settings-dialog'>
-                <div class='form-group' style='display: flex; align-items: center; font-size: 24px'>
+                <div class='form-group d-flex' style='align-items: center; font-size: 24px'>
                     <label class='control-label inline' for='customerName' style='width:40%; padding-top:7px'><strong>Name</strong></label>
                     <div class='input-group'>
                         <input style='maxlength=100; font-weight: bold; font-size: 24px;' oninput='makeDirty(" . '"customerName"' . ")'
@@ -71,7 +71,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                         placeholder='enter customer name...' value='" . $row['businessName'] . "'>
                     </div>
                 </div>
-                <div class='form-group' style='display: flex; align-items: center; font-size: 12px'>
+                <div class='form-group d-flex' style='align-items: center; font-size: 12px'>
                     <label class='control-label inline' for='VCOReference' style='width:40%; padding-top:7px'><strong>VCO Reference</strong></label>
                     <div class='input-group'>
                         <input style='font-weight: bold; font-size: 12px;' maxlength=10
@@ -79,7 +79,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                         placeholder='Vodafone reference...' value='" . $row['VCOReference'] . "'>
                     </div>
                 </div>
-                <div class='form-group' style='display: flex; align-items: center; font-size: 12px'>
+                <div class='form-group d-flex' style='align-items: center; font-size: 12px'>
                     <label class='control-label inline' for='policyNumber' style='width:40%; padding-top:7px'><strong>Policy No.</strong></label>
                     <div class='input-group'>
                         <input style='font-weight: bold; font-size: 12px;' maxlength=100
@@ -88,7 +88,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                     </div>
                 </div>
 
-                <div class='btn-group' style ='display: flex; margin: 2px 2px;'>
+                <div class='btn-group d-flex' style ='margin: 2px 2px;'>
                     <btn class='btn btn-success btn-sm updateCustomer profileButton' onclick='updateCustomer()' id='updateCustomer' type='button'><i class='bi bi-arrow-up-left-circle-fill h5'></i> Update customer details </btn>
                 </div>
             </div>
@@ -98,13 +98,13 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         <div id='toggleAddress' style='float: right;' class='btn btn-sm collapsible' type='button'>address</div>
                 <div class='scrollBox canCollapse' style='max-height: 75vh;'>
                 <div id='showAccountInfo' class='settings-dialog'>
-                    <div class='form-group' style='display: flex; align-items: center'>
+                    <div class='form-group d-flex' style='align-items: center'>
                         <h6><strong style='margin-top:10px;'>ADDRESS</strong></h6>
                         <div id='errorBox'></div>
                         <hr>
                     </div>
 
-                    <div class='form-group' style='display: flex; align-items: center'>
+                    <div class='form-group d-flex' style='align-items: center'>
                         <label class='control-label inline' for='addressLookup' style='width:40%; padding-top:6px'>Lookup</label>
                             <div class='input-group'>
                                <input style='font-size: 80%' maxlength='50' class='form-control enabler' type='text'
@@ -116,13 +116,13 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                            </div>
                     </div>
 
-                    <div class='form-group' style='display: flex; align-items: center'>
+                    <div class='form-group d-flex' style='align-items: center'>
                         <label class='control-label inline' for='custAddressLine1' style='width:40%; padding-top:6px'>Address</label>
                         <div class='input-group'>
                             <input style='font-size: 80%' maxlength='50' oninput='makeDirty(" . '"custAddressLine1"' . ")' class='form-control enabler' type='text' id='custAddressLine1' name='custAddressLine1' placeholder='Address line 1...' value ='" . $row['custAddressLine1'] . "'>
                         </div>
                     </div>
-                    <div class='form-group' style='display: flex; align-items: center'>
+                    <div class='form-group d-flex' style='align-items: center'>
                         <label class='control-label inline' for='custAddressLine2' style='width:40%; padding-top:6px'>Address</label>
                         <div class='input-group'>
                             <input style='font-size: 80%' maxlength='50' oninput='makeDirty(" . '"custAddressLine2"'
@@ -130,7 +130,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         . $row['custAddressLine2'] . "'>
                         </div>
                     </div>
-                    <div class='form-group' style='display: flex; align-items: center'>
+                    <div class='form-group d-flex' style='align-items: center'>
                         <label class='control-label inline' for='custAddressLine3' style='width:40%; padding-top:6px'>Town/City</label>
                         <div class='input-group'>
                             <input style='font-size: 80%' maxlength='50' oninput='makeDirty(" . '"custAddressLine3"'
@@ -138,7 +138,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         . $row['custAddressLine3'] . "'>
                         </div>
                     </div>
-                    <div class='form-group' style='display: flex; align-items: center'>
+                    <div class='form-group d-flex' style='align-items: center'>
                         <label class='control-label inline' for='custAddressLine4' style='width:40%; padding-top:6px'>County</label>
                         <div class='input-group'>
                             <input style='font-size: 80%' maxlength='50' oninput='makeDirty(" . '"custAddressLine4"'
@@ -146,7 +146,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         . $row['custAddressLine4'] . "'>
                         </div>
                     </div>
-                    <div class='form-group' style='display: flex; align-items: center'>
+                    <div class='form-group d-flex' style='align-items: center'>
                         <label class='control-label inline' for='custAddressLine5' style='width:40%; padding-top:6px'>Post Code</label>
                         <div class='input-group'>
                             <input style='font-size: 80%' maxlength='14' oninput='makeDirty(" . '"custAddressLine5"'
@@ -180,7 +180,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     $theRenewalType = $row['renewalType'];
     $theRenewalDate = $row['renewalDate'];
 
-    $returnString .= "<div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+    $returnString .= "<div class='btn-group d-flex' style ='margin: 10px 20px;'>
                         <btn class='btn btn-success btn-sm updateCustomer profileButton' onclick='updateCustomer()' id='updateCustomer' type='button'><i class='bi bi-arrow-up-left-circle-fill h5'></i> Update </btn>";
 
     $returnString .= "
@@ -239,7 +239,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
             </tbody>
         </table>
     </div>
-    <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+    <div class='btn-group d-flex' style ='margin: 10px 20px;'>
         <btn class='btn btn-success btn-sm profileButton' id='addCustomerNote' type='button' data-toggle='modal' data-target='#modalAddNewNote'><i class='bi bi-plus-circle-fill h5'></i> New Note</btn>
     </div>
 </div>
@@ -280,7 +280,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     <div id='showAccountInfo' class='settings-dialog'>
         <h6><strong style='margin-top:10px;'>RENEWAL DETAILS</strong></h6>
         <div id='errorBox'></div>
-        <div class='form-group' style='display: flex; align-items: center'>
+        <div class='form-group d-flex' style='align-items: center'>
         <p class='control-label inline' style='width:40%; padding-top:10px'>Renewal type</p>
         <div class='input-group'>
             <select style='font-size: 100%' id='getRenewalTypeSelect' name='getRenewalTypeSelect' onchange='makeDirty(" . '"getRenewalTypeSelect"' . ")' class='custom-select getRenewalTypeSelect enabler'>";
@@ -302,7 +302,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
             </select>
         </div>
     </div>
-    <div class='form-group' style='display: flex; align-items: center'>
+    <div class='form-group d-flex' style='align-items: center'>
         <label id='renewalDateLabel' class='control-label inline' for='renewalDate' style='width:40%; padding-top:6px'>Renewal date</label>
         <div class='input-group'>
 
@@ -312,7 +312,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         </div>
     </div>
     <hr>
-    <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+    <div class='btn-group d-flex' style ='margin: 10px 20px;'>
     <btn class='btn btn-success btn-sm updateCustomer profileButton' style='float: right' onclick='updateCustomerRenewal()' id='updateCustomerRenewal' type='button'><i class='bi bi-arrow-up-left-circle-fill h5'></i> Update Renewal</btn>
 
     </div>
@@ -371,7 +371,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                     </tbody>
                 </table>
             </div>
-            <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+            <div class='btn-group d-flex' style ='margin: 10px 20px;'>
                  <btn class='btn btn-success btn-sm profileButton' id='addNewContact' type='button' data-toggle='modal' data-target='#modalAddNewContact'><i class='bi bi-plus-circle-fill h5'></i> New Contact</btn>
 
             </div>
@@ -411,7 +411,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                 <div id='showAccountInfo' class='settings-dialog'>
                     <h6><strong style='margin-top:10px;'>INSURER</strong></h6>
                     <div id='errorBox'></div>
-                    <div class='form-group' style='display: flex; align-items: center'>
+                    <div class='form-group d-flex' style='align-items: center'>
                         <p class='control-label inline' style='width:40%; padding-top:10px'>Name</p>
                         <div class='input-group'>
                             <select  style='font-size: 80%' id='getInsurerSelect' name='getInsurerSelect' class='custom-select getInsurerSelect'>";
@@ -470,10 +470,10 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     $returnString .= "
                                 </tbody>
                             </table>
-                            <div id='hiddenInfo' style='display: none'>" . $row['insurerID'] . "</div>
-                            <div id='insurerEditNumber' style='display: none'>" . $row['insurerID'] . "</div>
+                            <div id='hiddenInfo' class='d-none'>" . $row['insurerID'] . "</div>
+                            <div id='insurerEditNumber' class='d-none'>" . $row['insurerID'] . "</div>
                         </div>
-                        <div class='btn-group' style='display: flex; margin: 10px 20px;'>
+                        <div class='btn-group d-flex' style='margin: 10px 20px;'>
                             <btn class='btn btn-success btn-sm profileButton' type='button' data-toggle='modal' data-target='#modalAddNewInsurerContact' data-caller='customer'><i class='bi bi-person-lines-fill h5'></i> New Contact </btn>
 
 
@@ -517,7 +517,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         <div id='showAccountInfo' class='settings-dialog'>
             <h6><strong style='margin-top:10px;'>BROKER</strong></h6>
             <div id='errorBox'></div>
-            <div class='form-group' style='display: flex; align-items: center'>
+            <div class='form-group d-flex' style='align-items: center'>
                 <p class='control-label inline' for='brokerName' style='width:40%; padding-top:10px'>Name</p>
                 <div class='input-group'>
                     <select style='font-size: 80%' id='getBrokerSelect' name='getBrokerSelect' class='custom-select getBrokerSelect'>";
@@ -544,7 +544,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                 </div>
             </div>
             <hr>
-           <div class='form-group style='display: flex' style='font-size: 70%'>
+           <div class='form-group d-flex' style='font-size: 70%'>
                 <p style='font-size: 143%'><strong>Contacts</strong></p>
                 <div class='scrollBox' style='max-height: 20vh; overflow: auto;'>
                     <table class='table table-sm table-bordered table-hover' style='table-layout: fixed'>
@@ -577,9 +577,9 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
     $returnString .= "
                         </tbody>
                     </table>
-                    <div id='brokerHiddenInfo' style='display: none'>" . $row['brokerID'] . "</div>
+                    <div id='brokerHiddenInfo' class='d-none'>" . $row['brokerID'] . "</div>
                 </div>
-                <div class='btn-group' style='display: flex; margin: 10px 20px;'>
+                <div class='btn-group d-flex' style='margin: 10px 20px;'>
                     <btn id='addBrokerContactButton' class='btn btn-success btn-sm profileButton' type='button' data-toggle='modal' data-target='#modalAddNewBrokerContact'><i class='bi bi-person-lines-fill h5'></i> New Contact </btn>
                 </div>
             </div>
@@ -632,7 +632,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         </table>
     </div>
 
-    <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+    <div class='btn-group d-flex' style ='margin: 10px 20px;'>
         <btn class='btn btn-success btn-sm profileButton' id='addFootageRequest' type='button' onclick='populateFootageBox()'><i class='bi bi-plus-circle-fill h5'></i> New Request </btn>
     </div>
 </div>
@@ -895,7 +895,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
 
             </div>
 
-            <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+            <div class='btn-group d-flex' style ='margin: 10px 20px;'>
                 <btn class='btn btn-success btn-sm profileButton' id='addJobRequest' onclick='addJobRequest(\"customer\")' type='button'><i class='bi bi-plus-circle-fill'></i> New Request </btn>
             </div>
 </div>
@@ -903,7 +903,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         </div>
         </form>
 
-            <div id='hiddenJobID' style='display: none'></div>
+            <div id='hiddenJobID' class='d-none'></div>
 
 
             <script>
@@ -1028,11 +1028,11 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                     <th class='text-center align-middle'>Original install Date</th>
                     <th class='text-center align-middle'>Edit</th>
                     <th class='text-center align-middle'>Notes</th>
-                    <th class='text-center align-middle' style='display: none'>Hide</th>
-                    <th class='text-center align-middle' style='display: none'>Hide Notes</th>
-                    <th class='text-center align-middle' style='display: none'>updatePlatform</th>
-                    <th class='text-center align-middle' style='display: none'>updateConfig</th>
-                    <th class='text-center align-middle' style='display: none'>updateVCO</th>
+                    <th class='text-center align-middle d-none'>Hide</th>
+                    <th class='text-center align-middle d-none'>Hide Notes</th>
+                    <th class='text-center align-middle d-none'>updatePlatform</th>
+                    <th class='text-center align-middle d-none'>updateConfig</th>
+                    <th class='text-center align-middle d-none'>updateVCO</th>
 
 
                     </tr>
@@ -1105,11 +1105,11 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
         if ($hiddenVRN == '' || $hiddenVRN = null) {
             $hiddenVRN = 'zzzzzzzzzz';
         }
-        $returnString .= "<td class='text-center align-middle' style='display: none'>" . $hiddenVRN . "</td>";
-        $returnString .= "<td class='text-center align-middle' style='display: none'>" . $row['deviceNote'] . "</td>";
-        $returnString .= "<td class='text-center align-middle' style='display: none'>" . $row['platformUpdated'] . "</td>";
-        $returnString .= "<td class='text-center align-middle' style='display: none'>" . $row['configUpdated'] . "</td>";
-        $returnString .= "<td class='text-center align-middle' style='display: none'>" . $row['vcoUpdated'] . "</td>";
+        $returnString .= "<td class='text-center align-middle d-none'>" . $hiddenVRN . "</td>";
+        $returnString .= "<td class='text-center align-middle d-none'>" . $row['deviceNote'] . "</td>";
+        $returnString .= "<td class='text-center align-middle d-none'>" . $row['platformUpdated'] . "</td>";
+        $returnString .= "<td class='text-center align-middle d-none'>" . $row['configUpdated'] . "</td>";
+        $returnString .= "<td class='text-center align-middle d-none'>" . $row['vcoUpdated'] . "</td>";
         $returnString = $returnString . "</tr>";
         // $ix++;
     }
@@ -1118,7 +1118,7 @@ if ($row['businessName'] != 'DHINSTALL' && $row['businessName'] != 'DHD') {
                 </tbody>
             </table>
         </div>
-        <div class='btn-group' style='display: flex; margin: 10px 20px;'>
+        <div class='btn-group d-flex' style='margin: 10px 20px;'>
             <btn class='btn btn-success btn-sm profileButton' id='addDevice' type='button' data-toggle='modal' data-target='#modalAddNewDevice'><i class='bi bi-plus-circle-fill h5'></i> New Device </btn>
         </div>
 </div>
@@ -1299,7 +1299,7 @@ document.getElementById('hiddenDeviceSelector').value = 'dhinstall';
                 </tbody>
             </table>
         </div>
-        <div class='btn-group' style='display: flex; margin: 10px 20px;'>
+        <div class='btn-group d-flex' style='margin: 10px 20px;'>
             <btn class='btn btn-success btn-sm profileButton' id='addVehicle' type='button' data-toggle='modal' data-target='#modalAddVehicle'><i class='bi bi-plus-circle-fill h5'></i> New Vehicle </btn>
         </div>
         </div>
@@ -1374,12 +1374,12 @@ document.getElementById('hiddenDeviceSelector').value = 'dhinstall';
     $returnString = $returnString . $devicesString;
     $returnString = $returnString . "
         </div>
-        <div id='hiddenCustomerName' style='display: none'>" . $thisClientName . "</div>
+        <div id='hiddenCustomerName' class='d-none'>" . $thisClientName . "</div>
         <br>";
 
     $returnString .= "
 <div class='container'>
-  <div id='deviceFilter' style='display: none'>
+  <div id='deviceFilter' class='d-none'>
     <div class='input-group'>
       <input type='text' style='font-size:75%; padding: 5px;' id='byOther' value=''/>
     </div>

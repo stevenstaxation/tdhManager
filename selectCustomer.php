@@ -25,13 +25,13 @@ if (isset($_SESSION['currentCustomer'])==false) {
 
 $returnString = "
 <div class='form-group form form-inline' style='margin-top:50px'>
-    <label class='control-label' style='margin-top:6px;margin-right:10px;display: block;' for='getClient' id='customerSelection'>Select Customer</label>
+    <label class='control-label d-block' style='margin-top:6px;margin-right:10px;' for='getClient' id='customerSelection'>Select Customer</label>
      <div class='input-group'>
         <input type='hidden' value>";
             
    
             $returnString .="   
-            <select id='getClient' name='getClient' class='combobox form-control getClient' style='display: none;'><option></option>";
+            <select id='getClient' name='getClient' class='combobox form-control getClient d-none'><option></option>";
 
                 $sql = "SELECT * FROM tblCustomer ORDER BY businessName ASC";
                 $result = mysqli_query($link,$sql);

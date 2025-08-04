@@ -85,7 +85,7 @@ if (isset($_GET['email']) && isset($_GET['activationKey'])) {
                                     <input type='password' class='form-input' name='password2' id='password2' placeholder='Confirm your password...' autocomplete='new-password'>
                                 </div> 
                                 <div class='form-group'>
-                                    <div id='hiddenUserType' style='display:none'><?php echo $logInType?></div>
+                                    <div id='hiddenUserType' class='d-none'><?php echo $logInType?></div>
                                 </div>
                                 <div class='form-group text-center'>
                                     <button type='submit' name='submit' id='submit' class='form-submit btn btn-success' style='border-radius: 10px;'>Register Account</button>

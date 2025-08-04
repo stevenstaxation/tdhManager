@@ -27,7 +27,7 @@ if ($returnString !="<div class='alert alert-danger'>") {
     $returnString .= "<br><input type='radio' name='deleteOption' id='goAheadDeleteOther' style='margin: 10px'>Continue with delete
     <br><input type='radio' name='deleteOption' id='cancelDelete' style='margin: 10px' checked>Cancel
     <btn class='btn btn-danger btn-sm' style='margin-left: 50px' id='queryDeleteOther'>Go</btn>
-    <div id='hiddenIDToDelete' style='display: none'>" . $otherNumber . "</div>";
+    <div id='hiddenIDToDelete' class='d-none'>" . $otherNumber . "</div>";
     echo "<div class='alert alert-danger'>" . $returnString . "</div>";
     exit();
 }

@@ -164,7 +164,7 @@ $_SESSION['attempt'] = 0;
         include 'navbar.php';
         ?>
     </div>
-    <div id='IsDarkMode' style='display: none'></div>
+    <div id='IsDarkMode' class='d-none'></div>
     <div id='accountInfo' class='container'></div>
     <div id='customerSelect' class='container'></div>
     <div id='customerInfo' class='container-fluid'></div>
@@ -175,12 +175,12 @@ $_SESSION['attempt'] = 0;
     <div id='fleetList' class='container-fluid'></div>
     <div id='dashboard' class='container-fluid'></div>
     <div id='bulkUploadsPage' class='container'></div>
-    <div id='hiddenDeviceSelector' style='display: none;'></div>
-    <div id='hiddenVehicleSelector' style='display: none;'></div>
-    <div id='hiddenDeviceNotesSelector' style='display: none;'></div>
-    <div id='hiddenJobNotesSelector' style='display: none;'></div>
-    <div id='hiddenJobSelector' style='display: none;'></div>
-    <div id='hiddenVehicleNotesSelector' style='display: none;'></div>
+    <div id='hiddenDeviceSelector' class='d-none'></div>
+    <div id='hiddenVehicleSelector' class='d-none'></div>
+    <div id='hiddenDeviceNotesSelector' class='d-none'></div>
+    <div id='hiddenJobNotesSelector' class='d-none'></div>
+    <div id='hiddenJobSelector' class='d-none'></div>
+    <div id='hiddenVehicleNotesSelector' class='d-none'></div>
     <div id='homeScreen' class='container'></div>
 
 

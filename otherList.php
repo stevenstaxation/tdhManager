@@ -12,7 +12,7 @@ $returnString = "<div class='container-fluid'>
 $returnString .= "
 
 <form id = 'otherList'>
-<div id='editOtherHide' style='display: none'></div>
+<div id='editOtherHide' class='d-none'></div>
 <div class='row'>
     <div class='col-lg-5 col-xl-4 settings-dialog'>
             <h6><strong style='margin-top:5px;'>Select from list</strong></h6>
@@ -27,7 +27,7 @@ $returnString .= "
         }
         $returnString .="</select>
 
-        <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+        <div class='btn-group d-flex' style ='margin: 10px 20px;'>
             <btn class='btn btn-success btn-sm' style='margin: 0 10px' id='addNewOther' type='button' data-toggle='modal' data-target='#modalAddNewOther' data-caller='other'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
             <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
             </svg> New Partner</btn>";
@@ -45,42 +45,42 @@ $returnString .= "
         <div class='col-lg-6 col-xl-7 settings-dialog'>
             <h6><strong style='margin-top:10px;'>Selected Partner details</strong></h6>
 
-            <div class='form-group' style='display: flex; align-items: center'>
+            <div class='form-group d-flex' style='align-items: center'>
             <label class='control-label inline' for='otherName' style='width:40%; padding-top:6px'>Name </label>
             <div class='input-group'>
                 <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editOtherName' name='editOtherName' 
                 placeholder='partner name...' value=''>
             </div>   
         </div>
-            <div class='form-group' style='display: flex; align-items: center'>
+            <div class='form-group d-flex' style='align-items: center'>
                 <label class='control-label inline' for='editOtherAddress1' style='width:40%; padding-top:6px'>Address </label>
                 <div class='input-group'>
                     <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editOtherAddress1' name='editOtherAddress1' 
                     placeholder='address line 1...' value=''>
                 </div>   
             </div>
-            <div class='form-group' style='display: flex; align-items: center'>
+            <div class='form-group d-flex' style='align-items: center'>
                 <label class='control-label inline' for='editOtherAddress2' style='width:40%; padding-top:6px'>Address </label>
                 <div class='input-group'>
                     <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editOtherAddress2' name='editOtherAddress2' 
                     placeholder='address line 2...' value=''>
                 </div>   
             </div>
-            <div class='form-group' style='display: flex; align-items: center'>   
+            <div class='form-group d-flex' style='align-items: center'>   
                 <label class='control-label inline' for='editOtherAddress3' style='width:40%; padding-top:6px'>Town/City </label>
                 <div class='input-group'>
                     <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editOtherAddress3' name='editOtherAddress3' 
                     placeholder='town/city...' value=''>
                 </div>   
             </div>
-            <div class='form-group' style='display: flex; align-items: center'>            
+            <div class='form-group d-flex' style='align-items: center'>            
                 <label class='control-label inline' for='editOtherAddress4' style='width:40%; padding-top:6px'>County </label>
                 <div class='input-group'>
                     <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editOtherAddress4' name='editOtherAddress4' 
                     placeholder='county...' value=''>
                 </div>   
             </div>
-            <div class='form-group' style='display: flex; align-items: center'>        
+            <div class='form-group d-flex' style='align-items: center'>        
                 <label class='control-label inline' for='editOtherAddress5' style='width:40%; padding-top:6px'>Post Code </label>
                 <div class='input-group'>
                     <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editOtherAddress5' name='editOtherAddress5' 
@@ -88,7 +88,7 @@ $returnString .= "
                 </div>          
             </div>
             <hr>
-            <div class='form-group' style='display: flex; align-items: center'>        
+            <div class='form-group d-flex' style='align-items: center'>        
             <label class='control-label inline' for='editOtherService' style='width:40%; padding-top:6px'>Description/Service </label>
             <div class='input-group'>
                 <input style='font-size: 80%' maxlength='100' class='form-control' type='text' id='editOtherService' name='editOtherService' 
@@ -98,7 +98,7 @@ $returnString .= "
             <hr>
             <div id='editOtherMessage'></div>
             <div class='row'>
-            <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+            <div class='btn-group d-flex' style ='margin: 10px 20px;'>
             <btn class='btn btn-success btn-sm updateEditOther' style='margin: 0 10px' onclick='updateEditOther()' id='updateEditOther' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-left-circle-fill' viewBox='0 0 16 16'>
             <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z'/>
             </svg> Update </btn>";
@@ -132,7 +132,7 @@ $returnString .= "
     
     
     </table>
-    <div id='hiddenInfo' style='display: none'></div>
+    <div id='hiddenInfo' class='d-none'></div>
 
     <btn class='btn btn-success btn-sm' id='btnAddNewOtherContact' style='margin: 0 10px' type='button' data-toggle='modal' data-target='#modalAddNewOtherContact' data-caller='other'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
     fill='currentColor' class='bi bi-person-lines-fill' viewBox='0 0 16 16'><path d='M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z' />

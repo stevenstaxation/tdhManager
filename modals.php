@@ -113,7 +113,7 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <div id='editOtherContactHide' style='display: none'></div>
+                <div id='editOtherContactHide' class='d-none'></div>
                 <button type="button" id='updateEditOtherContact' class="btn btn-success">Update</button>
                 <?php
                 if ($_SESSION['isAdmin'] == '1') {
@@ -230,7 +230,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <div id='addIssueHide' style='display: none'></div>
+                <div id='addIssueHide' class='d-none'></div>
                 <button type="button" id='addIssueUpdate' onclick='addNewIssue()' class="btn btn-success">Add</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
@@ -326,7 +326,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <div id='editIssueHide' style='display: none'></div>
+                <div id='editIssueHide'  class='d-none'></div>
                 <button type="button" id='editIssueUpdate' onclick='editIssue()' class="btn btn-success">Update</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
             </div>
@@ -375,7 +375,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <div id='hiddenAllocateID' style='display: none'></div>
+                <div id='hiddenAllocateID'  class='d-none'></div>
                 <button type="button" id='allocateDeviceToCustomer' onclick='allocateDeviceToCustomer()' class="btn btn-success">Allocate</button>
 
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -414,9 +414,9 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <div id='hiddenJobNotesID' style='display: none'></div>
-                <div id='editJobNotesID' style='display: none'></div>
-                <div id='editJobCustomerID' style='display: none'></div>
+                <div id='hiddenJobNotesID'  class='d-none'></div>
+                <div id='editJobNotesID'  class='d-none'></div>
+                <div id='editJobCustomerID'  class='d-none'></div>
                 <button type="button" id='editCurrentJobNotes' onclick='editCurrentJobNotes()' class="btn btn-success">Update</button>
 
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>

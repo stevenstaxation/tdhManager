@@ -64,7 +64,7 @@ $(document).ready(function() {
 <table class='table table-bordered table-hover table-sm'>
                     <thead>
                         <tr>
-                            <th style='display: none'></th>
+                            <th class='d-none'></th>
                             <th class='text-center' style='width:10%'>Date</th>
                             <th style='width:30%'>Customer</th>
                             <th style='width:50%'>Description</th>
@@ -87,7 +87,7 @@ $(document).ready(function() {
 //                                $returnString .= "<tr>";
 //                            }
 
-                            $returnString .= "<td style='display: none;' class='nr align-middle'><span>" . $alert['noteID'] . "</span></td>";
+                            $returnString .= "<td class='nr align-middle d-none'><span>" . $alert['noteID'] . "</span></td>";
                             $returnString .= "<td class='text-center align-middle'>" . substr($alert['date'],8,2) ."/" . substr($alert['date'],5,2) . "/" . substr($alert['date'],0,4) . "</td>
                                 <td class='align-middle'>" . $alert['customername'] . "</td>
                                 <td class='align-middle'>" . $alert['text'] . "</td>

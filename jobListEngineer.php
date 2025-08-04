@@ -28,7 +28,7 @@ $thisEngineer = ($_SESSION['userID']);
 	<table class='table table-striped' id="engineerTable">
   		<thead>
     		<tr>
-				<th style='display: none'>ID</th>
+				<th class='d-none'>ID</th>
       			<th class='text-center'>Reg No</th>
 				<th>Customer</th>
       			<th class='text-center'>Post Code</th>
@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_array($result)) {
     $time = substr($row['date'], 11, 5);
 
     echo " 	<tr>
-				<td style='display: none'>" . $row['ID'] . "</td>
+				<td class='d-none'>" . $row['ID'] . "</td>
 				<td class='text-center'>" . $row['regNumber'] . "</td>
 				<td>" . $row['businessName'] . "</td>
 				<td class='text-center'>" . $postcode . "</td>

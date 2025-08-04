@@ -12,7 +12,7 @@ $returnString = "<div class='container-fluid'>
 $returnString .= "
 
 <form id = 'supplierList'>
-<div id='editSupplierHide' style='display: none'></div>
+<div id='editSupplierHide' class='d-none'></div>
 <div class='row'>
     <div class='col-lg-5 col-xl-4 settings-dialog'>
             <h6><strong style='margin-top:5px;'>Select from list</strong></h6>
@@ -27,15 +27,11 @@ $returnString .= "
         }
         $returnString .="</select>
 
-        <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-            <btn class='btn btn-success btn-sm mx-2' id='addNewSupplier' type='button' data-toggle='modal' data-target='#modalAddNewSupplier' data-caller='supplier'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
-            <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
-            </svg> New Supplier</btn>";
+        <div class='btn-group d-flex' style ='margin: 10px 20px;'>
+            <btn class='btn btn-success btn-sm mx-2' id='addNewSupplier' type='button' data-toggle='modal' data-target='#modalAddNewSupplier' data-caller='supplier'><i class='bi bi-plus-circle-fill'></i> New Supplier</btn>";
 
                 if ($_SESSION['isAdmin']== '1') {
-                    $returnString .= "<btn class='btn btn-danger btn-sm deleteSupplier mx-2' onclick='deleteSupplier()' id='deleteSupplier' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
-                    <path d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z'/>
-                    </svg> Delete </btn>";
+                    $returnString .= "<btn class='btn btn-danger btn-sm deleteSupplier mx-2' onclick='deleteSupplier()' id='deleteSupplier' type='button'><i class='bi bi-trash-fill'></i> Delete </btn>";
                 }
                 $returnString .="
         </div>
@@ -90,10 +86,8 @@ $returnString .= "
             <hr>
             <div id='editSupplierMessage'></div>
             <div class='row'>
-            <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
-            <btn class='btn btn-success btn-sm updateEditSupplier mx-2' onclick='updateEditSupplier()' id='updateEditSupplier' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-left-circle-fill' viewBox='0 0 16 16'>
-            <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z'/>
-            </svg> Update </btn>";
+            <div class='btn-group d-flex' style ='margin: 10px 20px;'>
+            <btn class='btn btn-success btn-sm updateEditSupplier mx-2' onclick='updateEditSupplier()' id='updateEditSupplier' type='button'><i class='bi bi-arrow-up-left-circle-fill'></i> Update </btn>";
             
             $returnString .="
         </div>
@@ -124,11 +118,9 @@ $returnString .= "
     
     
     </table>
-    <div id='hiddenInfo' style='display: none'></div>
+    <div id='hiddenInfo' class='d-none'></div>
 
-    <btn class='btn btn-success btn-sm' id='btnAddNewSupplier mx-2' type='button' data-toggle='modal' data-target='#modalAddNewSupplierContact' data-caller='supplier'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
-    fill='currentColor' class='bi bi-person-lines-fill' viewBox='0 0 16 16'><path d='M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z' />
-    </svg> New Contact </btn>
+    <btn class='btn btn-success btn-sm' id='btnAddNewSupplier mx-2' type='button' data-toggle='modal' data-target='#modalAddNewSupplierContact' data-caller='supplier'><i class='bi bi-person-lines-fill'></i> New Contact </btn>
 
 </div>
 

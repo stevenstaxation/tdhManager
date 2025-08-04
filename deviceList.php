@@ -696,7 +696,7 @@ $returnString = $returnString . "
 
 $returnString .= "
 <div class='container'>
-  <div id='deviceFilter' style='display: none'>
+  <div id='deviceFilter' class='d-none'>
     <div class='input-group'>
       <input type='text' style='font-size:75%; padding: 5px;' id='byOther' value='" . $_POST['FilterOtherTerm'] . "'/>
     </div>
@@ -747,11 +747,11 @@ if (mysqli_num_rows($result) != 0) {
           <th class='text-center align-middle'>Edit</th>
           <th class='text-center align-middle'>Notes</th>
           <th class='text-center align-middle'>Events</th>
-          <th class='text-center align-middle' style='display: none'>Hide</th>
-          <th class='text-center align-middle' style='display: none'>Hide Notes</th>
-          <th class='text-center align-middle' style='display: none'>updatePlatform</th>
-          <th class='text-center align-middle' style='display: none'>updateConfig</th>
-          <th class='text-center align-middle' style='display: none'>updateVCO</th>
+          <th class='text-center align-middle d-none'>Hide</th>
+          <th class='text-center align-middle d-none'>Hide Notes</th>
+          <th class='text-center align-middle d-none'>updatePlatform</th>
+          <th class='text-center align-middle d-none'>updateConfig</th>
+          <th class='text-center align-middle d-none'>updateVCO</th>
           </tr>
       </thead>
 
@@ -812,12 +812,12 @@ if (mysqli_num_rows($result) != 0) {
         if ($row['regNumber'] == '') {
             $hiddenVRN = 'zzzzzzzzzz';
         }
-        $returnString .= "<td class='text-center align-middle' style='display: none'>" . $hiddenVRN . "</td>";
+        $returnString .= "<td class='text-center align-middle d-none'>" . $hiddenVRN . "</td>";
 
-        $returnString .= "<td class='text-center align-middle' style='display: none'>" . $row['deviceNote'] . "</td>";
-        $returnString .= "<td class='text-center align-middle' style='display: none'>" . $row['platformUpdated'] . "</td>";
-        $returnString .= "<td class='text-center align-middle' style='display: none'>" . $row['configUpdated'] . "</td>";
-        $returnString .= "<td class='text-center align-middle' style='display: none'>" . $row['vcoUpdated'] . "</td>";
+        $returnString .= "<td class='text-center align-middle d-none'>" . $row['deviceNote'] . "</td>";
+        $returnString .= "<td class='text-center align-middle d-none'>" . $row['platformUpdated'] . "</td>";
+        $returnString .= "<td class='text-center align-middle d-none'>" . $row['configUpdated'] . "</td>";
+        $returnString .= "<td class='text-center align-middle d-none'>" . $row['vcoUpdated'] . "</td>";
 
         $returnString .= "</tr>";
 
@@ -853,11 +853,11 @@ $returnString .= "</tbody>
       <th class='text-center align-middle'>Edit</th>
       <th class='text-center align-middle'>Notes</th>
       <th class='text-center align-middle'>Events</th>
-      <th class='text-center align-middle' style='display: none'>Hide</th>
-      <th class='text-center align-middle' style='display: none'>HideNotes</th>
-      <th class='text-center align-middle' style='display: none'>updatePlatform</th>
-      <th class='text-center align-middle' style='display: none'>updateConfig</th>
-      <th class='text-center align-middle' style='display: none'>updateVCO</th>
+      <th class='text-center align-middle d-none'>Hide</th>
+      <th class='text-center align-middle d-none'>HideNotes</th>
+      <th class='text-center align-middle d-none'>updatePlatform</th>
+      <th class='text-center align-middle d-none'>updateConfig</th>
+      <th class='text-center align-middle d-none'>updateVCO</th>
     </tr>
   </tfoot>
 

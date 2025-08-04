@@ -12,7 +12,7 @@ $returnString = "<div class='container-fluid'>
 $returnString .= "
 
 <form id = 'insurerList'>
-<div id='editInsurerHide' style='display: none'></div>
+<div id='editInsurerHide' class='d-none'></div>
 <div class='row'>
     <div class='col-lg-5 col-xl-4 settings-dialog'>
             <h6><strong style='margin-top:5px;'>Select from list</strong></h6>
@@ -27,7 +27,7 @@ $returnString .= "
         }
         $returnString .="</select>
 
-            <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+            <div class='btn-group d-flex' style ='margin: 10px 20px;'>
             <btn class='btn btn-success btn-sm mx-2' id='addNewInsurer' type='button' data-toggle='modal' data-target='#modalAddNewInsurer' data-caller='insurer'><i class='bi bi-plus-circle-fill' viewBox='0 0 16 16'></i> New Insurer</btn>";
 
                 if ($_SESSION['isAdmin']== '1') {
@@ -86,7 +86,7 @@ $returnString .= "
             <hr>
             <div id='editInsurerMessage'></div>
             <div class='row'>
-            <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+            <div class='btn-group d-flex' style ='margin: 10px 20px;'>
             <btn class='btn btn-success btn-sm updateEditInsurer mx-2' onclick='updateEditInsurer()' id='updateEditInsurer' type='button'><i class='bi bi-arrow-up-left-circle-fill'></i>
              Update </btn>";
      
@@ -119,7 +119,7 @@ $returnString .= "
     
     
     </table>
-    <div id='hiddenInfo' style='display: none'></div>
+    <div id='hiddenInfo' class='d-none'></div>
         
     <btn class='btn btn-success btn-sm mx-2' id='btnAddNewContact' type='button' data-toggle='modal' data-target='#modalAddNewInsurerContact' data-caller='insurer'><i class='bi bi-person-lines-fill' viewBox='0 0 16 16'></i> New Contact </btn>
 

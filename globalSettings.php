@@ -31,9 +31,9 @@ $returnString .="</select>
                     <input type='text' id='textAddOrUpdatePlatform' style='width:100%' placeholder='Platform description...'>
                 </div>
 
-                <div class='btn-group' style='display : flex; margin: 5px;'>
+                <div class='btn-group d-flex' style='margin: 5px;'>
                     <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdatePlatform' disabled>Add</button>
-                    <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdatePlatform' disabled>Cancel</button>
+                    <button class='btn btn-sm btn-warning d-none' style='margin: 15px; border-radius: 15px;' id='cancelUpdatePlatform' disabled>Cancel</button>
                     <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deletePlatform' disabled>Delete</button>
                 </div>
                 <div id='platformErrorBox'></div>
@@ -60,9 +60,9 @@ $returnString .="</select>
     <input type='text' id='textAddOrUpdateDevice' style='width:100%' placeholder='Device description...'>
 </div>
 
-<div class='btn-group' style='display : flex; margin: 5px;'>
+<div class='btn-group d-flex' style='margin: 5px;'>
     <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdateDevice' disabled>Add</button>
-    <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdateDevice' disabled>Cancel</button>
+    <button class='btn btn-sm btn-warning d-none' style='margin: 15px; border-radius: 15px;' id='cancelUpdateDevice' disabled>Cancel</button>
     <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deleteDevice' disabled>Delete</button>
 </div>
  <div id='deviceErrorBox'></div>
@@ -91,9 +91,9 @@ $returnString .="</select>
         <input type='text' id='textAddOrUpdateStatus' style='width:100%' placeholder='Status description...'>
     </div>
 
-<div class='btn-group' style='display : flex; margin: 5px;'>
+<div class='btn-group d-flex' style='margin: 5px;'>
     <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdateStatus' disabled>Add</button>
-    <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdateStatus' disabled>Cancel</button>
+    <button class='btn btn-sm btn-warning d-none' style='margin: 15px; border-radius: 15px;' id='cancelUpdateStatus' disabled>Cancel</button>
     <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deleteStatus' disabled>Delete</button>
 </div>
  <div id='statusErrorBox'></div>
@@ -119,9 +119,9 @@ $returnString .="</select>
         <input type='text' id='textAddOrUpdateSIMStatus' style='width:100%' placeholder='SIM status description...'>
     </div>
 
-<div class='btn-group' style='display : flex; margin: 5px;'>
+<div class='btn-group d-flex' style='margin: 5px;'>
     <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdateSIMStatus' disabled>Add</button>
-    <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdateSIMStatus' disabled>Cancel</button>
+    <button class='btn btn-sm btn-warning d-none' style='margin: 15px; border-radius: 15px;' id='cancelUpdateSIMStatus' disabled>Cancel</button>
     <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deleteSIMStatus' disabled>Delete</button>
 </div>
  <div id='SIMStatusErrorBox'></div>
@@ -150,9 +150,9 @@ $returnString .="</select>
             <input type='text' id='textAddOrUpdateFootageStatus' style='width:100%' placeholder='Footage status description...'>
         </div>
    
-        <div class='btn-group' style='display : flex; margin: 5px;'>
+        <div class='btn-group d-flex' style='margin: 5px;'>
             <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdateFootageStatus' data-toggle='modal' data-target='#modalAddNewFootageStatus' disabled>Add</button>
-            <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdateFootageStatus'>Cancel</button>
+            <button class='btn btn-sm btn-warning d-none' style='margin: 15px; border-radius: 15px;' id='cancelUpdateFootageStatus'>Cancel</button>
             <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deleteFootageStatus' disabled>Delete</button>
         </div>
         <div id='footageStatusErrorBox'></div>
@@ -180,9 +180,9 @@ $returnString .="</select>
             <input type='text' id='textAddOrUpdateRenewalType' style='width:100%' placeholder='Renewal type description...'>
         </div>
    
-        <div class='btn-group' style='display : flex; margin: 5px;'>
+        <div class='btn-group d-flex' style='margin: 5px;'>
             <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdateRenewalType' data-toggle='modal' data-target='#modalAddNewRenewalType' disabled>Add</button>
-            <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdateRenewalType'>Cancel</button>
+            <button class='btn btn-sm btn-warning d-none' style='margin: 15px; border-radius: 15px;' id='cancelUpdateRenewalType'>Cancel</button>
             <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deleteRenewalType' disabled>Delete</button>
         </div>
         <div id='renewalTypeErrorBox'></div>
@@ -210,9 +210,9 @@ $returnString .="</select>
             <input type='text' id='textAddOrUpdateJobType' style='width:100%' placeholder='Job type description...'>
         </div>
    
-        <div class='btn-group' style='display : flex; margin: 5px;'>
+        <div class='btn-group d-flex' style='margin: 5px;'>
             <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdateJobType' data-toggle='modal' data-target='#modalAddNewJobType' disabled>Add</button>
-            <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdateJobType'>Cancel</button>
+            <button class='btn btn-sm btn-warning d-none' style='margin: 15px; border-radius: 15px;' id='cancelUpdateJobType'>Cancel</button>
             <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deleteJobType' disabled>Delete</button>
         </div>
         <div id='jobTypeErrorBox'></div>
@@ -240,9 +240,9 @@ $returnString .="</select>
             <input type='text' id='textAddOrUpdateHealthcheckType' style='width:100%' placeholder='Healthcheck status...'>
         </div>
    
-        <div class='btn-group' style='display : flex; margin: 5px;'>
+        <div class='btn-group d-flex' style='margin: 5px;'>
             <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='addOrUpdateHealthcheckType' data-toggle='modal' data-target='#modalAddNewHealthcheckType' disabled>Add</button>
-            <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px; display: none' id='cancelUpdateHealthcheckType'>Cancel</button>
+            <button class='btn btn-sm btn-warning d-none' style='margin: 15px; border-radius: 15px;' id='cancelUpdateHealthcheckType'>Cancel</button>
             <button class='btn btn-sm btn-danger' style='margin: 15px; border-radius: 15px;' id='deleteHealthcheckType' disabled>Delete</button>
         </div>
         <div id='healthcheckTypeErrorBox'></div>
@@ -256,7 +256,7 @@ $returnString .="
                 <h6>
                     <strong style='margin-top:10px;'>Defaults</strong>
                 </h6>  
-                <div style='display: flex; align-items: center'>     
+                <div class='d-flex' style='align-items: center'>     
                     <label for='selectDefaultInstaller' style='margin-top:7px; padding-right: 20px;'>Installer</label>
                     <select id='selectDefaultInstaller' name='selectDefaultInstaller' class='custom-select selectDefaultInstaller' style='margin-top:3px;'>";
                                                         
@@ -278,7 +278,7 @@ $returnString .="
     $returnString .=" </select>
                 </div>
                     
-                <div style='display: flex; align-items: center'>   
+                <div class='d-flex' style='align-items: center'>   
                     <label for='selectDefaultSupplier' style='margin-top:15px; padding-right: 20px;'>Supplier</label>
                     <select id='selectDefaultSupplier' name='selectDefaultSupplier' class='custom-select selectDefaultSupplier' style='margin-top:3px;'>";
                                         
@@ -323,7 +323,7 @@ $returnString .=" </select>
 
           $returnString .= "<table class='table table-sm' style='width:100%; font-size: 75%;'><thead>
           <tr>
-          <th style='display: none'>ID</th><th>Username</th><th>Name</th><th class='text-center align-middle'>Active</th><th class='text-center align-middle'>DH Admin</th><th class='text-center align-middle'>Installer</th><th class='text-center align-middle'>Engineer</th><th class='text-center align-middle'>Highlight</th>
+          <th class='d-none'>ID</th><th>Username</th><th>Name</th><th class='text-center align-middle'>Active</th><th class='text-center align-middle'>DH Admin</th><th class='text-center align-middle'>Installer</th><th class='text-center align-middle'>Engineer</th><th class='text-center align-middle'>Highlight</th>
           </tr>
           </thead><tbody>";
           while ($row = mysqli_fetch_array($result)) {
@@ -334,7 +334,7 @@ $returnString .=" </select>
             }
               $returnString .= "
               <tr>
-                <td style='display: none' class='userUpdateID' name='userUpdateID' value='".$row['userID']."'>" . $row['userID'] . "</td>
+                <td class='userUpdateID d-none' name='userUpdateID' value='".$row['userID']."'>" . $row['userID'] . "</td>
                 <td>" . $row['userName'] . "</td>
                 <td>" . $row['firstName'] . " " . $row['lastName'] . "</td>           
                 <td class='text-center align-middle'><input type='checkbox' class='isActivated' name='isActivated' " .($row['activation'] == 'activated' ? 'checked' : '') . " value = '" . $activeFlag . "'>&nbsp;</center></td>
@@ -355,7 +355,7 @@ $returnString .=" </select>
           <hr color=#3276B1>
 
 
-  <div class='btn-group' style='display : flex; margin: 5px;'>
+  <div class='btn-group d-flex' style='margin: 5px;'>
       <button class='btn btn-sm btn-success' style='margin: 15px; border-radius: 15px;' id='updateUserList'>Update</button>
       <button class='btn btn-sm btn-primary' style='margin: 15px; border-radius: 15px;' id='inviteNewUser'>Invite New</button>
       <button class='btn btn-sm btn-warning' style='margin: 15px; border-radius: 15px;' id='addHistoricUser'>Add Historic</button>

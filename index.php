@@ -40,7 +40,7 @@ session_start();
                 <div class='logInContent'>
                     <form method='POST' id='logInForm' class='logInForm'>
                         <img src='images/logo_swirl.png' alt='Data Hub Logo'>
-                        <h2 class='form-header centeredText' style='display: inline; color: #0078C0; margin-top: 17px;'><strong>TDH Manager</strong></h2>
+                        <h2 class='form-header centeredText d-inline' style='color: #0078C0; margin-top: 17px;'><strong>TDH Manager</strong></h2>
                         <h3 class='form-title h4 centeredText' style='margin-top: 8px; margin-bottom: 30px;'>Log in to your account</h3>
                         <div class='form-group'>
                             <input type='text' class='form-input' name='userName' id='userName' placeholder='Enter your email address...' autocomplete='username'>

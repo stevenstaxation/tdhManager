@@ -12,7 +12,7 @@ $returnString = "<div class='container-fluid'>
 $returnString .= "
 
 <form id = 'installerList'>
-<div id='editInstallerHide' style='display: none'></div>
+<div id='editInstallerHide' class=d-none'></div>
 <div class='row'>
     <div class='col-lg-5 col-xl-4 settings-dialog'>
             <h6><strong style='margin-top:5px;'>Select from list</strong></h6>
@@ -27,7 +27,7 @@ $returnString .= "
         }
         $returnString .="</select>
 
-        <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+        <div class='btn-group d-flex' style ='margin: 10px 20px;'>
             <btn class='btn btn-success btn-sm mx-2' id='addNewInstaller' type='button' data-toggle='modal' data-target='#modalAddNewInstaller' data-caller='installer'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus-circle-fill' viewBox='0 0 16 16'>
             <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z'/>
             </svg> New Installer</btn>";
@@ -90,7 +90,7 @@ $returnString .= "
             <hr>
             <div id='editInstallerMessage'></div>
             <div class='row'>
-            <div class='btn-group' style ='display: flex; margin: 10px 20px;'>
+            <div class='btn-group d-flex' style ='margin: 10px 20px;'>
             <btn class='btn btn-success btn-sm updateEditInstaller mx-2' onclick='updateEditInstaller()' id='updateEditInstaller' type='button'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-left-circle-fill' viewBox='0 0 16 16'>
             <path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707l4.096 4.096z'/>
             </svg> Update </btn>";
@@ -124,7 +124,7 @@ $returnString .= "
     
     
     </table>
-    <div id='hiddenInfo' style='display: none'></div>
+    <div id='hiddenInfo' class='d-none'></div>
 
     <btn class='btn btn-success btn-sm' id='btnAddNewInstallerContact mx-2' type='button' data-toggle='modal' data-target='#modalAddNewInstallerContact' data-caller='installer'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'
     fill='currentColor' class='bi bi-person-lines-fill' viewBox='0 0 16 16'><path d='M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z' />

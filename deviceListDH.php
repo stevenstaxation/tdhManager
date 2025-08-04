@@ -49,7 +49,7 @@ $sql = "SELECT * FROM tblDevice";
 
 $returnString .= "
 <div class='container'>
-  <div id='deviceFilter' style='display: none'>
+  <div id='deviceFilter d-none'>
     <div class='input-group'>
       <input type='text' style='font-size:75%; padding: 5px;' id='byOther' value='" . $_POST['FilterOtherTerm'] . "'/>
     </div>

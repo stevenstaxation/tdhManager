@@ -21,7 +21,7 @@ $returnString = "
     </div>
 </div>
 
-<div id='uploadDeviceFormatDetails' class='uploadFormatDetails container' style='display: none'>
+<div id='uploadDeviceFormatDetails' class='uploadFormatDetails container d-none'>
 To upload a bulk batch of <b>devices</b>, create a CSV file to upload here.  The first line should contact column headings as 
 detailed below.  If the data for a column is unknown, leave the entry blank:
     <div class='row'>
@@ -43,7 +43,7 @@ detailed below.  If the data for a column is unknown, leave the entry blank:
         </div>
     </div>
 </div>
-<div id='uploadHealthcheckFormatDetails' class='uploadFormatDetails container' style='display: none'>
+<div id='uploadHealthcheckFormatDetails' class='uploadFormatDetails container d-none'>
 To upload a bulk batch of <b>healthchecks</b>, create a CSV file to upload here.  The first line should contact column headings as 
 detailed below.  If the data for a column is unknown, leave the entry blank:
     <div class='row'>
@@ -65,7 +65,7 @@ detailed below.  If the data for a column is unknown, leave the entry blank:
         </div>
     </div>
 </div>
-<div id='uploadVehicleFormatDetails' class='uploadFormatDetails container' style='display: none'>
+<div id='uploadVehicleFormatDetails' class='uploadFormatDetails container d-none'>
 To upload a bulk batch of <b>vehicles</b>, create a CSV file to upload here.  The first line should contact column headings as 
 detailed below.  If the data for a column is unknown, leave the entry blank:
     <div class='row'>
@@ -84,12 +84,12 @@ detailed below.  If the data for a column is unknown, leave the entry blank:
     </div>
 </div>
 
-<div class='container' id='dropZone' style='display: none'>
+<div class='container d-none' id='dropZone'>
     <div class='row'>
         <div class='col-2'></div>
             <div id='fileDropZone' class='col-8' ondrop='uploadFile(event)' ondragover='return false'>
                 <div id = 'fileDragUpload'>
-                    <img src='images/draganddrop.png' style='display: block; width: 100px;'>
+                    <img src='images/draganddrop.png' class='d-block' style='width: 100px;'>
                     <h4 style='margin-top: 20px;'>Drop your CSV file here to upload your data</h4>
                     <p>or</p>
                     <p><input type='button' class='btn btn-danger btn-sm' value = 'Select CSV File' id='uploadButton' onclick='fileExplorer();'></p>
@@ -101,7 +101,7 @@ detailed below.  If the data for a column is unknown, leave the entry blank:
 </div>
 <div id='uploadProgress' class='progress-bar' role='progressbar'></div>
 <div class='container-fluid'>
-<div id='hiddenUploadTypeSelector' style='display: none'></div>
+<div id='hiddenUploadTypeSelector' class='d-none'></div>
 <div class='imageContent' style='margin-top:10px'></div>
 </div>
 
